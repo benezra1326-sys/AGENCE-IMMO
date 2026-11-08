@@ -1,6 +1,6 @@
 # Prospects LinkedIn – lot 2, vague 1 (8 novembre 2026)
 
-Benelux, Nordiques, Golfe. Surtout des partenaires de co-courtage. Noms à revérifier sur LinkedIn avant envoi.
+EN PAUSE (8 novembre 2026, choix d'Avishay) : ces agences ont déjà leurs bureaux à Marbella. Prochaine liste : Paris, Lyon, Casablanca, Rabat, Bruxelles. Noms à revérifier sur LinkedIn avant envoi.
 
 | Société | Ville | Type | Pourquoi | Personne |
 | --- | --- | --- | --- | --- |
