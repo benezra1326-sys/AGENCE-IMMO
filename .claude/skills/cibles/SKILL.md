@@ -12,7 +12,7 @@ Choix d'Avishay (8 novembre 2026) : France + Maroc d'abord, Angleterre ensuite. 
 | Vague | Segment | Pays | Canal |
 | --- | --- | --- | --- |
 | 1 | Acheteurs francophones | FR, BE, CH (français) | Reels + Meta + guide FR |
-| 1 | Marocains et diaspora | MA, MRE en FR/BE (français, darija, arabe) | Reels + Meta + réseau d'Avishay |
+| 1 | Marocains et diaspora | MA, MRE en FR/BE (en français) | Reels + Meta + réseau d'Avishay |
 | 1 | Apporteurs B2B | Paris, Lyon, Casablanca, Rabat, Bruxelles | LinkedIn |
 | 2 | Britanniques | UK (anglais) | Reels EN + Meta + chasseurs londoniens |
 | 3 | Hôtels, terrains, fonds ; Golfe ; Madrid/BCN/Ibiza | Paris, Londres, Golfe | LinkedIn + dossier investisseur |
