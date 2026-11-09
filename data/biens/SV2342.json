@@ -8,11 +8,18 @@
     "detail_chambres": "5 dans la maison principale, 1 dans la maison d'invités",
     "m2_construits": 702,
     "m2_terrain": 2349,
-    "situation": "première ligne du golf"
+    "situation": "première ligne du golf",
+    "salles_de_bains": 6,
+    "toilettes_invites": 3,
+    "m2_terrasses": 761,
+    "orientation": "sud",
+    "piscine": "privée",
+    "parking": 2,
+    "dpe": "A"
   },
-  "source_caracteristiques": "Brochure Aloha40_e-brochure.pdf (16 p.), lue par un autre assistant ; à recouper avec FLOOR PLANS et DOCUMENTS",
+  "source_caracteristiques": "Brochure Aloha40_e-brochure.pdf + fiche vitrine WINDOW CARD/Aloha 40.pdf (14/07/2026) ; plans d'étage présents ; drone confirme la première ligne golf",
   "date_caracteristiques": "2026-11-09",
-  "caracteristiques_recoupees": false,
+  "caracteristiques_recoupees": true,
   "autorisation_medias": "oui",
   "autorisation_medias_source": "Avishay, brief du 9 novembre 2026 (médias Solvilla fournis)",
   "autorisation_tournage": "a_demander",
@@ -23,10 +30,11 @@
   ],
   "prix": {
     "montant": null,
-    "verifie": false
+    "verifie": false,
+    "note": "Fiche vitrine du 14/07/2026 : 9 950 000 €, à confirmer par Avishay avant affichage"
   },
   "disponibilite_verifiee": false,
   "partenaire_source": "Solvilla",
-  "medias_stockage": "Dropbox Solvilla « 03. EXCLUSIVE LISTINGS » (protégé par mot de passe) ; copie de travail à venir dans le stockage du projet",
-  "maj_le": "2026-11-09T10:50:00Z"
+  "medias_stockage": "/mnt/project-files/agence-immo/medias/SV2342/ (vidéo, brochure, plans, documents, fiche vitrine) ; photos dans l'archive d'origine",
+  "maj_le": "2026-11-09T11:30:00Z"
 }

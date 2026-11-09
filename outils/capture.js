@@ -4,13 +4,13 @@ const path = require('path');
 (async () => {
   const [, , page, out] = process.argv;
   const b = await chromium.launch();
-  const p = await b.newPage({ viewport: { width: 1200, height: 1400 }, deviceScaleFactor: 1 });
+  const p = await b.newPage({ viewport: { width: 1200, height: Number(process.env.VH || 1400) }, deviceScaleFactor: 1 });
   await p.goto('file://' + path.resolve(page));
   await p.evaluate(() => document.fonts.ready);
   await p.waitForTimeout(800);
   for (const el of await p.$$('section.s')) {
     const id = await el.getAttribute('id');
-    await el.screenshot({ path: path.join(out, id + '.png') });
+    await el.screenshot({ path: path.join(out, id + '.png'), omitBackground: !!process.env.TRANSPARENT });
     console.log(id);
   }
   await b.close();

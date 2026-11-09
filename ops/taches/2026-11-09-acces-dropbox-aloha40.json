@@ -2,13 +2,15 @@
   "id": "2026-11-09-acces-dropbox-aloha40",
   "agent": "fiches-biens",
   "titre": "Tester l'accès au dossier Dropbox Aloha 40 (SV2342)",
-  "statut": "bloquee",
+  "statut": "terminee",
   "source": "brief 9 nov, dossier Dropbox Solvilla",
-  "resultat": "Dropbox inaccessible (réseau + mot de passe). Avishay a partagé la vidéo sur Google Drive (lien public), mais drive.google.com est aussi bloqué par le réseau du serveur. L'ingestion via AI Producer a expiré (fichier de 432 Mo) : 2 projets vides créés (C1NF39HE3N01, C1NF39NHSZDH), sans coût.",
-  "fichiers": [],
-  "raison_echec": "Domaines drive.google.com et drive.usercontent.google.com à autoriser dans l'accès réseau de l'environnement cloud",
+  "resultat": "Dropbox inaccessible depuis le serveur (réseau + mot de passe). Avishay a partagé le dossier complet sur Google Drive et autorisé drive.google.com dans le réseau : archive de 2,6 Go récupérée. Médias rangés dans le stockage du projet. Les deux projets vides créés dans AI Producer lors des essais (C1NF39HE3N01, C1NF39NHSZDH) n'ont rien coûté.",
+  "fichiers": [
+    "/mnt/project-files/agence-immo/medias/SV2342/"
+  ],
+  "raison_echec": null,
   "activite": "immo",
   "cree_le": "2026-11-09T10:50:00Z",
-  "maj_le": "2026-11-09T10:57:00Z",
+  "maj_le": "2026-11-09T11:30:00Z",
   "cout_eur": 0
 }

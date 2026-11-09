@@ -2,21 +2,27 @@
   "id": "2026-11-09-reel-aloha40",
   "agent": "montage",
   "titre": "Reel villa Aloha 40 (EN, 25-40 s) + couverture, légende, script voix off",
-  "statut": "en_attente",
+  "statut": "terminee",
   "source": "brief 9 nov, dossier Dropbox SV2342",
-  "resultat": "En attente des fichiers (vidéo, brochure, plans) téléchargés par Avishay.",
-  "fichiers": [],
+  "resultat": "Reel EN de 30 s (1080x1920) monté au ffmpeg depuis la vidéo 4K : 15 plans, textes vérifiés, prix non affiché (non confirmé). Deux versions (sans musique / fond libre de droits), couverture, légende, script voix off, variante d'accroche.",
+  "fichiers": [
+    "/mnt/project-files/agence-immo/contenus/2026-11-09-reel-aloha40/aloha40-reel-EN-sans-musique.mp4",
+    "/mnt/project-files/agence-immo/contenus/2026-11-09-reel-aloha40/aloha40-reel-EN-fond-musical.mp4",
+    "/mnt/project-files/agence-immo/contenus/2026-11-09-reel-aloha40/aloha40-couverture.jpg",
+    "contenus/2026-11-09-reel-aloha40/brouillon-textes.md",
+    "contenus/2026-11-09-reel-aloha40/plan-montage.json"
+  ],
   "contenu": {
     "titre": "Aloha 40 – villa, Nueva Andalucía",
     "format": "reel",
     "langue": "en",
-    "statut": "en_preparation",
+    "statut": "a_valider",
     "date_prevue": null,
     "bien": "SV2342"
   },
   "raison_echec": null,
   "activite": "immo",
   "cree_le": "2026-11-09T10:50:00Z",
-  "maj_le": "2026-11-09T10:50:00Z",
+  "maj_le": "2026-11-09T11:30:00Z",
   "cout_eur": 0
 }

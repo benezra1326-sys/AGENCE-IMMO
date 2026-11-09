@@ -1,0 +1,162 @@
+{
+  "bien": "SV2342",
+  "source": "VIDEO/Aloha40_Unbranded video.mp4 (3840x2160, 25 i/s, 59,7 s) – Dropbox Solvilla, copie via Google Drive",
+  "fps": 25,
+  "duree": 30.0,
+  "plans": [
+    {
+      "debut": 43.15,
+      "fin": 45.0,
+      "x0": 900,
+      "x1": 1550,
+      "note": "façade au crépuscule, éclairée : plan d'ouverture"
+    },
+    {
+      "debut": 5.15,
+      "fin": 7.0,
+      "x0": 1000,
+      "x1": 1900,
+      "note": "drone : villa et fairway, preuve première ligne golf"
+    },
+    {
+      "debut": 9.1,
+      "fin": 11.0,
+      "x0": 2300,
+      "x1": 1000,
+      "note": "façade et piscine de jour"
+    },
+    {
+      "debut": 7.15,
+      "fin": 8.95,
+      "x0": 1350,
+      "x1": 1650,
+      "note": "vue zénithale piscine"
+    },
+    {
+      "debut": 15.2,
+      "fin": 16.95,
+      "x0": 1100,
+      "x1": 1500,
+      "note": "piscine au ras de l'eau"
+    },
+    {
+      "debut": 13.1,
+      "fin": 14.9,
+      "x0": 700,
+      "x1": 1300,
+      "note": "transats et parasols"
+    },
+    {
+      "debut": 17.05,
+      "fin": 18.95,
+      "x0": 1100,
+      "x1": 1600,
+      "note": "séjour"
+    },
+    {
+      "debut": 20.05,
+      "fin": 21.0,
+      "x0": 1700,
+      "x1": 1900,
+      "note": "cuisine"
+    },
+    {
+      "debut": 21.05,
+      "fin": 22.9,
+      "x0": 1500,
+      "x1": 1100,
+      "note": "salle à manger"
+    },
+    {
+      "debut": 31.05,
+      "fin": 33.6,
+      "x0": 1300,
+      "x1": 1700,
+      "note": "suite parentale"
+    },
+    {
+      "debut": 27.95,
+      "fin": 29.0,
+      "x0": 1300,
+      "x1": 1400,
+      "note": "salle de bains"
+    },
+    {
+      "debut": 29.15,
+      "fin": 30.9,
+      "x0": 1000,
+      "x1": 1200,
+      "note": "baignoire face au jardin"
+    },
+    {
+      "debut": 39.1,
+      "fin": 41.0,
+      "x0": 1500,
+      "x1": 2400,
+      "note": "terrasse, vue montagne"
+    },
+    {
+      "debut": 50.5,
+      "fin": 52.9,
+      "x0": 1100,
+      "x1": 1500,
+      "note": "dîner extérieur de nuit"
+    },
+    {
+      "debut": 45.1,
+      "fin": 46.95,
+      "x0": 700,
+      "x1": 1200,
+      "note": "piscine éclairée"
+    },
+    {
+      "debut": 53.1,
+      "fin": 56.6,
+      "x0": 1200,
+      "x1": 1450,
+      "note": "piscine et parasols, fond du carton final"
+    }
+  ],
+  "textes": [
+    {
+      "id": "t1",
+      "debut": 0.3,
+      "fin": 3.6
+    },
+    {
+      "id": "t2",
+      "debut": 3.9,
+      "fin": 7.4
+    },
+    {
+      "id": "t3",
+      "debut": 7.6,
+      "fin": 10.9
+    },
+    {
+      "id": "t4",
+      "debut": 11.2,
+      "fin": 15.4
+    },
+    {
+      "id": "t5",
+      "debut": 15.7,
+      "fin": 18.1
+    },
+    {
+      "id": "t6",
+      "debut": 21.05,
+      "fin": 22.85
+    },
+    {
+      "id": "t7",
+      "debut": 23.0,
+      "fin": 25.25
+    },
+    {
+      "id": "fin",
+      "debut": 26.6,
+      "fin": 30.0
+    }
+  ]
+}
