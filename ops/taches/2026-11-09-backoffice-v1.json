@@ -1,0 +1,14 @@
+{
+  "id": "2026-11-09-backoffice-v1",
+  "activite": "immo",
+  "agent": "coordination",
+  "titre": "Back-office V1 : tableau de bord, modèle de tâches, bot Telegram, alertes (mode test)",
+  "statut": "terminee",
+  "source": "brief 9 nov, chantier B",
+  "cree_le": "2026-11-09T10:45:00Z",
+  "maj_le": "2026-11-09T11:00:00Z",
+  "resultat": "Code dans backoffice/, 21 tests automatiques réussis. Non hébergé : fonctionne en local uniquement tant que le serveur n'est pas validé.",
+  "fichiers": ["backoffice/README.md"],
+  "cout_eur": 0,
+  "raison_echec": null
+}

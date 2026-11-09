@@ -1,0 +1,37 @@
+{
+  "maitre": {
+    "nom": "Agent maître",
+    "mission": "Vue d'ensemble des trois activités, arbitrage des priorités, remontée des décisions à Avishay en français.",
+    "etat": "configure",
+    "note": "Instructions écrites. Aujourd'hui il travaille seulement quand une session Claude est ouverte ; il ne tourne pas encore sur un serveur."
+  },
+  "activites": [
+    {
+      "id": "immo",
+      "nom": "Immobilier Marbella",
+      "responsable": "coordination",
+      "etat": "en_lancement",
+      "priorite": 1,
+      "mission": "Leads qualifiés sur les beaux biens de Cabopino à Casares (dès 500 000 €, sans plafond), partenaires B2B à Paris et Londres.",
+      "depot": "agence-immo"
+    },
+    {
+      "id": "apps",
+      "nom": "Applications mobiles",
+      "responsable": null,
+      "etat": "a_configurer",
+      "priorite": 2,
+      "mission": "À définir avec Avishay.",
+      "depot": null
+    },
+    {
+      "id": "reseaux",
+      "nom": "Contenus et comptes réseaux",
+      "responsable": null,
+      "etat": "a_configurer",
+      "priorite": 3,
+      "mission": "Création de comptes et contenus monétisables. Notes existantes dans le dossier chaine-ia du projet, non activées.",
+      "depot": null
+    }
+  ]
+}
