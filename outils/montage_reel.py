@@ -48,7 +48,18 @@ if audio:
 
 f = []
 segs = [f'[{i}:v]' for i in range(n)]
-f.append(''.join(segs) + f"concat=n={len(segs)}:v=1:a=0,fade=t=in:st=0:d=0.4,fade=t=out:st={plan['duree'] - 0.6}:d=0.6[base]")
+fd = plan.get('fondu', 0)
+if fd:
+    # fondus enchaînés : chaque plan chevauche le suivant de fd secondes
+    durs = [s['fin'] - s['debut'] for s in plan['plans']]
+    prev, acc = '[0:v]', durs[0]
+    for i in range(1, n):
+        off = acc - fd
+        f.append(f"{prev}[{i}:v]xfade=transition=fade:duration={fd}:offset={off:.3f}[x{i}]")
+        prev, acc = f'[x{i}]', off + durs[i]
+    f.append(f"{prev}fade=t=in:st=0:d=0.4,fade=t=out:st={plan['duree'] - 0.6}:d=0.6[base]")
+else:
+    f.append(''.join(segs) + f"concat=n={len(segs)}:v=1:a=0,fade=t=in:st=0:d=0.4,fade=t=out:st={plan['duree'] - 0.6}:d=0.6[base]")
 last = 'base'
 for j, c in enumerate(plan['textes']):
     fi = 0.45

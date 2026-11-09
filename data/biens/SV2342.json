@@ -25,16 +25,16 @@
   "autorisation_tournage": "a_demander",
   "restrictions": [
     "Zone uniquement, jamais l'adresse exacte",
-    "Informations internes du nom de dossier non publiques",
-    "Prix non publié tant qu'il n'est pas confirmé"
+    "Ne pas afficher le nom de la propriété (demande d'Avishay, 09/11/2026)",
+    "Informations internes du nom de dossier non publiques"
   ],
   "prix": {
-    "montant": null,
+    "montant": 9950000,
     "verifie": false,
-    "note": "Fiche vitrine du 14/07/2026 : 9 950 000 €, à confirmer par Avishay avant affichage"
+    "note": "9 950 000 € : fiche Solvilla en ligne, PrimeLocation 08/10/2026, JamesEdition 06/10/2026, fiche vitrine 14/07/2026. Affiché à la demande d'Avishay, confirmation finale (prix + disponibilité) demandée."
   },
   "disponibilite_verifiee": false,
   "partenaire_source": "Solvilla",
   "medias_stockage": "/mnt/project-files/agence-immo/medias/SV2342/ (vidéo, brochure, plans, documents, fiche vitrine) ; photos dans l'archive d'origine",
-  "maj_le": "2026-11-09T11:30:00Z"
+  "maj_le": "2026-11-09T11:55:00Z"
 }

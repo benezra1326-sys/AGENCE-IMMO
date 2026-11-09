@@ -1,0 +1,202 @@
+{
+ "bien": "SV2342",
+ "version": "V2",
+ "source": "VIDEO/Aloha40_Unbranded video.mp4 (3840x2160, 25 i/s)",
+ "fps": 25,
+ "fondu": 0.4,
+ "duree": 28.5,
+ "plans": [
+  {
+   "debut": 5.15,
+   "fin": 7.05,
+   "x0": 1000,
+   "x1": 1900,
+   "note": "drone : villa et fairway (accroche)",
+   "dans_le_reel": [
+    0,
+    1.9
+   ]
+  },
+  {
+   "debut": 0.05,
+   "fin": 3.05,
+   "x0": 1350,
+   "x1": 1650,
+   "note": "vue golf et montagne depuis le jardin",
+   "dans_le_reel": [
+    1.5,
+    4.5
+   ]
+  },
+  {
+   "debut": 43.15,
+   "fin": 45.0,
+   "x0": 900,
+   "x1": 1550,
+   "note": "façade éclairée au crépuscule",
+   "dans_le_reel": [
+    4.1,
+    5.95
+   ]
+  },
+  {
+   "debut": 9.1,
+   "fin": 11.05,
+   "x0": 2300,
+   "x1": 1000,
+   "note": "façade et piscine de jour",
+   "dans_le_reel": [
+    5.55,
+    7.5
+   ]
+  },
+  {
+   "debut": 7.15,
+   "fin": 8.95,
+   "x0": 1350,
+   "x1": 1650,
+   "note": "piscine vue du ciel",
+   "dans_le_reel": [
+    7.1,
+    8.9
+   ]
+  },
+  {
+   "debut": 15.2,
+   "fin": 17.0,
+   "x0": 1100,
+   "x1": 1500,
+   "note": "piscine au ras de l'eau",
+   "dans_le_reel": [
+    8.5,
+    10.3
+   ]
+  },
+  {
+   "debut": 13.1,
+   "fin": 14.9,
+   "x0": 700,
+   "x1": 1300,
+   "note": "transats et parasols",
+   "dans_le_reel": [
+    9.9,
+    11.7
+   ]
+  },
+  {
+   "debut": 17.05,
+   "fin": 19.95,
+   "x0": 1100,
+   "x1": 1600,
+   "note": "séjour",
+   "dans_le_reel": [
+    11.3,
+    14.2
+   ]
+  },
+  {
+   "debut": 21.05,
+   "fin": 22.95,
+   "x0": 1500,
+   "x1": 1100,
+   "note": "salle à manger",
+   "dans_le_reel": [
+    13.8,
+    15.7
+   ]
+  },
+  {
+   "debut": 31.05,
+   "fin": 34.55,
+   "x0": 1300,
+   "x1": 1700,
+   "note": "suite parentale",
+   "dans_le_reel": [
+    15.3,
+    18.8
+   ]
+  },
+  {
+   "debut": 29.15,
+   "fin": 30.95,
+   "x0": 1000,
+   "x1": 1200,
+   "note": "baignoire face au jardin",
+   "dans_le_reel": [
+    18.4,
+    20.2
+   ]
+  },
+  {
+   "debut": 39.1,
+   "fin": 41.05,
+   "x0": 1500,
+   "x1": 2400,
+   "note": "terrasse, vue montagne",
+   "dans_le_reel": [
+    19.8,
+    21.75
+   ]
+  },
+  {
+   "debut": 50.5,
+   "fin": 52.95,
+   "x0": 1100,
+   "x1": 1500,
+   "note": "dîner extérieur de nuit",
+   "dans_le_reel": [
+    21.35,
+    23.8
+   ]
+  },
+  {
+   "debut": 45.1,
+   "fin": 47.0,
+   "x0": 700,
+   "x1": 1200,
+   "note": "piscine éclairée",
+   "dans_le_reel": [
+    23.4,
+    25.3
+   ]
+  },
+  {
+   "debut": 53.1,
+   "fin": 56.7,
+   "x0": 1200,
+   "x1": 1450,
+   "note": "piscine et parasols, écran final",
+   "dans_le_reel": [
+    24.9,
+    28.5
+   ]
+  }
+ ],
+ "textes": [
+  {
+   "id": "t1",
+   "debut": 0.35,
+   "fin": 4.0
+  },
+  {
+   "id": "t2",
+   "debut": 4.25,
+   "fin": 7.2
+  },
+  {
+   "id": "t3",
+   "debut": 11.6,
+   "fin": 15.4
+  },
+  {
+   "id": "t4",
+   "debut": 20.0,
+   "fin": 23.4
+  },
+  {
+   "id": "fin",
+   "debut": 25.1,
+   "fin": 28.5
+  }
+ ]
+}

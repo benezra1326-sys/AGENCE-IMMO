@@ -1,0 +1,29 @@
+{
+  "id": "2026-11-09-reel-villa-golf-v2",
+  "activite": "immo",
+  "agent": "montage",
+  "titre": "Reel villa golf V2 (EN, 28,5 s) + 2 couvertures, bande-son originale, script voix off",
+  "statut": "terminee",
+  "source": "Retours d'Avishay du 09/11 sur la V1 ; vidéo 4K du dossier SV2342",
+  "cree_le": "2026-11-09T11:30:00Z",
+  "maj_le": "2026-11-09T11:55:00Z",
+  "resultat": "V2 sans nom de propriété : accroche drone sur le golf, prix à 4,3 s (à confirmer), 4 messages, fondus, bande-son composée ici. Contrôle complet fait image par image (toutes les 0,5 s) + niveau sonore (-15 LUFS). Voix clonée non intégrée (VoiceStudio local uniquement).",
+  "fichiers": [
+    "/mnt/project-files/agence-immo/contenus/2026-11-10-reel-villa-golf-v2/villa-golf-V2-musique.mp4",
+    "/mnt/project-files/agence-immo/contenus/2026-11-10-reel-villa-golf-v2/villa-golf-V2-sans-musique.mp4",
+    "/mnt/project-files/agence-immo/contenus/2026-11-10-reel-villa-golf-v2/villa-golf-couverture-A.jpg",
+    "/mnt/project-files/agence-immo/contenus/2026-11-10-reel-villa-golf-v2/villa-golf-couverture-B.jpg",
+    "contenus/2026-11-10-reel-villa-golf-v2/textes-v2.md",
+    "contenus/2026-11-10-reel-villa-golf-v2/plan-montage.json"
+  ],
+  "cout_eur": 0,
+  "raison_echec": null,
+  "contenu": {
+    "titre": "Frontline golf villa, Nueva Andalucía (V2)",
+    "format": "reel",
+    "langue": "en",
+    "statut": "a_valider",
+    "date_prevue": null,
+    "bien": "SV2342"
+  }
+}
