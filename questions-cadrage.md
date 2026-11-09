@@ -1,6 +1,6 @@
 # Questions de cadrage – Machine à leads immo luxe
 
-Réponds directement sous chaque question (même en quelques mots). Déjà réglé, inutile d'y revenir : agence Levy & Goldman, tu es agent indépendant, Instagram @avishhy.marbella, zone Cabopino → Casares, cibles France + Maroc puis Angleterre, contenu en français avec ta voix, anglais et espagnol par IA avec ta voix clonée, pas d'arabe, aucun humour.
+Réponds directement sous chaque question (même en quelques mots). Déjà réglé, inutile d'y revenir : agence Levy & Goldman, tu es agent indépendant, Instagram @avishay.marbella, zone Cabopino → Casares, cibles France + Maroc puis Angleterre, publications en anglais d'abord, déclinaisons français et espagnol, pas d'arabe, aucun humour.
 
 ## A. Toi et l'agence
 1. Qui paie les pubs Meta, et qui touche la commission (toi, l'agence, partage) ?
