@@ -1,5 +1,6 @@
 {
-  "ref": "SV2342",
+  "ref": "AB-0001",
+  "ref_partenaire": "SV2342",
   "nom": "Aloha 40",
   "zone": "Nueva Andalucía (Aloha), Marbella",
   "type": "villa",
@@ -36,5 +37,5 @@
   "disponibilite_verifiee": false,
   "partenaire_source": "Solvilla",
   "medias_stockage": "/mnt/project-files/agence-immo/medias/SV2342/ (vidéo, brochure, plans, documents, fiche vitrine) ; photos dans l'archive d'origine",
-  "maj_le": "2026-11-09T11:55:00Z"
+  "maj_le": "2026-11-09T11:45:00Z"
 }

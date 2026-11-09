@@ -1,4 +1,4 @@
-# Reel villa golf V2 (bien SV2342) – à valider par Avishay, rien n'est publié
+# Reel villa golf V2 (bien AB-0001) – à valider par Avishay, rien n'est publié
 
 Fichiers (hors git) : `/mnt/project-files/agence-immo/contenus/2026-11-10-reel-villa-golf-v2/`
 - `villa-golf-V2-musique.mp4` : 1080 × 1920, 28,5 s, bande-son originale.
@@ -25,6 +25,13 @@ Voir `plan-montage.json` (champ `dans_le_reel`). Résumé : drone 5,2-7,1 → 0-
 ## Bande-son
 Composée ici, par programme (`outils/musique_originale.py`) : deep house calme à 112 BPM. Elle ne contient ni échantillon ni morceau tiers, donc aucune autorisation n'est nécessaire. Mixage à -15 LUFS.
 Si tu préfères un son tendance d'Instagram, utilise la version sans musique.
+
+### Son tendance (choix d'Avishay, 09/11/2026)
+Un morceau connu ne peut pas être intégré dans le fichier : les droits ne sont couverts que si le son est ajouté dans l'application Instagram au moment de publier. Méthode :
+1. Importer `villa-golf-V2-sans-musique.mp4` (ou la version avec ta voix) dans un nouveau Reel.
+2. Bouton « Audio » : prendre un son marqué d'une flèche ↗ (tendance) dans « Tendances » ou « Pour vous », de style deep house, chill ou piano cinématique. Éviter les sons humoristiques ou à paroles fortes (ton premium).
+3. Avec voix off : son à 10-15 %, voix à 100 %. Sans voix : son à 100 %.
+4. Si le son n'apparaît pas, le compte est probablement de type Entreprise (bibliothèque limitée) : garder la bande-son originale.
 
 ## Voix clonée
 Elle n'est pas intégrée. VoiceStudio tourne en local sur ton Mac et le serveur ne peut pas l'appeler. Son rendu et ses droits commerciaux ne sont pas vérifiés, et aucun service de clonage n'est connecté côté serveur. Script prêt ci-dessous.

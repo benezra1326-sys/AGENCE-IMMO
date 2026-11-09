@@ -1,0 +1,15 @@
+{
+  "format": "AB-NNNN (numéro séquentiel, attribué à l'entrée du bien, jamais réutilisé)",
+  "biens": [
+    {
+      "ref": "AB-0001",
+      "ref_partenaire": "SV2342",
+      "partenaire": "Solvilla",
+      "zone": "Nueva Andalucía, Marbella",
+      "type": "villa",
+      "statut": "en_cours",
+      "fiche": "data/biens/AB-0001.json"
+    }
+  ],
+  "prochaine_ref": "AB-0002"
+}
