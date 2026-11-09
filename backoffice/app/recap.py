@@ -36,7 +36,7 @@ def generer(cx, config, maintenant_dt=None):
         l.append(f"• {p['nom'] or p['id']}{tag}, budget {p['budget'] or '?'}{appel}")
 
     partenaires = charger_registre()["partenaires"]
-    l.append(f"\nProspection B2B : {len(partenaires)} partenaires en liste, 0 contacté (envoi LinkedIn manuel par toi)")
+    l.append(f"\nProspection B2B : {len(partenaires)} partenaire(s) actif(s)")
 
     l.append("\nTâches :")
     stats = {r["statut"]: r["n"] for r in cx.execute("SELECT statut, COUNT(*) n FROM taches GROUP BY statut")}

@@ -1,10 +1,4 @@
 {
-  "_note": "Partenaires B2B potentiels repris de prospects/linkedin-semaine-1.md (villes retenues : Paris et Londres). Aucun n'a été contacté. Noms à revérifier sur LinkedIn avant envoi.",
-  "partenaires": [
-    {"id": "B-001", "societe": "The Buying Agents", "ville": "Londres", "type": "Chasseur pour acheteurs", "personne": "Henry Sherwood (à revérifier)", "statut": "liste_preparee"},
-    {"id": "B-002", "societe": "Domus Holmes", "ville": "Londres", "type": "Chasseur prime UK + Europe", "personne": "à trouver", "statut": "liste_preparee"},
-    {"id": "B-003", "societe": "Prime Purchase (Savills)", "ville": "Londres", "type": "Chasseur grandes fortunes", "personne": "Guy Meacock (à revérifier)", "statut": "liste_preparee"},
-    {"id": "B-004", "societe": "Falco Private Wealth", "ville": "Londres", "type": "Multi-family office", "personne": "à revérifier", "statut": "liste_preparee"},
-    {"id": "B-005", "societe": "Kretz Real Estate", "ville": "Paris", "type": "Agence familiale luxe", "personne": "à trouver", "statut": "liste_preparee"}
-  ]
+  "_note": "Uniquement les agences et apporteurs avec qui Avishay travaille réellement (choix du 9 novembre 2026). Les listes de prospection restent dans prospects/, hors tableau de bord.",
+  "partenaires": []
 }

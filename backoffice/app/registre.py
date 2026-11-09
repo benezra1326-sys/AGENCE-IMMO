@@ -26,6 +26,7 @@ def charger_registre():
         "agents": _lire(REGISTRE / "agents.json", {}).get("agents", []),
         "connexions": _lire(REGISTRE / "connexions.json", {}),
         "partenaires": _lire(REGISTRE / "partenaires.json", {}).get("partenaires", []),
+        "marche": _lire(REGISTRE / "marche.json", {}),
     }
 
 
@@ -158,6 +159,7 @@ def etat_complet(cx, config):
         "contenus": contenus,
         "prospects": prospects,
         "partenaires": reg["partenaires"],
+        "marche": reg["marche"],
         "biens": charger_biens(config.racine_depot),
         "connexions": reg["connexions"],
         "alertes": rows("SELECT id, type, canal, statut, sujet, corps, destinataire, erreur, cree_le FROM alertes ORDER BY id DESC LIMIT 100"),
