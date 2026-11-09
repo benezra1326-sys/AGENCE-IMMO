@@ -4,11 +4,11 @@
   "titre": "Tester l'accès au dossier Dropbox Aloha 40 (SV2342)",
   "statut": "bloquee",
   "source": "brief 9 nov, dossier Dropbox Solvilla",
-  "resultat": "Accès impossible depuis le serveur : réseau bloqué vers www.dropbox.com et dossier protégé par mot de passe. Avishay télécharge les fichiers sur son Mac (Bureau/Aloha40).",
+  "resultat": "Dropbox inaccessible (réseau + mot de passe). Avishay a partagé la vidéo sur Google Drive (lien public), mais drive.google.com est aussi bloqué par le réseau du serveur. L'ingestion via AI Producer a expiré (fichier de 432 Mo) : 2 projets vides créés (C1NF39HE3N01, C1NF39NHSZDH), sans coût.",
   "fichiers": [],
-  "raison_echec": "Politique réseau (403 sur www.dropbox.com) + mot de passe ; aucun contournement tenté",
+  "raison_echec": "Domaines drive.google.com et drive.usercontent.google.com à autoriser dans l'accès réseau de l'environnement cloud",
   "activite": "immo",
   "cree_le": "2026-11-09T10:50:00Z",
-  "maj_le": "2026-11-09T10:50:00Z",
+  "maj_le": "2026-11-09T10:57:00Z",
   "cout_eur": 0
 }
