@@ -5,7 +5,7 @@ sans recopier son message). Fonctionne en « long polling » : aucune adresse pu
 """
 from . import pilotage, recap
 from .db import ecrire_reglage, journaliser, reglage
-from .registre import charger_registre, etats_agents
+from .registre import charger_registre, etats_agents, nom_agent
 
 AIDE = """Commandes :
 /etat – état général des trois activités
@@ -117,7 +117,7 @@ class Bot:
             agents = etats_agents(self.cx, reg["agents"])
             lignes = ["Immobilier – agents :"]
             for a in agents:
-                lignes.append(f"• {a['nom']} : {a['etat']}")
+                lignes.append(f"• {nom_agent(a['id'], agents)} : {a['etat']}")
             return "\n".join(lignes)
         lignes = ["État général :"]
         for a in acts:
@@ -133,7 +133,7 @@ class Bot:
             "SELECT id, titre, agent, statut, raison_echec FROM taches WHERE statut != 'terminee' ORDER BY maj_le DESC LIMIT 15").fetchall()
         if not rows:
             return "Aucune tâche ouverte."
-        return "\n".join(f"• {r['id']} [{r['statut']}] {r['titre']} ({r['agent']})"
+        return "\n".join(f"• {r['id']} [{r['statut']}] {r['titre']} ({nom_agent(r['agent'])})"
                          + (f" – {r['raison_echec']}" if r["raison_echec"] else "") for r in rows)
 
     def a_valider(self, chat_id):

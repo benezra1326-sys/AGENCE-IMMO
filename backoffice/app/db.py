@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS contenus (
     titre TEXT NOT NULL,
     format TEXT,
     langue TEXT,
-    statut TEXT NOT NULL CHECK (statut IN ('en_preparation','brouillon','a_valider','modification_demandee','valide','publie')),
+    statut TEXT NOT NULL CHECK (statut IN ('en_preparation','brouillon','a_valider','modification_demandee','valide','publie','remplace')),
     date_prevue TEXT,
     bien TEXT,
     fichiers TEXT NOT NULL DEFAULT '[]',

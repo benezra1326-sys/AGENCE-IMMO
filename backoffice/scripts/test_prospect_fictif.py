@@ -60,7 +60,7 @@ def main():
              texte="Bonjour, nous cherchons une résidence secondaire à Nueva Andalucía, budget 2,5 M€, plutôt une villa avec vue golf."),
         dict(canal="formulaire", message_id="F-0001", texte="(même formulaire reçu deux fois)"),
         dict(canal="email", message_id="E-0001", email="  camille.fictive@EXAMPLE.com ", telephone="+33 6 00 00 00 01",
-             texte="Nous pourrions venir sur place fin janvier. Est-ce que la villa Aloha est encore disponible ?"),
+             texte="Nous pourrions venir sur place fin janvier. Est-ce que la villa AB-0001 est encore disponible ?"),
         dict(canal="whatsapp", message_id="W-0001", telephone="0033600000001",
              texte="Bonjour, pouvez-vous m'appeler demain vers 10 h ?"),
         dict(canal="whatsapp", message_id="W-0002", telephone="+33600000001",
@@ -124,6 +124,12 @@ def main():
 
     if a.apercu:
         etat = etat_complet(cx, c)
+
+        def sans_chemins(v):  # l'aperçu figé n'ouvre aucun fichier : on n'y laisse que les libellés masqués
+            if isinstance(v, dict):
+                return v.get("libelle") if set(v) == {"chemin", "libelle"} else {k: sans_chemins(x) for k, x in v.items()}
+            return [sans_chemins(x) for x in v] if isinstance(v, list) else v
+        etat = sans_chemins(etat)
         source = (Path(__file__).resolve().parent.parent / "static" / "index.html").read_text(encoding="utf-8")
         donnees = json.dumps(etat, ensure_ascii=False).replace("</", "<\\/")
         Path(a.apercu).write_text(source.replace("<script>\n(function", f"<script>window.__ETAT__ = {donnees};</script>\n<script>\n(function", 1),

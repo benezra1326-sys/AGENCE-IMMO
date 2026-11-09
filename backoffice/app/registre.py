@@ -2,6 +2,7 @@
 dans le dépôt (ops/taches/*.json) et des fiches biens (data/biens/*.json).
 """
 import json
+import re
 import sqlite3
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -18,6 +19,14 @@ def _lire(chemin, defaut):
         return json.loads(Path(chemin).read_text(encoding="utf-8"))
     except (OSError, ValueError):
         return defaut
+
+
+def nom_agent(agent_id, agents=None):
+    """« Victor (Coordination Immo…) » si un prénom existe, sinon l'identifiant."""
+    for a in agents if agents is not None else _lire(REGISTRE / "agents.json", {}).get("agents", []):
+        if a.get("id") == agent_id:
+            return f"{a['prenom']} ({a['nom']})" if a.get("prenom") else a.get("nom", agent_id)
+    return agent_id
 
 
 def charger_registre():
@@ -104,11 +113,58 @@ def charger_biens(racine_depot):
     dossier = Path(racine_depot) / "data" / "biens"
     biens = []
     for f in sorted(dossier.glob("*.json")) if dossier.exists() else []:
+        if f.name == "registre.json":  # table de correspondance interne, pas une fiche
+            continue
         b = _lire(f, None)
-        if isinstance(b, dict):
+        if isinstance(b, dict) and b.get("ref"):
             b["_fichier"] = str(f.relative_to(racine_depot))
             biens.append(b)
     return biens
+
+
+def _motif(texte):
+    """« Aloha 40 » couvre aussi Aloha40, aloha-40, ALOHA_40."""
+    morceaux = re.findall(r"[A-Za-zÀ-ÿ]+|\d+", texte or "")
+    return re.compile(r"[\s_\-]*".join(map(re.escape, morceaux)), re.IGNORECASE) if morceaux else None
+
+
+def masquer_biens(etat, racine_depot):
+    """Le tableau de bord n'affiche que la référence interne AB-NNNN :
+    jamais le nom de la propriété ni la référence du partenaire (demande d'Avishay, 9 novembre 2026)."""
+    dossier = Path(racine_depot) / "data" / "biens"
+    sources = [b for b in etat.get("biens", [])]
+    sources += _lire(dossier / "registre.json", {}).get("biens", []) if dossier.exists() else []
+    motifs = []
+    for b in sources:
+        ref = b.get("ref")
+        if not ref:
+            continue
+        for brut in (b.get("nom"), b.get("ref_partenaire")):
+            m = _motif(brut)
+            if m:
+                motifs.append((m, ref))
+    motifs.sort(key=lambda x: -len(x[0].pattern))
+
+    def texte(v):
+        for m, ref in motifs:
+            v = m.sub(ref, v)
+        return v
+
+    def parcourir(v, cle=None):
+        if isinstance(v, str):
+            return texte(v)
+        if isinstance(v, list):
+            if cle == "fichiers":  # le lien garde le vrai chemin, seul le libellé est masqué
+                return [{"chemin": f, "libelle": texte(f)} if isinstance(f, str) else f for f in v]
+            return [parcourir(x) for x in v]
+        if isinstance(v, dict):
+            return {k: parcourir(x, k) for k, x in v.items()}
+        return v
+
+    for b in etat.get("biens", []):
+        b.pop("nom", None)
+        b.pop("ref_partenaire", None)
+    return parcourir(etat) if motifs else etat
 
 
 def etats_agents(cx, agents):
@@ -144,7 +200,7 @@ def etat_complet(cx, config):
     debut_mois = datetime.now(timezone.utc).replace(day=1, hour=0, minute=0, second=0, microsecond=0).isoformat()
     hier = (datetime.now(timezone.utc) - timedelta(days=1)).isoformat()
     total = lambda q, *p: (cx.execute(q, p).fetchone()[0] or 0)  # noqa: E731
-    return {
+    etat = {
         "genere_le": maintenant(),
         "mode_envoi": config.mode_envoi,
         "service": {
@@ -171,3 +227,4 @@ def etat_complet(cx, config):
         },
         "erreurs": rows("SELECT * FROM journal WHERE niveau='erreur' ORDER BY id DESC LIMIT 100"),
     }
+    return masquer_biens(etat, config.racine_depot)

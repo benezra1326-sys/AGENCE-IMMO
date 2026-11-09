@@ -335,5 +335,24 @@ class TestServeur(unittest.TestCase):
         self.assertEqual(code, 200)
 
 
+class TestConfidentialiteBiens(unittest.TestCase):
+    def test_nom_et_ref_partenaire_jamais_affiches(self):
+        from app.registre import masquer_biens, nom_agent
+        with tempfile.TemporaryDirectory() as d:
+            (Path(d) / "data" / "biens").mkdir(parents=True)
+            (Path(d) / "data" / "biens" / "registre.json").write_text(json.dumps(
+                {"biens": [{"ref": "AB-0001", "ref_partenaire": "SV2342"}]}))
+            etat = {"biens": [{"ref": "AB-0001", "nom": "Aloha 40", "ref_partenaire": "SV2342", "zone": "Marbella"}],
+                    "taches": [{"titre": "Reel villa Aloha 40 (dossier SV2342)",
+                                "fichiers": ["contenus/2026-11-09-reel-aloha40/plan.json"]}]}
+            sortie = json.dumps(masquer_biens(etat, d), ensure_ascii=False)
+            self.assertNotIn("Aloha", sortie)
+            self.assertNotIn("aloha", sortie.replace('"chemin": "contenus/2026-11-09-reel-aloha40/plan.json"', ""))
+            self.assertNotIn("SV2342", sortie)
+            self.assertIn("Reel villa AB-0001 (dossier AB-0001)", sortie)
+            self.assertIn('"chemin": "contenus/2026-11-09-reel-aloha40/plan.json"', sortie)
+        self.assertTrue(nom_agent("coordination").startswith("Victor"))
+
+
 if __name__ == "__main__":
     unittest.main()

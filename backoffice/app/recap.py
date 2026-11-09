@@ -2,7 +2,7 @@
 from datetime import datetime, timedelta, timezone
 
 from .config import FUSEAU
-from .registre import charger_registre
+from .registre import charger_registre, nom_agent
 
 NOMS_STATUTS = {"en_attente": "en attente", "en_cours": "en cours", "terminee": "terminées",
                 "echec": "en échec", "bloquee": "bloquées"}
@@ -19,7 +19,7 @@ def generer(cx, config, maintenant_dt=None):
 
     prod = cx.execute("SELECT titre, agent FROM taches WHERE statut='terminee' AND maj_le >= ? ORDER BY maj_le", (depuis,)).fetchall()
     l.append(f"\nProductions (24 h) : {len(prod)}")
-    l += [f"• {r['titre']} ({r['agent']})" for r in prod[:8]]
+    l += [f"• {r['titre']} ({nom_agent(r['agent'])})" for r in prod[:8]]
 
     av = cx.execute("SELECT id, titre FROM contenus WHERE statut='a_valider'").fetchall()
     l.append(f"\nÀ valider : {len(av)}")

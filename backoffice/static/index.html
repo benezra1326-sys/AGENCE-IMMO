@@ -110,7 +110,7 @@ details summary { cursor: pointer; font-weight: 500 }
   const LIB = {
     prevu: "prévu", configure: "configuré", teste: "testé", actif: "actif", bloque: "bloqué",
     en_attente: "en attente", en_cours: "en cours", terminee: "terminée", echec: "échec", bloquee: "bloquée",
-    a_valider: "à valider", modification_demandee: "modification demandée", valide: "validé", publie: "publié",
+    a_valider: "à valider", modification_demandee: "modification demandée", valide: "validé", publie: "publié", remplace: "remplacé",
     brouillon: "brouillon", en_preparation: "en préparation", operationnel: "opérationnel", partiel: "partiel",
     manquant: "manquant", a_verifier: "à vérifier", a_configurer: "à configurer", en_lancement: "en lancement",
     liste_preparee: "liste préparée", preparee: "préparée", envoyee: "envoyée", nouveau: "nouveau", appel_demande: "appel demandé"
@@ -121,12 +121,13 @@ details summary { cursor: pointer; font-weight: 500 }
   const date = s => s ? new Date(s).toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit", timeZone: "Europe/Madrid" }) : "—";
   const jour = s => s ? new Date(s + (s.length === 10 ? "T12:00:00" : "")).toLocaleDateString("fr-FR", { weekday: "short", day: "2-digit", month: "short", timeZone: "Europe/Madrid" }) : "sans date";
   const eur = n => (Number(n) || 0).toLocaleString("fr-FR", { style: "currency", currency: "EUR" });
-  const nomAgent = id => (E.agents.find(a => a.id === id) || {}).nom || id;
+  const nomAgent = id => { const a = E.agents.find(x => x.id === id); return a ? (a.prenom ? `${a.prenom} · ${a.nom}` : a.nom) : id; };
 
-  function lienFichier(f) {
-    if (/^https?:\/\//.test(f)) return `<a href="${esc(f)}" target="_blank" rel="noopener">${esc(f)}</a>`;
-    if (f.startsWith("/")) return `${esc(f.split("/").pop())} <span class="meta">(stockage du projet, hors dépôt)</span>`;
-    return STATIQUE ? `${esc(f)} <span class="meta">(dépôt)</span>` : `<a href="/fichiers/${esc(f)}" target="_blank" rel="noopener">${esc(f)}</a>`;
+  function lienFichier(x) {
+    const f = typeof x === "string" ? x : x.chemin, lib = typeof x === "string" ? x : x.libelle;
+    if (/^https?:\/\//.test(f)) return `<a href="${esc(f)}" target="_blank" rel="noopener">${esc(lib)}</a>`;
+    if (f.startsWith("/")) return `${esc(lib.split("/").pop())} <span class="meta">(stockage du projet, hors dépôt)</span>`;
+    return STATIQUE ? `${esc(lib)} <span class="meta">(dépôt)</span>` : `<a href="/fichiers/${esc(f)}" target="_blank" rel="noopener">${esc(lib)}</a>`;
   }
 
   function carteTache(t) {
@@ -147,7 +148,8 @@ details summary { cursor: pointer; font-weight: 500 }
   function carteAgent(a) {
     const n = a.taches || {};
     return `<article class="carte">
-      <div class="ligne"><h3>${esc(a.nom)}</h3>${pill(a.etat)}</div>
+      <div class="ligne"><h3>${a.prenom ? `${esc(a.prenom)} <span class="meta">${esc(a.nom)}</span>` : esc(a.nom)}</h3>${pill(a.etat)}</div>
+      ${a.prenom && !a.prenom_valide ? `<p class="note meta">Prénom proposé, à valider par toi.</p>` : ""}
       <div class="meta"><span>Exécution <b>${esc(a.execution || "—")}</b></span></div>
       ${a.roles ? `<p class="note">${esc(a.roles.join(" · "))}</p>` : ""}
       ${a.note ? `<p class="note meta">${esc(a.note)}</p>` : ""}
@@ -218,7 +220,7 @@ details summary { cursor: pointer; font-weight: 500 }
     const parJour = {};
     contenus.forEach(c => { const k = c.date_prevue || "~"; (parJour[k] = parJour[k] || []).push(c); });
     const cal = Object.keys(parJour).sort().map(k => `<tr><td>${k === "~" ? "à planifier" : jour(k)}</td><td>${parJour[k].map(c => `${esc(c.titre)} ${pill(c.statut)}`).join("<br>")}</td><td>${parJour[k].map(c => esc(c.format || "")).join("<br>")}</td></tr>`).join("");
-    const biens = E.biens.map(b => `<article class="carte"><div class="ligne"><h3>${esc(b.nom)} <span class="mono meta">${esc(b.ref)}</span></h3>${pill(b.prix && b.prix.verifie ? "valide" : "a_verifier")}</div>
+    const biens = E.biens.map(b => `<article class="carte"><div class="ligne"><h3><span class="mono">${esc(b.ref)}</span> <span class="meta">${esc(b.type || "")}</span></h3>${pill(b.prix && b.prix.verifie ? "valide" : "a_verifier")}</div>
       <div class="meta"><span>Zone <b>${esc(b.zone)}</b></span><span>Prix <b>${b.prix && b.prix.verifie && b.prix.montant ? eur(b.prix.montant) : "à confirmer"}</b></span><span>Disponibilité <b>${b.disponibilite_verifiee ? "vérifiée" : "à confirmer"}</b></span></div>
       <div class="meta"><span>Publier les médias <b>${esc(LIB[b.autorisation_medias] || b.autorisation_medias)}</b></span><span>Tournage <b>${esc((b.autorisation_tournage || "").replace("a_demander", "à demander"))}</b></span></div>
       ${b.caracteristiques ? `<p class="note">${Object.entries(b.caracteristiques).map(([k, v]) => `${esc(k.replace(/_/g, " "))} : ${esc(v)}`).join(" · ")}</p>` : ""}
