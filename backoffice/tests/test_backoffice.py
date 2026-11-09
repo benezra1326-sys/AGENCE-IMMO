@@ -276,9 +276,11 @@ class TestCommissions(unittest.TestCase):
         self.assertEqual(commissions.calculer(100_000)["part_avishay"], 50_000)
         r = commissions.calculer(100_000, agence_partenaire=True)
         self.assertEqual((r["agence_partenaire"], r["recu_levy_goldman"], r["part_avishay"]), (50_000, 50_000, 25_000))
+        # apporteur payé sur la part de l'agence (confirmé par Avishay le 9 novembre 2026)
         r = commissions.calculer(100_000, apporteur=True)
-        self.assertEqual((r["apporteur"], r["part_avishay"]), (10_000, 45_000))
-        self.assertTrue(r["a_confirmer"])
+        self.assertEqual((r["apporteur"], r["part_avishay"], r["reste_levy_goldman"]), (10_000, 50_000, 40_000))
+        r = commissions.calculer(100_000, agence_partenaire=True, apporteur=True)
+        self.assertEqual((r["part_avishay"], r["reste_levy_goldman"]), (25_000, 15_000))
 
 
 class TestServeur(unittest.TestCase):

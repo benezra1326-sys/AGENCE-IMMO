@@ -5,13 +5,14 @@
 - Apporteur de contact : en général 10 % de C.
 - Part d'Avishay : 50 % de ce que reçoit Levy & Goldman après partage éventuel.
 
-Point à confirmer par Avishay : l'apporteur est-il payé avant le calcul de sa part (hypothèse par défaut)
-ou sur la part de Levy & Goldman après sa part ? Toute exception doit lui être soumise.
+Confirmé par Avishay le 9 novembre 2026 : la rémunération de l'apporteur est prise sur la part de l'agence,
+pas sur la sienne (sa part = 50 % de ce que reçoit Levy & Goldman, apporteur non déduit).
+Toute exception ou tout accord commercial doit lui être soumis.
 """
 
 
 def calculer(commission_totale, *, agence_partenaire=False, apporteur=False,
-             part_partenaire=0.50, part_apporteur=0.10, part_avishay=0.50, apporteur_avant_part=True):
+             part_partenaire=0.50, part_apporteur=0.10, part_avishay=0.50, apporteur_avant_part=False):
     C = float(commission_totale)
     partenaire = C * part_partenaire if agence_partenaire else 0.0
     recu_agence = C - partenaire
@@ -26,5 +27,4 @@ def calculer(commission_totale, *, agence_partenaire=False, apporteur=False,
         "part_avishay": round(avishay, 2),
         "reste_levy_goldman": round(recu_agence - remun_apporteur - avishay, 2),
         "hypothese": "apporteur déduit avant la part d'Avishay" if apporteur_avant_part else "apporteur payé sur la part de l'agence",
-        "a_confirmer": apporteur,
     }
