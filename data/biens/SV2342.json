@@ -1,0 +1,32 @@
+{
+  "ref": "SV2342",
+  "nom": "Aloha 40",
+  "zone": "Nueva Andalucía (Aloha), Marbella",
+  "type": "villa",
+  "caracteristiques": {
+    "chambres": 6,
+    "detail_chambres": "5 dans la maison principale, 1 dans la maison d'invités",
+    "m2_construits": 702,
+    "m2_terrain": 2349,
+    "situation": "première ligne du golf"
+  },
+  "source_caracteristiques": "Brochure Aloha40_e-brochure.pdf (16 p.), lue par un autre assistant ; à recouper avec FLOOR PLANS et DOCUMENTS",
+  "date_caracteristiques": "2026-11-09",
+  "caracteristiques_recoupees": false,
+  "autorisation_medias": "oui",
+  "autorisation_medias_source": "Avishay, brief du 9 novembre 2026 (médias Solvilla fournis)",
+  "autorisation_tournage": "a_demander",
+  "restrictions": [
+    "Zone uniquement, jamais l'adresse exacte",
+    "Informations internes du nom de dossier non publiques",
+    "Prix non publié tant qu'il n'est pas confirmé"
+  ],
+  "prix": {
+    "montant": null,
+    "verifie": false
+  },
+  "disponibilite_verifiee": false,
+  "partenaire_source": "Solvilla",
+  "medias_stockage": "Dropbox Solvilla « 03. EXCLUSIVE LISTINGS » (protégé par mot de passe) ; copie de travail à venir dans le stockage du projet",
+  "maj_le": "2026-11-09T10:50:00Z"
+}

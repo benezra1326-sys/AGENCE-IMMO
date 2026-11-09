@@ -1,0 +1,14 @@
+{
+  "id": "2026-11-09-acces-dropbox-aloha40",
+  "agent": "fiches-biens",
+  "titre": "Tester l'accès au dossier Dropbox Aloha 40 (SV2342)",
+  "statut": "bloquee",
+  "source": "brief 9 nov, dossier Dropbox Solvilla",
+  "resultat": "Accès impossible depuis le serveur : réseau bloqué vers www.dropbox.com et dossier protégé par mot de passe. Avishay télécharge les fichiers sur son Mac (Bureau/Aloha40).",
+  "fichiers": [],
+  "raison_echec": "Politique réseau (403 sur www.dropbox.com) + mot de passe ; aucun contournement tenté",
+  "activite": "immo",
+  "cree_le": "2026-11-09T10:50:00Z",
+  "maj_le": "2026-11-09T10:50:00Z",
+  "cout_eur": 0
+}

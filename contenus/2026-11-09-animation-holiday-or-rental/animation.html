@@ -1,0 +1,52 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../outils/identite.css">
+<style>
+#stage{width:1080px;height:1920px;position:relative;overflow:hidden;background:var(--ink);color:var(--ivory);font-family:'Inter',sans-serif}
+.l{position:absolute;left:110px;right:110px;opacity:0;will-change:transform,opacity}
+.serif{font-family:'Cormorant Garamond',serif;font-weight:500}
+.kick{font-size:30px;letter-spacing:.24em;text-transform:uppercase;color:var(--sand)}
+.big{font-size:132px;line-height:1.02}
+.mid{font-size:96px;line-height:1.06}
+.it{font-style:italic;color:var(--sand2)}
+.body{font-size:44px;line-height:1.45;font-weight:300;color:#d9d4cb}
+.rule{position:absolute;left:110px;height:2px;background:var(--sand);width:0}
+.col{position:absolute;top:760px;width:400px;opacity:0}
+.col h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:72px;line-height:1.05;color:var(--ivory)}
+.col .ln{width:70px;height:2px;background:var(--sand);margin:34px 0}
+.col p{font-size:38px;line-height:1.5;font-weight:300;color:#cfc9bf}
+.foot{position:absolute;left:110px;right:110px;bottom:120px;display:flex;justify-content:space-between;font-size:28px;letter-spacing:.06em;color:#8f8a81}
+.box{position:absolute;left:110px;right:110px;top:1010px;border:1.5px solid var(--sand);padding:46px 52px;opacity:0}
+</style></head><body>
+<div id="stage">
+  <div class="l kick" id="k1" style="top:700px">Marbella · Your project</div>
+  <div class="l serif big" id="a1" style="top:790px">Holiday home</div>
+  <div class="l serif big it" id="a2" style="top:940px">or rental<br>investment?</div>
+  <div class="rule" id="r1" style="top:1260px"></div>
+  <div class="l serif big" id="b1" style="top:820px">Start with<br><span class="it">your goal.</span></div>
+
+  <div class="l kick" id="k2" style="top:640px">Two different searches</div>
+  <div class="col" id="c1" style="left:110px"><h3>Holiday<br>home</h3><div class="ln"></div><p>The area you love, the comfort you want, the time you will spend there.</p></div>
+  <div class="col" id="c2" style="left:570px"><h3>Rental<br>investment</h3><div class="ln"></div><p>Rules, demand and total costs, checked property by property.</p></div>
+
+  <div class="l serif mid" id="d1" style="top:820px">Your goal shapes<br>the area, the property<br><span class="it">and the budget.</span></div>
+
+  <div class="l serif mid" id="e1" style="top:700px">Send me your<br><span class="it">budget and project.</span></div>
+  <div class="box" id="e2"><div class="body" style="color:var(--ivory)">Private message <span style="color:var(--sand2)">@avishay.marbella</span><br>I will come back with a clear plan.</div></div>
+  <div class="l" id="e3" style="top:1300px;font-size:24px;line-height:1.5;color:#8f8a81">No rental income or tourist licence is assumed: each property is checked individually.</div>
+
+  <div class="foot"><span>@avishay.marbella</span><span>Marbella · Costa del Sol</span></div>
+</div>
+<script>
+const E=x=>1-Math.pow(1-x,3), C=(v)=>Math.max(0,Math.min(1,v));
+// fenêtre : apparition [in, in+d], disparition [out, out+d]
+function win(t,i,o,d=0.6){if(t<i)return 0;if(t<i+d)return E((t-i)/d);if(o==null||t<o)return 1;if(t<o+d)return 1-E((t-o)/d);return 0}
+function set(id,a,dy=40,dx=0){const el=document.getElementById(id);el.style.opacity=a;el.style.transform=`translate(${(1-a)*dx}px,${(1-a)*dy}px)`}
+window.render=function(t){
+  set('k1',win(t,0.2,2.7));set('a1',win(t,0.4,2.7));set('a2',win(t,1.1,2.7));
+  set('b1',win(t,3.3,6.0));
+  const r=document.getElementById('r1');r.style.width=(860*E(C((t-3.6)/0.9))*(t<6.0?1:1-E(C((t-6.0)/0.5))))+'px';
+  set('k2',win(t,6.6,10.4));set('c1',win(t,6.9,10.4),0,-50);set('c2',win(t,7.6,10.4),0,50);
+  set('d1',win(t,11.0,13.7));
+  set('e1',win(t,14.2,null));set('e2',win(t,15.0,null),30);set('e3',win(t,15.8,null),10);
+}
+render(0);
+</script></body></html>
