@@ -158,6 +158,7 @@ dialog.detail::backdrop { background: rgb(0 0 0 / .55) }
       ${t.source ? `<p class="note"><span class="meta">Source :</span> ${esc(t.source)}</p>` : ""}
       ${t.resultat ? `<p class="note">${esc(t.resultat)}</p>` : ""}
       ${t.raison_echec ? `<p class="echec">Raison : ${esc(t.raison_echec)}</p>` : ""}
+      ${(t.textes || []).map(x => `<details><summary>${esc(x.titre)}</summary><pre class="texte-brut">${esc(x.texte)}</pre></details>`).join("")}
       ${fichiers}${reprise}
       <span class="mono meta">${esc(t.id)} · ${esc(t.origine === "depot" ? "écrit dans le dépôt" : "créé par le serveur")}</span>
     </article>`;
@@ -182,6 +183,7 @@ dialog.detail::backdrop { background: rgb(0 0 0 / .55) }
       ${act.derniere ? `<p class="note"><span class="meta">Dernière production :</span> ${esc(act.derniere.titre)} (${date(act.derniere.maj_le)})</p>` : `<p class="note meta">Aucune production pour l'instant.</p>`}
       ${a.roles ? `<p class="note"><span class="meta">Peut faire :</span> ${esc(a.roles.join(" · "))}</p>` : ""}
       ${a.etat === "bloque" ? `<p class="echec">Ne peut pas encore travailler : ${esc(a.note || "connexion manquante")}</p>` : ""}
+      ${(a.manque || []).length && a.etat !== "actif" ? `<div class="note"><span class="meta">Pour être actif, il manque :</span><ul class="fichiers">${a.manque.map(m => `<li>${esc(m)}</li>`).join("")}</ul></div>` : ""}
       ${a.note && a.etat !== "bloque" ? `<p class="note meta">${esc(a.note)}</p>` : ""}
       ${a.preuve ? `<p class="note meta">Preuve : ${esc(a.preuve)} (état déclaré : ${esc(LIB[a.etat_declare])})</p>` : ""}
       <div class="meta"><span>${n.en_attente || 0} en attente</span><span>${n.en_cours || 0} en cours</span><span>${n.terminee || 0} terminées</span><span>${(n.echec || 0) + (n.bloquee || 0)} en échec ou bloquées</span></div>
@@ -260,7 +262,7 @@ dialog.detail::backdrop { background: rgb(0 0 0 / .55) }
       .concat(t.filter(x => x.statut === "bloquee" || x.statut === "echec").map(x => `<li>${esc(x.titre)} : ${esc(x.raison_echec || "bloquée")}</li>`));
     return section("resume", "Aujourd'hui", null, "", resume)
       + section("maitre", "Agent maître", null, "", `<article class="carte"><div class="ligne"><h3>${esc(m.nom)}</h3>${pill(m.etat)}</div><p class="note">${esc(m.mission)}</p><p class="note meta">${esc(m.note)}</p></article>`)
-      + section("equipe", "L'équipe Immobilier", E.agents.filter(a => a.activite === "immo").length, "Qui est là, ce que chacun fait en ce moment et ce qu'il peut faire.", `<div class="tableau equipe"><table><thead><tr><th>Agent</th><th>État</th><th>En ce moment</th><th>Dernière production</th></tr></thead><tbody>${E.agents.filter(a => a.activite === "immo").map(a => { const x = activiteAgent(a); return `<tr><td><a href="#immo" data-aller="agent-${esc(a.id)}">${esc(a.prenom || a.nom)}</a><br><span class="meta" style="font-weight:400">${esc(a.nom)}</span></td><td>${pill(a.etat)}</td><td>${x.ouvertes.length ? x.ouvertes.map(t => esc(t.titre)).join(" ; ") : (a.etat === "bloque" ? "bloqué" : "disponible")}</td><td>${x.derniere ? esc(x.derniere.titre) : "—"}</td></tr>`; }).join("")}</tbody></table></div>`)
+      + section("equipe", "L'équipe Immobilier", E.agents.filter(a => a.activite === "immo").length, "Qui est là, ce que chacun fait en ce moment et ce qu'il lui manque. « Testé » : a déjà produit un vrai résultat, à la demande. « Actif » : travaille seul, Mac éteint ; cela demande le serveur, que tu as reporté.", `<div class="tableau equipe"><table><thead><tr><th>Agent</th><th>État</th><th>En ce moment</th><th>Dernière production</th><th>Ce qui manque</th></tr></thead><tbody>${E.agents.filter(a => a.activite === "immo").map(a => { const x = activiteAgent(a); return `<tr><td><a href="#immo" data-aller="agent-${esc(a.id)}">${esc(a.prenom || a.nom)}</a><br><span class="meta" style="font-weight:400">${esc(a.nom)}</span></td><td>${pill(a.etat)}</td><td>${x.ouvertes.length ? x.ouvertes.map(t => esc(t.titre)).join(" ; ") : (a.etat === "bloque" ? "bloqué" : "disponible")}</td><td>${x.derniere ? esc(x.derniere.titre) : "—"}</td><td>${esc((a.manque || [])[0] || "—")}${(a.manque || []).length > 1 ? ` <span class="meta">(+${a.manque.length - 1})</span>` : ""}</td></tr>`; }).join("")}</tbody></table></div>`)
       + section("activites", "Les trois activités", null, "", `<div class="grille">${acts}</div>`)
       + section("decisions", "À traiter par toi", decisions.length, "", decisions.length ? `<article class="carte"><ul class="histo">${decisions.join("")}</ul></article>` : `<p class="vide">Rien en attente.</p>`);
   }

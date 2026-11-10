@@ -142,6 +142,11 @@ def main():
             m = (medias.get(ct["id"]) or {}).get("medias", [])
             if m or textes:
                 ct["apercu"] = {"medias": m, "textes": textes}
+        for t in etat["taches"]:  # rapports lisibles directement dans l'aperçu
+            for f in t.get("fichiers") or []:
+                ch = f.get("chemin") if isinstance(f, dict) else f
+                if isinstance(ch, str) and ch.startswith("ops/rapports/") and ch.endswith(".md") and (Path(c.racine_depot) / ch).exists():
+                    t.setdefault("textes", []).append({"titre": "Lire le rapport", "texte": (Path(c.racine_depot) / ch).read_text(encoding="utf-8")})
         etat = masquer_biens(etat, c.racine_depot)
         etat = sans_chemins(etat)
         source = (Path(__file__).resolve().parent.parent / "static" / "index.html").read_text(encoding="utf-8")

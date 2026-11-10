@@ -1,0 +1,14 @@
+{
+  "id": "2026-11-09-veille-marche",
+  "activite": "immo",
+  "agent": "veille",
+  "titre": "Chiffres de marché sourcés pour le tableau de bord",
+  "statut": "terminee",
+  "source": "demande d'Avishay du 09/11 : le maximum de données",
+  "cree_le": "2026-11-09T11:15:00Z",
+  "maj_le": "2026-11-09T11:45:00Z",
+  "resultat": "11 chiffres avec source (Registradores, Notariado, Knight Frank, Idealista) : prix signés 2025, ventes, part d'acheteurs étrangers, acheteurs marocains et français.",
+  "fichiers": ["backoffice/registre/marche.json"],
+  "cout_eur": 0,
+  "raison_echec": null
+}
