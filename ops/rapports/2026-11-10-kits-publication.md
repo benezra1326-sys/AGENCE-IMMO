@@ -4,8 +4,8 @@ Rien n'est publié : chaque kit attend ta validation du contenu. Les vidéos son
 
 ## Choix de la musique (Inès)
 - Style : deep house calme, chill ou piano cinématique. Pas d'humour, pas de paroles fortes, pas de son « mème ».
-- Tempo conseillé : 100 à 120 BPM, pour accompagner des plans de 1,5 à 3,5 s.
-- Calage : le premier temps fort doit tomber sur la révélation du prix ou de la façade (vers 4 s dans le Reel villa golf).
+- Tempo : le Reel villa golf V4 est monté à 120 BPM (toutes les coupes tombent sur un temps, marche aussi à 60 BPM). Choisir un son à 120 ou 60 BPM, et faire démarrer l'extrait sur un premier temps fort à 0,0 s. Feuille de coupes : contenus/2026-11-10-reel-villa-golf-v4/feuille-coupes-120bpm.md.
+- Si le son retenu a un autre tempo, Inès donne son BPM à Elsa (montage), qui recale les coupes et réexporte.
 - Où le trouver : dans l'application, bouton Audio, sons marqués d'une flèche ↗ (tendance). Via l'API, seulement les sons originaux et la musique libre de droits de Meta, qui démarre au début du morceau.
 - Inès te propose 3 sons au moment de publier, écoutés sur la vidéo, et tu choisis.
 
