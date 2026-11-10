@@ -84,6 +84,7 @@ h3 { font: 600 .98rem/1.3 var(--f-body); margin: 0; overflow-wrap: anywhere }
 .s-configure, .s-en_cours, .s-partiel, .s-en_lancement { color: var(--info); background: var(--info-bg) }
 .s-teste, .s-a_valider, .s-preparee { color: var(--test); background: var(--test-bg) }
 .s-actif, .s-terminee, .s-operationnel, .s-valide, .s-envoyee, .s-publie { color: var(--ok); background: var(--ok-bg) }
+.s-recue { color: var(--idle); background: var(--idle-bg) } .s-attribuee { color: var(--info); background: var(--info-bg) } .s-traitee { color: var(--ok); background: var(--ok-bg) } .s-question { color: var(--warn); background: var(--warn-bg) }
 .s-bloque, .s-bloquee, .s-modification_demandee, .s-manquant, .s-a_verifier { color: var(--warn); background: var(--warn-bg) }
 .s-echec, .s-appel_demande { color: var(--bad); background: var(--bad-bg) }
 
@@ -199,6 +200,10 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
 .destinataire { display: flex; align-items: center; gap: 10px; flex-wrap: wrap }
 .destinataire select { flex: 1; min-width: 0; font: inherit; font-size: .9rem; padding: 8px 10px; border-radius: 9px; border: 1px solid var(--line); background: var(--surface); color: var(--fg) }
 .provisoire { font-style: italic }
+.echange { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px }
+.echange li { max-width: 88%; padding: 9px 12px; border-radius: 12px; display: flex; flex-direction: column; gap: 3px }
+.echange li.moi { align-self: flex-end; background: var(--sand-soft); border-bottom-right-radius: 4px }
+.echange li.agent { align-self: flex-start; background: var(--surface-2); border: 1px solid var(--line); border-bottom-left-radius: 4px }
 </style>
 
 <header class="top">
@@ -224,7 +229,7 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
   let E = window.__ETAT__ || null;
   let DB = null, PEUT_ECRIRE = false;           // page publiée : décisions enregistrées dans la base de l'artifact
   const DECISIONS = {}, CONSIGNES = [];
-  let DICT = null, CIBLE_DICTEE = null;         // dictée vocale (Chrome et app Claude sur ordinateur)
+  let DICT = null, CIBLE_DICTEE = null, SAMPLE = null;  // SAMPLE : réponse immédiate de l'agent         // dictée vocale (Chrome et app Claude sur ordinateur)
   const actif = () => !STATIQUE || (DB && PEUT_ECRIRE);
   const filtres = { taches: "a_traiter" };
   const LIB = {
@@ -233,6 +238,7 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
     a_valider: "à valider", modification_demandee: "modification demandée", valide: "validé", publie: "publié", remplace: "remplacé",
     brouillon: "brouillon", en_preparation: "en préparation", operationnel: "opérationnel", partiel: "partiel",
     manquant: "manquant", a_verifier: "à activer ou vérifier", a_configurer: "à configurer", en_lancement: "en lancement",
+    recue: "reçue", attribuee: "prise en charge", traitee: "faite", question: "question pour toi",
     liste_preparee: "liste préparée", preparee: "préparée", envoyee: "envoyée", nouveau: "nouveau", appel_demande: "appel demandé"
   };
   const COTE = { serveur: "serveur (Mac éteint)", claude: "sessions Claude", telephone: "ton téléphone", mac: "ton Mac" };
@@ -340,7 +346,65 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
       <span class="meta provisoire" id="${id}-provisoire" hidden></span>
       ${pour ? `<input type="hidden" id="${id}-pour" value="${esc(pour)}">` : `<div class="destinataire"><label class="meta" for="${id}-pour">Pour</label><select id="${id}-pour" ${off}>${options}</select></div><span class="meta" id="${id}-propose" aria-live="polite"></span>`}
       <div class="actions">${boutonMicro(id)}<button class="btn principal" data-envoyer-consigne="${id}" ${off}>Envoyer la consigne</button></div>
-      ${liste.length ? `<ul class="histo">${liste.map(k => `<li>${date(k.quand)} · ${esc(k.texte)}${k.canal === "voix" ? ` <span class="meta">(dictée)</span>` : ""}<br><span class="meta">${k.pour ? "Pour " + esc(prenom(k.pour)) : k.propose ? "Victor la donne à " + esc(prenom(k.propose)) : "Victor la répartit"} · ${k.statut === "traitee" ? "traitée" : k.statut === "attribuee" ? "attribuée" : "reçue, traitée à la prochaine session"}</span></li>`).join("")}</ul>` : ""}</article>`;
+      ${liste.length ? `<div class="liste">${liste.map(rangeeConsigne).join("")}</div>` : ""}</article>`;
+  }
+  const destinataire = k => k.pour || k.propose || "coordination";
+  function rangeeConsigne(k) {
+    const r = (k.reponses || []).filter(x => x.de !== "avishay").slice(-1)[0];
+    return ouvre("consigne", k._id, `<span class="puce ${k.statut === "question" ? "warn" : k.statut === "traitee" ? "" : "test"}"></span><span class="txt"><h3>${esc(k.texte)}</h3><span class="meta"><span>Pour <b>${esc(prenom(destinataire(k)))}</b></span><span>${date(k.quand)}</span></span>${r ? `<span class="note">${esc(prenom(r.de))} : ${esc(r.texte)}</span>` : `<span class="note">En attente de réponse…</span>`}</span>${pill(k.statut || "recue")}${CHEVRON}`, "rangee");
+  }
+  function ficheConsigne(k) {
+    const qui = destinataire(k), a = agent(qui);
+    const fil = [{ de: "avishay", texte: k.texte, quand: k.quand, canal: k.canal }].concat(k.reponses || []);
+    const off = actif() ? "" : "disabled";
+    return {
+      titre: "Consigne pour " + prenom(qui), sous: a ? a.nom : "", avatar: a,
+      corps: `<div class="actions">${pill(k.statut || "recue")}<span class="meta">${k.pour ? "Adressée directement" : "Répartie par Victor"}</span></div>
+        <ol class="echange">${fil.map(m => `<li class="${m.de === "avishay" ? "moi" : "agent"}"><span class="meta"><b>${m.de === "avishay" ? "Toi" : esc(prenom(m.de))}</b> · ${date(m.quand)}${m.canal === "voix" ? " · dictée" : ""}${m.auto ? " · réponse immédiate" : ""}</span><p class="note">${esc(m.texte)}</p></li>`).join("")}</ol>
+        ${ATTENTE.has(k._id) ? `<p class="note meta">${esc(prenom(qui))} écrit…</p>` : ""}
+        <p class="note meta">${esc(prenom(qui))} répond tout de suite pour confirmer et poser ses questions. Le travail lui-même se fait à la prochaine session (tout de suite avec le serveur) ; la consigne passe alors à « faite », avec le résultat ici.</p>
+        <div class="bloc"><label class="etiquette" for="reponse-consigne">Répondre à ${esc(prenom(qui))}</label><textarea id="reponse-consigne" data-consigne ${off}></textarea>
+        <span class="meta provisoire" id="reponse-consigne-provisoire" hidden></span>
+        <div class="actions">${boutonMicro("reponse-consigne")}<button class="btn principal" data-repondre="${esc(k._id)}" ${off}>Envoyer</button></div></div>`
+    };
+  }
+  const ATTENTE = new Set();
+  const REGLES = "Règles : tu ne publies, n'envoies et ne dépenses rien sans l'accord d'Avishay ; pas d'email à froid (loi espagnole LSSI art. 21, email seulement après un oui) ; LinkedIn : tu prépares, Avishay envoie ; Instagram : pas de message privé à froid ; chiffres et lois seulement avec une source ; zone seulement, jamais d'adresse ni de nom de propriété ; aucune promesse de rendement, financement ou licence touristique ; tu ne négocies ni ne signes jamais.";
+  async function reponseAgent(id) {
+    if (!SAMPLE || !DB) return;
+    const k = CONSIGNES.find(x => x._id === id); if (!k) return;
+    const qui = destinataire(k), a = agent(qui) || {};
+    const fil = [{ de: "avishay", texte: k.texte }].concat(k.reponses || []).map(m => `${m.de === "avishay" ? "Avishay" : prenom(m.de)} : ${m.texte}`).join("\n");
+    const prompt = `Tu es ${a.prenom || "Victor"}, ${a.nom || "coordination"} dans l'équipe d'agents d'Avishay Benazra, agent immobilier de luxe chez Levy & Goldman à Marbella (zone Cabopino à Casares, biens dès 500 000 €).
+Ce que tu sais faire : ${(a.roles || []).join(", ") || "répartir les tâches"}. État : ${LIB[a.etat] || a.etat || "—"}. Ce qui te manque : ${(a.manque || []).join(" ; ") || "rien"}.
+${REGLES}
+Le travail réel sera fait plus tard dans une session de travail : ne prétends pas l'avoir déjà fait, ne donne aucun chiffre inventé.
+Échange en cours :
+${fil}
+
+Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4 phrases : confirme que tu as bien reçu, dis ce que tu vas faire, et pose une seule question précise s'il te manque une information ou une autorisation. Si la demande ne relève pas de ton rôle, dis à qui tu la passes. Réponds avec seulement un objet JSON : {"texte": "...", "question": true|false}`;
+    ATTENTE.add(id); rafraichirFiche(true);
+    try {
+      const r = await SAMPLE.json(prompt, { modelTier: "quick", cache: false });
+      const texte = r && typeof r.texte === "string" ? r.texte.trim() : "";
+      if (texte) {
+        const frais = CONSIGNES.find(x => x._id === id) || k;
+        await DB.doc("consignes/" + id).update({ reponses: (frais.reponses || []).concat([{ de: qui, texte, quand: new Date().toISOString(), auto: true }]), statut: r.question ? "question" : "attribuee" });
+      }
+    } catch (e) {
+      if (e && e.code === "not_granted") SAMPLE = null;
+      else toast("La réponse immédiate n'a pas pu être générée. La consigne est bien enregistrée.");
+    } finally { ATTENTE.delete(id); rafraichirFiche(true); }
+  }
+  async function repondreConsigne(id) {
+    const tx = document.getElementById("reponse-consigne"), texte = tx.value.trim();
+    if (!texte) return toast("Écris ou dicte ta réponse.");
+    const k = CONSIGNES.find(x => x._id === id); if (!k) return;
+    try {
+      await DB.doc("consignes/" + id).update({ reponses: (k.reponses || []).concat([{ de: "avishay", texte, quand: new Date().toISOString(), canal: tx.dataset.dicte ? "voix" : "texte" }]), statut: "recue" });
+      tx.value = ""; delete tx.dataset.dicte;
+      reponseAgent(id);
+    } catch (e) { toast("Échec de l'envoi. Réessaie dans un instant."); }
   }
   function majProposition(id) {
     const tx = document.getElementById(id), sel = document.getElementById(id + "-pour"), out = document.getElementById(id + "-propose");
@@ -530,7 +594,8 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
     tache: [id => E.taches.find(x => x.id === id), ficheTache],
     bien: [id => E.biens.find(x => x.ref === id), ficheBien],
     connexion: [id => (E.connexions.connexions || []).find(x => x.id === id), ficheConnexion],
-    prospect: [id => E.prospects.find(x => x.id === id), ficheProspect]
+    prospect: [id => E.prospects.find(x => x.id === id), ficheProspect],
+    consigne: [id => CONSIGNES.find(x => x._id === id), ficheConsigne]
   };
   const PILE = [];
   function afficherFiche(type, id) {
@@ -550,9 +615,10 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
     if (d.open && d._courant) PILE.push(d._courant); else PILE.length = 0;
     afficherFiche(type, id);
   }
-  function rafraichirFiche() {
+  function rafraichirFiche(force) {
     const d = document.getElementById("fiche");
     if (!d.open || !d._courant) return;
+    if (force === true && d._courant.type !== "consigne") return;
     const a = document.activeElement; if (a && a.tagName === "TEXTAREA" && a.value) return;
     const v = d.querySelector("video"); if (v && !v.paused) return;
     if (DICT && DICT.active()) return;
@@ -600,6 +666,7 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
     if (!STATIQUE) return;
     try {
       const [db, user] = await Promise.all([window.claude.use("db"), window.claude.use("user")]);
+      window.claude.use("sample").then(x => { SAMPLE = x; }).catch(() => {});
       if (!db) return;
       DB = db;
       PEUT_ECRIRE = user ? (user.can ? (await user.can("data.write")) !== false : true) && (user.canEdit ? await user.canEdit() : true) : false;
@@ -611,8 +678,8 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
         rendre(); appliquerDecisions(); rafraichirFiche();
       }, () => clearTimeout(minuteur));
       DB.collection("consignes").orderBy("quand", "desc").limit(20).onSnapshot(snap => {
-        CONSIGNES.length = 0; snap.docs.forEach(d => CONSIGNES.push(d.data()));
-        rendre();
+        CONSIGNES.length = 0; snap.docs.forEach(d => CONSIGNES.push(Object.assign({ _id: d.id }, d.data())));
+        rendre(); rafraichirFiche();
       }, () => {});
       rendre();
     } catch (e) { DB = null; }
@@ -635,7 +702,11 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
     const pour = sel && sel.value ? sel.value : null, propose = pour ? null : suggere(texte);
     const doc = { texte, quand: new Date().toISOString(), statut: "recue", pour, propose, canal: tx.dataset.dicte ? "voix" : "texte" };
     if (!STATIQUE) return poster("/api/consigne", { texte, agent: pour || propose || null }).then(() => { tx.value = ""; });
-    try { await DB.collection("consignes").add(doc); tx.value = ""; delete tx.dataset.dicte; toast(pour ? `Consigne envoyée à ${prenom(pour)}.` : propose ? `Consigne envoyée. Victor la donne à ${prenom(propose)}.` : "Consigne envoyée à Victor."); }
+    try {
+      const ref = await DB.collection("consignes").add(doc); tx.value = ""; delete tx.dataset.dicte;
+      toast(pour ? `Consigne envoyée à ${prenom(pour)}.` : propose ? `Consigne envoyée. Victor la donne à ${prenom(propose)}.` : "Consigne envoyée à Victor.");
+      if (ref && ref.id) { if (!CONSIGNES.find(x => x._id === ref.id)) CONSIGNES.unshift(Object.assign({ _id: ref.id }, doc)); ouvrirFiche("consigne", ref.id); reponseAgent(ref.id); }
+    }
     catch (e) { toast("Échec de l'envoi de la consigne. Réessaie dans un instant."); }
   }
 
@@ -658,7 +729,7 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
   fiche.addEventListener("close", () => { fiche.querySelectorAll("video").forEach(v => v.pause()); fiche._courant = null; PILE.length = 0; });
   fiche.addEventListener("click", ev => { if (ev.target === fiche) fiche.close(); });
   document.addEventListener("click", ev => {
-    const el = ev.target.closest("[data-fiche],[data-fermer],[data-retour],[data-filtre],[data-filtre-lien],[data-valider],[data-ouvrir-modif],[data-envoyer],[data-reprendre],[data-envoyer-consigne],[data-micro]");
+    const el = ev.target.closest("[data-fiche],[data-fermer],[data-retour],[data-filtre],[data-filtre-lien],[data-valider],[data-ouvrir-modif],[data-envoyer],[data-reprendre],[data-envoyer-consigne],[data-micro],[data-repondre]");
     if (!el) return;
     if (el.dataset.fiche) { ev.preventDefault(); return ouvrirFiche(el.dataset.fiche, el.dataset.id); }
     if (el.hasAttribute("data-fermer")) return fiche.close();
@@ -667,6 +738,7 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
     if (el.dataset.filtre) { filtres.taches = el.dataset.filtre; return rendre(); }
     if (el.hasAttribute("data-ouvrir-modif")) { const f = document.getElementById("form-modif"); if (f) { f.hidden = !f.hidden; if (!f.hidden) f.querySelector("textarea").focus(); } return; }
     if (el.dataset.micro) return basculerDictee(el.dataset.micro);
+    if (el.dataset.repondre) { if (!DB || !PEUT_ECRIRE) return; return repondreConsigne(el.dataset.repondre); }
     if (el.dataset.envoyerConsigne) { if (STATIQUE && (!DB || !PEUT_ECRIRE)) return; return consigneBase(el.dataset.envoyerConsigne); }
     if (STATIQUE) {
       if (!DB || !PEUT_ECRIRE) return;
