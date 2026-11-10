@@ -155,7 +155,7 @@
       "note": "Compte pro non relié à une page Facebook : l'API de publication et de messagerie n'est pas accessible.",
       "manque": [
         "Une page Facebook reliée à ton compte Instagram professionnel (aussi utile pour les pubs et l'API audio)",
-        "Une application Meta en mode développement : pour ton propre compte, pas besoin de validation par Meta. Je la configure avec toi, tu colles le jeton dans les réglages du projet",
+        "Une application Meta en mode développement : pour ton propre compte, l'accès standard suffit en principe, sans validation par Meta (à confirmer au branchement). Je la configure avec toi, tu colles le jeton dans les réglages du projet",
         "Ta décision de lever le mode validation pour publier",
         "Le serveur pour publier à l'heure prévue, Mac éteint"
       ],
