@@ -242,6 +242,13 @@ class TestTelegram(unittest.TestCase):
         self.api.a_livrer = [msg(1, "Prépare un carrousel sur Estepona")]
         self.assertEqual(self.bot.relever(), 0)  # décalage mémorisé
 
+    def test_consigne_adressee_a_un_agent(self):
+        from app import pilotage
+        t, _ = pilotage.consigne(self.cx, "Recale le Reel sur 100 BPM", "tableau de bord", agent="montage")
+        self.assertEqual(t["agent"], "montage")
+        t, _ = pilotage.consigne(self.cx, "Fais au mieux", "tableau de bord", agent="inconnu")
+        self.assertEqual(t["agent"], "coordination")
+
     def test_modification_en_deux_temps_et_validation(self):
         self.bot.traiter({"update_id": 5, "callback_query": {"id": "q", "from": {"id": int(PROPRIO)},
                                                              "message": {"chat": {"id": 1}}, "data": "mod:C-1"}})

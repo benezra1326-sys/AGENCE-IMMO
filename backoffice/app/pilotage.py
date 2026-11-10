@@ -1,7 +1,7 @@
 """Actions d'Avishay, communes au tableau de bord et à Telegram."""
 import hashlib
 
-from . import taches
+from . import registre, taches
 from .db import journaliser, ligne, maintenant
 
 
@@ -40,13 +40,16 @@ def demander_modification(cx, cid, texte, canal):
     return True, f"Modification enregistrée pour « {c['titre']} ». Une tâche a été créée pour l'agent {agent}."
 
 
-def consigne(cx, texte, canal, message_id=None):
-    """Une consigne libre devient une tâche de l'agent de coordination (sans doublon si le message est rejoué)."""
+def consigne(cx, texte, canal, message_id=None, agent=None):
+    """Une consigne libre devient une tâche : pour l'agent nommé par Avishay, sinon pour la coordination
+    qui la répartit (sans doublon si le message est rejoué)."""
     texte = (texte or "").strip()
     if not texte:
         return None, "Consigne vide."
     cle = f"consigne:{canal}:{message_id}" if message_id else "consigne:" + hashlib.sha1(texte.encode()).hexdigest()
-    t, cree = taches.creer(cx, activite="immo", agent="coordination", titre=texte[:140], cle_unique=cle,
+    agents_connus = {a["id"] for a in registre.charger_registre()["agents"]} if agent else set()
+    destinataire = agent if agent in agents_connus else "coordination"
+    t, cree = taches.creer(cx, activite="immo", agent=destinataire, titre=texte[:140], cle_unique=cle,
                            type="consigne", source=f"Avishay via {canal}", donnees={"texte": texte})
     if not cree:
         return t, f"Consigne déjà enregistrée ({t['id']})."

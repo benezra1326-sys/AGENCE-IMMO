@@ -106,7 +106,7 @@ def fabrique(cx, config):
                     ok = taches.reprendre(cx, morceaux[2])
                     return self._json(200 if ok else 400, {"ok": ok, "message": "Tâche relancée." if ok else "Rien à reprendre."})
                 if chemin == "/api/consigne":
-                    t, msg = pilotage.consigne(cx, d.get("texte", ""), "tableau de bord")
+                    t, msg = pilotage.consigne(cx, d.get("texte", ""), "tableau de bord", agent=d.get("agent"))
                     return self._json(200 if t else 400, {"ok": bool(t), "message": msg})
             self._json(404, {"erreur": "introuvable"})
 

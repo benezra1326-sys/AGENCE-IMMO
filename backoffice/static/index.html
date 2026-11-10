@@ -194,6 +194,11 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
 .plus-item .txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px }
 .plus-item .txt small { color: var(--muted); font-size: .8rem }
 .retour { align-self: flex-start }
+.btn.micro svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round }
+.btn.micro[aria-pressed="true"] { background: var(--bad-bg); border-color: var(--bad); color: var(--bad) }
+.destinataire { display: flex; align-items: center; gap: 10px; flex-wrap: wrap }
+.destinataire select { flex: 1; min-width: 0; font: inherit; font-size: .9rem; padding: 8px 10px; border-radius: 9px; border: 1px solid var(--line); background: var(--surface); color: var(--fg) }
+.provisoire { font-style: italic }
 </style>
 
 <header class="top">
@@ -219,6 +224,7 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
   let E = window.__ETAT__ || null;
   let DB = null, PEUT_ECRIRE = false;           // page publiée : décisions enregistrées dans la base de l'artifact
   const DECISIONS = {}, CONSIGNES = [];
+  let DICT = null, CIBLE_DICTEE = null;         // dictée vocale (Chrome et app Claude sur ordinateur)
   const actif = () => !STATIQUE || (DB && PEUT_ECRIRE);
   const filtres = { taches: "a_traiter" };
   const LIB = {
@@ -306,12 +312,41 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
       + `<section>${titreSection("Les trois activités", null)}<div class="grille-agents">${acts}</div></section>`;
   }
 
-  function blocConsigne() {
-    const off = actif() ? "" : "disabled";
-    return `<article class="carte"><label class="meta" for="consigne">Écris ce que tu veux que l'équipe fasse. Victor (coordination) la répartit au bon agent.</label>
-      <textarea id="consigne" placeholder="Exemple : prépare un carrousel sur les quartiers d'Estepona pour la semaine prochaine." ${off}></textarea>
-      <div class="actions"><button class="btn principal" id="envoyer-consigne" ${off}>Envoyer la consigne</button></div>
-      ${CONSIGNES.length ? `<ul class="histo">${CONSIGNES.slice(0, 5).map(k => `<li>${date(k.quand)} · ${esc(k.texte)} <span class="meta">(${k.statut === "traitee" ? "traitée" : "reçue"})</span></li>`).join("")}</ul>` : ""}</article>`;
+  // Victor propose un agent d'après les mots de la consigne ; Avishay peut changer le destinataire avant d'envoyer.
+  const MOTS = [
+    ["voix", /\b(voix|voice|doubl|enregistr|vocal)/i], ["montage", /\b(reel|vid[eé]o|montage|monte|coupe|sous-titr)/i],
+    ["design", /\b(carrousel|carousel|visuel|design|couverture|animation|canva|logo)/i], ["editorial", /\b(planning|calendrier|l[eé]gende|script|id[eé]e|th[eè]me|caption)/i],
+    ["instagram", /\b(instagram|insta|story|stories|musique|son tendance|publi)/i], ["diffusion", /\b(youtube|tiktok|facebook|shorts)/i],
+    ["fiches-biens", /\b(fiche|bien|villa|terrain|propri[eé]t|annonce|AB-\d)/i], ["veille", /\b(march[eé]|chiffre|loi|fiscal|prix au m|statisti|tendance du march)/i],
+    ["prospection", /\b(linkedin|prospect|apporteur|family office|chasseur)/i], ["partenaires", /\b(partenaire|agence|commission)/i],
+    ["acheteurs", /\b(acheteur|lead|client|visite|rendez-vous|rdv|whatsapp)/i], ["qualite", /\b(relis|relire|v[eé]rifi|qualit|corrig)/i]
+  ];
+  function suggere(texte) {
+    const t = texte || ""; let meilleur = null, n = 0;
+    MOTS.forEach(([id, re]) => { const k = (t.match(new RegExp(re.source, "gi")) || []).length; if (k > n && agent(id)) { n = k; meilleur = id; } });
+    return meilleur;
+  }
+  const prenom = id => { const a = agent(id); return a ? (a.prenom || a.nom) : "Victor"; };
+  function boutonMicro(champ) {
+    return DICT ? `<button type="button" class="btn micro" data-micro="${champ}" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg><span>Dicter</span></button>`
+      : `<span class="meta">Pour dicter sur iPhone, touche le micro du clavier.</span>`;
+  }
+  function blocConsigne(pour) {
+    const off = actif() ? "" : "disabled", id = pour ? "consigne-agent" : "consigne";
+    const options = `<option value="">Victor répartit (recommandé)</option>${E.agents.filter(a => a.activite === "immo" && a.id !== "coordination").map(a => `<option value="${esc(a.id)}">${esc(a.prenom || a.nom)} (${esc(a.nom)})</option>`).join("")}`;
+    const liste = CONSIGNES.filter(k => !pour || k.pour === pour).slice(0, 5);
+    return `<article class="carte consigne-bloc" data-bloc-consigne="${id}"><label class="meta" for="${id}">${pour ? `Dis à ${esc(prenom(pour))} ce que tu veux. La consigne lui arrive directement.` : "Dis ou écris ce que tu veux. Victor (coordination) la donne au bon agent, ou choisis toi-même le destinataire."}</label>
+      <textarea id="${id}" data-consigne placeholder="Exemple : prépare un carrousel sur les quartiers d'Estepona pour la semaine prochaine." ${off}></textarea>
+      <span class="meta provisoire" id="${id}-provisoire" hidden></span>
+      ${pour ? `<input type="hidden" id="${id}-pour" value="${esc(pour)}">` : `<div class="destinataire"><label class="meta" for="${id}-pour">Pour</label><select id="${id}-pour" ${off}>${options}</select></div><span class="meta" id="${id}-propose" aria-live="polite"></span>`}
+      <div class="actions">${boutonMicro(id)}<button class="btn principal" data-envoyer-consigne="${id}" ${off}>Envoyer la consigne</button></div>
+      ${liste.length ? `<ul class="histo">${liste.map(k => `<li>${date(k.quand)} · ${esc(k.texte)}${k.canal === "voix" ? ` <span class="meta">(dictée)</span>` : ""}<br><span class="meta">${k.pour ? "Pour " + esc(prenom(k.pour)) : k.propose ? "Victor la donne à " + esc(prenom(k.propose)) : "Victor la répartit"} · ${k.statut === "traitee" ? "traitée" : k.statut === "attribuee" ? "attribuée" : "reçue, traitée à la prochaine session"}</span></li>`).join("")}</ul>` : ""}</article>`;
+  }
+  function majProposition(id) {
+    const tx = document.getElementById(id), sel = document.getElementById(id + "-pour"), out = document.getElementById(id + "-propose");
+    if (!tx || !sel || !out) return;
+    const s = suggere(tx.value);
+    out.textContent = sel.value ? "" : s ? `Victor la donnera à ${prenom(s)} (${agent(s).nom}).` : tx.value.trim() ? "Victor choisira l'agent." : "";
   }
 
   function vueValider() {
@@ -440,6 +475,7 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
         ${a.roles ? bloc("Ce qu'il sait faire", `<div class="puces-texte">${a.roles.map(r => `<span>${esc(r)}</span>`).join("")}</div>`) : ""}
         ${a.musique ? bloc("Musique", `<p class="note">${esc(a.musique)}</p>`) : ""}
         ${bloc("Ses tâches", x.toutes.length ? `<div class="liste">${x.toutes.map(rangeeTache).join("")}</div>` : `<p class="note meta">Aucune tâche pour l'instant.</p>`)}
+        ${a.id !== "coordination" ? bloc("Lui donner une consigne", blocConsigne(a.id)) : ""}
         ${bloc("Comment il travaille", `<p class="note">${esc(a.execution || "—")}</p>${a.note ? `<p class="note meta">${esc(a.note)}</p>` : ""}${a.preuve ? `<p class="note meta">Preuve : ${esc(a.preuve)}</p>` : ""}`)}`
     };
   }
@@ -519,6 +555,8 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
     if (!d.open || !d._courant) return;
     const a = document.activeElement; if (a && a.tagName === "TEXTAREA" && a.value) return;
     const v = d.querySelector("video"); if (v && !v.paused) return;
+    if (DICT && DICT.active()) return;
+    if ([...d.querySelectorAll("textarea")].some(t => t.value)) return;
     const top = d.scrollTop; afficherFiche(d._courant.type, d._courant.id); d.scrollTop = top;
   }
 
@@ -543,7 +581,9 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
     const m = document.getElementById("vue-principale");
     const bandeau = STATIQUE ? (DB && PEUT_ECRIRE ? "" : `<div class="bandeau">Aperçu en lecture seule. Ouvre cette page depuis ton compte Claude pour valider et donner des consignes.</div>`)
       : (E.mode_envoi === "reel" ? "" : `<div class="bandeau alerte">Service en mode test : alertes préparées, rien n'est envoyé.${E.service.telegram ? "" : " Bot Telegram non configuré."}</div>`);
+    const gardes = {}; m.querySelectorAll("textarea[id], select[id]").forEach(t => { if (t.value) gardes[t.id] = t.value; });
     m.innerHTML = bandeau + VUES[r]();
+    Object.entries(gardes).forEach(([k, v]) => { const t = document.getElementById(k); if (t) { t.value = v; if (t.matches("[data-consigne]")) majProposition(k); } });
     const n = aValider().length, b = document.getElementById("badge-valider");
     b.hidden = !n; b.textContent = n;
     document.getElementById("genere").textContent = (STATIQUE ? "Données du " : "État au ") + date(E.genere_le);
@@ -555,7 +595,9 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
 
   // ---------- Base de l'artifact (décisions et consignes) ----------
   async function brancherBase() {
-    if (!STATIQUE || !window.claude || !window.claude.use) return;
+    if (!window.claude || !window.claude.use) return;
+    window.claude.use("dictation").then(d => { if (d) brancherDictee(d); }).catch(() => {});
+    if (!STATIQUE) return;
     try {
       const [db, user] = await Promise.all([window.claude.use("db"), window.claude.use("user")]);
       if (!db) return;
@@ -570,7 +612,7 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
       }, () => clearTimeout(minuteur));
       DB.collection("consignes").orderBy("quand", "desc").limit(20).onSnapshot(snap => {
         CONSIGNES.length = 0; snap.docs.forEach(d => CONSIGNES.push(d.data()));
-        const a = document.activeElement; if (!(a && a.tagName === "TEXTAREA")) rendre();
+        rendre();
       }, () => {});
       rendre();
     } catch (e) { DB = null; }
@@ -587,10 +629,16 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
     } catch (e) { toast("Échec de l'enregistrement. Réessaie dans un instant."); }
     finally { ENVOI.delete(id); }
   }
-  async function consigneBase(texte) {
-    try { await DB.collection("consignes").add({ texte, quand: new Date().toISOString(), statut: "recue" }); toast("Consigne envoyée à l'équipe."); document.getElementById("consigne").value = ""; }
+  async function consigneBase(id) {
+    const tx = document.getElementById(id), sel = document.getElementById(id + "-pour");
+    const texte = tx.value.trim(); if (!texte) return toast("Dis ou écris la consigne d'abord.");
+    const pour = sel && sel.value ? sel.value : null, propose = pour ? null : suggere(texte);
+    const doc = { texte, quand: new Date().toISOString(), statut: "recue", pour, propose, canal: tx.dataset.dicte ? "voix" : "texte" };
+    if (!STATIQUE) return poster("/api/consigne", { texte, agent: pour || propose || null }).then(() => { tx.value = ""; });
+    try { await DB.collection("consignes").add(doc); tx.value = ""; delete tx.dataset.dicte; toast(pour ? `Consigne envoyée à ${prenom(pour)}.` : propose ? `Consigne envoyée. Victor la donne à ${prenom(propose)}.` : "Consigne envoyée à Victor."); }
     catch (e) { toast("Échec de l'envoi de la consigne. Réessaie dans un instant."); }
   }
+
 
   // ---------- Mode serveur ----------
   async function charger() {
@@ -610,7 +658,7 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
   fiche.addEventListener("close", () => { fiche.querySelectorAll("video").forEach(v => v.pause()); fiche._courant = null; PILE.length = 0; });
   fiche.addEventListener("click", ev => { if (ev.target === fiche) fiche.close(); });
   document.addEventListener("click", ev => {
-    const el = ev.target.closest("[data-fiche],[data-fermer],[data-retour],[data-filtre],[data-filtre-lien],[data-valider],[data-ouvrir-modif],[data-envoyer],[data-reprendre],#envoyer-consigne");
+    const el = ev.target.closest("[data-fiche],[data-fermer],[data-retour],[data-filtre],[data-filtre-lien],[data-valider],[data-ouvrir-modif],[data-envoyer],[data-reprendre],[data-envoyer-consigne],[data-micro]");
     if (!el) return;
     if (el.dataset.fiche) { ev.preventDefault(); return ouvrirFiche(el.dataset.fiche, el.dataset.id); }
     if (el.hasAttribute("data-fermer")) return fiche.close();
@@ -618,18 +666,40 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
     if (el.dataset.filtreLien) { filtres.taches = el.dataset.filtreLien; return; }
     if (el.dataset.filtre) { filtres.taches = el.dataset.filtre; return rendre(); }
     if (el.hasAttribute("data-ouvrir-modif")) { const f = document.getElementById("form-modif"); if (f) { f.hidden = !f.hidden; if (!f.hidden) f.querySelector("textarea").focus(); } return; }
+    if (el.dataset.micro) return basculerDictee(el.dataset.micro);
+    if (el.dataset.envoyerConsigne) { if (STATIQUE && (!DB || !PEUT_ECRIRE)) return; return consigneBase(el.dataset.envoyerConsigne); }
     if (STATIQUE) {
       if (!DB || !PEUT_ECRIRE) return;
       if (el.dataset.valider) return deciderBase(el.dataset.valider, "valide");
       if (el.dataset.envoyer) { const tx = document.getElementById("modif-texte").value.trim(); if (!tx) return toast("Écris ce qu'il faut changer."); return deciderBase(el.dataset.envoyer, "modification", tx); }
-      if (el.id === "envoyer-consigne") { const tx = document.getElementById("consigne").value.trim(); if (!tx) return toast("Écris la consigne."); return consigneBase(tx); }
       return;
     }
     if (el.dataset.valider) return poster(`/api/contenus/${encodeURIComponent(el.dataset.valider)}/valider`);
     if (el.dataset.envoyer) return poster(`/api/contenus/${encodeURIComponent(el.dataset.envoyer)}/modifier`, { texte: document.getElementById("modif-texte").value });
     if (el.dataset.reprendre) return poster(`/api/taches/${encodeURIComponent(el.dataset.reprendre)}/reprendre`);
-    if (el.id === "envoyer-consigne") return poster("/api/consigne", { texte: document.getElementById("consigne").value });
   });
+  function basculerDictee(champ) {
+    if (!DICT) return;
+    if (DICT.active()) { DICT.stop().catch(() => {}); return; }
+    CIBLE_DICTEE = champ;
+    DICT.start().catch(e => {
+      if (e.code === "not_granted") toast("Micro refusé pour cette page. Tu peux toujours écrire, ou l'autoriser dans le menu Autorisations.");
+      else if (e.code === "unavailable") { toast("La dictée n'est pas disponible ici. Écris la consigne."); DICT = null; rendre(); }
+      else if (e.code !== "stopped" && e.code !== "dismissed") toast("La dictée n'a pas démarré. Réessaie.");
+    });
+  }
+  function brancherDictee(d) {
+    DICT = d;
+    d.onFinal(({ text }) => { const tx = CIBLE_DICTEE && document.getElementById(CIBLE_DICTEE); if (!tx) return; tx.value = tx.value ? tx.value + text : text.replace(/^\s+/, ""); tx.dataset.dicte = "1"; majProposition(CIBLE_DICTEE); });
+    d.onPartial(({ text }) => { const p = CIBLE_DICTEE && document.getElementById(CIBLE_DICTEE + "-provisoire"); if (p) { p.hidden = !text; p.textContent = text; } });
+    d.onState(({ state }) => {
+      document.querySelectorAll("[data-micro]").forEach(b => { const on = state !== "idle" && b.dataset.micro === CIBLE_DICTEE; b.setAttribute("aria-pressed", on); b.querySelector("span").textContent = on ? (state === "finishing" ? "Je termine…" : "J'écoute… touche pour arrêter") : "Dicter"; });
+      if (state === "idle") { const p = CIBLE_DICTEE && document.getElementById(CIBLE_DICTEE + "-provisoire"); if (p) p.hidden = true; }
+    });
+    rendre();
+  }
+  document.addEventListener("input", ev => { if (ev.target.matches("[data-consigne]")) majProposition(ev.target.id); });
+  document.addEventListener("change", ev => { if (ev.target.id && ev.target.id.endsWith("-pour")) majProposition(ev.target.id.slice(0, -5)); });
   window.addEventListener("hashchange", () => { if (fiche.open) fiche.close(); rendre(); window.scrollTo(0, 0); });
   charger();
   brancherBase();
