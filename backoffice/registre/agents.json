@@ -129,10 +129,10 @@
       "etat": "bloque",
       "instructions": ".claude/agents/voix.md",
       "execution": "VoiceStudio (Mac uniquement)",
-      "note": "VoiceStudio ne tourne que sur le Mac ; rendu et droits commerciaux des moteurs non vérifiés. Ne bloque pas le premier montage (version musique + textes).",
+      "note": "Choix d'Avishay le 10/11 : VoiceStudio sur son Mac (gratuit), pas de service en ligne. Utiliser un moteur à licence commerciale (VoxCPM2, Apache-2.0) et non le moteur par défaut OmniVoice (usage non commercial). Ne tourne que Mac allumé.",
       "manque": [
         "Ton enregistrement en français (script prêt, dans les tâches)",
-        "Pour l'anglais et l'espagnol avec ta voix, un choix : export VoiceStudio depuis ton Mac (gratuit, fait par toi) ou ElevenLabs Starter à 6 $/mois (1 $ le premier mois), clonage instantané et licence commerciale, que l'agent utilise seul"
+        "Ton Mac allumé avec VoiceStudio ouvert, et l'accès au Mac depuis Claude (utilisation de l'ordinateur ou Remote Control) pour que Gabriel lance le doublage EN et ES"
       ]
     },
     {

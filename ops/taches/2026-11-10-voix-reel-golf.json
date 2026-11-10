@@ -3,14 +3,14 @@
   "activite": "immo",
   "source": "demande d'Avishay du 10/11 : rendre Gabriel, Inès et Arthur opérationnels",
   "cree_le": "2026-11-10T11:30:00Z",
-  "maj_le": "2026-11-10T11:50:00Z",
+  "maj_le": "2026-11-10T11:40:00Z",
   "cout_eur": 0,
   "agent": "voix",
   "titre": "Voix off du Reel villa golf (FR par toi, puis EN et ES avec ta voix)",
   "statut": "bloquee",
-  "resultat": "Script français prêt à enregistrer.",
+  "resultat": "Script français prêt à enregistrer. Outil choisi le 10/11 : VoiceStudio sur le Mac d'Avishay (moteur VoxCPM2, licence commerciale).",
   "fichiers": [
     "ops/rapports/2026-11-10-script-voix-fr.md"
   ],
-  "raison_echec": "Attend ton enregistrement en français et ton choix pour l'anglais et l'espagnol (export VoiceStudio ou service en ligne)."
+  "raison_echec": "Attend ton enregistrement en français, puis une session sur ton Mac (VoiceStudio ouvert) pour le doublage EN et ES."
 }
