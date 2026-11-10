@@ -158,7 +158,7 @@
         "Une application Meta et son accès API (je te guide pas à pas)",
         "Ta décision de lever le mode validation pour publier"
       ],
-      "musique": "Les vidéos arrivent sans musique. Inès choisit un son tendance de la bibliothèque Instagram compatible avec une visite premium (pas d'humour ni de paroles fortes) et indique à quel moment le lancer pour que les coupes tombent sur le rythme. L'API d'Instagram ne permet pas d'ajouter un son de sa bibliothèque : tant que c'est le cas, le son est ajouté dans l'application au moment de publier, avec sa fiche de choix."
+      "musique": "Les vidéos arrivent sans musique. Inès choisit un son tendance adapté à une visite premium (pas d'humour ni de paroles fortes) et vérifie que les coupes du montage tombent sur son rythme. Depuis 2026, l'API Instagram (Audio API) permet de chercher les sons tendance et de les attacher au Reel à la publication, mais seulement les sons originaux d'autres Reels et la musique libre de droits de Meta (Sound Collection) ; le morceau démarre au début, sans découpe, et sans aperçu avant publication. Pour une chanson connue du catalogue sous licence, ou pour démarrer à un passage précis, le son s'ajoute dans l'application au moment de publier, avec la fiche de choix préparée par Inès. Source : documentation Meta « Instagram Audio API » (mise à jour du 16/06/2026)."
     },
     {
       "id": "diffusion",
