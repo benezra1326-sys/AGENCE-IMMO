@@ -132,7 +132,7 @@ def masquer_biens(etat, racine_depot):
     """Le tableau de bord n'affiche que la référence interne AB-NNNN :
     jamais le nom de la propriété ni la référence du partenaire (demande d'Avishay, 9 novembre 2026)."""
     dossier = Path(racine_depot) / "data" / "biens"
-    sources = [b for b in etat.get("biens", [])]
+    sources = [b for b in etat.get("biens", [])] + charger_biens(racine_depot)  # relu sur disque : masquage répétable
     sources += _lire(dossier / "registre.json", {}).get("biens", []) if dossier.exists() else []
     motifs = []
     for b in sources:

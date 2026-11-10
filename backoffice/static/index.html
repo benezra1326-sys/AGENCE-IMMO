@@ -82,6 +82,21 @@ tr:last-child td { border-bottom: 0 }
 td.num { font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap }
 details { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px }
 details summary { cursor: pointer; font-weight: 500 }
+.apercu-mini { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px }
+.apercu-mini img, .apercu-mini video { height: 120px; width: auto; border-radius: 6px; border: 1px solid var(--line); background: var(--idle-bg); flex: none }
+.voir { all: unset; cursor: pointer; display: block }
+.voir:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px }
+dialog.detail { width: min(720px, 100vw); max-width: 100vw; max-height: 100dvh; margin: auto; padding: 0; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--fg) }
+dialog.detail::backdrop { background: rgb(0 0 0 / .55) }
+.detail-tete { position: sticky; top: 0; background: var(--surface); border-bottom: 1px solid var(--line); padding: 12px 16px; display: flex; gap: 10px; align-items: flex-start; justify-content: space-between; z-index: 1 }
+.detail-tete h3 { margin: 0; font: 600 1.02rem/1.3 var(--f-body) }
+.detail-corps { padding: 14px 16px 18px; display: flex; flex-direction: column; gap: 12px }
+.medias { display: flex; flex-direction: column; gap: 10px; align-items: center }
+.medias img, .medias video { max-width: 100%; max-height: 78dvh; border-radius: 8px; border: 1px solid var(--line); background: #000 }
+.medias figure { margin: 0; display: flex; flex-direction: column; gap: 4px; align-items: center; max-width: 100% }
+.medias figcaption { font-size: .78rem; color: var(--muted) }
+.texte-brut { white-space: pre-wrap; font-size: .86rem; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin: 0; overflow-wrap: anywhere }
+.equipe td:first-child { font-weight: 600 }
 .histo { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: .84rem }
 .histo li { border-left: 2px solid var(--line); padding-left: 10px }
 .sous-nav { display: flex; gap: 6px; flex-wrap: wrap }
@@ -106,6 +121,9 @@ details summary { cursor: pointer; font-weight: 500 }
 (function () {
   const STATIQUE = !!window.__ETAT__;
   let E = window.__ETAT__ || null;
+  let DB = null, PEUT_ECRIRE = false;           // page publiée : décisions enregistrées dans la base de l'artifact
+  const DECISIONS = {}, CONSIGNES = [];
+  const actif = () => !STATIQUE || (DB && PEUT_ECRIRE);
   const filtres = { taches: "toutes" };
   const LIB = {
     prevu: "prévu", configure: "configuré", teste: "testé", actif: "actif", bloque: "bloqué",
@@ -145,32 +163,68 @@ details summary { cursor: pointer; font-weight: 500 }
     </article>`;
   }
 
+  function activiteAgent(a) {
+    const t = E.taches.filter(x => x.agent === a.id);
+    const ouvertes = t.filter(x => x.statut === "en_cours" || x.statut === "en_attente");
+    const derniere = t.filter(x => x.statut === "terminee").sort((x, y) => String(y.maj_le).localeCompare(String(x.maj_le)))[0];
+    const bloquees = t.filter(x => x.statut === "bloquee" || x.statut === "echec");
+    return { ouvertes, derniere, bloquees };
+  }
+
   function carteAgent(a) {
-    const n = a.taches || {};
-    return `<article class="carte">
+    const n = a.taches || {}, act = activiteAgent(a);
+    const maintenant = act.ouvertes.length ? act.ouvertes.map(x => `${esc(x.titre)} (${esc(LIB[x.statut])})`).join(" ; ") : "rien en cours";
+    return `<article class="carte" id="agent-${esc(a.id)}">
       <div class="ligne"><h3>${a.prenom ? `${esc(a.prenom)} <span class="meta">${esc(a.nom)}</span>` : esc(a.nom)}</h3>${pill(a.etat)}</div>
       ${a.prenom && !a.prenom_valide ? `<p class="note meta">Prénom proposé, à valider par toi.</p>` : ""}
       <div class="meta"><span>Exécution <b>${esc(a.execution || "—")}</b></span></div>
-      ${a.roles ? `<p class="note">${esc(a.roles.join(" · "))}</p>` : ""}
-      ${a.note ? `<p class="note meta">${esc(a.note)}</p>` : ""}
+      <p class="note"><span class="meta">En ce moment :</span> ${maintenant}</p>
+      ${act.derniere ? `<p class="note"><span class="meta">Dernière production :</span> ${esc(act.derniere.titre)} (${date(act.derniere.maj_le)})</p>` : `<p class="note meta">Aucune production pour l'instant.</p>`}
+      ${a.roles ? `<p class="note"><span class="meta">Peut faire :</span> ${esc(a.roles.join(" · "))}</p>` : ""}
+      ${a.etat === "bloque" ? `<p class="echec">Ne peut pas encore travailler : ${esc(a.note || "connexion manquante")}</p>` : ""}
+      ${a.note && a.etat !== "bloque" ? `<p class="note meta">${esc(a.note)}</p>` : ""}
       ${a.preuve ? `<p class="note meta">Preuve : ${esc(a.preuve)} (état déclaré : ${esc(LIB[a.etat_declare])})</p>` : ""}
       <div class="meta"><span>${n.en_attente || 0} en attente</span><span>${n.en_cours || 0} en cours</span><span>${n.terminee || 0} terminées</span><span>${(n.echec || 0) + (n.bloquee || 0)} en échec ou bloquées</span></div>
     </article>`;
   }
 
-  function carteContenu(c) {
+  function vignettes(c) {
+    const m = (c.apercu && c.apercu.medias) || [];
+    if (!m.length) return "";
+    return `<button class="voir" data-detail="${esc(c.id)}" aria-label="Voir le contenu en grand"><div class="apercu-mini">${m.slice(0, 6).map(x => x.type === "video"
+      ? `<video src="${esc(x.url)}" muted playsinline preload="metadata"${x.poster ? ` poster="${esc(x.poster)}"` : ""}></video>`
+      : `<img src="${esc(x.url)}" alt="${esc(x.libelle || "")}" loading="lazy">`).join("")}</div></button>`;
+  }
+  function boutonsDecision(c, suffixe) {
     const editable = c.statut === "a_valider" || c.statut === "modification_demandee";
+    if (!editable) return "";
+    const off = actif() ? "" : "disabled";
+    const k = esc(c.id) + suffixe;
+    return `<div class="actions"><button class="btn principal" data-valider="${esc(c.id)}" ${off}>Valider</button>
+        <button class="btn" data-ouvrir="${k}" ${off}>Demander une modification</button></div>
+        <div data-form="${k}" hidden><label class="meta" for="modif-${k}">Ce qu'il faut changer</label>
+        <textarea id="modif-${k}"></textarea><div class="actions"><button class="btn principal" data-envoyer="${esc(c.id)}" data-champ="modif-${k}">Envoyer la demande</button></div></div>`;
+  }
+  function detailContenu(c) {
+    const m = (c.apercu && c.apercu.medias) || [], tx = (c.apercu && c.apercu.textes) || [];
+    const medias = m.map(x => `<figure>${x.type === "video" ? `<video src="${esc(x.url)}" controls playsinline preload="metadata"${x.poster ? ` poster="${esc(x.poster)}"` : ""}></video>` : `<img src="${esc(x.url)}" alt="${esc(x.libelle || "")}">`}<figcaption>${esc(x.libelle || "")}</figcaption></figure>`).join("");
+    const textes = tx.map((t, i) => `<details ${i === 0 ? "open" : ""}><summary>${esc(t.titre)}</summary><pre class="texte-brut">${esc(t.texte)}</pre></details>`).join("");
+    return `<div class="detail-tete"><div><h3>${esc(c.titre)}</h3><div class="meta"><span>${esc(c.format || "")}</span><span>${esc((c.langue || "").toUpperCase())}</span>${c.bien ? `<span>Bien <b>${esc(c.bien)}</b></span>` : ""}${(() => { const t = E.taches.find(x => x.id === c.tache_id); return t ? `<span>Par <b>${esc(nomAgent(t.agent))}</b></span>` : ""; })()}</div></div>
+      <button class="btn" data-fermer aria-label="Fermer">Fermer</button></div>
+      <div class="detail-corps">${pill(c.statut)}${medias ? `<div class="medias">${medias}</div>` : `<p class="vide">Pas d'aperçu disponible pour ce contenu.</p>`}${textes}${boutonsDecision(c, "-d")}</div>`;
+  }
+
+  function carteContenu(c) {
     const retours = (c.retours || []).map(r => `<li>${date(r.cree_le)} · ${r.decision === "valide" ? "validé" : "modification : " + esc(r.texte)} (${esc(r.canal)})</li>`).join("");
     return `<article class="carte" id="contenu-${esc(c.id)}">
       <div class="ligne"><h3>${esc(c.titre)}</h3>${pill(c.statut)}</div>
+      ${vignettes(c)}
+      ${c.apercu ? `<div class="actions"><button class="btn" data-detail="${esc(c.id)}">Voir le contenu, la légende et le script</button></div>` : ""}
       <div class="meta"><span>Format <b>${esc(c.format || "—")}</b></span><span>Langue <b>${esc((c.langue || "—").toUpperCase())}</b></span>
         <span>Date prévue <b>${c.date_prevue ? jour(c.date_prevue) : "à fixer"}</b></span>${c.bien ? `<span>Bien <b>${esc(c.bien)}</b></span>` : ""}</div>
       ${(c.fichiers || []).length ? `<ul class="fichiers">${c.fichiers.map(f => `<li>${lienFichier(f)}</li>`).join("")}</ul>` : ""}
       ${retours ? `<ul class="histo">${retours}</ul>` : ""}
-      ${editable ? `<div class="actions"><button class="btn principal" data-valider="${esc(c.id)}" ${STATIQUE ? "disabled" : ""}>Valider</button>
-        <button class="btn" data-ouvrir="${esc(c.id)}" ${STATIQUE ? "disabled" : ""}>Demander une modification</button></div>
-        <div data-form="${esc(c.id)}" hidden><label class="meta" for="modif-${esc(c.id)}">Ce qu'il faut changer</label>
-        <textarea id="modif-${esc(c.id)}"></textarea><div class="actions"><button class="btn principal" data-envoyer="${esc(c.id)}">Envoyer la demande</button></div></div>` : ""}
+      ${boutonsDecision(c, "")}
     </article>`;
   }
 
@@ -206,6 +260,7 @@ details summary { cursor: pointer; font-weight: 500 }
       .concat(t.filter(x => x.statut === "bloquee" || x.statut === "echec").map(x => `<li>${esc(x.titre)} : ${esc(x.raison_echec || "bloquée")}</li>`));
     return section("resume", "Aujourd'hui", null, "", resume)
       + section("maitre", "Agent maître", null, "", `<article class="carte"><div class="ligne"><h3>${esc(m.nom)}</h3>${pill(m.etat)}</div><p class="note">${esc(m.mission)}</p><p class="note meta">${esc(m.note)}</p></article>`)
+      + section("equipe", "L'équipe Immobilier", E.agents.filter(a => a.activite === "immo").length, "Qui est là, ce que chacun fait en ce moment et ce qu'il peut faire.", `<div class="tableau equipe"><table><thead><tr><th>Agent</th><th>État</th><th>En ce moment</th><th>Dernière production</th></tr></thead><tbody>${E.agents.filter(a => a.activite === "immo").map(a => { const x = activiteAgent(a); return `<tr><td><a href="#immo" data-aller="agent-${esc(a.id)}">${esc(a.prenom || a.nom)}</a><br><span class="meta" style="font-weight:400">${esc(a.nom)}</span></td><td>${pill(a.etat)}</td><td>${x.ouvertes.length ? x.ouvertes.map(t => esc(t.titre)).join(" ; ") : (a.etat === "bloque" ? "bloqué" : "disponible")}</td><td>${x.derniere ? esc(x.derniere.titre) : "—"}</td></tr>`; }).join("")}</tbody></table></div>`)
       + section("activites", "Les trois activités", null, "", `<div class="grille">${acts}</div>`)
       + section("decisions", "À traiter par toi", decisions.length, "", decisions.length ? `<article class="carte"><ul class="histo">${decisions.join("")}</ul></article>` : `<p class="vide">Rien en attente.</p>`);
   }
@@ -236,7 +291,7 @@ details summary { cursor: pointer; font-weight: 500 }
     const alertes = E.alertes.length ? `<div class="tableau"><table><thead><tr><th>Préparée</th><th>Type</th><th>Canal</th><th>Statut</th><th>Contenu</th></tr></thead><tbody>${E.alertes.map(a => `<tr><td>${date(a.cree_le)}</td><td>${esc(a.type.replace(/_/g, " "))}</td><td>${esc(a.canal)}${a.destinataire ? "<br><span class=\"meta\">" + esc(a.destinataire) + "</span>" : ""}</td><td>${pill(a.statut)}</td><td style="white-space:pre-wrap;min-width:240px">${esc(a.corps)}</td></tr>`).join("")}</tbody></table></div>` : `<p class="vide">Aucune alerte préparée.</p>`;
     const couts = `<div class="resume"><div class="chiffre"><span>24 dernières heures</span><strong>${eur(E.couts.jour_eur)}</strong></div><div class="chiffre"><span>Mois en cours</span><strong>${eur(E.couts.mois_eur)}</strong></div></div>`
       + (E.erreurs.length ? `<div class="tableau"><table><thead><tr><th>Quand</th><th>Qui</th><th>Erreur</th><th>Détail</th></tr></thead><tbody>${E.erreurs.map(e => `<tr><td>${date(e.quand)}</td><td>${esc(e.acteur)}</td><td>${esc(e.action)}</td><td>${esc(e.details || e.objet || "")}</td></tr>`).join("")}</tbody></table></div>` : `<p class="vide">Aucune erreur enregistrée.</p>`);
-    const consigne = `<article class="carte"><label class="meta" for="consigne">Nouvelle consigne pour la coordination Immo</label><textarea id="consigne" ${STATIQUE ? "disabled" : ""}></textarea><div class="actions"><button class="btn principal" id="envoyer-consigne" ${STATIQUE ? "disabled" : ""}>Enregistrer la consigne</button></div></article>`;
+    const consigne = `<article class="carte"><label class="meta" for="consigne">Nouvelle consigne pour la coordination Immo</label><textarea id="consigne" ${actif() ? "" : "disabled"}></textarea><div class="actions"><button class="btn principal" id="envoyer-consigne" ${actif() ? "" : "disabled"}>Enregistrer la consigne</button></div>${CONSIGNES.length ? `<ul class="histo">${CONSIGNES.map(k => `<li>${date(k.quand)} · ${esc(k.texte)} <span class="meta">(${esc(k.statut === "traitee" ? "traitée" : "reçue, en attente de traitement")})</span></li>`).join("")}</ul>` : ""}</article>`;
     const nav = `<nav class="sous-nav" aria-label="Sections Immobilier">${[["valider", "À valider"], ["calendrier", "Calendrier"], ["taches", "Tâches"], ["agents", "Agents"], ["biens", "Biens"], ["prospects", "Acheteurs"], ["partenaires", "Partenaires B2B"], ["marche", "Marché"], ["alertes", "Alertes"], ["couts", "Coûts et erreurs"]].map(([i, l]) => `<a href="#immo" data-aller="${i}">${l}</a>`).join("")}</nav>`;
     return nav
       + section("valider", "Contenus à valider", contenus.filter(c => c.statut === "a_valider").length, "Valider ne publie rien : la publication automatique n'est pas activée.", grille(contenus.filter(c => ["a_valider", "modification_demandee", "valide", "en_preparation"].includes(c.statut)), carteContenu, "Aucun contenu."))
@@ -267,8 +322,18 @@ details summary { cursor: pointer; font-weight: 500 }
     return section("journal", "Historique des échanges et actions", E.journal.length, "", E.journal.length ? `<div class="tableau"><table><thead><tr><th>Quand</th><th>Qui</th><th>Action</th><th>Objet</th><th>Détail</th></tr></thead><tbody>${E.journal.map(j => `<tr><td>${date(j.quand)}</td><td>${esc(j.acteur)}</td><td>${j.niveau === "erreur" ? pill("echec") + " " : ""}${esc(j.action)}</td><td class="mono">${esc(j.objet || "")}</td><td>${esc(j.details || "")}</td></tr>`).join("")}</tbody></table></div>` : `<p class="vide">Aucune action enregistrée.</p>`);
   }
 
+  function appliquerDecisions() {
+    E.contenus.forEach(c => {
+      if (c._statut_origine === undefined) c._statut_origine = c.statut;
+      const d = DECISIONS[c.id];
+      c.statut = d && ["a_valider", "modification_demandee"].includes(c._statut_origine) ? d.statut : c._statut_origine;
+      const base = c._retours_origine || (c._retours_origine = c.retours || []);
+      c.retours = base.concat(d ? (d.historique || []).map(h => ({ decision: h.decision, texte: h.texte, canal: "tableau de bord", cree_le: h.quand })) : []);
+    });
+  }
   function rendre() {
     if (!E) return;
+    appliquerDecisions();
     const vue = (location.hash || "#vue").slice(1);
     document.querySelectorAll("#onglets a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === "#" + vue ? "page" : "false"));
     const m = document.getElementById("vue-principale");
@@ -276,12 +341,67 @@ details summary { cursor: pointer; font-weight: 500 }
     document.getElementById("genere").textContent = "État au " + date(E.genere_le);
     const b = document.getElementById("bandeau");
     b.textContent = STATIQUE
-      ? "Aperçu figé des données du " + date(E.genere_le) + ". Aucun service ne tourne derrière cette page : les boutons sont désactivés. Le prospect affiché est fictif."
+      ? (DB && PEUT_ECRIRE
+          ? "Données du " + date(E.genere_le) + ". Tes validations, demandes de modification et consignes sont enregistrées tout de suite et reprises par les agents. Aucune publication automatique. Le prospect affiché est fictif."
+          : "Aperçu des données du " + date(E.genere_le) + ". Les boutons s'activent quand la page est ouverte depuis ton compte. Le prospect affiché est fictif.")
       : (E.mode_envoi === "reel" ? "Service actif, envois réels." : "Service en mode test : alertes préparées, rien n'est envoyé.")
         + (E.service.telegram ? "" : " Bot Telegram non configuré.") + (E.service.email ? "" : " Email non configuré.");
   }
 
   function toast(t) { const el = document.getElementById("toast"); el.textContent = t; el.hidden = false; clearTimeout(toast.h); toast.h = setTimeout(() => el.hidden = true, 3500); }
+
+  async function brancherBase() {
+    if (!STATIQUE || !window.claude || !window.claude.use) return;
+    try {
+      const [db, user] = await Promise.all([window.claude.use("db"), window.claude.use("user")]);
+      if (!db) return;
+      DB = db;
+      PEUT_ECRIRE = user ? (user.can ? (await user.can("data.write")) !== false : true) && (user.canEdit ? await user.canEdit() : true) : false;
+      const minuteur = setTimeout(() => toast("La base ne répond pas encore : les décisions affichées peuvent dater."), 10000);
+      DB.collection("decisions").onSnapshot(snap => {
+        clearTimeout(minuteur);
+        Object.keys(DECISIONS).forEach(k => delete DECISIONS[k]);
+        snap.docs.forEach(d => { DECISIONS[d.id] = d.data(); });
+        if (!document.querySelector("dialog.detail[open]")) rendre(); else majDetail();
+      }, () => clearTimeout(minuteur));
+      DB.collection("consignes").orderBy("quand", "desc").limit(20).onSnapshot(snap => {
+        CONSIGNES.length = 0; snap.docs.forEach(d => CONSIGNES.push(d.data()));
+        const a = document.activeElement; if (!(a && a.tagName === "TEXTAREA")) rendre();
+      }, () => {});
+      rendre();
+    } catch (e) { DB = null; }
+  }
+  const ENVOI = new Set();
+  async function deciderBase(id, decision, texte) {
+    if (ENVOI.has(id)) return;
+    ENVOI.add(id);
+    const ref = DB.doc("decisions/" + id), ancien = DECISIONS[id];
+    const h = (ancien && ancien.historique ? ancien.historique.slice(-19) : []).concat([{ decision, texte: texte || "", quand: new Date().toISOString() }]);
+    try {
+      await ref.set({ contenu: id, statut: decision === "valide" ? "valide" : "modification_demandee", texte: texte || "", quand: new Date().toISOString(), historique: h, applique: false });
+      toast(decision === "valide" ? "Validé. Rien n'est publié automatiquement." : "Demande de modification enregistrée.");
+    } catch (e) { toast("Échec de l'enregistrement. Réessaie dans un instant."); }
+    finally { ENVOI.delete(id); }
+  }
+  async function consigneBase(texte) {
+    try { await DB.collection("consignes").add({ texte, quand: new Date().toISOString(), statut: "recue" }); toast("Consigne enregistrée."); document.getElementById("consigne").value = ""; }
+    catch (e) { toast("Échec de l'enregistrement de la consigne."); }
+  }
+  let detailOuvert = null;
+  function ouvrirDetail(id) {
+    const c = E.contenus.find(x => x.id === id); if (!c) return;
+    let d = document.querySelector("dialog.detail");
+    if (!d) { d = document.createElement("dialog"); d.className = "detail"; document.body.appendChild(d); d.addEventListener("close", () => { detailOuvert = null; d.querySelectorAll("video").forEach(v => v.pause()); rendre(); }); }
+    detailOuvert = id; d.innerHTML = detailContenu(c); d.showModal(); d.scrollTop = 0;
+  }
+  function majDetail() {
+    const d = document.querySelector("dialog.detail[open]"); if (!d || !detailOuvert) return;
+    appliquerDecisions();
+    const c = E.contenus.find(x => x.id === detailOuvert); if (!c) return;
+    const p = d.querySelector(".detail-corps > .pastille"); if (p) p.outerHTML = pill(c.statut);
+    const zone = d.querySelector(".detail-corps"); const anc = zone.querySelector(".actions:last-of-type");
+    if (c.statut !== "a_valider" && c.statut !== "modification_demandee" && anc) { anc.remove(); const f = zone.querySelector("[data-form]"); if (f) f.remove(); }
+  }
 
   async function charger() {
     if (STATIQUE) return rendre();
@@ -296,19 +416,28 @@ details summary { cursor: pointer; font-weight: 500 }
   }
 
   document.addEventListener("click", ev => {
-    const el = ev.target.closest("[data-filtre],[data-valider],[data-ouvrir],[data-envoyer],[data-reprendre],[data-aller],#envoyer-consigne");
+    const el = ev.target.closest("[data-filtre],[data-valider],[data-ouvrir],[data-envoyer],[data-reprendre],[data-aller],[data-detail],[data-fermer],#envoyer-consigne");
     if (!el) return;
+    if (el.dataset.detail) { ev.preventDefault(); return ouvrirDetail(el.dataset.detail); }
+    if (el.hasAttribute("data-fermer")) { const d = el.closest("dialog"); if (d) d.close(); return; }
     if (el.dataset.aller) { ev.preventDefault(); if (location.hash !== "#immo") { location.hash = "immo"; rendre(); } const c = document.getElementById(el.dataset.aller); if (c) c.scrollIntoView({ block: "start" }); return; }
     if (el.dataset.filtre) { filtres.taches = el.dataset.filtre; rendre(); document.getElementById("taches").scrollIntoView({ block: "start" }); return; }
-    if (STATIQUE) return;
+    if (el.dataset.ouvrir) { const f = document.querySelector(`[data-form="${CSS.escape(el.dataset.ouvrir)}"]`); if (f) { f.hidden = !f.hidden; if (!f.hidden) f.querySelector("textarea").focus(); } return; }
+    if (STATIQUE) {
+      if (!DB || !PEUT_ECRIRE) return;
+      if (el.dataset.valider) return deciderBase(el.dataset.valider, "valide");
+      if (el.dataset.envoyer) { const tx = document.getElementById(el.dataset.champ).value.trim(); if (!tx) return toast("Écris ce qu'il faut changer."); return deciderBase(el.dataset.envoyer, "modification", tx); }
+      if (el.id === "envoyer-consigne") { const tx = document.getElementById("consigne").value.trim(); if (!tx) return toast("Écris la consigne."); return consigneBase(tx); }
+      return;
+    }
     if (el.dataset.valider) return poster(`/api/contenus/${encodeURIComponent(el.dataset.valider)}/valider`);
-    if (el.dataset.ouvrir) { const f = document.querySelector(`[data-form="${CSS.escape(el.dataset.ouvrir)}"]`); f.hidden = !f.hidden; if (!f.hidden) f.querySelector("textarea").focus(); return; }
-    if (el.dataset.envoyer) { const tx = document.getElementById("modif-" + el.dataset.envoyer).value; return poster(`/api/contenus/${encodeURIComponent(el.dataset.envoyer)}/modifier`, { texte: tx }); }
+    if (el.dataset.envoyer) { const tx = document.getElementById(el.dataset.champ).value; return poster(`/api/contenus/${encodeURIComponent(el.dataset.envoyer)}/modifier`, { texte: tx }); }
     if (el.dataset.reprendre) return poster(`/api/taches/${encodeURIComponent(el.dataset.reprendre)}/reprendre`);
     if (el.id === "envoyer-consigne") return poster("/api/consigne", { texte: document.getElementById("consigne").value });
   });
   window.addEventListener("hashchange", rendre);
   charger();
+  brancherBase();
   // Rafraîchit toutes les 30 s, sauf pendant la saisie d'une consigne ou d'une demande de modification
   if (!STATIQUE) setInterval(() => { const a = document.activeElement; if (!(a && a.tagName === "TEXTAREA") && ![...document.querySelectorAll("textarea")].some(t => t.value)) charger(); }, 30000);
 })();

@@ -17,7 +17,7 @@ from pathlib import Path
 from app import alertes, leads, recap, taches
 from app.config import Config
 from app.db import connexion
-from app.registre import etat_complet, synchroniser_depot
+from app.registre import masquer_biens, etat_complet, synchroniser_depot
 from app.service import executeurs, programmer_recap
 from app.telegram_bot import Bot
 
@@ -37,6 +37,7 @@ def main():
     ap.add_argument("--depot", default=None)
     ap.add_argument("--rapport", default=None)
     ap.add_argument("--apercu", default=None)
+    ap.add_argument("--apercus", default=None, help="JSON {id_contenu: {medias: [{type, url, libelle, poster}]}} (médias déjà publiés)")
     a = ap.parse_args()
 
     c = Config()
@@ -129,6 +130,19 @@ def main():
             if isinstance(v, dict):
                 return v.get("libelle") if set(v) == {"chemin", "libelle"} else {k: sans_chemins(x) for k, x in v.items()}
             return [sans_chemins(x) for x in v] if isinstance(v, list) else v
+        medias = json.loads(Path(a.apercus).read_text(encoding="utf-8")) if a.apercus else {}
+        for ct in etat["contenus"]:
+            textes = []
+            dossier = next((Path(c.racine_depot) / Path(f).parent for f in ((x.get("chemin") if isinstance(x, dict) else x) for x in (ct.get("fichiers") or []))
+                            if isinstance(f, str) and f.startswith("contenus/")), None)
+            for md in sorted(dossier.glob("*.md")) if dossier and dossier.exists() else []:
+                titre = {"legende-et-note.md": "Légende et note interne", "textes-v2.md": "Textes, légende et script voix off",
+                         "brouillon-textes.md": "Textes et légende"}.get(md.name, md.stem.replace("-", " "))
+                textes.append({"titre": titre, "texte": md.read_text(encoding="utf-8")})
+            m = (medias.get(ct["id"]) or {}).get("medias", [])
+            if m or textes:
+                ct["apercu"] = {"medias": m, "textes": textes}
+        etat = masquer_biens(etat, c.racine_depot)
         etat = sans_chemins(etat)
         source = (Path(__file__).resolve().parent.parent / "static" / "index.html").read_text(encoding="utf-8")
         donnees = json.dumps(etat, ensure_ascii=False).replace("</", "<\\/")
