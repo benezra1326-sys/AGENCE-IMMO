@@ -182,6 +182,7 @@ dialog.detail::backdrop { background: rgb(0 0 0 / .55) }
       <p class="note"><span class="meta">En ce moment :</span> ${maintenant}</p>
       ${act.derniere ? `<p class="note"><span class="meta">Dernière production :</span> ${esc(act.derniere.titre)} (${date(act.derniere.maj_le)})</p>` : `<p class="note meta">Aucune production pour l'instant.</p>`}
       ${a.roles ? `<p class="note"><span class="meta">Peut faire :</span> ${esc(a.roles.join(" · "))}</p>` : ""}
+      ${a.musique ? `<p class="note"><span class="meta">Musique :</span> ${esc(a.musique)}</p>` : ""}
       ${a.etat === "bloque" ? `<p class="echec">Ne peut pas encore travailler : ${esc(a.note || "connexion manquante")}</p>` : ""}
       ${(a.manque || []).length && a.etat !== "actif" ? `<div class="note"><span class="meta">Pour être actif, il manque :</span><ul class="fichiers">${a.manque.map(m => `<li>${esc(m)}</li>`).join("")}</ul></div>` : ""}
       ${a.note && a.etat !== "bloque" ? `<p class="note meta">${esc(a.note)}</p>` : ""}

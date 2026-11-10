@@ -103,7 +103,9 @@
       "activite": "immo",
       "nom": "Montage vidéo",
       "roles": [
-        "Reels 9:16"
+        "Reels 9:16",
+        "vidéos livrées sans musique",
+        "coupes calées sur un tempo pour s'accorder au son choisi"
       ],
       "etat": "configure",
       "instructions": ".claude/agents/montage.md",
@@ -143,7 +145,9 @@
         "publication",
         "commentaires",
         "messages privés",
-        "qualification"
+        "qualification",
+        "choix de la musique tendance au moment de publier (premium, adaptée à une visite immobilière)",
+        "caler le morceau sur le rythme du montage (point de départ, tempo)"
       ],
       "etat": "bloque",
       "instructions": null,
@@ -153,7 +157,8 @@
         "Une page Facebook reliée à ton compte Instagram professionnel",
         "Une application Meta et son accès API (je te guide pas à pas)",
         "Ta décision de lever le mode validation pour publier"
-      ]
+      ],
+      "musique": "Les vidéos arrivent sans musique. Inès choisit un son tendance de la bibliothèque Instagram compatible avec une visite premium (pas d'humour ni de paroles fortes) et indique à quel moment le lancer pour que les coupes tombent sur le rythme. L'API d'Instagram ne permet pas d'ajouter un son de sa bibliothèque : tant que c'est le cas, le son est ajouté dans l'application au moment de publier, avec sa fiche de choix."
     },
     {
       "id": "diffusion",
