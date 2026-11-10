@@ -1,6 +1,7 @@
 # Reel villa golf V2 (bien AB-0001) – à valider par Avishay, rien n'est publié
 
 Fichiers (hors git) : `/mnt/project-files/agence-immo/contenus/2026-11-10-reel-villa-golf-v2/`
+- **V3 (10/11/2026, version actuelle)** : `villa-golf-V3-musique.mp4` et `villa-golf-V3-sans-musique.mp4`. Crépitement de la V2 corrigé (coupures nettes à chaque temps ; 0 clic détecté contre 93), nouvelle bande-son chill house 104 BPM (`bande-son-originale-v3-104bpm.wav`, -14 LUFS), textes centrés sur une même ligne.
 - `villa-golf-V2-musique.mp4` : 1080 × 1920, 28,5 s, bande-son originale.
 - `villa-golf-V2-sans-musique.mp4` : même montage, sans son (pour ta voix et/ou un son Instagram).
 - `villa-golf-couverture-A.jpg` (drone, villa et fairway) et `villa-golf-couverture-B.jpg` (façade au crépuscule).

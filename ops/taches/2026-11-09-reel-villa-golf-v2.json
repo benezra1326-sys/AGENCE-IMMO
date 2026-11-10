@@ -6,15 +6,17 @@
   "statut": "terminee",
   "source": "Retours d'Avishay du 09/11 sur la V1 ; vidéo 4K du dossier SV2342",
   "cree_le": "2026-11-09T11:30:00Z",
-  "maj_le": "2026-11-09T11:55:00Z",
-  "resultat": "V2 sans nom de propriété : accroche drone sur le golf, prix à 4,3 s (à confirmer), 4 messages, fondus, bande-son composée ici. Contrôle complet fait image par image (toutes les 0,5 s) + niveau sonore (-15 LUFS). Voix clonée non intégrée (VoiceStudio local uniquement).",
+  "maj_le": "2026-11-10T11:22:00Z",
+  "resultat": "V2 sans nom de propriété : accroche drone sur le golf, prix à 4,3 s (à confirmer), 4 messages, fondus, bande-son composée ici. Contrôle complet fait image par image (toutes les 0,5 s) + niveau sonore (-15 LUFS). Voix clonée non intégrée (VoiceStudio local uniquement). | V3 (10/11) : crépitement corrigé (bande-son recomposée, 0 clic détecté contre 93), textes centrés, nouvelle musique chill house 104 BPM.",
   "fichiers": [
     "/mnt/project-files/agence-immo/contenus/2026-11-10-reel-villa-golf-v2/villa-golf-V2-musique.mp4",
     "/mnt/project-files/agence-immo/contenus/2026-11-10-reel-villa-golf-v2/villa-golf-V2-sans-musique.mp4",
     "/mnt/project-files/agence-immo/contenus/2026-11-10-reel-villa-golf-v2/villa-golf-couverture-A.jpg",
     "/mnt/project-files/agence-immo/contenus/2026-11-10-reel-villa-golf-v2/villa-golf-couverture-B.jpg",
     "contenus/2026-11-10-reel-villa-golf-v2/textes-v2.md",
-    "contenus/2026-11-10-reel-villa-golf-v2/plan-montage.json"
+    "contenus/2026-11-10-reel-villa-golf-v2/plan-montage.json",
+    "/mnt/project-files/agence-immo/contenus/2026-11-10-reel-villa-golf-v2/villa-golf-V3-musique.mp4",
+    "/mnt/project-files/agence-immo/contenus/2026-11-10-reel-villa-golf-v2/villa-golf-V3-sans-musique.mp4"
   ],
   "cout_eur": 0,
   "raison_echec": null,
