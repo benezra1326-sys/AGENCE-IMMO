@@ -1,0 +1,16 @@
+{
+  "id": "2026-11-10-kits-publication-diffusion",
+  "activite": "immo",
+  "source": "demande d'Avishay du 10/11 : rendre Gabriel, Inès et Arthur opérationnels",
+  "cree_le": "2026-11-10T11:30:00Z",
+  "maj_le": "2026-11-10T11:50:00Z",
+  "cout_eur": 0,
+  "agent": "diffusion",
+  "titre": "Déclinaisons YouTube Shorts, TikTok et Facebook des 3 contenus",
+  "statut": "terminee",
+  "resultat": "Titres, descriptions et hashtags prêts pour YouTube Shorts, TikTok et Facebook. Comptes non connectés.",
+  "fichiers": [
+    "ops/rapports/2026-11-10-kits-publication.md"
+  ],
+  "raison_echec": null
+}

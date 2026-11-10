@@ -131,8 +131,8 @@
       "execution": "VoiceStudio (Mac uniquement)",
       "note": "VoiceStudio ne tourne que sur le Mac ; rendu et droits commerciaux des moteurs non vérifiés. Ne bloque pas le premier montage (version musique + textes).",
       "manque": [
-        "Ton enregistrement en français (tu peux l'envoyer tel quel)",
-        "Pour l'anglais et l'espagnol avec ta voix : soit tu exportes depuis VoiceStudio sur ton Mac, soit un service de clonage en ligne (payant, à décider par toi)"
+        "Ton enregistrement en français (script prêt, dans les tâches)",
+        "Pour l'anglais et l'espagnol avec ta voix, un choix : export VoiceStudio depuis ton Mac (gratuit, fait par toi) ou ElevenLabs Starter à 6 $/mois (1 $ le premier mois), clonage instantané et licence commerciale, que l'agent utilise seul"
       ]
     },
     {
@@ -154,9 +154,10 @@
       "execution": "API officielle Instagram (via page Facebook)",
       "note": "Compte pro non relié à une page Facebook : l'API de publication et de messagerie n'est pas accessible.",
       "manque": [
-        "Une page Facebook reliée à ton compte Instagram professionnel",
-        "Une application Meta et son accès API (je te guide pas à pas)",
-        "Ta décision de lever le mode validation pour publier"
+        "Une page Facebook reliée à ton compte Instagram professionnel (aussi utile pour les pubs et l'API audio)",
+        "Une application Meta en mode développement : pour ton propre compte, pas besoin de validation par Meta. Je la configure avec toi, tu colles le jeton dans les réglages du projet",
+        "Ta décision de lever le mode validation pour publier",
+        "Le serveur pour publier à l'heure prévue, Mac éteint"
       ],
       "musique": "Les vidéos arrivent sans musique. Inès choisit un son tendance adapté à une visite premium (pas d'humour ni de paroles fortes) et vérifie que les coupes du montage tombent sur son rythme. Depuis 2026, l'API Instagram (Audio API) permet de chercher les sons tendance et de les attacher au Reel à la publication, mais seulement les sons originaux d'autres Reels et la musique libre de droits de Meta (Sound Collection) ; le morceau démarre au début, sans découpe, et sans aperçu avant publication. Pour une chanson connue du catalogue sous licence, ou pour démarrer à un passage précis, le son s'ajoute dans l'application au moment de publier, avec la fiche de choix préparée par Inès. Source : documentation Meta « Instagram Audio API » (mise à jour du 16/06/2026)."
     },
@@ -172,10 +173,11 @@
       "etat": "bloque",
       "instructions": null,
       "execution": "API officielles",
-      "note": "Page Facebook à créer ; YouTube et TikTok non connectés ; publication vidIQ jamais testée.",
+      "note": "Page Facebook à créer ; YouTube et TikTok non connectés. TikTok restera publié à la main depuis l'application.",
       "manque": [
-        "La même page Facebook que pour Instagram",
-        "Les comptes YouTube et TikTok à relier",
+        "Facebook : la même page que pour Instagram",
+        "YouTube : une chaîne sur ton compte Google, puis une autorisation unique. Depuis novembre 2026, Google ne bloque plus en privé les vidéos envoyées par une application non auditée",
+        "TikTok : un compte professionnel. L'API de TikTok ne publie qu'en privé sans audit, et l'audit est refusé aux outils qui servent seulement ses propres comptes. Donc l'agent prépare la vidéo et le texte, et tu publies depuis l'application TikTok (avec un son tendance)",
         "Ta décision de lever le mode validation pour publier"
       ]
     },
