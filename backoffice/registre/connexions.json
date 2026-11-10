@@ -1,38 +1,184 @@
 {
   "_legende": "statut : operationnel (testé et utilisable par le service), partiel (fonctionne mais pas pour l'usage prévu), manquant (à créer ou relier), a_verifier. cote : où la connexion vit (serveur = utilisable Mac éteint ; claude = seulement dans une session Claude ; telephone ; mac).",
-  "verifie_le": "2026-11-09",
+  "verifie_le": "10 novembre 2026",
   "connexions": [
-    {"id": "github", "nom": "GitHub (dépôt agence-immo)", "statut": "operationnel", "cote": "serveur",
-     "note": "Lecture et écriture vérifiées depuis Claude le 9 novembre 2026."},
-    {"id": "telegram", "nom": "Bot Telegram", "statut": "manquant", "cote": "serveur",
-     "note": "Code du bot prêt et testé avec un faux Telegram.", "action": "Créer le bot avec @BotFather (2 minutes) et transmettre le jeton au serveur, pas dans le chat."},
-    {"id": "email", "nom": "Envoi d'emails d'alerte vers avi@levygoldman.com", "statut": "manquant", "cote": "serveur",
-     "note": "Code prêt (SMTP). Il faut un compte expéditeur.", "action": "Choisir l'expéditeur (voir décisions)."},
-    {"id": "hebergement", "nom": "Serveur (exécution Mac éteint)", "statut": "manquant", "cote": "serveur",
-     "note": "Rien n'est hébergé aujourd'hui.", "action": "Valider le budget avant création."},
-    {"id": "anthropic_api", "nom": "API Claude (modèles côté serveur)", "statut": "manquant", "cote": "serveur",
-     "note": "L'abonnement Claude ne couvre pas les appels API d'un serveur.", "action": "Créer une clé avec plafond de dépense, après accord."},
-    {"id": "stockage", "nom": "Stockage des médias lourds", "statut": "manquant", "cote": "serveur",
-     "note": "Les vidéos ne vont pas dans le dépôt.", "action": "Proposé : Cloudflare R2 (10 Go gratuits)."},
-    {"id": "gcal", "nom": "Google Agenda", "statut": "manquant", "cote": "serveur",
-     "note": "Choix retenu, non configuré. D'abord les rappels, la réservation attendra des créneaux définis."},
-    {"id": "instagram", "nom": "Instagram professionnel @avishay.marbella", "statut": "partiel", "cote": "telephone",
-     "note": "Compte pro existant, non relié à une page Facebook : pas d'accès API.", "action": "Créer la page Facebook et la relier."},
-    {"id": "facebook", "nom": "Page Facebook", "statut": "manquant", "cote": "telephone", "action": "À créer."},
-    {"id": "linkedin", "nom": "LinkedIn personnel", "statut": "partiel", "cote": "telephone",
-     "note": "Envoi manuel par Avishay ; aucune API d'envoi autorisée pour un profil personnel."},
-    {"id": "whatsapp", "nom": "WhatsApp Business (numéro espagnol)", "statut": "partiel", "cote": "telephone",
-     "note": "Application sur le téléphone uniquement ; pas d'API branchée."},
-    {"id": "dropbox", "nom": "Dropbox « 03. EXCLUSIVE LISTINGS »", "statut": "a_verifier", "cote": "claude",
-     "note": "Dossier protégé par mot de passe ; accès traité par le fil Contenus."},
-    {"id": "gmail", "nom": "Gmail (connecteur Claude)", "statut": "partiel", "cote": "claude",
-     "note": "Lecture vérifiée le 8 novembre, dans les sessions Claude seulement."},
-    {"id": "supabase", "nom": "Supabase", "statut": "partiel", "cote": "claude",
-     "note": "Connecté, aucun projet. Non utilisé par le back-office V1 (base SQLite sur le serveur)."},
-    {"id": "ai_producer", "nom": "AI Producer (OpusClip)", "statut": "partiel", "cote": "claude", "note": "Connecté ; aucune chaîne validée."},
-    {"id": "moda_gamma_figma", "nom": "Moda, Gamma, Figma", "statut": "partiel", "cote": "claude", "note": "Connectés ; quotas et gratuité à vérifier avant usage."},
-    {"id": "vidiq", "nom": "vidIQ", "statut": "partiel", "cote": "claude", "note": "Aucun compte Instagram ni chaîne YouTube reliés ; publication jamais testée."},
-    {"id": "voicestudio", "nom": "VoiceStudio", "statut": "partiel", "cote": "mac", "note": "Installé sur le Mac ; indisponible Mac éteint."},
-    {"id": "meta_ads", "nom": "Meta Ads", "statut": "manquant", "cote": "serveur", "note": "Pubs non activées."}
+    {
+      "id": "github",
+      "nom": "GitHub (dépôt agence-immo)",
+      "statut": "operationnel",
+      "cote": "serveur",
+      "note": "Lecture et écriture vérifiées depuis Claude le 9 novembre 2026."
+    },
+    {
+      "id": "telegram",
+      "nom": "Bot Telegram",
+      "statut": "manquant",
+      "cote": "serveur",
+      "note": "Code du bot prêt et testé avec un faux Telegram.",
+      "action": "Créer le bot avec @BotFather (2 minutes) et transmettre le jeton au serveur, pas dans le chat."
+    },
+    {
+      "id": "email",
+      "nom": "Envoi d'emails d'alerte vers avi@levygoldman.com",
+      "statut": "manquant",
+      "cote": "serveur",
+      "note": "Code prêt (SMTP). Il faut un compte expéditeur.",
+      "action": "Choisir l'expéditeur (voir décisions)."
+    },
+    {
+      "id": "hebergement",
+      "nom": "Serveur (exécution Mac éteint)",
+      "statut": "manquant",
+      "cote": "serveur",
+      "note": "Rien n'est hébergé aujourd'hui.",
+      "action": "Valider le budget avant création."
+    },
+    {
+      "id": "anthropic_api",
+      "nom": "API Claude (modèles côté serveur)",
+      "statut": "manquant",
+      "cote": "serveur",
+      "note": "L'abonnement Claude ne couvre pas les appels API d'un serveur.",
+      "action": "Créer une clé avec plafond de dépense, après accord."
+    },
+    {
+      "id": "stockage",
+      "nom": "Stockage des médias lourds",
+      "statut": "manquant",
+      "cote": "serveur",
+      "note": "Les vidéos ne vont pas dans le dépôt.",
+      "action": "Proposé : Cloudflare R2 (10 Go gratuits)."
+    },
+    {
+      "id": "gcal",
+      "nom": "Google Agenda",
+      "statut": "manquant",
+      "cote": "claude",
+      "note": "Pas encore connecté au compte Claude. Sert aux rappels de visite et aux créneaux proposés par Sofia.",
+      "action": "Connecter Google Agenda (carte envoyée le 10/11)."
+    },
+    {
+      "id": "instagram",
+      "nom": "Instagram professionnel @avishay.marbella",
+      "statut": "partiel",
+      "cote": "telephone",
+      "note": "Compte pro existant, non relié à une page Facebook : pas d'accès API.",
+      "action": "Créer la page Facebook et la relier."
+    },
+    {
+      "id": "facebook",
+      "nom": "Page Facebook",
+      "statut": "manquant",
+      "cote": "telephone",
+      "action": "À créer."
+    },
+    {
+      "id": "linkedin",
+      "nom": "LinkedIn personnel",
+      "statut": "partiel",
+      "cote": "telephone",
+      "note": "Envoi manuel par Avishay ; aucune API d'envoi autorisée pour un profil personnel."
+    },
+    {
+      "id": "whatsapp",
+      "nom": "WhatsApp Business (numéro espagnol)",
+      "statut": "partiel",
+      "cote": "telephone",
+      "note": "Application sur le téléphone uniquement ; pas d'API branchée."
+    },
+    {
+      "id": "dropbox",
+      "nom": "Dropbox « 03. EXCLUSIVE LISTINGS »",
+      "statut": "a_verifier",
+      "cote": "claude",
+      "note": "Dossier protégé par mot de passe ; accès traité par le fil Contenus."
+    },
+    {
+      "id": "gmail",
+      "nom": "Gmail (connecteur Claude)",
+      "statut": "partiel",
+      "cote": "claude",
+      "note": "Lecture vérifiée le 8 novembre, dans les sessions Claude seulement."
+    },
+    {
+      "id": "supabase",
+      "nom": "Supabase",
+      "statut": "partiel",
+      "cote": "claude",
+      "note": "Connecté, aucun projet. Non utilisé par le back-office V1 (base SQLite sur le serveur)."
+    },
+    {
+      "id": "ai_producer",
+      "nom": "AI Producer (OpusClip)",
+      "statut": "partiel",
+      "cote": "claude",
+      "note": "Connecté ; aucune chaîne validée."
+    },
+    {
+      "id": "moda_gamma_figma",
+      "nom": "Moda, Gamma, Figma",
+      "statut": "partiel",
+      "cote": "claude",
+      "note": "Connectés ; quotas et gratuité à vérifier avant usage."
+    },
+    {
+      "id": "vidiq",
+      "nom": "vidIQ",
+      "statut": "partiel",
+      "cote": "claude",
+      "note": "Aucun compte Instagram ni chaîne YouTube reliés ; publication jamais testée."
+    },
+    {
+      "id": "voicestudio",
+      "nom": "VoiceStudio",
+      "statut": "partiel",
+      "cote": "mac",
+      "note": "Installé sur le Mac ; indisponible Mac éteint."
+    },
+    {
+      "id": "meta_ads",
+      "nom": "Meta Ads",
+      "statut": "manquant",
+      "cote": "serveur",
+      "note": "Pubs non activées."
+    },
+    {
+      "id": "gdrive",
+      "nom": "Google Drive",
+      "statut": "a_verifier",
+      "cote": "claude",
+      "note": "Connecté au compte, mais pas activé dans ce projet. Sert à recevoir les vidéos et à ranger les livrables.",
+      "action": "L'activer dans les réglages du projet."
+    },
+    {
+      "id": "canva",
+      "nom": "Canva",
+      "statut": "a_verifier",
+      "cote": "claude",
+      "note": "Connecté au compte, mais pas activé dans ce projet. Utile à Léon (design) pour les modèles de carrousel.",
+      "action": "L'activer dans les réglages du projet."
+    },
+    {
+      "id": "notion",
+      "nom": "Notion",
+      "statut": "a_verifier",
+      "cote": "claude",
+      "note": "Connecté au compte, pas activé dans ce projet. Non nécessaire pour l'instant."
+    },
+    {
+      "id": "youtube",
+      "nom": "Chaîne YouTube",
+      "statut": "manquant",
+      "cote": "serveur",
+      "note": "Shorts prêts dans les kits d'Arthur ; autorisation de publication à donner.",
+      "action": "Autoriser l'application YouTube (guide pas à pas)."
+    },
+    {
+      "id": "tiktok",
+      "nom": "TikTok",
+      "statut": "partiel",
+      "cote": "telephone",
+      "note": "L'API ne publie qu'en privé sans audit : publication manuelle avec le kit d'Arthur."
+    }
   ]
 }

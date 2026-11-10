@@ -1,120 +1,216 @@
 <title>Back-office Avishay</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Mise en page : une colonne lisible sur téléphone, barre d'onglets collante, sections empilées ; l'état réel avant le détail. */
+/* Mise en page : poste de pilotage d'une seule personne. Menu fixe en bas sur téléphone, en haut sur ordinateur ;
+   l'accueil montre d'abord ce qui attend Avishay ; tout élément ouvre une fiche (feuille qui monte sur mobile). */
 :root {
-  --bg: #f4f6f4; --surface: #ffffff; --fg: #16201c; --muted: #5a6761; --line: #d9dfdb; --accent: #1e5a48; --accent-soft: #e3efe9;
-  --ok: #2c7a4b; --ok-bg: #e2f2e7; --info: #2f5f9e; --info-bg: #e4ecf7; --warn: #9a5b00; --warn-bg: #fbeed6;
-  --bad: #b42f2f; --bad-bg: #f8e1df; --idle: #66706b; --idle-bg: #eceeed; --test: #6a4aa0; --test-bg: #ece6f6;
-  --f-display: "IBM Plex Sans Condensed", "Arial Narrow", system-ui, sans-serif;
-  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --bg: #f2f2ef; --surface: #ffffff; --surface-2: #f7f4ee; --fg: #15181d; --muted: #63666b; --line: #dedcd6;
+  --ink: #15181d; --on-ink: #ffffff; --sand: #b89a66; --sand-text: #7a5f33; --sand-soft: #efe6d6;
+  --ok: #2c7a4b; --ok-bg: #e3f1e7; --info: #2f5f9e; --info-bg: #e5ecf6; --warn: #96580a; --warn-bg: #f9ecd7;
+  --bad: #b03030; --bad-bg: #f7e2e0; --idle: #6b6e72; --idle-bg: #ecebe8; --test: #6a4aa0; --test-bg: #ede7f6;
+  --f-display: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+  --f-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --nav-h: 62px;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --bg: #0f1513; --surface: #161e1b; --fg: #e6ece9; --muted: #98a59f; --line: #29342f; --accent: #74c4a8; --accent-soft: #1c2d27;
-  --ok: #7fd19c; --ok-bg: #173022; --info: #8fb6ec; --info-bg: #182740; --warn: #f0b860; --warn-bg: #352712;
-  --bad: #f08c84; --bad-bg: #3a1a18; --idle: #a3ada8; --idle-bg: #232b28; --test: #b9a2e6; --test-bg: #2a2140; color-scheme: dark } }
+  --bg: #111316; --surface: #191c20; --surface-2: #1f2226; --fg: #ece9e3; --muted: #9b9ea3; --line: #2c3035;
+  --ink: #ece9e3; --on-ink: #15181d; --sand: #d0b27d; --sand-text: #d8bd8c; --sand-soft: #2b2519;
+  --ok: #7fd19c; --ok-bg: #173022; --info: #8fb6ec; --info-bg: #182740; --warn: #efb45c; --warn-bg: #352612;
+  --bad: #f08c84; --bad-bg: #3a1a18; --idle: #a5a8ac; --idle-bg: #25282c; --test: #b9a2e6; --test-bg: #2a2140; color-scheme: dark } }
 :root[data-theme="dark"] {
-  --bg: #0f1513; --surface: #161e1b; --fg: #e6ece9; --muted: #98a59f; --line: #29342f; --accent: #74c4a8; --accent-soft: #1c2d27;
-  --ok: #7fd19c; --ok-bg: #173022; --info: #8fb6ec; --info-bg: #182740; --warn: #f0b860; --warn-bg: #352712;
-  --bad: #f08c84; --bad-bg: #3a1a18; --idle: #a3ada8; --idle-bg: #232b28; --test: #b9a2e6; --test-bg: #2a2140; color-scheme: dark }
+  --bg: #111316; --surface: #191c20; --surface-2: #1f2226; --fg: #ece9e3; --muted: #9b9ea3; --line: #2c3035;
+  --ink: #ece9e3; --on-ink: #15181d; --sand: #d0b27d; --sand-text: #d8bd8c; --sand-soft: #2b2519;
+  --ok: #7fd19c; --ok-bg: #173022; --info: #8fb6ec; --info-bg: #182740; --warn: #efb45c; --warn-bg: #352612;
+  --bad: #f08c84; --bad-bg: #3a1a18; --idle: #a5a8ac; --idle-bg: #25282c; --test: #b9a2e6; --test-bg: #2a2140; color-scheme: dark }
 * { box-sizing: border-box }
-body { background: var(--bg); color: var(--fg); font: 15px/1.5 var(--f-body); margin: 0 }
+body { background: var(--bg); color: var(--fg); font: 15px/1.5 var(--f-body); margin: 0; -webkit-tap-highlight-color: transparent }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface) }
-.wrap { max-width: 960px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)) }
+.wrap { max-width: 1040px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)) }
+button { font: inherit; color: inherit }
+a { color: var(--sand-text) }
+:focus-visible { outline: 2px solid var(--sand); outline-offset: 2px }
+
+/* En-tête et menu */
 header.top { background: var(--surface); border-bottom: 1px solid var(--line); position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5 }
-header.top .wrap { display: flex; flex-direction: column; gap: 8px; padding-block: 12px 0 }
-.marque { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap }
-.marque h1 { font: 600 1.2rem/1.2 var(--f-display); margin: 0; letter-spacing: .01em }
-.marque small { color: var(--muted); font-size: .8rem }
-nav.onglets { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; margin: 0 -4px }
-nav.onglets a { flex: none; padding: 8px 10px 10px; color: var(--muted); text-decoration: none; font-weight: 500; font-size: .92rem; border-bottom: 2px solid transparent }
-nav.onglets a[aria-current="page"] { color: var(--fg); border-bottom-color: var(--accent) }
-nav.onglets a:focus-visible, button:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
-.bandeau { margin-block: 14px 0; padding: 10px 12px; border-radius: 8px; background: var(--warn-bg); color: var(--warn); font-size: .88rem; border: 1px solid color-mix(in srgb, var(--warn) 30%, transparent) }
-main { display: flex; flex-direction: column; gap: 28px; padding-block: 18px 48px }
-section { display: flex; flex-direction: column; gap: 10px; min-width: 0 }
-h2 { font: 600 1.05rem/1.25 var(--f-display); margin: 0; text-wrap: balance; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap }
-h2 .compte { font: 500 .78rem var(--f-mono); color: var(--muted) }
-.intro { color: var(--muted); margin: 0; max-width: 65ch; font-size: .9rem }
-.grille { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px }
-.carte { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; min-width: 0 }
-.carte h3 { font: 600 .98rem/1.3 var(--f-body); margin: 0; overflow-wrap: anywhere }
-.ligne { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap }
-.meta { color: var(--muted); font-size: .82rem; display: flex; flex-wrap: wrap; gap: 4px 12px }
+header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 10px }
+.marque { display: flex; flex-direction: column; min-width: 0 }
+.marque b { font: 600 1.35rem/1.1 var(--f-display); letter-spacing: .01em }
+.marque small { color: var(--muted); font-size: .74rem; letter-spacing: .04em }
+.etat-base { font-size: .74rem; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; white-space: nowrap }
+.etat-base::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--idle) }
+.etat-base.ok::before { background: var(--ok) }
+nav.menu { position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; background: var(--surface); border-top: 1px solid var(--line);
+  display: grid; grid-template-columns: repeat(5, 1fr); padding: 0 max(4px, env(safe-area-inset-right, 0px)) env(safe-area-inset-bottom, 0px) max(4px, env(safe-area-inset-left, 0px)) }
+nav.menu a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; height: var(--nav-h); text-decoration: none; color: var(--muted); font-size: .7rem; font-weight: 500; position: relative }
+nav.menu svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round }
+nav.menu a[aria-current="page"] { color: var(--fg) }
+nav.menu a[aria-current="page"]::before { content: ""; position: absolute; top: 0; left: 30%; right: 30%; height: 2px; background: var(--sand); border-radius: 0 0 2px 2px }
+.badge { position: absolute; top: 7px; left: calc(50% + 6px); min-width: 17px; height: 17px; padding: 0 5px; border-radius: 9px; background: var(--bad); color: #fff; font-size: .66rem; font-weight: 600; display: grid; place-items: center }
+@media (min-width: 880px) {
+  nav.menu { position: static; display: flex; gap: 2px; border: 0; padding: 0; background: none }
+  nav.menu a { flex-direction: row; height: 40px; padding: 0 12px; font-size: .88rem; border-radius: 8px; gap: 7px }
+  nav.menu a:hover { background: var(--surface-2) }
+  nav.menu a[aria-current="page"] { background: var(--sand-soft) }
+  nav.menu a[aria-current="page"]::before { display: none }
+  nav.menu svg { width: 18px; height: 18px }
+  .badge { position: static; margin-left: 2px }
+}
+
+main { display: flex; flex-direction: column; gap: 30px; padding-block: 18px calc(var(--nav-h) + 36px + env(safe-area-inset-bottom, 0px)) }
+@media (min-width: 880px) { main { padding-block: 24px 56px } }
+.bandeau { padding: 10px 12px; border-radius: 10px; background: var(--surface-2); color: var(--muted); font-size: .84rem; border: 1px solid var(--line) }
+.bandeau.alerte { background: var(--warn-bg); color: var(--warn); border-color: color-mix(in srgb, var(--warn) 25%, transparent) }
+section { display: flex; flex-direction: column; gap: 12px; min-width: 0 }
+.titre-section { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap }
+h1 { font: 600 2rem/1.1 var(--f-display); margin: 0; text-wrap: balance }
+h2 { font: 600 1.45rem/1.15 var(--f-display); margin: 0; text-wrap: balance }
+h3 { font: 600 .98rem/1.3 var(--f-body); margin: 0; overflow-wrap: anywhere }
+.compte { font: 500 .78rem var(--f-mono); color: var(--muted) }
+.intro { color: var(--muted); margin: 0; max-width: 65ch; font-size: .88rem }
+.lien-section { font-size: .84rem; font-weight: 500; color: var(--sand-text); text-decoration: none; background: none; border: 0; padding: 4px 0; cursor: pointer }
+.mono { font-family: var(--f-mono); font-size: .76rem }
+.meta { color: var(--muted); font-size: .8rem; display: flex; flex-wrap: wrap; gap: 3px 12px }
 .meta b { color: var(--fg); font-weight: 500 }
-.note { font-size: .86rem; margin: 0; overflow-wrap: anywhere }
-.mono { font-family: var(--f-mono); font-size: .78rem }
-.pastille { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px; border-radius: 999px; font-size: .76rem; font-weight: 600; white-space: nowrap; letter-spacing: .02em }
-.pastille::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor }
-.s-prevu, .s-en_attente, .s-a_configurer, .s-liste_preparee, .s-brouillon, .s-en_preparation { color: var(--idle); background: var(--idle-bg) }
-.s-configure, .s-en_cours, .s-partiel, .s-a_verifier, .s-en_lancement { color: var(--info); background: var(--info-bg) }
+.note { font-size: .88rem; margin: 0; overflow-wrap: anywhere }
+.vide { color: var(--muted); font-size: .88rem; padding: 16px; border: 1px dashed var(--line); border-radius: 12px; margin: 0 }
+
+/* Pastilles d'état */
+.pastille { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px; border-radius: 999px; font-size: .72rem; font-weight: 600; white-space: nowrap; letter-spacing: .02em; flex: none }
+.pastille::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor }
+.s-prevu, .s-en_attente, .s-a_configurer, .s-liste_preparee, .s-brouillon, .s-en_preparation, .s-remplace { color: var(--idle); background: var(--idle-bg) }
+.s-configure, .s-en_cours, .s-partiel, .s-en_lancement { color: var(--info); background: var(--info-bg) }
 .s-teste, .s-a_valider, .s-preparee { color: var(--test); background: var(--test-bg) }
 .s-actif, .s-terminee, .s-operationnel, .s-valide, .s-envoyee, .s-publie { color: var(--ok); background: var(--ok-bg) }
-.s-bloque, .s-bloquee, .s-modification_demandee, .s-manquant { color: var(--warn); background: var(--warn-bg) }
+.s-bloque, .s-bloquee, .s-modification_demandee, .s-manquant, .s-a_verifier { color: var(--warn); background: var(--warn-bg) }
 .s-echec, .s-appel_demande { color: var(--bad); background: var(--bad-bg) }
-.resume { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px }
-.chiffre { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px }
-.chiffre span { display: block; color: var(--muted); font-size: .76rem; text-transform: uppercase; letter-spacing: .06em }
-.chiffre strong { font: 600 1.4rem/1.2 var(--f-display); font-variant-numeric: tabular-nums }
-.activite { border-left: 3px solid var(--line) }
-.activite.immo { border-left-color: var(--accent) }
-.barre { display: flex; height: 8px; border-radius: 4px; overflow: hidden; background: var(--idle-bg) }
-.barre i { display: block; height: 100% }
-.filtres { display: flex; gap: 6px; flex-wrap: wrap }
-.filtres button, .btn { font: 500 .84rem var(--f-body); padding: 6px 12px; border-radius: 7px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer }
-.filtres button[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent) }
-.btn.principal { background: var(--accent); border-color: var(--accent); color: var(--surface) }
-.btn:disabled { opacity: .5; cursor: not-allowed }
-.actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px }
-textarea { width: 100%; min-height: 70px; font: inherit; padding: 8px; border-radius: 7px; border: 1px solid var(--line); background: var(--bg); color: var(--fg) }
-.fichiers { margin: 0; padding-left: 18px; font-size: .82rem; overflow-wrap: anywhere }
-.fichiers a { color: var(--accent) }
-.echec { color: var(--bad); font-size: .84rem; margin: 0 }
-.vide { color: var(--muted); font-size: .9rem; padding: 14px; border: 1px dashed var(--line); border-radius: 10px; margin: 0 }
-.tableau { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface) }
+
+/* Éléments cliquables */
+.cliquable { all: unset; box-sizing: border-box; cursor: pointer; display: flex; min-width: 0 }
+.cliquable:focus-visible { outline: 2px solid var(--sand); outline-offset: 2px }
+.chevron { flex: none; width: 18px; height: 18px; fill: none; stroke: var(--muted); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round }
+
+/* Tuiles de l'accueil */
+.tuiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px }
+@media (min-width: 680px) { .tuiles { grid-template-columns: repeat(4, minmax(0, 1fr)) } }
+.tuile { flex-direction: column; gap: 2px; padding: 12px 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px }
+.tuile:hover { border-color: var(--sand) }
+.tuile span { color: var(--muted); font-size: .72rem; text-transform: uppercase; letter-spacing: .07em }
+.tuile strong { font: 600 1.6rem/1.2 var(--f-body); font-variant-numeric: lining-nums tabular-nums; letter-spacing: -.01em }
+.tuile small { color: var(--muted); font-size: .76rem }
+
+/* Contenus à valider */
+.rang-contenus { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(200px, 240px); gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 4px; margin-inline: -4px; padding-inline: 4px }
+.grille-contenus { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap: 14px }
+.contenu { flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; scroll-snap-align: start }
+.contenu:hover { border-color: var(--sand) }
+.contenu .visuel { position: relative; aspect-ratio: 4 / 5; background: var(--idle-bg); overflow: hidden; max-width: 100% }
+.contenu .visuel img, .contenu .visuel video { width: 100%; height: 100%; object-fit: cover; display: block }
+.contenu .visuel .format { position: absolute; left: 8px; top: 8px; background: rgb(0 0 0 / .62); color: #fff; font-size: .68rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: 3px 8px; border-radius: 6px }
+.contenu .visuel .lecture { position: absolute; inset: auto 8px 8px auto; width: 34px; height: 34px; border-radius: 50%; background: rgb(0 0 0 / .62); display: grid; place-items: center }
+.contenu .visuel .lecture::before { content: ""; border-left: 11px solid #fff; border-top: 7px solid transparent; border-bottom: 7px solid transparent; margin-left: 3px }
+.contenu .corps { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 6px }
+.contenu .ouvrir { font-size: .8rem; font-weight: 600; color: var(--sand-text) }
+
+/* Équipe */
+.avatars { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 4px }
+.membre { flex-direction: column; align-items: center; gap: 4px; width: 64px; flex: none; text-align: center }
+.membre small { font-size: .72rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100% }
+.avatar { position: relative; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; font: 600 1.15rem/1 var(--f-display); background: var(--sand-soft); color: var(--sand-text); border: 1px solid color-mix(in srgb, var(--sand) 40%, transparent); flex: none }
+.avatar.grand { width: 58px; height: 58px; font-size: 1.45rem }
+.avatar i { position: absolute; right: -1px; bottom: -1px; width: 13px; height: 13px; border-radius: 50%; border: 2px solid var(--surface); background: var(--idle) }
+.avatar i.e-teste { background: var(--test) } .avatar i.e-actif { background: var(--ok) } .avatar i.e-configure { background: var(--info) } .avatar i.e-bloque { background: var(--warn) }
+.grille-agents { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 10px }
+.agent { gap: 12px; align-items: flex-start; padding: 12px 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px }
+.agent:hover { border-color: var(--sand) }
+.agent .txt { display: flex; flex-direction: column; gap: 3px; min-width: 0; flex: 1 }
+.legende-etats { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: .78rem; color: var(--muted) }
+
+/* Listes */
+.liste { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden }
+.rangee { align-items: center; gap: 12px; padding: 12px 14px; border-bottom: 1px solid var(--line); width: 100% }
+.liste > :last-child { border-bottom: 0 }
+.rangee:hover { background: var(--surface-2) }
+.rangee .txt { display: flex; flex-direction: column; gap: 3px; min-width: 0; flex: 1 }
+.rangee .txt .note { color: var(--muted); font-size: .82rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden }
+.puce { width: 8px; height: 8px; border-radius: 50%; flex: none; background: var(--idle) }
+.puce.warn { background: var(--warn) } .puce.bad { background: var(--bad) } .puce.test { background: var(--test) }
+.filtres { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px }
+.filtres button { flex: none; font-size: .8rem; font-weight: 500; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); cursor: pointer }
+.filtres button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--on-ink) }
+
+/* Boutons et formulaires */
+.btn { font-size: .86rem; font-weight: 500; padding: 9px 14px; border-radius: 9px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; text-decoration: none; color: var(--fg); display: inline-flex; align-items: center; gap: 6px }
+.btn.principal { background: var(--ink); border-color: var(--ink); color: var(--on-ink) }
+.btn:disabled { opacity: .45; cursor: not-allowed }
+.actions { display: flex; gap: 8px; flex-wrap: wrap }
+textarea { width: 100%; min-height: 84px; font: inherit; font-size: .92rem; padding: 10px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface-2); color: var(--fg); resize: vertical }
+.carte { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 10px; min-width: 0 }
+.histo { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: .82rem }
+.histo li { border-left: 2px solid var(--line); padding-left: 10px; overflow-wrap: anywhere }
+
+/* Tableaux */
+.tableau { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface) }
 table { border-collapse: collapse; width: 100%; font-size: .84rem }
-th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top }
-th { color: var(--muted); font-weight: 500; font-size: .76rem; text-transform: uppercase; letter-spacing: .05em; white-space: nowrap }
+th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top }
+th { color: var(--muted); font-weight: 500; font-size: .72rem; text-transform: uppercase; letter-spacing: .06em; white-space: nowrap }
 tr:last-child td { border-bottom: 0 }
-td.num { font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap }
-details { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px }
-details summary { cursor: pointer; font-weight: 500 }
-.apercu-mini { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px }
-.apercu-mini img, .apercu-mini video { height: 120px; width: auto; border-radius: 6px; border: 1px solid var(--line); background: var(--idle-bg); flex: none }
-.voir { all: unset; cursor: pointer; display: block }
-.voir:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px }
-dialog.detail { width: min(720px, 100vw); max-width: 100vw; max-height: 100dvh; margin: auto; padding: 0; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--fg) }
-dialog.detail::backdrop { background: rgb(0 0 0 / .55) }
-.detail-tete { position: sticky; top: 0; background: var(--surface); border-bottom: 1px solid var(--line); padding: 12px 16px; display: flex; gap: 10px; align-items: flex-start; justify-content: space-between; z-index: 1 }
-.detail-tete h3 { margin: 0; font: 600 1.02rem/1.3 var(--f-body) }
-.detail-corps { padding: 14px 16px 18px; display: flex; flex-direction: column; gap: 12px }
-.medias { display: flex; flex-direction: column; gap: 10px; align-items: center }
-.medias img, .medias video { max-width: 100%; max-height: 78dvh; border-radius: 8px; border: 1px solid var(--line); background: #000 }
+
+/* Fiche (feuille) */
+dialog.fiche { padding: 0; border: 0; background: var(--surface); color: var(--fg); width: 100%; max-width: 100%; max-height: 92dvh; margin: auto 0 0; border-radius: 18px 18px 0 0; overflow: auto; overscroll-behavior: contain }
+dialog.fiche::backdrop { background: rgb(0 0 0 / .5) }
+@media (min-width: 760px) { dialog.fiche { width: min(760px, calc(100% - 48px)); margin: auto; border-radius: 16px; max-height: 88dvh; border: 1px solid var(--line) } }
+@media (prefers-reduced-motion: no-preference) { dialog.fiche[open] { animation: monte .22s ease-out } @keyframes monte { from { transform: translateY(24px); opacity: .6 } } }
+.fiche-tete { position: sticky; top: 0; z-index: 1; background: var(--surface); border-bottom: 1px solid var(--line); padding: 12px max(16px, env(safe-area-inset-left, 0px)) 12px 16px; display: flex; align-items: center; gap: 10px }
+.fiche-tete .titre { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px }
+.fiche-tete .titre b { font: 600 1.25rem/1.15 var(--f-display); overflow-wrap: anywhere }
+.icone-btn { flex: none; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface-2); cursor: pointer; display: grid; place-items: center }
+.icone-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round }
+.fiche-corps { padding: 16px 16px calc(24px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 16px }
+.bloc { display: flex; flex-direction: column; gap: 6px }
+.bloc > .etiquette { font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 600 }
+.puces-texte { display: flex; flex-wrap: wrap; gap: 6px }
+.puces-texte span { font-size: .8rem; padding: 3px 10px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line) }
+.manque { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px }
+.manque li { font-size: .88rem; padding: 8px 10px 8px 12px; border-radius: 8px; background: var(--warn-bg); color: var(--fg); border-left: 3px solid var(--warn); overflow-wrap: anywhere }
+.medias { display: flex; flex-direction: column; gap: 12px; align-items: center }
 .medias figure { margin: 0; display: flex; flex-direction: column; gap: 4px; align-items: center; max-width: 100% }
-.medias figcaption { font-size: .78rem; color: var(--muted) }
-.texte-brut { white-space: pre-wrap; font-size: .86rem; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin: 0; overflow-wrap: anywhere }
-.equipe td:first-child { font-weight: 600 }
-.histo { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: .84rem }
-.histo li { border-left: 2px solid var(--line); padding-left: 10px }
-.sous-nav { display: flex; gap: 6px; flex-wrap: wrap }
-.sous-nav a { font-size: .8rem; color: var(--accent); text-decoration: none; padding: 3px 9px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface) }
-.toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); background: var(--fg); color: var(--bg); padding: 10px 16px; border-radius: 8px; font-size: .88rem; max-width: calc(100% - 32px) }
-@media (prefers-reduced-motion: no-preference) { .carte { transition: border-color .15s } .carte:hover { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)) } }
+.medias img, .medias video { max-width: 100%; max-height: 72dvh; border-radius: 10px; background: #000 }
+.medias figcaption { font-size: .76rem; color: var(--muted); text-align: center }
+.diapos { display: grid; grid-auto-flow: column; grid-auto-columns: 82%; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; width: 100% }
+.diapos figure { scroll-snap-align: center }
+details { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; background: var(--surface-2) }
+details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
+.texte-brut { white-space: pre-wrap; font: .84rem/1.55 var(--f-body); margin: 10px 0 0; overflow-wrap: anywhere }
+.fichiers { margin: 0; padding-left: 18px; font-size: .82rem; overflow-wrap: anywhere }
+.decision { position: sticky; bottom: 0; background: var(--surface); border-top: 1px solid var(--line); margin: 0 -16px calc(-24px - env(safe-area-inset-bottom, 0px)); padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 8px }
+.decision .actions .btn { flex: 1; justify-content: center }
+.toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(var(--nav-h) + 14px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--on-ink); padding: 10px 16px; border-radius: 10px; font-size: .88rem; max-width: calc(100% - 32px); z-index: 20 }
+.plus-grille { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 10px }
+.plus-item { gap: 12px; align-items: center; padding: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px }
+.plus-item:hover { border-color: var(--sand) }
+.plus-item .txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px }
+.plus-item .txt small { color: var(--muted); font-size: .8rem }
+.retour { align-self: flex-start }
 </style>
 
 <header class="top">
   <div class="wrap">
-    <div class="marque"><h1>Back-office Avishay</h1><small id="genere"></small></div>
-    <nav class="onglets" id="onglets" aria-label="Espaces">
-      <a href="#vue">Vue générale</a><a href="#immo">Immobilier</a><a href="#apps">Applications</a><a href="#reseaux">Réseaux</a><a href="#connexions">Connexions</a><a href="#journal">Historique</a>
+    <div class="marque"><b>Avishay · Back-office</b><small id="genere">Chargement…</small></div>
+    <nav class="menu" id="menu" aria-label="Menu principal">
+      <a href="#accueil" data-route="accueil"><svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/></svg>Accueil</a>
+      <a href="#valider" data-route="valider"><svg viewBox="0 0 24 24"><rect x="4" y="3.5" width="16" height="17" rx="2.5"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>À valider<span class="badge" id="badge-valider" hidden></span></a>
+      <a href="#equipe" data-route="equipe"><svg viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3.2"/><path d="M3.5 19.5c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/><circle cx="17" cy="9.5" r="2.4"/><path d="M15.8 14.6c2.3.1 4 1.7 4.6 4.4"/></svg>Équipe</a>
+      <a href="#taches" data-route="taches"><svg viewBox="0 0 24 24"><path d="M9 6.5h11M9 12h11M9 17.5h11"/><circle cx="4.8" cy="6.5" r="1.2"/><circle cx="4.8" cy="12" r="1.2"/><circle cx="4.8" cy="17.5" r="1.2"/></svg>Tâches</a>
+      <a href="#plus" data-route="plus"><svg viewBox="0 0 24 24"><circle cx="5.5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="18.5" cy="12" r="1.4"/></svg>Plus</a>
     </nav>
+    <span class="etat-base" id="etat-base">aperçu</span>
   </div>
 </header>
-<div class="wrap"><div class="bandeau" id="bandeau">Chargement…</div></div>
 <main class="wrap" id="vue-principale"></main>
+<dialog class="fiche" id="fiche" aria-labelledby="fiche-titre"></dialog>
 <div class="toast" id="toast" hidden></div>
 
 <script>
@@ -124,207 +220,309 @@ dialog.detail::backdrop { background: rgb(0 0 0 / .55) }
   let DB = null, PEUT_ECRIRE = false;           // page publiée : décisions enregistrées dans la base de l'artifact
   const DECISIONS = {}, CONSIGNES = [];
   const actif = () => !STATIQUE || (DB && PEUT_ECRIRE);
-  const filtres = { taches: "toutes" };
+  const filtres = { taches: "a_traiter" };
   const LIB = {
     prevu: "prévu", configure: "configuré", teste: "testé", actif: "actif", bloque: "bloqué",
     en_attente: "en attente", en_cours: "en cours", terminee: "terminée", echec: "échec", bloquee: "bloquée",
     a_valider: "à valider", modification_demandee: "modification demandée", valide: "validé", publie: "publié", remplace: "remplacé",
     brouillon: "brouillon", en_preparation: "en préparation", operationnel: "opérationnel", partiel: "partiel",
-    manquant: "manquant", a_verifier: "à vérifier", a_configurer: "à configurer", en_lancement: "en lancement",
+    manquant: "manquant", a_verifier: "à activer ou vérifier", a_configurer: "à configurer", en_lancement: "en lancement",
     liste_preparee: "liste préparée", preparee: "préparée", envoyee: "envoyée", nouveau: "nouveau", appel_demande: "appel demandé"
   };
-  const COTE = { serveur: "serveur (Mac éteint)", claude: "session Claude seulement", telephone: "téléphone", mac: "Mac seulement" };
+  const COTE = { serveur: "serveur (Mac éteint)", claude: "sessions Claude", telephone: "ton téléphone", mac: "ton Mac" };
+  const FORMATS = { reel: "Reel", carrousel: "Carrousel", animation: "Animation", story: "Story", post: "Post" };
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const pill = s => `<span class="pastille s-${esc(s)}">${esc(LIB[s] || s)}</span>`;
   const date = s => s ? new Date(s).toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit", timeZone: "Europe/Madrid" }) : "—";
-  const jour = s => s ? new Date(s + (s.length === 10 ? "T12:00:00" : "")).toLocaleDateString("fr-FR", { weekday: "short", day: "2-digit", month: "short", timeZone: "Europe/Madrid" }) : "sans date";
+  const jour = s => s ? new Date(s + (s.length === 10 ? "T12:00:00" : "")).toLocaleDateString("fr-FR", { weekday: "short", day: "2-digit", month: "short", timeZone: "Europe/Madrid" }) : "à fixer";
   const eur = n => (Number(n) || 0).toLocaleString("fr-FR", { style: "currency", currency: "EUR" });
-  const nomAgent = id => { const a = E.agents.find(x => x.id === id); return a ? (a.prenom ? `${a.prenom} · ${a.nom}` : a.nom) : id; };
+  const CHEVRON = `<svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>`;
+  const agent = id => E.agents.find(x => x.id === id);
+  const nomAgent = id => { const a = agent(id); return a ? (a.prenom ? `${a.prenom} (${a.nom})` : a.nom) : (id || "—"); };
+  const initiale = a => esc((a.prenom || a.nom || "?").trim()[0].toUpperCase());
+  const avatar = (a, grand) => `<span class="avatar${grand ? " grand" : ""}" aria-hidden="true">${initiale(a)}<i class="e-${esc(a.etat)}"></i></span>`;
+  const ouvre = (type, id, inner, cls) => `<button type="button" class="cliquable ${cls}" data-fiche="${type}" data-id="${esc(id)}">${inner}</button>`;
+  const titreSection = (titre, compte, lien) => `<div class="titre-section"><h2>${titre}${compte !== null && compte !== undefined ? ` <span class="compte">${compte}</span>` : ""}</h2>${lien || ""}</div>`;
 
   function lienFichier(x) {
     const f = typeof x === "string" ? x : x.chemin, lib = typeof x === "string" ? x : x.libelle;
     if (/^https?:\/\//.test(f)) return `<a href="${esc(f)}" target="_blank" rel="noopener">${esc(lib)}</a>`;
-    if (f.startsWith("/")) return `${esc(lib.split("/").pop())} <span class="meta">(stockage du projet, hors dépôt)</span>`;
+    if (f.startsWith("/")) return `${esc(lib.split("/").pop())} <span class="meta">(stockage du projet)</span>`;
     return STATIQUE ? `${esc(lib)} <span class="meta">(dépôt)</span>` : `<a href="/fichiers/${esc(f)}" target="_blank" rel="noopener">${esc(lib)}</a>`;
   }
 
-  function carteTache(t) {
-    const fichiers = (t.fichiers || []).length ? `<ul class="fichiers">${t.fichiers.map(f => `<li>${lienFichier(f)}</li>`).join("")}</ul>` : "";
-    const reprise = (t.statut === "echec" || t.statut === "bloquee") && t.origine !== "depot" ? `<div class="actions"><button class="btn" data-reprendre="${esc(t.id)}" ${STATIQUE ? "disabled" : ""}>Relancer</button></div>` : "";
-    return `<article class="carte">
-      <div class="ligne"><h3>${esc(t.titre)}</h3>${pill(t.statut)}</div>
-      <div class="meta"><span>Responsable <b>${esc(nomAgent(t.agent))}</b></span><span>Mis à jour <b>${date(t.maj_le)}</b></span>
-        <span>Coût <b>${eur(t.cout_eur)}</b></span>${t.tentatives ? `<span>Essais <b>${t.tentatives}/${t.max_tentatives}</b></span>` : ""}</div>
-      ${t.source ? `<p class="note"><span class="meta">Source :</span> ${esc(t.source)}</p>` : ""}
-      ${t.resultat ? `<p class="note">${esc(t.resultat)}</p>` : ""}
-      ${t.raison_echec ? `<p class="echec">Raison : ${esc(t.raison_echec)}</p>` : ""}
-      ${(t.textes || []).map(x => `<details><summary>${esc(x.titre)}</summary><pre class="texte-brut">${esc(x.texte)}</pre></details>`).join("")}
-      ${fichiers}${reprise}
-      <span class="mono meta">${esc(t.id)} · ${esc(t.origine === "depot" ? "écrit dans le dépôt" : "créé par le serveur")}</span>
-    </article>`;
-  }
-
+  // ---------- Données dérivées ----------
   function activiteAgent(a) {
-    const t = E.taches.filter(x => x.agent === a.id);
-    const ouvertes = t.filter(x => x.statut === "en_cours" || x.statut === "en_attente");
-    const derniere = t.filter(x => x.statut === "terminee").sort((x, y) => String(y.maj_le).localeCompare(String(x.maj_le)))[0];
-    const bloquees = t.filter(x => x.statut === "bloquee" || x.statut === "echec");
-    return { ouvertes, derniere, bloquees };
+    const t = E.taches.filter(x => x.agent === a.id).sort((x, y) => String(y.maj_le).localeCompare(String(x.maj_le)));
+    return {
+      toutes: t,
+      ouvertes: t.filter(x => x.statut === "en_cours" || x.statut === "en_attente"),
+      derniere: t.find(x => x.statut === "terminee"),
+      bloquees: t.filter(x => x.statut === "bloquee" || x.statut === "echec")
+    };
   }
-
-  function carteAgent(a) {
-    const n = a.taches || {}, act = activiteAgent(a);
-    const maintenant = act.ouvertes.length ? act.ouvertes.map(x => `${esc(x.titre)} (${esc(LIB[x.statut])})`).join(" ; ") : "rien en cours";
-    return `<article class="carte" id="agent-${esc(a.id)}">
-      <div class="ligne"><h3>${a.prenom ? `${esc(a.prenom)} <span class="meta">${esc(a.nom)}</span>` : esc(a.nom)}</h3>${pill(a.etat)}</div>
-      ${a.prenom && !a.prenom_valide ? `<p class="note meta">Prénom proposé, à valider par toi.</p>` : ""}
-      <div class="meta"><span>Exécution <b>${esc(a.execution || "—")}</b></span></div>
-      <p class="note"><span class="meta">En ce moment :</span> ${maintenant}</p>
-      ${act.derniere ? `<p class="note"><span class="meta">Dernière production :</span> ${esc(act.derniere.titre)} (${date(act.derniere.maj_le)})</p>` : `<p class="note meta">Aucune production pour l'instant.</p>`}
-      ${a.roles ? `<p class="note"><span class="meta">Peut faire :</span> ${esc(a.roles.join(" · "))}</p>` : ""}
-      ${a.musique ? `<p class="note"><span class="meta">Musique :</span> ${esc(a.musique)}</p>` : ""}
-      ${a.etat === "bloque" ? `<p class="echec">Ne peut pas encore travailler : ${esc(a.note || "connexion manquante")}</p>` : ""}
-      ${(a.manque || []).length && a.etat !== "actif" ? `<div class="note"><span class="meta">Pour être actif, il manque :</span><ul class="fichiers">${a.manque.map(m => `<li>${esc(m)}</li>`).join("")}</ul></div>` : ""}
-      ${a.note && a.etat !== "bloque" ? `<p class="note meta">${esc(a.note)}</p>` : ""}
-      ${a.preuve ? `<p class="note meta">Preuve : ${esc(a.preuve)} (état déclaré : ${esc(LIB[a.etat_declare])})</p>` : ""}
-      <div class="meta"><span>${n.en_attente || 0} en attente</span><span>${n.en_cours || 0} en cours</span><span>${n.terminee || 0} terminées</span><span>${(n.echec || 0) + (n.bloquee || 0)} en échec ou bloquées</span></div>
-    </article>`;
-  }
-
-  function vignettes(c) {
+  const aValider = () => E.contenus.filter(c => c.statut === "a_valider" || c.statut === "modification_demandee");
+  const bloquees = () => E.taches.filter(x => x.statut === "bloquee" || x.statut === "echec");
+  const connexionsAFaire = () => (E.connexions.connexions || []).filter(c => c.action && c.statut !== "operationnel");
+  function visuel(c) {
     const m = (c.apercu && c.apercu.medias) || [];
-    if (!m.length) return "";
-    return `<button class="voir" data-detail="${esc(c.id)}" aria-label="Voir le contenu en grand"><div class="apercu-mini">${m.slice(0, 6).map(x => x.type === "video"
-      ? `<video src="${esc(x.url)}" muted playsinline preload="metadata"${x.poster ? ` poster="${esc(x.poster)}"` : ""}></video>`
-      : `<img src="${esc(x.url)}" alt="${esc(x.libelle || "")}" loading="lazy">`).join("")}</div></button>`;
+    const img = m.find(x => x.type === "image") || null, vid = m.find(x => x.type === "video") || null;
+    const poster = (vid && vid.poster) || (img && img.url);
+    const fond = poster ? `<img src="${esc(poster)}" alt="" loading="lazy">`
+      : vid ? `<video src="${esc(vid.url)}#t=0.8" muted playsinline preload="metadata"></video>` : "";
+    return `<div class="visuel">${fond}<span class="format">${esc(FORMATS[c.format] || c.format || "contenu")}${c.langue ? " · " + esc(c.langue.toUpperCase()) : ""}</span>${vid ? `<span class="lecture" aria-hidden="true"></span>` : ""}</div>`;
   }
-  function boutonsDecision(c, suffixe) {
-    const editable = c.statut === "a_valider" || c.statut === "modification_demandee";
-    if (!editable) return "";
+  const carteContenu = c => ouvre("contenu", c.id, `${visuel(c)}<div class="corps"><div>${pill(c.statut)}</div><h3>${esc(c.titre)}</h3>
+    <div class="meta">${c.bien ? `<span>Bien <b>${esc(c.bien)}</b></span>` : ""}<span>Date <b>${jour(c.date_prevue)}</b></span></div><span class="ouvrir">Voir et décider</span></div>`, "contenu");
+  const carteAgent = a => { const x = activiteAgent(a);
+    const ligne = x.ouvertes.length ? "En cours : " + x.ouvertes[0].titre : a.etat === "bloque" ? "Il manque : " + ((a.manque || [])[0] || "une connexion") : x.derniere ? "Dernière production : " + x.derniere.titre : "Disponible";
+    return ouvre("agent", a.id, `${avatar(a)}<span class="txt"><span style="display:flex;justify-content:space-between;gap:8px;align-items:center"><h3>${esc(a.prenom || a.nom)}</h3>${pill(a.etat)}</span><span class="meta">${esc(a.nom)}</span><span class="note" style="color:var(--muted);font-size:.82rem">${esc(ligne)}</span></span>`, "agent"); };
+  const puceStatut = s => s === "echec" ? "bad" : (s === "bloquee" || s === "manquant" || s === "a_verifier") ? "warn" : s === "a_valider" ? "test" : "";
+  const rangeeTache = t => ouvre("tache", t.id, `<span class="puce ${puceStatut(t.statut)}"></span><span class="txt"><h3>${esc(t.titre)}</h3><span class="meta"><span>${esc(nomAgent(t.agent))}</span><span>${date(t.maj_le)}</span></span>${t.raison_echec ? `<span class="note">${esc(t.raison_echec)}</span>` : ""}</span>${pill(t.statut)}${CHEVRON}`, "rangee");
+
+  // ---------- Vues ----------
+  function vueAccueil() {
+    const av = aValider(), bl = bloquees(), ag = E.agents.filter(a => a.activite === "immo");
+    const testes = ag.filter(a => a.etat === "teste" || a.etat === "actif").length;
+    const cx = E.connexions.connexions || [], ok = cx.filter(x => x.statut === "operationnel").length;
+    const heure = new Date().toLocaleString("fr-FR", { hour: "numeric", hour12: false, timeZone: "Europe/Madrid" });
+    const salut = Number(heure) >= 18 ? "Bonsoir Avishay" : "Bonjour Avishay";
+    const resume = [av.length ? `${av.length} contenu${av.length > 1 ? "s" : ""} à valider` : "aucun contenu à valider", bl.length ? `${bl.length} tâche${bl.length > 1 ? "s" : ""} bloquée${bl.length > 1 ? "s" : ""}` : "aucun blocage"].join(" · ");
+    const tuiles = `<div class="tuiles">
+      <a class="cliquable tuile" href="#valider"><span>À valider</span><strong>${av.length}</strong><small>contenus prêts</small></a>
+      <a class="cliquable tuile" href="#equipe"><span>Agents testés</span><strong>${testes}/${ag.length}</strong><small>${ag.filter(a => a.etat === "bloque").length} bloqués</small></a>
+      <a class="cliquable tuile" href="#taches" data-filtre-lien="bloquee"><span>Blocages</span><strong>${bl.length}</strong><small>à débloquer</small></a>
+      <a class="cliquable tuile" href="#connexions"><span>Connexions</span><strong>${ok}/${cx.length}</strong><small>opérationnelles</small></a></div>`;
+    const afaire = bl.map(t => rangeeTache(t)).concat(connexionsAFaire().slice(0, 6).map(c => ouvre("connexion", c.id, `<span class="puce ${puceStatut(c.statut)}"></span><span class="txt"><h3>${esc(c.nom)}</h3><span class="note">${esc(c.action)}</span></span>${pill(c.statut)}${CHEVRON}`, "rangee")));
+    const equipe = `<div class="avatars">${ag.map(a => ouvre("agent", a.id, `${avatar(a)}<small>${esc(a.prenom || a.nom)}</small>`, "membre")).join("")}</div>
+      <div class="legende-etats"><span>● testé : a déjà produit un vrai résultat</span><span>● bloqué : il lui manque un accès</span><span>● actif : tourne seul (serveur)</span></div>`;
+    const acts = E.activites.map(a => `<article class="carte"><div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><h3>${esc(a.nom)}</h3>${pill(a.etat)}</div><p class="note" style="color:var(--muted)">${esc(a.mission)}</p>${a.id === "immo" ? `<div class="actions"><a class="btn" href="#equipe">Voir l'équipe</a><a class="btn" href="#biens">Biens</a></div>` : `<p class="note meta">Espace prêt, aucun agent pour l'instant.</p>`}</article>`).join("");
+    return `<section><h1>${salut}</h1><p class="intro">${esc(resume)}. ${STATIQUE ? `Données du ${date(E.genere_le)}.` : ""}</p></section>`
+      + `<section>${tuiles}</section>`
+      + `<section>${titreSection("À valider", av.length, `<a class="lien-section" href="#valider">Tout voir</a>`)}${av.length ? `<div class="rang-contenus">${av.map(carteContenu).join("")}</div>` : `<p class="vide">Rien à valider pour l'instant.</p>`}</section>`
+      + `<section>${titreSection("Ce qui attend une action", afaire.length)}<p class="intro">Touche une ligne pour voir le détail et ce qu'il faut faire.</p>${afaire.length ? `<div class="liste">${afaire.join("")}</div>` : `<p class="vide">Rien de bloqué.</p>`}</section>`
+      + `<section>${titreSection("L'équipe Immobilier", ag.length, `<a class="lien-section" href="#equipe">Détail</a>`)}${equipe}</section>`
+      + `<section>${titreSection("Donner une consigne", null)}${blocConsigne()}</section>`
+      + `<section>${titreSection("Les trois activités", null)}<div class="grille-agents">${acts}</div></section>`;
+  }
+
+  function blocConsigne() {
     const off = actif() ? "" : "disabled";
-    const k = esc(c.id) + suffixe;
-    return `<div class="actions"><button class="btn principal" data-valider="${esc(c.id)}" ${off}>Valider</button>
-        <button class="btn" data-ouvrir="${k}" ${off}>Demander une modification</button></div>
-        <div data-form="${k}" hidden><label class="meta" for="modif-${k}">Ce qu'il faut changer</label>
-        <textarea id="modif-${k}"></textarea><div class="actions"><button class="btn principal" data-envoyer="${esc(c.id)}" data-champ="modif-${k}">Envoyer la demande</button></div></div>`;
-  }
-  function detailContenu(c) {
-    const m = (c.apercu && c.apercu.medias) || [], tx = (c.apercu && c.apercu.textes) || [];
-    const medias = m.map(x => `<figure>${x.type === "video" ? `<video src="${esc(x.url)}" controls playsinline preload="metadata"${x.poster ? ` poster="${esc(x.poster)}"` : ""}></video>` : `<img src="${esc(x.url)}" alt="${esc(x.libelle || "")}">`}<figcaption>${esc(x.libelle || "")}</figcaption></figure>`).join("");
-    const textes = tx.map((t, i) => `<details ${i === 0 ? "open" : ""}><summary>${esc(t.titre)}</summary><pre class="texte-brut">${esc(t.texte)}</pre></details>`).join("");
-    return `<div class="detail-tete"><div><h3>${esc(c.titre)}</h3><div class="meta"><span>${esc(c.format || "")}</span><span>${esc((c.langue || "").toUpperCase())}</span>${c.bien ? `<span>Bien <b>${esc(c.bien)}</b></span>` : ""}${(() => { const t = E.taches.find(x => x.id === c.tache_id); return t ? `<span>Par <b>${esc(nomAgent(t.agent))}</b></span>` : ""; })()}</div></div>
-      <button class="btn" data-fermer aria-label="Fermer">Fermer</button></div>
-      <div class="detail-corps">${pill(c.statut)}${medias ? `<div class="medias">${medias}</div>` : `<p class="vide">Pas d'aperçu disponible pour ce contenu.</p>`}${textes}${boutonsDecision(c, "-d")}</div>`;
+    return `<article class="carte"><label class="meta" for="consigne">Écris ce que tu veux que l'équipe fasse. Victor (coordination) la répartit au bon agent.</label>
+      <textarea id="consigne" placeholder="Exemple : prépare un carrousel sur les quartiers d'Estepona pour la semaine prochaine." ${off}></textarea>
+      <div class="actions"><button class="btn principal" id="envoyer-consigne" ${off}>Envoyer la consigne</button></div>
+      ${CONSIGNES.length ? `<ul class="histo">${CONSIGNES.slice(0, 5).map(k => `<li>${date(k.quand)} · ${esc(k.texte)} <span class="meta">(${k.statut === "traitee" ? "traitée" : "reçue"})</span></li>`).join("")}</ul>` : ""}</article>`;
   }
 
-  function carteContenu(c) {
-    const retours = (c.retours || []).map(r => `<li>${date(r.cree_le)} · ${r.decision === "valide" ? "validé" : "modification : " + esc(r.texte)} (${esc(r.canal)})</li>`).join("");
-    return `<article class="carte" id="contenu-${esc(c.id)}">
-      <div class="ligne"><h3>${esc(c.titre)}</h3>${pill(c.statut)}</div>
-      ${vignettes(c)}
-      ${c.apercu ? `<div class="actions"><button class="btn" data-detail="${esc(c.id)}">Voir le contenu, la légende et le script</button></div>` : ""}
-      <div class="meta"><span>Format <b>${esc(c.format || "—")}</b></span><span>Langue <b>${esc((c.langue || "—").toUpperCase())}</b></span>
-        <span>Date prévue <b>${c.date_prevue ? jour(c.date_prevue) : "à fixer"}</b></span>${c.bien ? `<span>Bien <b>${esc(c.bien)}</b></span>` : ""}</div>
-      ${(c.fichiers || []).length ? `<ul class="fichiers">${c.fichiers.map(f => `<li>${lienFichier(f)}</li>`).join("")}</ul>` : ""}
-      ${retours ? `<ul class="histo">${retours}</ul>` : ""}
-      ${boutonsDecision(c, "")}
-    </article>`;
+  function vueValider() {
+    const tous = E.contenus.filter(c => c.activite === "immo" && c.statut !== "remplace");
+    const av = tous.filter(c => c.statut === "a_valider" || c.statut === "modification_demandee"), autres = tous.filter(c => !av.includes(c));
+    return `<section>${titreSection("À valider", av.length)}<p class="intro">Touche un contenu pour le voir en grand, lire la légende et le script, puis valider ou demander une modification. Valider ne publie rien.</p>
+      ${av.length ? `<div class="grille-contenus">${av.map(carteContenu).join("")}</div>` : `<p class="vide">Rien à valider.</p>`}</section>`
+      + (autres.length ? `<section>${titreSection("Déjà traités", autres.length)}<div class="grille-contenus">${autres.map(carteContenu).join("")}</div></section>` : "")
+      + `<section>${titreSection("Calendrier éditorial", null)}${calendrier(tous)}</section>`;
   }
-
-  function section(id, titre, compte, intro, corps) {
-    return `<section id="${id}"><h2>${titre}${compte !== null ? `<span class="compte">${compte}</span>` : ""}</h2>${intro ? `<p class="intro">${intro}</p>` : ""}${corps}</section>`;
-  }
-  const grille = (items, f, vide) => items.length ? `<div class="grille">${items.map(f).join("")}</div>` : `<p class="vide">${vide}</p>`;
-
-  function vueGenerale() {
-    const t = E.taches, c = E.connexions.connexions || [];
-    const comptes = s => t.filter(x => x.statut === s).length;
-    const ok = c.filter(x => x.statut === "operationnel").length;
-    const resume = `<div class="resume">
-      <div class="chiffre"><span>Contenus à valider</span><strong>${E.contenus.filter(x => x.statut === "a_valider").length}</strong></div>
-      <div class="chiffre"><span>Tâches ouvertes</span><strong>${comptes("en_attente") + comptes("en_cours")}</strong></div>
-      <div class="chiffre"><span>Échecs et blocages</span><strong>${comptes("echec") + comptes("bloquee")}</strong></div>
-      <div class="chiffre"><span>Prospects</span><strong>${E.prospects.length}</strong></div>
-      <div class="chiffre"><span>Connexions opérationnelles</span><strong>${ok}/${c.length}</strong></div>
-      <div class="chiffre"><span>Coûts du mois</span><strong>${eur(E.couts.mois_eur)}</strong></div></div>`;
-    const acts = E.activites.map(a => {
-      const ta = t.filter(x => x.activite === a.id), ag = E.agents.filter(x => x.activite === a.id);
-      const parEtat = ["actif", "teste", "configure", "prevu", "bloque"].map(s => [s, ag.filter(x => x.etat === s).length]);
-      const couleurs = { actif: "var(--ok)", teste: "var(--test)", configure: "var(--info)", prevu: "var(--idle)", bloque: "var(--warn)" };
-      const barre = ag.length ? `<div class="barre" role="img" aria-label="Répartition des états des agents">${parEtat.map(([s, n]) => n ? `<i style="width:${100 * n / ag.length}%;background:${couleurs[s]}" title="${LIB[s]} : ${n}"></i>` : "").join("")}</div>
-        <div class="meta">${parEtat.filter(([, n]) => n).map(([s, n]) => `<span>${n} ${LIB[s]}</span>`).join("")}</div>` : "";
-      return `<article class="carte activite ${esc(a.id)}"><div class="ligne"><h3>${esc(a.nom)}</h3>${pill(a.etat)}</div>
-        <p class="note">${esc(a.mission)}</p>${barre}
-        <div class="meta"><span>${ag.length} agents</span><span>${ta.filter(x => x.statut !== "terminee").length} tâches ouvertes</span><span>${ta.filter(x => x.statut === "terminee").length} terminées</span></div>
-        <div class="actions"><a class="btn" href="#${esc(a.id)}">Ouvrir l'espace</a></div></article>`;
-    }).join("");
-    const m = E.maitre || {};
-    const decisions = E.contenus.filter(x => x.statut === "a_valider").map(x => `<li><a href="#immo" data-aller="contenu-${esc(x.id)}">${esc(x.titre)}</a> : à valider</li>`)
-      .concat(t.filter(x => x.statut === "bloquee" || x.statut === "echec").map(x => `<li>${esc(x.titre)} : ${esc(x.raison_echec || "bloquée")}</li>`));
-    return section("resume", "Aujourd'hui", null, "", resume)
-      + section("maitre", "Agent maître", null, "", `<article class="carte"><div class="ligne"><h3>${esc(m.nom)}</h3>${pill(m.etat)}</div><p class="note">${esc(m.mission)}</p><p class="note meta">${esc(m.note)}</p></article>`)
-      + section("equipe", "L'équipe Immobilier", E.agents.filter(a => a.activite === "immo").length, "Qui est là, ce que chacun fait en ce moment et ce qu'il lui manque. « Testé » : a déjà produit un vrai résultat, à la demande. « Actif » : travaille seul, Mac éteint ; cela demande le serveur, que tu as reporté.", `<div class="tableau equipe"><table><thead><tr><th>Agent</th><th>État</th><th>En ce moment</th><th>Dernière production</th><th>Ce qui manque</th></tr></thead><tbody>${E.agents.filter(a => a.activite === "immo").map(a => { const x = activiteAgent(a); return `<tr><td><a href="#immo" data-aller="agent-${esc(a.id)}">${esc(a.prenom || a.nom)}</a><br><span class="meta" style="font-weight:400">${esc(a.nom)}</span></td><td>${pill(a.etat)}</td><td>${x.ouvertes.length ? x.ouvertes.map(t => esc(t.titre)).join(" ; ") : (a.etat === "bloque" ? "bloqué" : "disponible")}</td><td>${x.derniere ? esc(x.derniere.titre) : "—"}</td><td>${esc((a.manque || [])[0] || "—")}${(a.manque || []).length > 1 ? ` <span class="meta">(+${a.manque.length - 1})</span>` : ""}</td></tr>`; }).join("")}</tbody></table></div>`)
-      + section("activites", "Les trois activités", null, "", `<div class="grille">${acts}</div>`)
-      + section("decisions", "À traiter par toi", decisions.length, "", decisions.length ? `<article class="carte"><ul class="histo">${decisions.join("")}</ul></article>` : `<p class="vide">Rien en attente.</p>`);
-  }
-
-  function vueImmo() {
-    const ag = E.agents.filter(a => a.activite === "immo");
-    const t = E.taches.filter(x => x.activite === "immo");
-    const ft = filtres.taches === "toutes" ? t : t.filter(x => x.statut === filtres.taches);
-    const boutons = ["toutes", "en_attente", "en_cours", "terminee", "echec", "bloquee"].map(s =>
-      `<button data-filtre="${s}" aria-pressed="${filtres.taches === s}">${s === "toutes" ? "toutes" : LIB[s]} (${s === "toutes" ? t.length : t.filter(x => x.statut === s).length})</button>`).join("");
-    const contenus = E.contenus.filter(c => c.activite === "immo");
+  function calendrier(contenus) {
     const parJour = {};
     contenus.forEach(c => { const k = c.date_prevue || "~"; (parJour[k] = parJour[k] || []).push(c); });
-    const cal = Object.keys(parJour).sort().map(k => `<tr><td>${k === "~" ? "à planifier" : jour(k)}</td><td>${parJour[k].map(c => `${esc(c.titre)} ${pill(c.statut)}`).join("<br>")}</td><td>${parJour[k].map(c => esc(c.format || "")).join("<br>")}</td></tr>`).join("");
-    const biens = E.biens.map(b => `<article class="carte"><div class="ligne"><h3><span class="mono">${esc(b.ref)}</span> <span class="meta">${esc(b.type || "")}</span></h3>${pill(b.prix && b.prix.verifie ? "valide" : "a_verifier")}</div>
-      <div class="meta"><span>Zone <b>${esc(b.zone)}</b></span><span>Prix <b>${b.prix && b.prix.verifie && b.prix.montant ? eur(b.prix.montant) : "à confirmer"}</b></span><span>Disponibilité <b>${b.disponibilite_verifiee ? "vérifiée" : "à confirmer"}</b></span></div>
-      <div class="meta"><span>Publier les médias <b>${esc(LIB[b.autorisation_medias] || b.autorisation_medias)}</b></span><span>Tournage <b>${esc((b.autorisation_tournage || "").replace("a_demander", "à demander"))}</b></span></div>
-      ${b.caracteristiques ? `<p class="note">${Object.entries(b.caracteristiques).map(([k, v]) => `${esc(k.replace(/_/g, " "))} : ${esc(v)}`).join(" · ")}</p>` : ""}
-      <p class="note meta">Source : ${esc(b.source_caracteristiques || "—")} (${esc(b.date_caracteristiques || "?")})${b.caracteristiques_recoupees === false ? " · non recoupé" : ""}</p>
-      ${(b.restrictions || []).length ? `<ul class="fichiers">${b.restrictions.map(r => `<li>${esc(r)}</li>`).join("")}</ul>` : ""}</article>`);
-    const prospects = E.prospects.map(p => `<details><summary>${esc(p.nom || p.id)} ${p.fictif ? '<span class="mono meta">[fictif]</span>' : ""} ${pill(p.appel_demande ? "appel_demande" : p.statut)}</summary>
-      <div class="meta"><span>Source <b>${esc(p.source)}</b></span><span>Pays <b>${esc(p.pays || "?")}</b></span><span>Langue <b>${esc(p.langue || "?")}</b></span><span>Budget <b>${esc(p.budget || "?")}</b></span><span>Zone <b>${esc(p.zone || "?")}</b></span><span>Projet <b>${esc((p.projet || "?").replace(/_/g, " "))}</b></span><span>Délai <b>${esc(p.delai || "?")}</b></span></div>
-      <ul class="histo">${p.historique.map(h => `<li>${date(h.cree_le)} · ${esc(h.canal)} · ${esc(h.texte)}</li>`).join("")}</ul>
-      <p class="note meta">Alertes : ${p.alertes.map(a => `${esc(a.type.replace(/_/g, " "))} ${esc(a.canal)} (${esc(LIB[a.statut])})`).join(", ") || "aucune"}</p></details>`).join("");
-    const partenaires = E.partenaires.length ? `<div class="tableau"><table><thead><tr><th>Société</th><th>Ville</th><th>Type</th><th>Personne</th><th>Statut</th></tr></thead><tbody>${E.partenaires.map(p => `<tr><td>${esc(p.societe)}</td><td>${esc(p.ville)}</td><td>${esc(p.type)}</td><td>${esc(p.personne)}</td><td>${pill(p.statut)}</td></tr>`).join("")}</tbody></table></div>` : `<p class="vide">Aucun partenaire pour l'instant. Ajoute-les ici dès que tu travailles avec une agence ou un apporteur.</p>`;
-    const M = (E.marche && E.marche.chiffres) || [];
-    const marche = M.length ? `<div class="tableau"><table><thead><tr><th>Zone</th><th>Indicateur</th><th>Valeur</th><th>Période</th><th>Source</th></tr></thead><tbody>${M.map(m => `<tr><td>${esc(m.zone)}</td><td>${esc(m.indicateur)}</td><td><b>${esc(m.valeur)}</b></td><td>${esc(m.periode)}</td><td>${/^https:\/\//.test(m.url || "") ? `<a href="${esc(m.url)}" target="_blank" rel="noopener noreferrer">${esc(m.source)}</a>` : esc(m.source)}</td></tr>`).join("")}</tbody></table></div>` : `<p class="vide">Aucun chiffre sourcé.</p>`;
-    const alertes = E.alertes.length ? `<div class="tableau"><table><thead><tr><th>Préparée</th><th>Type</th><th>Canal</th><th>Statut</th><th>Contenu</th></tr></thead><tbody>${E.alertes.map(a => `<tr><td>${date(a.cree_le)}</td><td>${esc(a.type.replace(/_/g, " "))}</td><td>${esc(a.canal)}${a.destinataire ? "<br><span class=\"meta\">" + esc(a.destinataire) + "</span>" : ""}</td><td>${pill(a.statut)}</td><td style="white-space:pre-wrap;min-width:240px">${esc(a.corps)}</td></tr>`).join("")}</tbody></table></div>` : `<p class="vide">Aucune alerte préparée.</p>`;
-    const couts = `<div class="resume"><div class="chiffre"><span>24 dernières heures</span><strong>${eur(E.couts.jour_eur)}</strong></div><div class="chiffre"><span>Mois en cours</span><strong>${eur(E.couts.mois_eur)}</strong></div></div>`
-      + (E.erreurs.length ? `<div class="tableau"><table><thead><tr><th>Quand</th><th>Qui</th><th>Erreur</th><th>Détail</th></tr></thead><tbody>${E.erreurs.map(e => `<tr><td>${date(e.quand)}</td><td>${esc(e.acteur)}</td><td>${esc(e.action)}</td><td>${esc(e.details || e.objet || "")}</td></tr>`).join("")}</tbody></table></div>` : `<p class="vide">Aucune erreur enregistrée.</p>`);
-    const consigne = `<article class="carte"><label class="meta" for="consigne">Nouvelle consigne pour la coordination Immo</label><textarea id="consigne" ${actif() ? "" : "disabled"}></textarea><div class="actions"><button class="btn principal" id="envoyer-consigne" ${actif() ? "" : "disabled"}>Enregistrer la consigne</button></div>${CONSIGNES.length ? `<ul class="histo">${CONSIGNES.map(k => `<li>${date(k.quand)} · ${esc(k.texte)} <span class="meta">(${esc(k.statut === "traitee" ? "traitée" : "reçue, en attente de traitement")})</span></li>`).join("")}</ul>` : ""}</article>`;
-    const nav = `<nav class="sous-nav" aria-label="Sections Immobilier">${[["valider", "À valider"], ["calendrier", "Calendrier"], ["taches", "Tâches"], ["agents", "Agents"], ["biens", "Biens"], ["prospects", "Acheteurs"], ["partenaires", "Partenaires B2B"], ["marche", "Marché"], ["alertes", "Alertes"], ["couts", "Coûts et erreurs"]].map(([i, l]) => `<a href="#immo" data-aller="${i}">${l}</a>`).join("")}</nav>`;
-    return nav
-      + section("valider", "Contenus à valider", contenus.filter(c => c.statut === "a_valider").length, "Valider ne publie rien : la publication automatique n'est pas activée.", grille(contenus.filter(c => ["a_valider", "modification_demandee", "valide", "en_preparation"].includes(c.statut)), carteContenu, "Aucun contenu."))
-      + section("calendrier", "Calendrier éditorial", null, "", cal ? `<div class="tableau"><table><thead><tr><th>Date</th><th>Contenu</th><th>Format</th></tr></thead><tbody>${cal}</tbody></table></div>` : `<p class="vide">Aucun contenu planifié.</p>`)
-      + section("taches", "Tâches", t.length, "", `<div class="filtres">${boutons}</div>` + grille(ft, carteTache, "Aucune tâche dans cette catégorie.") + consigne)
-      + section("agents", "Agents et responsabilités", ag.length, "Un agent n'est « actif » que s'il tourne seul sur le serveur. Aucun ne l'est encore.", grille(ag, carteAgent, ""))
-      + section("biens", "Biens et droits", E.biens.length, "Zone uniquement, jamais l'adresse. Prix publié seulement après vérification.", E.biens.length ? `<div class="grille">${biens.join("")}</div>` : `<p class="vide">Aucune fiche bien.</p>`)
-      + section("prospects", "Acheteurs", E.prospects.length, "", prospects || `<p class="vide">Aucun prospect.</p>`)
-      + section("partenaires", "Partenaires B2B", E.partenaires.length, "Seulement les partenaires avec qui tu travailles déjà.", partenaires)
-      + section("marche", "Marché (chiffres sourcés)", M.length, "Prix demandés (annonces) et prix signés (notaires) sont deux mesures différentes. À revérifier avant publication." + (E.marche && E.marche.maj_le ? " Mis à jour le " + esc(E.marche.maj_le) + "." : ""), marche)
-      + section("alertes", "Alertes Telegram et email", E.alertes.length, E.mode_envoi === "reel" ? "" : "Mode test : les alertes sont préparées, aucune n'est envoyée.", alertes)
-      + section("couts", "Coûts et erreurs", null, "", couts);
+    const k = Object.keys(parJour).sort();
+    return k.length ? `<div class="liste">${k.flatMap(d => parJour[d].map(c => ouvre("contenu", c.id, `<span class="txt"><span class="meta"><b>${d === "~" ? "Date à fixer" : jour(d)}</b><span>${esc(FORMATS[c.format] || c.format || "")}</span></span><h3>${esc(c.titre)}</h3></span>${pill(c.statut)}${CHEVRON}`, "rangee"))).join("")}</div>` : `<p class="vide">Aucun contenu planifié.</p>`;
   }
 
-  function vueAConfigurer(id) {
-    const a = E.activites.find(x => x.id === id) || {};
-    return section(id, esc(a.nom), null, "", `<article class="carte activite"><div class="ligne"><h3>${esc(a.nom)}</h3>${pill(a.etat)}</div><p class="note">${esc(a.mission)}</p><p class="note meta">Espace prêt à recevoir ses agents, tâches et résultats. Rien n'y tourne.</p></article>`);
+  function vueEquipe() {
+    const ag = E.agents.filter(a => a.activite === "immo");
+    const groupes = [["bloque", "Bloqués : il leur manque un accès"], ["configure", "Configurés, pas encore testés"], ["teste", "Testés"], ["actif", "Actifs"], ["prevu", "Prévus"]];
+    return `<section>${titreSection("L'équipe Immobilier", ag.length)}<p class="intro">Touche un agent pour voir ce qu'il fait, ce qu'il sait faire, ses tâches et ce qu'il lui manque. Un agent ne devient « actif » (il travaille seul, Mac éteint) qu'avec le serveur.</p></section>`
+      + `<section>${titreSection("Agent maître", null)}<article class="carte"><div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><h3>${esc(E.maitre.nom)}</h3>${pill(E.maitre.etat)}</div><p class="note">${esc(E.maitre.mission)}</p><p class="note meta">${esc(E.maitre.note)}</p></article></section>`
+      + groupes.map(([s, l]) => { const g = ag.filter(a => a.etat === s); return g.length ? `<section>${titreSection(l, g.length)}<div class="grille-agents">${g.map(carteAgent).join("")}</div></section>` : ""; }).join("");
   }
 
+  function vueTaches() {
+    const t = E.taches.filter(x => x.activite === "immo").sort((x, y) => String(y.maj_le).localeCompare(String(x.maj_le)));
+    const cats = [["a_traiter", "À traiter", x => x.statut !== "terminee"], ["bloquee", "Bloquées", x => x.statut === "bloquee" || x.statut === "echec"], ["en_cours", "En cours", x => x.statut === "en_cours" || x.statut === "en_attente"], ["terminee", "Terminées", x => x.statut === "terminee"], ["toutes", "Toutes", () => true]];
+    const cat = cats.find(c => c[0] === filtres.taches) || cats[0];
+    const liste = t.filter(cat[2]);
+    return `<section>${titreSection("Tâches", t.length)}<p class="intro">Ce que chaque agent a fait ou attend. Touche une tâche pour lire son compte rendu.</p>
+      <div class="filtres" role="group" aria-label="Filtrer les tâches">${cats.map(([k, l, f]) => `<button data-filtre="${k}" aria-pressed="${k === cat[0]}">${l} (${t.filter(f).length})</button>`).join("")}</div>
+      ${liste.length ? `<div class="liste">${liste.map(rangeeTache).join("")}</div>` : `<p class="vide">Aucune tâche dans cette catégorie.</p>`}</section>`;
+  }
+
+  const RUBRIQUES = [
+    ["biens", "Biens", "Fiches, droits et prix à confirmer", () => E.biens.length],
+    ["acheteurs", "Acheteurs", "Prospects et leur qualification", () => E.prospects.length],
+    ["connexions", "Connexions", "Ce qui est branché et ce qu'il faut faire", () => (E.connexions.connexions || []).length],
+    ["marche", "Marché", "Chiffres sourcés pour le contenu", () => ((E.marche && E.marche.chiffres) || []).length],
+    ["partenaires", "Partenaires B2B", "Agences et apporteurs avec qui tu travailles", () => E.partenaires.length],
+    ["alertes", "Alertes", "Telegram et email préparés", () => E.alertes.length],
+    ["couts", "Coûts et erreurs", "Dépenses du mois", () => null],
+    ["journal", "Historique", "Toutes les actions enregistrées", () => E.journal.length],
+    ["apps", "Applications", "Activité à configurer", () => null],
+    ["reseaux", "Réseaux", "Activité à configurer", () => null]
+  ];
+  function vuePlus() {
+    return `<section>${titreSection("Plus", null)}<div class="plus-grille">${RUBRIQUES.map(([r, l, d, n]) => { const v = n(); return `<a class="cliquable plus-item" href="#${r}"><span class="txt"><h3>${l}${v !== null ? ` <span class="compte">${v}</span>` : ""}</h3><small>${d}</small></span>${CHEVRON}</a>`; }).join("")}</div></section>`;
+  }
+  const retourPlus = `<a class="btn retour" href="#plus">← Plus</a>`;
+
+  function vueBiens() {
+    return `${retourPlus}<section>${titreSection("Biens", E.biens.length)}<p class="intro">Zone uniquement, jamais l'adresse. Prix publié seulement après ta confirmation.</p>
+      ${E.biens.length ? `<div class="liste">${E.biens.map(b => ouvre("bien", b.ref, `<span class="txt"><h3><span class="mono">${esc(b.ref)}</span> · ${esc(b.type || "")}</h3><span class="meta"><span>${esc(b.zone)}</span><span>Prix <b>${b.prix && b.prix.verifie && b.prix.montant ? eur(b.prix.montant) : "à confirmer"}</b></span></span></span>${pill(b.prix && b.prix.verifie ? "valide" : "a_verifier")}${CHEVRON}`, "rangee")).join("")}</div>` : `<p class="vide">Aucune fiche bien.</p>`}</section>`;
+  }
+  function vueAcheteurs() {
+    return `${retourPlus}<section>${titreSection("Acheteurs", E.prospects.length)}<p class="intro">Chaque contact entrant, avec sa qualification. Les prospects marqués [fictif] servent au test.</p>
+      ${E.prospects.length ? `<div class="liste">${E.prospects.map(p => ouvre("prospect", p.id, `<span class="txt"><h3>${esc(p.nom || p.id)}${p.fictif ? ` <span class="mono meta">[fictif]</span>` : ""}</h3><span class="meta"><span>${esc(p.source)}</span><span>${esc(p.pays || "?")}</span><span>Budget <b>${esc(p.budget || "?")}</b></span></span></span>${pill(p.appel_demande ? "appel_demande" : p.statut)}${CHEVRON}`, "rangee")).join("")}</div>` : `<p class="vide">Aucun prospect.</p>`}</section>`;
+  }
   function vueConnexions() {
     const c = E.connexions.connexions || [];
-    const ordre = { operationnel: 0, partiel: 1, a_verifier: 2, manquant: 3 };
-    return section("connexions", "Connexions", c.length, `Vérifiées le ${esc(E.connexions.verifie_le)}. « Serveur » signifie utilisable Mac éteint.`,
-      `<div class="tableau"><table><thead><tr><th>Connexion</th><th>Statut</th><th>Où</th><th>Détail</th><th>À faire</th></tr></thead><tbody>${[...c].sort((a, b) => ordre[a.statut] - ordre[b.statut]).map(x => `<tr><td>${esc(x.nom)}</td><td>${pill(x.statut)}</td><td>${esc(COTE[x.cote] || x.cote)}</td><td>${esc(x.note || "")}</td><td>${esc(x.action || "")}</td></tr>`).join("")}</tbody></table></div>`);
+    const ordre = { manquant: 0, a_verifier: 1, partiel: 2, operationnel: 3 };
+    return `${retourPlus}<section>${titreSection("Connexions", c.length)}<p class="intro">Vérifiées le ${esc(E.connexions.verifie_le)}. Touche une ligne pour voir à quoi elle sert et ce qu'il faut faire.</p>
+      <div class="liste">${[...c].sort((a, b) => (ordre[a.statut] ?? 9) - (ordre[b.statut] ?? 9)).map(x => ouvre("connexion", x.id, `<span class="puce ${puceStatut(x.statut)}"></span><span class="txt"><h3>${esc(x.nom)}</h3><span class="meta"><span>${esc(COTE[x.cote] || x.cote || "")}</span></span>${x.action ? `<span class="note">${esc(x.action)}</span>` : ""}</span>${pill(x.statut)}${CHEVRON}`, "rangee")).join("")}</div></section>`;
   }
-
+  function vueMarche() {
+    const M = (E.marche && E.marche.chiffres) || [];
+    return `${retourPlus}<section>${titreSection("Marché", M.length)}<p class="intro">Prix demandés (annonces) et prix signés (notaires) sont deux mesures différentes. À revérifier avant publication.${E.marche && E.marche.maj_le ? " Mis à jour le " + esc(E.marche.maj_le) + "." : ""}</p>
+      ${M.length ? `<div class="tableau"><table><thead><tr><th>Zone</th><th>Indicateur</th><th>Valeur</th><th>Période</th><th>Source</th></tr></thead><tbody>${M.map(m => `<tr><td>${esc(m.zone)}</td><td>${esc(m.indicateur)}</td><td><b>${esc(m.valeur)}</b></td><td>${esc(m.periode)}</td><td>${/^https:\/\//.test(m.url || "") ? `<a href="${esc(m.url)}" target="_blank" rel="noopener noreferrer">${esc(m.source)}</a>` : esc(m.source)}</td></tr>`).join("")}</tbody></table></div>` : `<p class="vide">Aucun chiffre sourcé.</p>`}</section>`;
+  }
+  function vuePartenaires() {
+    return `${retourPlus}<section>${titreSection("Partenaires B2B", E.partenaires.length)}<p class="intro">Seulement les partenaires avec qui tu travailles déjà.</p>
+      ${E.partenaires.length ? `<div class="tableau"><table><thead><tr><th>Société</th><th>Ville</th><th>Type</th><th>Personne</th><th>Statut</th></tr></thead><tbody>${E.partenaires.map(p => `<tr><td>${esc(p.societe)}</td><td>${esc(p.ville)}</td><td>${esc(p.type)}</td><td>${esc(p.personne)}</td><td>${pill(p.statut)}</td></tr>`).join("")}</tbody></table></div>` : `<p class="vide">Aucun partenaire pour l'instant. Dis-moi dès que tu travailles avec une agence ou un apporteur, je l'ajoute ici.</p>`}</section>`;
+  }
+  function vueAlertes() {
+    return `${retourPlus}<section>${titreSection("Alertes Telegram et email", E.alertes.length)}<p class="intro">${E.mode_envoi === "reel" ? "" : "Mode test : les alertes sont préparées, aucune n'est envoyée."}</p>
+      ${E.alertes.length ? `<div class="tableau"><table><thead><tr><th>Préparée</th><th>Type</th><th>Canal</th><th>Statut</th><th>Contenu</th></tr></thead><tbody>${E.alertes.map(a => `<tr><td>${date(a.cree_le)}</td><td>${esc(a.type.replace(/_/g, " "))}</td><td>${esc(a.canal)}</td><td>${pill(a.statut)}</td><td style="white-space:pre-wrap;min-width:240px">${esc(a.corps)}</td></tr>`).join("")}</tbody></table></div>` : `<p class="vide">Aucune alerte préparée.</p>`}</section>`;
+  }
+  function vueCouts() {
+    return `${retourPlus}<section>${titreSection("Coûts et erreurs", null)}<div class="tuiles"><div class="tuile" style="display:flex"><span>24 dernières heures</span><strong>${eur(E.couts.jour_eur)}</strong></div><div class="tuile" style="display:flex"><span>Mois en cours</span><strong>${eur(E.couts.mois_eur)}</strong></div></div>
+      ${E.erreurs.length ? `<div class="tableau"><table><thead><tr><th>Quand</th><th>Qui</th><th>Erreur</th><th>Détail</th></tr></thead><tbody>${E.erreurs.map(e => `<tr><td>${date(e.quand)}</td><td>${esc(e.acteur)}</td><td>${esc(e.action)}</td><td>${esc(e.details || e.objet || "")}</td></tr>`).join("")}</tbody></table></div>` : `<p class="vide">Aucune erreur enregistrée.</p>`}</section>`;
+  }
   function vueJournal() {
-    return section("journal", "Historique des échanges et actions", E.journal.length, "", E.journal.length ? `<div class="tableau"><table><thead><tr><th>Quand</th><th>Qui</th><th>Action</th><th>Objet</th><th>Détail</th></tr></thead><tbody>${E.journal.map(j => `<tr><td>${date(j.quand)}</td><td>${esc(j.acteur)}</td><td>${j.niveau === "erreur" ? pill("echec") + " " : ""}${esc(j.action)}</td><td class="mono">${esc(j.objet || "")}</td><td>${esc(j.details || "")}</td></tr>`).join("")}</tbody></table></div>` : `<p class="vide">Aucune action enregistrée.</p>`);
+    return `${retourPlus}<section>${titreSection("Historique", E.journal.length)}${E.journal.length ? `<div class="tableau"><table><thead><tr><th>Quand</th><th>Qui</th><th>Action</th><th>Détail</th></tr></thead><tbody>${E.journal.map(j => `<tr><td>${date(j.quand)}</td><td>${esc(j.acteur)}</td><td>${j.niveau === "erreur" ? pill("echec") + " " : ""}${esc(j.action)}</td><td>${esc(j.details || "")}</td></tr>`).join("")}</tbody></table></div>` : `<p class="vide">Aucune action enregistrée.</p>`}</section>`;
+  }
+  function vueAConfigurer(id) {
+    const a = E.activites.find(x => x.id === id) || {};
+    return `${retourPlus}<section>${titreSection(esc(a.nom), null)}<article class="carte"><div>${pill(a.etat)}</div><p class="note">${esc(a.mission)}</p><p class="note meta">Espace prêt à recevoir ses agents, tâches et résultats. On le configure une fois l'immobilier rodé.</p></article></section>`;
   }
 
+  // ---------- Fiches ----------
+  const bloc = (etiquette, html) => html ? `<div class="bloc"><span class="etiquette">${etiquette}</span>${html}</div>` : "";
+  function ficheContenu(c) {
+    const m = (c.apercu && c.apercu.medias) || [], tx = (c.apercu && c.apercu.textes) || [];
+    const fig = x => `<figure>${x.type === "video" ? `<video src="${esc(x.url)}" controls playsinline preload="metadata"${x.poster ? ` poster="${esc(x.poster)}"` : ""}></video>` : `<img src="${esc(x.url)}" alt="${esc(x.libelle || "")}">`}<figcaption>${esc(x.libelle || "")}</figcaption></figure>`;
+    const images = m.filter(x => x.type === "image"), videos = m.filter(x => x.type === "video");
+    const medias = videos.map(fig).join("") + (images.length > 1 ? `<div class="diapos">${images.map(fig).join("")}</div><span class="meta">Fais glisser pour voir les ${images.length} images.</span>` : images.map(fig).join(""));
+    const t = E.taches.find(x => x.id === c.tache_id);
+    const retours = (c.retours || []).map(r => `<li>${date(r.cree_le)} · ${r.decision === "valide" ? "validé" : "modification : " + esc(r.texte)} (${esc(r.canal)})</li>`).join("");
+    return {
+      titre: c.titre, sous: `${FORMATS[c.format] || c.format || ""}${c.langue ? " · " + c.langue.toUpperCase() : ""}${c.bien ? " · " + c.bien : ""}`,
+      corps: `<div>${pill(c.statut)}</div>${medias ? `<div class="medias">${medias}</div>` : `<p class="vide">Pas d'aperçu disponible pour ce contenu.</p>`}
+        ${tx.map((x, i) => `<details ${i === 0 ? "open" : ""}><summary>${esc(x.titre)}</summary><pre class="texte-brut">${esc(x.texte)}</pre></details>`).join("")}
+        ${t ? bloc("Préparé par", ouvre("agent", t.agent, `${agent(t.agent) ? avatar(agent(t.agent)) : ""}<span class="txt"><h3>${esc(nomAgent(t.agent))}</h3><span class="meta">Voir la tâche et le compte rendu ci-dessous</span></span>${CHEVRON}`, "rangee") + ouvre("tache", t.id, `<span class="txt"><h3>${esc(t.titre)}</h3><span class="meta">${date(t.maj_le)}</span></span>${pill(t.statut)}${CHEVRON}`, "rangee")) : ""}
+        ${bloc("Date prévue", `<p class="note">${jour(c.date_prevue)}</p>`)}
+        ${retours ? bloc("Historique des décisions", `<ul class="histo">${retours}</ul>`) : ""}
+        ${zoneDecision(c)}`
+    };
+  }
+  function zoneDecision(c) {
+    if (!(c.statut === "a_valider" || c.statut === "modification_demandee")) return "";
+    const off = actif() ? "" : "disabled";
+    return `<div class="decision">${actif() ? "" : `<span class="meta">Les boutons s'activent quand la page est ouverte depuis ton compte Claude.</span>`}
+      <div class="actions"><button class="btn" data-ouvrir-modif ${off}>Demander une modification</button><button class="btn principal" data-valider="${esc(c.id)}" ${off}>Valider</button></div>
+      <div id="form-modif" hidden><label class="meta" for="modif-texte">Ce qu'il faut changer</label><textarea id="modif-texte"></textarea>
+      <div class="actions"><button class="btn principal" data-envoyer="${esc(c.id)}">Envoyer la demande</button></div></div></div>`;
+  }
+  function ficheAgent(a) {
+    const x = activiteAgent(a);
+    return {
+      titre: a.prenom || a.nom, sous: a.nom, avatar: a,
+      corps: `<div class="actions">${pill(a.etat)}${a.prenom && !a.prenom_valide ? `<span class="meta">Prénom proposé, à valider par toi</span>` : ""}</div>
+        ${bloc("En ce moment", `<p class="note">${x.ouvertes.length ? x.ouvertes.map(t => esc(t.titre)).join(" ; ") : a.etat === "bloque" ? "Ne peut pas encore travailler." : "Disponible."}</p>`)}
+        ${(a.manque || []).length && a.etat !== "actif" ? bloc("Pour être actif, il manque", `<ul class="manque">${a.manque.map(m => `<li>${esc(m)}</li>`).join("")}</ul>`) : ""}
+        ${a.roles ? bloc("Ce qu'il sait faire", `<div class="puces-texte">${a.roles.map(r => `<span>${esc(r)}</span>`).join("")}</div>`) : ""}
+        ${a.musique ? bloc("Musique", `<p class="note">${esc(a.musique)}</p>`) : ""}
+        ${bloc("Ses tâches", x.toutes.length ? `<div class="liste">${x.toutes.map(rangeeTache).join("")}</div>` : `<p class="note meta">Aucune tâche pour l'instant.</p>`)}
+        ${bloc("Comment il travaille", `<p class="note">${esc(a.execution || "—")}</p>${a.note ? `<p class="note meta">${esc(a.note)}</p>` : ""}${a.preuve ? `<p class="note meta">Preuve : ${esc(a.preuve)}</p>` : ""}`)}`
+    };
+  }
+  function ficheTache(t) {
+    const c = E.contenus.find(x => x.tache_id === t.id);
+    const reprise = (t.statut === "echec" || t.statut === "bloquee") && t.origine !== "depot" && !STATIQUE ? `<div class="actions"><button class="btn" data-reprendre="${esc(t.id)}">Relancer</button></div>` : "";
+    return {
+      titre: t.titre, sous: date(t.maj_le),
+      corps: `<div class="actions">${pill(t.statut)}<span class="meta">Coût <b>${eur(t.cout_eur)}</b></span></div>
+        ${t.raison_echec ? bloc("Ce qui bloque", `<ul class="manque"><li>${esc(t.raison_echec)}</li></ul>`) : ""}
+        ${bloc("Responsable", agent(t.agent) ? ouvre("agent", t.agent, `${avatar(agent(t.agent))}<span class="txt"><h3>${esc(nomAgent(t.agent))}</h3></span>${CHEVRON}`, "rangee") : `<p class="note">${esc(t.agent)}</p>`)}
+        ${t.resultat ? bloc("Résultat", `<p class="note">${esc(t.resultat)}</p>`) : ""}
+        ${c ? bloc("Contenu produit", ouvre("contenu", c.id, `<span class="txt"><h3>${esc(c.titre)}</h3><span class="meta">Voir et décider</span></span>${pill(c.statut)}${CHEVRON}`, "rangee")) : ""}
+        ${(t.textes || []).length ? bloc("Compte rendu", t.textes.map((x, i) => `<details ${i === 0 ? "open" : ""}><summary>${esc(x.titre)}</summary><pre class="texte-brut">${esc(x.texte)}</pre></details>`).join("")) : ""}
+        ${t.source ? bloc("Demande d'origine", `<p class="note">${esc(t.source)}</p>`) : ""}
+        ${(t.fichiers || []).length ? bloc("Fichiers", `<ul class="fichiers">${t.fichiers.map(f => `<li>${lienFichier(f)}</li>`).join("")}</ul>`) : ""}
+        ${reprise}<span class="mono meta">${esc(t.id)}</span>`
+    };
+  }
+  function ficheBien(b) {
+    return {
+      titre: b.ref, sous: `${b.type || ""} · ${b.zone || ""}`,
+      corps: `<div class="actions">${pill(b.prix && b.prix.verifie ? "valide" : "a_verifier")}<span class="meta">Prix <b>${b.prix && b.prix.verifie && b.prix.montant ? eur(b.prix.montant) : "à confirmer par toi"}</b></span></div>
+        ${b.caracteristiques ? bloc("Caractéristiques", `<div class="puces-texte">${Object.entries(b.caracteristiques).map(([k, v]) => `<span>${esc(k.replace(/_/g, " "))} : ${esc(v)}</span>`).join("")}</div>`) : ""}
+        ${bloc("Droits", `<div class="meta"><span>Publier les médias <b>${esc(LIB[b.autorisation_medias] || b.autorisation_medias || "?")}</b></span><span>Tournage <b>${esc((b.autorisation_tournage || "?").replace("a_demander", "à demander"))}</b></span><span>Disponibilité <b>${b.disponibilite_verifiee ? "vérifiée" : "à confirmer"}</b></span></div>`)}
+        ${(b.restrictions || []).length ? bloc("Restrictions", `<ul class="manque">${b.restrictions.map(r => `<li>${esc(r)}</li>`).join("")}</ul>`) : ""}
+        ${bloc("Source", `<p class="note meta">${esc(b.source_caracteristiques || "—")} (${esc(b.date_caracteristiques || "?")})${b.caracteristiques_recoupees === false ? " · non recoupé" : ""}</p>`)}
+        ${(() => { const cs = E.contenus.filter(c => c.bien === b.ref); return cs.length ? bloc("Contenus sur ce bien", `<div class="liste">${cs.map(c => ouvre("contenu", c.id, `<span class="txt"><h3>${esc(c.titre)}</h3></span>${pill(c.statut)}${CHEVRON}`, "rangee")).join("")}</div>`) : ""; })()}`
+    };
+  }
+  function ficheConnexion(x) {
+    const ag = E.agents.filter(a => (a.manque || []).some(m => m.toLowerCase().includes((x.nom || "").split(" ")[0].toLowerCase())));
+    return {
+      titre: x.nom, sous: COTE[x.cote] || x.cote || "",
+      corps: `<div>${pill(x.statut)}</div>${x.note ? bloc("État", `<p class="note">${esc(x.note)}</p>`) : ""}
+        ${x.action ? bloc("Ce qu'il faut faire", `<ul class="manque"><li>${esc(x.action)}</li></ul>`) : ""}
+        ${ag.length ? bloc("Agents concernés", `<div class="liste">${ag.map(a => ouvre("agent", a.id, `${avatar(a)}<span class="txt"><h3>${esc(a.prenom || a.nom)}</h3><span class="meta">${esc(a.nom)}</span></span>${CHEVRON}`, "rangee")).join("")}</div>`) : ""}`
+    };
+  }
+  function ficheProspect(p) {
+    return {
+      titre: p.nom || p.id, sous: p.fictif ? "prospect fictif (test)" : p.source,
+      corps: `<div>${pill(p.appel_demande ? "appel_demande" : p.statut)}</div>
+        ${bloc("Qualification", `<div class="meta"><span>Source <b>${esc(p.source)}</b></span><span>Pays <b>${esc(p.pays || "?")}</b></span><span>Langue <b>${esc(p.langue || "?")}</b></span><span>Budget <b>${esc(p.budget || "?")}</b></span><span>Zone <b>${esc(p.zone || "?")}</b></span><span>Projet <b>${esc((p.projet || "?").replace(/_/g, " "))}</b></span><span>Délai <b>${esc(p.delai || "?")}</b></span></div>`)}
+        ${bloc("Échanges", `<ul class="histo">${(p.historique || []).map(h => `<li>${date(h.cree_le)} · ${esc(h.canal)} · ${esc(h.texte)}</li>`).join("")}</ul>`)}
+        ${bloc("Alertes", `<p class="note meta">${(p.alertes || []).map(a => `${esc(a.type.replace(/_/g, " "))} ${esc(a.canal)} (${esc(LIB[a.statut] || a.statut)})`).join(", ") || "aucune"}</p>`)}`
+    };
+  }
+  const FICHES = {
+    contenu: [id => E.contenus.find(x => x.id === id), ficheContenu],
+    agent: [id => E.agents.find(x => x.id === id), ficheAgent],
+    tache: [id => E.taches.find(x => x.id === id), ficheTache],
+    bien: [id => E.biens.find(x => x.ref === id), ficheBien],
+    connexion: [id => (E.connexions.connexions || []).find(x => x.id === id), ficheConnexion],
+    prospect: [id => E.prospects.find(x => x.id === id), ficheProspect]
+  };
+  const PILE = [];
+  function afficherFiche(type, id) {
+    const f = FICHES[type]; if (!f) return; const obj = f[0](id); if (!obj) return;
+    const d = document.getElementById("fiche"), contenu = f[1](obj);
+    d.querySelectorAll("video").forEach(v => v.pause());
+    d._courant = { type, id };
+    d.innerHTML = `<div class="fiche-tete">${PILE.length ? `<button class="icone-btn" data-retour aria-label="Retour"><svg viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></svg></button>` : ""}
+      ${contenu.avatar ? avatar(contenu.avatar, true) : ""}<div class="titre"><b id="fiche-titre">${esc(contenu.titre)}</b>${contenu.sous ? `<span class="meta">${esc(contenu.sous)}</span>` : ""}</div>
+      <button class="icone-btn" data-fermer aria-label="Fermer"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+      <div class="fiche-corps">${contenu.corps}</div>`;
+    if (!d.open) d.showModal();
+    d.scrollTop = 0;
+  }
+  function ouvrirFiche(type, id) {
+    const d = document.getElementById("fiche");
+    if (d.open && d._courant) PILE.push(d._courant); else PILE.length = 0;
+    afficherFiche(type, id);
+  }
+  function rafraichirFiche() {
+    const d = document.getElementById("fiche");
+    if (!d.open || !d._courant) return;
+    const a = document.activeElement; if (a && a.tagName === "TEXTAREA" && a.value) return;
+    const v = d.querySelector("video"); if (v && !v.paused) return;
+    const top = d.scrollTop; afficherFiche(d._courant.type, d._courant.id); d.scrollTop = top;
+  }
+
+  // ---------- Rendu ----------
   function appliquerDecisions() {
     E.contenus.forEach(c => {
       if (c._statut_origine === undefined) c._statut_origine = c.statut;
@@ -334,25 +532,28 @@ dialog.detail::backdrop { background: rgb(0 0 0 / .55) }
       c.retours = base.concat(d ? (d.historique || []).map(h => ({ decision: h.decision, texte: h.texte, canal: "tableau de bord", cree_le: h.quand })) : []);
     });
   }
+  const VUES = { accueil: vueAccueil, valider: vueValider, equipe: vueEquipe, taches: vueTaches, plus: vuePlus, biens: vueBiens, acheteurs: vueAcheteurs, connexions: vueConnexions, marche: vueMarche, partenaires: vuePartenaires, alertes: vueAlertes, couts: vueCouts, journal: vueJournal, apps: () => vueAConfigurer("apps"), reseaux: () => vueAConfigurer("reseaux") };
+  const ANCIENNES = { vue: "accueil", immo: "accueil" };
+  function route() { let r = (location.hash || "#accueil").slice(1); r = ANCIENNES[r] || r; return VUES[r] ? r : "accueil"; }
   function rendre() {
     if (!E) return;
     appliquerDecisions();
-    const vue = (location.hash || "#vue").slice(1);
-    document.querySelectorAll("#onglets a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === "#" + vue ? "page" : "false"));
+    const r = route(), menu = ["accueil", "valider", "equipe", "taches"].includes(r) ? r : "plus";
+    document.querySelectorAll("#menu a").forEach(a => a.setAttribute("aria-current", a.dataset.route === menu ? "page" : "false"));
     const m = document.getElementById("vue-principale");
-    m.innerHTML = vue === "immo" ? vueImmo() : vue === "apps" || vue === "reseaux" ? vueAConfigurer(vue) : vue === "connexions" ? vueConnexions() : vue === "journal" ? vueJournal() : vueGenerale();
-    document.getElementById("genere").textContent = "État au " + date(E.genere_le);
-    const b = document.getElementById("bandeau");
-    b.textContent = STATIQUE
-      ? (DB && PEUT_ECRIRE
-          ? "Données du " + date(E.genere_le) + ". Tes validations, demandes de modification et consignes sont enregistrées tout de suite et reprises par les agents. Aucune publication automatique. Le prospect affiché est fictif."
-          : "Aperçu des données du " + date(E.genere_le) + ". Les boutons s'activent quand la page est ouverte depuis ton compte. Le prospect affiché est fictif.")
-      : (E.mode_envoi === "reel" ? "Service actif, envois réels." : "Service en mode test : alertes préparées, rien n'est envoyé.")
-        + (E.service.telegram ? "" : " Bot Telegram non configuré.") + (E.service.email ? "" : " Email non configuré.");
+    const bandeau = STATIQUE ? (DB && PEUT_ECRIRE ? "" : `<div class="bandeau">Aperçu en lecture seule. Ouvre cette page depuis ton compte Claude pour valider et donner des consignes.</div>`)
+      : (E.mode_envoi === "reel" ? "" : `<div class="bandeau alerte">Service en mode test : alertes préparées, rien n'est envoyé.${E.service.telegram ? "" : " Bot Telegram non configuré."}</div>`);
+    m.innerHTML = bandeau + VUES[r]();
+    const n = aValider().length, b = document.getElementById("badge-valider");
+    b.hidden = !n; b.textContent = n;
+    document.getElementById("genere").textContent = (STATIQUE ? "Données du " : "État au ") + date(E.genere_le);
+    const eb = document.getElementById("etat-base");
+    eb.className = "etat-base" + (actif() ? " ok" : "");
+    eb.textContent = !STATIQUE ? "serveur" : DB && PEUT_ECRIRE ? "décisions en direct" : "lecture seule";
   }
-
   function toast(t) { const el = document.getElementById("toast"); el.textContent = t; el.hidden = false; clearTimeout(toast.h); toast.h = setTimeout(() => el.hidden = true, 3500); }
 
+  // ---------- Base de l'artifact (décisions et consignes) ----------
   async function brancherBase() {
     if (!STATIQUE || !window.claude || !window.claude.use) return;
     try {
@@ -365,7 +566,7 @@ dialog.detail::backdrop { background: rgb(0 0 0 / .55) }
         clearTimeout(minuteur);
         Object.keys(DECISIONS).forEach(k => delete DECISIONS[k]);
         snap.docs.forEach(d => { DECISIONS[d.id] = d.data(); });
-        if (!document.querySelector("dialog.detail[open]")) rendre(); else majDetail();
+        rendre(); appliquerDecisions(); rafraichirFiche();
       }, () => clearTimeout(minuteur));
       DB.collection("consignes").orderBy("quand", "desc").limit(20).onSnapshot(snap => {
         CONSIGNES.length = 0; snap.docs.forEach(d => CONSIGNES.push(d.data()));
@@ -382,34 +583,20 @@ dialog.detail::backdrop { background: rgb(0 0 0 / .55) }
     const h = (ancien && ancien.historique ? ancien.historique.slice(-19) : []).concat([{ decision, texte: texte || "", quand: new Date().toISOString() }]);
     try {
       await ref.set({ contenu: id, statut: decision === "valide" ? "valide" : "modification_demandee", texte: texte || "", quand: new Date().toISOString(), historique: h, applique: false });
-      toast(decision === "valide" ? "Validé. Rien n'est publié automatiquement." : "Demande de modification enregistrée.");
+      toast(decision === "valide" ? "Validé. Rien n'est publié automatiquement." : "Demande de modification envoyée à l'équipe.");
     } catch (e) { toast("Échec de l'enregistrement. Réessaie dans un instant."); }
     finally { ENVOI.delete(id); }
   }
   async function consigneBase(texte) {
-    try { await DB.collection("consignes").add({ texte, quand: new Date().toISOString(), statut: "recue" }); toast("Consigne enregistrée."); document.getElementById("consigne").value = ""; }
-    catch (e) { toast("Échec de l'enregistrement de la consigne."); }
-  }
-  let detailOuvert = null;
-  function ouvrirDetail(id) {
-    const c = E.contenus.find(x => x.id === id); if (!c) return;
-    let d = document.querySelector("dialog.detail");
-    if (!d) { d = document.createElement("dialog"); d.className = "detail"; document.body.appendChild(d); d.addEventListener("close", () => { detailOuvert = null; d.querySelectorAll("video").forEach(v => v.pause()); rendre(); }); }
-    detailOuvert = id; d.innerHTML = detailContenu(c); d.showModal(); d.scrollTop = 0;
-  }
-  function majDetail() {
-    const d = document.querySelector("dialog.detail[open]"); if (!d || !detailOuvert) return;
-    appliquerDecisions();
-    const c = E.contenus.find(x => x.id === detailOuvert); if (!c) return;
-    const p = d.querySelector(".detail-corps > .pastille"); if (p) p.outerHTML = pill(c.statut);
-    const zone = d.querySelector(".detail-corps"); const anc = zone.querySelector(".actions:last-of-type");
-    if (c.statut !== "a_valider" && c.statut !== "modification_demandee" && anc) { anc.remove(); const f = zone.querySelector("[data-form]"); if (f) f.remove(); }
+    try { await DB.collection("consignes").add({ texte, quand: new Date().toISOString(), statut: "recue" }); toast("Consigne envoyée à l'équipe."); document.getElementById("consigne").value = ""; }
+    catch (e) { toast("Échec de l'envoi de la consigne. Réessaie dans un instant."); }
   }
 
+  // ---------- Mode serveur ----------
   async function charger() {
     if (STATIQUE) return rendre();
-    try { const r = await fetch("/api/etat", { cache: "no-store" }); E = await r.json(); rendre(); }
-    catch (e) { document.getElementById("bandeau").textContent = "Le service ne répond pas. Vérifie qu'il tourne sur le serveur."; }
+    try { const r = await fetch("/api/etat", { cache: "no-store" }); E = await r.json(); rendre(); rafraichirFiche(); }
+    catch (e) { document.getElementById("vue-principale").innerHTML = `<div class="bandeau alerte">Le service ne répond pas. Vérifie qu'il tourne sur le serveur.</div>`; }
   }
   async function poster(url, corps) {
     try {
@@ -418,30 +605,35 @@ dialog.detail::backdrop { background: rgb(0 0 0 / .55) }
     } catch (e) { toast("Échec de l'envoi : le service ne répond pas."); }
   }
 
+  // ---------- Clics ----------
+  const fiche = document.getElementById("fiche");
+  fiche.addEventListener("close", () => { fiche.querySelectorAll("video").forEach(v => v.pause()); fiche._courant = null; PILE.length = 0; });
+  fiche.addEventListener("click", ev => { if (ev.target === fiche) fiche.close(); });
   document.addEventListener("click", ev => {
-    const el = ev.target.closest("[data-filtre],[data-valider],[data-ouvrir],[data-envoyer],[data-reprendre],[data-aller],[data-detail],[data-fermer],#envoyer-consigne");
+    const el = ev.target.closest("[data-fiche],[data-fermer],[data-retour],[data-filtre],[data-filtre-lien],[data-valider],[data-ouvrir-modif],[data-envoyer],[data-reprendre],#envoyer-consigne");
     if (!el) return;
-    if (el.dataset.detail) { ev.preventDefault(); return ouvrirDetail(el.dataset.detail); }
-    if (el.hasAttribute("data-fermer")) { const d = el.closest("dialog"); if (d) d.close(); return; }
-    if (el.dataset.aller) { ev.preventDefault(); if (location.hash !== "#immo") { location.hash = "immo"; rendre(); } const c = document.getElementById(el.dataset.aller); if (c) c.scrollIntoView({ block: "start" }); return; }
-    if (el.dataset.filtre) { filtres.taches = el.dataset.filtre; rendre(); document.getElementById("taches").scrollIntoView({ block: "start" }); return; }
-    if (el.dataset.ouvrir) { const f = document.querySelector(`[data-form="${CSS.escape(el.dataset.ouvrir)}"]`); if (f) { f.hidden = !f.hidden; if (!f.hidden) f.querySelector("textarea").focus(); } return; }
+    if (el.dataset.fiche) { ev.preventDefault(); return ouvrirFiche(el.dataset.fiche, el.dataset.id); }
+    if (el.hasAttribute("data-fermer")) return fiche.close();
+    if (el.hasAttribute("data-retour")) { const p = PILE.pop(); if (p) afficherFiche(p.type, p.id); return; }
+    if (el.dataset.filtreLien) { filtres.taches = el.dataset.filtreLien; return; }
+    if (el.dataset.filtre) { filtres.taches = el.dataset.filtre; return rendre(); }
+    if (el.hasAttribute("data-ouvrir-modif")) { const f = document.getElementById("form-modif"); if (f) { f.hidden = !f.hidden; if (!f.hidden) f.querySelector("textarea").focus(); } return; }
     if (STATIQUE) {
       if (!DB || !PEUT_ECRIRE) return;
       if (el.dataset.valider) return deciderBase(el.dataset.valider, "valide");
-      if (el.dataset.envoyer) { const tx = document.getElementById(el.dataset.champ).value.trim(); if (!tx) return toast("Écris ce qu'il faut changer."); return deciderBase(el.dataset.envoyer, "modification", tx); }
+      if (el.dataset.envoyer) { const tx = document.getElementById("modif-texte").value.trim(); if (!tx) return toast("Écris ce qu'il faut changer."); return deciderBase(el.dataset.envoyer, "modification", tx); }
       if (el.id === "envoyer-consigne") { const tx = document.getElementById("consigne").value.trim(); if (!tx) return toast("Écris la consigne."); return consigneBase(tx); }
       return;
     }
     if (el.dataset.valider) return poster(`/api/contenus/${encodeURIComponent(el.dataset.valider)}/valider`);
-    if (el.dataset.envoyer) { const tx = document.getElementById(el.dataset.champ).value; return poster(`/api/contenus/${encodeURIComponent(el.dataset.envoyer)}/modifier`, { texte: tx }); }
+    if (el.dataset.envoyer) return poster(`/api/contenus/${encodeURIComponent(el.dataset.envoyer)}/modifier`, { texte: document.getElementById("modif-texte").value });
     if (el.dataset.reprendre) return poster(`/api/taches/${encodeURIComponent(el.dataset.reprendre)}/reprendre`);
     if (el.id === "envoyer-consigne") return poster("/api/consigne", { texte: document.getElementById("consigne").value });
   });
-  window.addEventListener("hashchange", rendre);
+  window.addEventListener("hashchange", () => { if (fiche.open) fiche.close(); rendre(); window.scrollTo(0, 0); });
   charger();
   brancherBase();
-  // Rafraîchit toutes les 30 s, sauf pendant la saisie d'une consigne ou d'une demande de modification
-  if (!STATIQUE) setInterval(() => { const a = document.activeElement; if (!(a && a.tagName === "TEXTAREA") && ![...document.querySelectorAll("textarea")].some(t => t.value)) charger(); }, 30000);
+  // Mode serveur : rafraîchit toutes les 30 s, sauf pendant une saisie
+  if (!STATIQUE) setInterval(() => { if (![...document.querySelectorAll("textarea")].some(t => t.value)) charger(); }, 30000);
 })();
 </script>
