@@ -26,3 +26,6 @@ Aucun chiffre, aucun rendement, aucune promesse de licence touristique : rien à
 
 ## V2 (11/11/2026)
 Demande d Avishay : s inspirer des vidéos des autres agents, aligner police et position, enlever la musique. Refaite sur images de villa (vidéo autorisée AB-0001, aucun bien nommé), sans musique, 18,9 s, même charte que le Reel et le carrousel (outils/charte-texte.css). Texte inchangé sur le fond, mention de prudence conservée.
+
+## V3 (11/11/2026)
+Retour d Avishay sur la V2 : texte peu lisible, pas assez animé. Étude de Reels immobiliers performants (outliers Instagram/TikTok août-nov. 2026, via vidIQ) : accroche lisible dès la 1re seconde, un message par plan, texte guidé qui change avec les images. V3 : cartes sombres derrière le texte (lisibles sur toute image), mots qui arrivent un par un, listes qui se déroulent, pastilles Area / Property / Budget, bouton DM. Rendu : animation-texte.html (TRANSPARENT=1 node outils/rendu-animation.js ... 18.9 25) superposé au fond plan-fond.json. Sans musique.

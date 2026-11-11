@@ -1,0 +1,121 @@
+{
+ "bien": "AB-0001 (images seulement, aucun bien présenté)",
+ "version": "V3-fond",
+ "source": "VIDEO/Aloha40_Unbranded video.mp4",
+ "fps": 25,
+ "fondu": 0.3,
+ "plans": [
+  {
+   "debut": 3.18,
+   "fin": 5.02,
+   "x0": 1200,
+   "x1": 1500,
+   "note": "ciel à travers les arbres",
+   "dans_le_reel": [
+    0,
+    1.84
+   ]
+  },
+  {
+   "debut": 11.18,
+   "fin": 12.98,
+   "x0": 1500,
+   "x1": 1250,
+   "note": "piscine et jardin",
+   "dans_le_reel": [
+    1.54,
+    3.34
+   ]
+  },
+  {
+   "debut": 23.1,
+   "fin": 24.98,
+   "x0": 1250,
+   "x1": 1450,
+   "note": "table extérieure",
+   "dans_le_reel": [
+    3.04,
+    4.92
+   ]
+  },
+  {
+   "debut": 25.1,
+   "fin": 26.94,
+   "x0": 1700,
+   "x1": 1500,
+   "note": "chambre",
+   "dans_le_reel": [
+    4.62,
+    6.46
+   ]
+  },
+  {
+   "debut": 37.1,
+   "fin": 38.98,
+   "x0": 1300,
+   "x1": 1350,
+   "note": "baignoire face au jardin",
+   "dans_le_reel": [
+    6.16,
+    8.04
+   ]
+  },
+  {
+   "debut": 41.18,
+   "fin": 42.94,
+   "x0": 1100,
+   "x1": 1400,
+   "note": "façade et piscine",
+   "dans_le_reel": [
+    7.74,
+    9.5
+   ]
+  },
+  {
+   "debut": 17.1,
+   "fin": 20.0,
+   "x0": 1150,
+   "x1": 1600,
+   "note": "séjour",
+   "dans_le_reel": [
+    9.2,
+    12.1
+   ]
+  },
+  {
+   "debut": 21.1,
+   "fin": 23.0,
+   "x0": 1400,
+   "x1": 1200,
+   "note": "salle à manger",
+   "dans_le_reel": [
+    11.8,
+    13.7
+   ]
+  },
+  {
+   "debut": 45.1,
+   "fin": 47.0,
+   "x0": 1300,
+   "x1": 1450,
+   "note": "piscine éclairée",
+   "dans_le_reel": [
+    13.4,
+    15.3
+   ]
+  },
+  {
+   "debut": 53.1,
+   "fin": 57.0,
+   "x0": 1350,
+   "x1": 1250,
+   "note": "piscine et parasols, écran final",
+   "dans_le_reel": [
+    15.0,
+    18.9
+   ]
+  }
+ ],
+ "textes": [],
+ "duree": 18.9
+}
