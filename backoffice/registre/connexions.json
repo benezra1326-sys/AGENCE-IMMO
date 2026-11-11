@@ -62,15 +62,16 @@
       "nom": "Instagram professionnel @avishay.marbella",
       "statut": "partiel",
       "cote": "telephone",
-      "note": "Compte pro existant, non relié à une page Facebook : pas d'accès API.",
-      "action": "Créer la page Facebook et la relier."
+      "note": "Compte pro relié à la page Facebook le 11/11.",
+      "action": "Autoriser vidIQ (lien envoyé le 11/11) pour les brouillons et les statistiques."
     },
     {
       "id": "facebook",
       "nom": "Page Facebook",
-      "statut": "manquant",
+      "statut": "partiel",
       "cote": "telephone",
-      "action": "À créer."
+      "action": "Autoriser vidIQ à publier sur la page (lien envoyé le 11/11).",
+      "note": "Page « Avishay Marbella » créée le 11/11 et reliée à Instagram."
     },
     {
       "id": "linkedin",
