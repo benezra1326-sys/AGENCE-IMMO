@@ -3,14 +3,13 @@
   "activite": "immo",
   "source": "demande d'Avishay du 10/11 : rendre Gabriel, Inès et Arthur opérationnels",
   "cree_le": "2026-11-10T11:30:00Z",
-  "maj_le": "2026-11-10T13:15:00Z",
+  "maj_le": "2026-11-11T11:05:00+01:00",
   "cout_eur": 0,
   "agent": "voix",
   "titre": "Voix off du Reel villa golf (FR par toi, puis EN et ES avec ta voix)",
-  "statut": "bloquee",
-  "resultat": "Test VoiceStudio fait sur le Mac le 10/11 avec la voix Jarvis : 6 pistes EN (toutes dans les créneaux) et 6 pistes ES (L1, L2, L6 trop longues de 0,3 à 0,8 s), dossier Bureau/voix-reel-golf sur le Mac. Accent français audible, surtout en espagnol.",
+  "statut": "terminee",
+  "resultat": "Voix off Jarvis refaite avec VoxCPM2 (Apache-2.0, usage commercial autorisé selon huggingface.co/openbmb/VoxCPM2) : 6 pistes EN et 6 ES sur le Mac d'Avishay (Bureau/voix-reel-golf-voxcpm2). Dépassements : EN L6 +0,6 s, ES L2 +1 s (texte plus court proposé ou créneau élargi au montage). À écouter : ES L5 et L6 (« escríbeme »).",
   "fichiers": [
     "ops/rapports/2026-11-10-script-voix-fr.md"
-  ],
-  "raison_echec": "Jarvis tourne sur OmniVoice, licence non commerciale (CC-BY-NC) : pistes de test, non publiables. Il faut un moteur à licence commerciale (VoxCPM2 à installer, ou ElevenLabs), puis le dossier sur Google Drive pour Elsa."
+  ]
 }
