@@ -2,7 +2,7 @@
 """Monte un Reel 9:16 à partir d'une vidéo 16:9 et d'un plan de montage JSON.
 
 Usage : python3 -I outils/montage_reel.py plan.json source.mp4 dossier_textes sortie.mp4 [--audio fond.wav] [--apercu]
-Le plan liste les plans (début, fin, recadrage x0 -> x1 en pixels de la source 3840 px) et les cartons de texte
+Le plan liste les plans (début, fin, recadrage x0 -> x1 en pixels de la source 3840 px, « zoom » facultatif : 0.06 = zoom avant de 6 %) et les cartons de texte
 (PNG transparents 1080x1920, avec début et fin dans le Reel). Aucun média n'est versionné dans git.
 """
 import json, subprocess, sys, os
@@ -32,6 +32,10 @@ for i, s in enumerate(plan['plans']):
     sf = os.path.join(tmp, f'p{i:02d}.mp4')
     vf = (f"crop={cw}:{SH}:x='{x0:.1f}+({x1 - x0:.1f})*t/{d:.3f}':y=0,"
           f"scale={OW}:{OH}:flags=lanczos,setsar=1,fps={FPS}")
+    z = s.get('zoom', plan.get('zoom', 0))
+    if z:  # léger zoom avant continu sur le plan (« plan qui respire »)
+        vf += (f",scale=w='trunc({OW}*(1+{z}*t/{d:.3f})/2)*2':h='trunc({OH}*(1+{z}*t/{d:.3f})/2)*2'"
+               f":eval=frame:flags=bicubic,crop={OW}:{OH}")
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-ss', str(s['debut']), '-t', f'{d:.3f}', '-i', src, '-an', '-vf', vf,
                     '-c:v', 'libx264', '-preset', 'veryfast' if apercu else 'medium', '-crf', '28' if apercu else '14',
                     '-pix_fmt', 'yuv420p', '-threads', '2', sf], check=True)
@@ -57,7 +61,8 @@ if fd:
         off = acc - fd
         f.append(f"{prev}[{i}:v]xfade=transition=fade:duration={fd}:offset={off:.3f}[x{i}]")
         prev, acc = f'[x{i}]', off + durs[i]
-    f.append(f"{prev}fade=t=in:st=0:d=0.4,fade=t=out:st={plan['duree'] - 0.6}:d=0.6[base]")
+    fi0 = plan.get('fondu_entree', 0.4)  # 0 : première image nette (accroche visible tout de suite)
+    f.append(f"{prev}" + (f"fade=t=in:st=0:d={fi0}," if fi0 else "") + f"fade=t=out:st={plan['duree'] - 0.6}:d=0.6[base]")
 else:
     f.append(''.join(segs) + f"concat=n={len(segs)}:v=1:a=0,fade=t=in:st=0:d=0.4,fade=t=out:st={plan['duree'] - 0.6}:d=0.6[base]")
 last = 'base'

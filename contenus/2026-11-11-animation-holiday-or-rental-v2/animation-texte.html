@@ -1,5 +1,5 @@
 <!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../outils/charte-texte.css">
-<!-- Animation « Holiday home or rental investment? » V3 (11/11/2026) : textes animés superposés à la vidéo (fond transparent).
+<!-- Animation « Holiday home or rental investment? » V4 (11/11/2026) : accroche visible dès la 1re image, cartes calées sur les coupes, barre de progression. V3 : textes animés superposés à la vidéo (fond transparent).
      Tirée de l'étude des Reels d'agences qui marchent : accroche lisible dès la 1re seconde, un message par plan, mots qui
      arrivent un par un, cartes sombres derrière le texte pour qu'il se lise sur n'importe quelle image. Charte commune
      (Cormorant en capitales espacées + Inter), textes centrés dans le haut de l'image. Sans musique. -->
@@ -19,6 +19,7 @@ body{background:transparent}
 .dm{display:inline-block;margin-top:30px;padding:20px 34px;background:var(--sand2);color:var(--ink);font-family:'Inter',sans-serif;font-weight:600;font-size:30px;letter-spacing:.08em}
 </style></head><body>
 <div id="stage">
+ <div id="prog" style="position:absolute;left:0;top:0;height:5px;width:0;background:var(--sand2)"></div>
  <!-- 1. accroche -->
  <div class="card" id="c1" style="top:250px">
   <div class="S" id="c1s">Marbella · Your project</div>
@@ -62,19 +63,20 @@ function card(el,t,i,o){const a=C((t-i)/0.45),z=C((t-o)/0.35);el.style.opacity=t
 function words(el,t,start,step){el.querySelectorAll('.w').forEach((w,k)=>{const a=C((t-start-k*step)/0.4);w.style.opacity=E(a);w.style.transform=`translateY(${(1-E(a))*36}px)`})}
 function rows(el,t,start,step){el.querySelectorAll('.row').forEach((r,k)=>{const a=C((t-start-k*step)/0.4);r.style.opacity=E(a);r.style.transform=`translateX(${(1-E(a))*-60}px)`})}
 function bar(el,t,s,w){el.style.width=(w*E(C((t-s)/0.6)))+'px'}
-const S=[[0.15,3.0],[3.15,4.8],[4.95,9.05],[9.25,13.3],[13.45,15.0],[15.15,99]];
+// coupes du fond (milieux de fondus) : 1.69 3.19 4.77 6.31 7.89 9.35 11.95 13.55 15.15
+const S=[[-1,2.9],[3.19,4.47],[4.77,9.05],[9.35,13.25],[13.55,14.85],[15.15,99]];
 window.render=function(t){
  const ids=['c1','c2','c3','c4','c5','c6'];
  ids.forEach((id,k)=>card($(id),t,S[k][0],S[k][1]));
- words($('c1'),t,0.35,0.22); bar($('c1b'),t,1.6,180);
- words($('c2'),t,3.3,0.2); bar($('c2b'),t,4.0,180);
- const ch3=C((t-5.1)/0.4); $('c3c').style.transform=`scale(${0.6+0.4*B(ch3)})`; $('c3c').style.opacity=ch3>0?1:0;
- rows($('c3'),t,5.6,0.7);
- const ch4=C((t-9.4)/0.4); $('c4c').style.transform=`scale(${0.6+0.4*B(ch4)})`; $('c4c').style.opacity=ch4>0?1:0;
- rows($('c4'),t,9.9,0.7); $('c4n').style.opacity=E(C((t-12.0)/0.5));
- words($('c5'),t,13.6,0.15);
- $('c5').querySelectorAll('.pill').forEach((p,k)=>{const a=C((t-14.0-k*0.25)/0.35);p.style.opacity=a>0?1:0;p.style.transform=`scale(${0.5+0.5*B(a)})`});
- words($('c6'),t,15.35,0.12);
+ words($('c1'),t,-0.75,0.25); bar($('c1b'),t,1.3,180);
+ words($('c2'),t,3.3,0.16); bar($('c2b'),t,3.9,180);
+ const ch3=C((t-4.95)/0.4); $('c3c').style.transform=`scale(${0.6+0.4*B(ch3)})`; $('c3c').style.opacity=ch3>0?1:0;
+ rows($('c3'),t,5.4,0.75);
+ const ch4=C((t-9.5)/0.4); $('c4c').style.transform=`scale(${0.6+0.4*B(ch4)})`; $('c4c').style.opacity=ch4>0?1:0;
+ rows($('c4'),t,10.0,0.7); $('c4n').style.opacity=E(C((t-12.2)/0.5));
+ words($('c5'),t,13.65,0.12);
+ $('c5').querySelectorAll('.pill').forEach((p,k)=>{const a=C((t-13.95-k*0.2)/0.3);p.style.opacity=a>0?1:0;p.style.transform=`scale(${0.5+0.5*B(a)})`});
+ words($('c6'),t,15.3,0.1); $('prog').style.width=(1080*Math.min(1,t/18.9))+'px';
  const d=C((t-16.3)/0.4); $('c6d').style.opacity=d>0?1:0; $('c6d').style.transform=`scale(${0.6+0.4*B(d)})`;
  $('c6n').style.opacity=E(C((t-17.0)/0.5));
 };

@@ -29,3 +29,6 @@ Demande d Avishay : s inspirer des vidéos des autres agents, aligner police et 
 
 ## V3 (11/11/2026)
 Retour d Avishay sur la V2 : texte peu lisible, pas assez animé. Étude de Reels immobiliers performants (outliers Instagram/TikTok août-nov. 2026, via vidIQ) : accroche lisible dès la 1re seconde, un message par plan, texte guidé qui change avec les images. V3 : cartes sombres derrière le texte (lisibles sur toute image), mots qui arrivent un par un, listes qui se déroulent, pastilles Area / Property / Budget, bouton DM. Rendu : animation-texte.html (TRANSPARENT=1 node outils/rendu-animation.js ... 18.9 25) superposé au fond plan-fond.json. Sans musique.
+
+## V4 (11/11/2026)
+« Pas mal, on peut encore optimiser » : accroche visible dès la 1re image (pas de fondu au noir), zoom avant léger et continu sur chaque plan (zoom 0.07), cartes qui changent sur les coupes, barre de progression en haut.

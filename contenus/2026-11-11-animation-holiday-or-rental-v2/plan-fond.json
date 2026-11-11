@@ -1,6 +1,6 @@
 {
  "bien": "AB-0001 (images seulement, aucun bien présenté)",
- "version": "V3-fond",
+ "version": "V4-fond",
  "source": "VIDEO/Aloha40_Unbranded video.mp4",
  "fps": 25,
  "fondu": 0.3,
@@ -117,5 +117,7 @@
   }
  ],
  "textes": [],
- "duree": 18.9
+ "duree": 18.9,
+ "zoom": 0.07,
+ "fondu_entree": 0
 }
