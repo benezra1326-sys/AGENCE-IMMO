@@ -235,7 +235,7 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
   const LIB = {
     prevu: "prévu", configure: "configuré", teste: "testé", actif: "actif", bloque: "bloqué",
     en_attente: "en attente", en_cours: "en cours", terminee: "terminée", echec: "échec", bloquee: "bloquée",
-    a_valider: "à valider", modification_demandee: "modification demandée", valide: "validé", publie: "publié", remplace: "remplacé",
+    a_valider: "à valider", modification_demandee: "en modification", valide: "validé", publie: "publié", remplace: "remplacé",
     brouillon: "brouillon", en_preparation: "en préparation", operationnel: "opérationnel", partiel: "partiel",
     manquant: "manquant", a_verifier: "à activer ou vérifier", a_configurer: "à configurer", en_lancement: "en lancement",
     recue: "reçue", attribuee: "prise en charge", traitee: "faite", question: "question pour toi",
@@ -273,7 +273,13 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
       bloquees: t.filter(x => x.statut === "bloquee" || x.statut === "echec")
     };
   }
-  const aValider = () => E.contenus.filter(c => c.statut === "a_valider" || c.statut === "modification_demandee");
+  const aValider = () => E.contenus.filter(c => c.activite === "immo" && c.statut === "a_valider");
+  const enModif = () => E.contenus.filter(c => c.activite === "immo" && c.statut === "modification_demandee");
+  function rangeeModif(c) {
+    const d = DECISIONS[c.id] || {}, demande = d.texte || ((c.retours || []).filter(r => r.decision !== "valide").slice(-1)[0] || {}).texte || "";
+    const suivi = d.applique ? "Nouvelle version livrée" : d.transmis_le ? `Prise en charge le ${date(d.transmis_le)}` : "Transmise à l'équipe, prise en charge à venir";
+    return ouvre("contenu", c.id, `<span class="puce warn"></span><span class="txt"><h3>${esc(c.titre)}</h3>${demande ? `<span class="note">Ta demande : ${esc(demande)}</span>` : ""}<span class="meta"><span>${esc(suivi)}</span></span></span>${pill(c.statut)}${CHEVRON}`, "rangee");
+  }
   const bloquees = () => E.taches.filter(x => x.statut === "bloquee" || x.statut === "echec");
   const connexionsAFaire = () => (E.connexions.connexions || []).filter(c => c.action && c.statut !== "operationnel");
   function visuel(c) {
@@ -310,11 +316,13 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
       <div class="legende-etats"><span>● testé : a déjà produit un vrai résultat</span><span>● bloqué : il lui manque un accès</span><span>● actif : tourne seul (serveur)</span></div>`;
     const acts = E.activites.map(a => `<article class="carte"><div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><h3>${esc(a.nom)}</h3>${pill(a.etat)}</div><p class="note" style="color:var(--muted)">${esc(a.mission)}</p>${a.id === "immo" ? `<div class="actions"><a class="btn" href="#equipe">Voir l'équipe</a><a class="btn" href="#biens">Biens</a></div>` : `<p class="note meta">Espace prêt, aucun agent pour l'instant.</p>`}</article>`).join("");
     return `<section><h1>${salut}</h1><p class="intro">${esc(resume)}. ${STATIQUE ? `Données du ${date(E.genere_le)}.` : ""}</p></section>`
+      + `<section>${titreSection("Parler à Victor", null)}${blocConsigne()}</section>`
       + `<section>${tuiles}</section>`
       + `<section>${titreSection("À valider", av.length, `<a class="lien-section" href="#valider">Tout voir</a>`)}${av.length ? `<div class="rang-contenus">${av.map(carteContenu).join("")}</div>` : `<p class="vide">Rien à valider pour l'instant.</p>`}</section>`
+      + (enModif().length ? `<section>${titreSection("En modification", enModif().length, `<a class="lien-section" href="#valider">Tout voir</a>`)}<div class="liste">${enModif().map(rangeeModif).join("")}</div></section>` : "")
       + `<section>${titreSection("Ce qui attend une action", afaire.length)}<p class="intro">Touche une ligne pour voir le détail et ce qu'il faut faire.</p>${afaire.length ? `<div class="liste">${afaire.join("")}</div>` : `<p class="vide">Rien de bloqué.</p>`}</section>`
       + `<section>${titreSection("L'équipe Immobilier", ag.length, `<a class="lien-section" href="#equipe">Détail</a>`)}${equipe}</section>`
-      + `<section>${titreSection("Donner une consigne", null)}${blocConsigne()}</section>`
+
       + `<section>${titreSection("Les trois activités", null)}<div class="grille-agents">${acts}</div></section>`;
   }
 
@@ -337,33 +345,32 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
     return DICT ? `<button type="button" class="btn micro" data-micro="${champ}" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg><span>Dicter</span></button>`
       : `<span class="meta">Pour dicter sur iPhone, touche le micro du clavier.</span>`;
   }
-  function blocConsigne(pour) {
-    const off = actif() ? "" : "disabled", id = pour ? "consigne-agent" : "consigne";
-    const options = `<option value="">Victor répartit (recommandé)</option>${E.agents.filter(a => a.activite === "immo" && a.id !== "coordination").map(a => `<option value="${esc(a.id)}">${esc(a.prenom || a.nom)} (${esc(a.nom)})</option>`).join("")}`;
-    const liste = CONSIGNES.filter(k => !pour || k.pour === pour).slice(0, 5);
-    return `<article class="carte consigne-bloc" data-bloc-consigne="${id}"><label class="meta" for="${id}">${pour ? `Dis à ${esc(prenom(pour))} ce que tu veux. La consigne lui arrive directement.` : "Dis ou écris ce que tu veux. Victor (coordination) la donne au bon agent, ou choisis toi-même le destinataire."}</label>
+  function blocConsigne() {
+    const off = actif() ? "" : "disabled", id = "consigne";
+    const liste = CONSIGNES.slice(0, 4);
+    return `<article class="carte consigne-bloc" data-bloc-consigne="${id}"><label class="meta" for="${id}">Dis ou écris ce que tu veux. Victor te répond tout de suite, transmet au bon agent et te remonte le résultat ici.</label>
       <textarea id="${id}" data-consigne placeholder="Exemple : prépare un carrousel sur les quartiers d'Estepona pour la semaine prochaine." ${off}></textarea>
       <span class="meta provisoire" id="${id}-provisoire" hidden></span>
-      ${pour ? `<input type="hidden" id="${id}-pour" value="${esc(pour)}">` : `<div class="destinataire"><label class="meta" for="${id}-pour">Pour</label><select id="${id}-pour" ${off}>${options}</select></div><span class="meta" id="${id}-propose" aria-live="polite"></span>`}
-      <div class="actions">${boutonMicro(id)}<button class="btn principal" data-envoyer-consigne="${id}" ${off}>Envoyer la consigne</button></div>
+      <span class="meta" id="${id}-propose" aria-live="polite"></span>
+      <div class="actions">${boutonMicro(id)}<button class="btn principal" data-envoyer-consigne="${id}" ${off}>Envoyer à Victor</button></div>
       ${liste.length ? `<div class="liste">${liste.map(rangeeConsigne).join("")}</div>` : ""}</article>`;
   }
   const destinataire = k => k.pour || k.propose || "coordination";
   function rangeeConsigne(k) {
     const r = (k.reponses || []).filter(x => x.de !== "avishay").slice(-1)[0];
-    return ouvre("consigne", k._id, `<span class="puce ${k.statut === "question" ? "warn" : k.statut === "traitee" ? "" : "test"}"></span><span class="txt"><h3>${esc(k.texte)}</h3><span class="meta"><span>Pour <b>${esc(prenom(destinataire(k)))}</b></span><span>${date(k.quand)}</span></span>${r ? `<span class="note">${esc(prenom(r.de))} : ${esc(r.texte)}</span>` : `<span class="note">En attente de réponse…</span>`}</span>${pill(k.statut || "recue")}${CHEVRON}`, "rangee");
+    return ouvre("consigne", k._id, `<span class="puce ${k.statut === "question" ? "warn" : k.statut === "traitee" ? "" : "test"}"></span><span class="txt"><h3>${esc(k.texte)}</h3><span class="meta"><span>${destinataire(k) === "coordination" ? "Victor" : `Victor → <b>${esc(prenom(destinataire(k)))}</b>`}</span><span>${date(k.quand)}</span></span>${r ? `<span class="note">${esc(prenom(r.de))} : ${esc(r.texte)}</span>` : `<span class="note">En attente de réponse…</span>`}</span>${pill(k.statut || "recue")}${CHEVRON}`, "rangee");
   }
   function ficheConsigne(k) {
     const qui = destinataire(k), a = agent(qui);
     const fil = [{ de: "avishay", texte: k.texte, quand: k.quand, canal: k.canal }].concat(k.reponses || []);
     const off = actif() ? "" : "disabled";
     return {
-      titre: "Consigne pour " + prenom(qui), sous: a ? a.nom : "", avatar: a,
-      corps: `<div class="actions">${pill(k.statut || "recue")}<span class="meta">${k.pour ? "Adressée directement" : "Répartie par Victor"}</span></div>
+      titre: "Échange avec Victor", sous: qui !== "coordination" ? `Transmis à ${prenom(qui)} (${a ? a.nom : qui})` : "Coordination", avatar: agent("coordination"),
+      corps: `<div class="actions">${pill(k.statut || "recue")}</div>
         <ol class="echange">${fil.map(m => `<li class="${m.de === "avishay" ? "moi" : "agent"}"><span class="meta"><b>${m.de === "avishay" ? "Toi" : esc(prenom(m.de))}</b> · ${date(m.quand)}${m.canal === "voix" ? " · dictée" : ""}${m.auto ? " · réponse immédiate" : ""}</span><p class="note">${esc(m.texte)}</p></li>`).join("")}</ol>
-        ${ATTENTE.has(k._id) ? `<p class="note meta">${esc(prenom(qui))} écrit…</p>` : ""}
-        <p class="note meta">${esc(prenom(qui))} répond tout de suite pour confirmer et poser ses questions. Le travail lui-même se fait à la prochaine session (tout de suite avec le serveur) ; la consigne passe alors à « faite », avec le résultat ici.</p>
-        <div class="bloc"><label class="etiquette" for="reponse-consigne">Répondre à ${esc(prenom(qui))}</label><textarea id="reponse-consigne" data-consigne ${off}></textarea>
+        ${ATTENTE.has(k._id) ? `<p class="note meta">Victor écrit…</p>` : ""}
+        <p class="note meta">Victor confirme tout de suite. L'agent fait le travail à la prochaine session (tout de suite une fois le serveur lancé) ; la consigne passe alors à « faite », avec le résultat ici.</p>
+        <div class="bloc"><label class="etiquette" for="reponse-consigne">Répondre à Victor</label><textarea id="reponse-consigne" data-consigne ${off}></textarea>
         <span class="meta provisoire" id="reponse-consigne-provisoire" hidden></span>
         <div class="actions">${boutonMicro("reponse-consigne")}<button class="btn principal" data-repondre="${esc(k._id)}" ${off}>Envoyer</button></div></div>`
     };
@@ -374,22 +381,27 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
     if (!SAMPLE || !DB) return;
     const k = CONSIGNES.find(x => x._id === id); if (!k) return;
     const qui = destinataire(k), a = agent(qui) || {};
-    const fil = [{ de: "avishay", texte: k.texte }].concat(k.reponses || []).map(m => `${m.de === "avishay" ? "Avishay" : prenom(m.de)} : ${m.texte}`).join("\n");
-    const prompt = `Tu es ${a.prenom || "Victor"}, ${a.nom || "coordination"} dans l'équipe d'agents d'Avishay Benazra, agent immobilier de luxe chez Levy & Goldman à Marbella (zone Cabopino à Casares, biens dès 500 000 €).
-Ce que tu sais faire : ${(a.roles || []).join(", ") || "répartir les tâches"}. État : ${LIB[a.etat] || a.etat || "—"}. Ce qui te manque : ${(a.manque || []).join(" ; ") || "rien"}.
+    const fil = [{ de: "avishay", texte: k.texte }].concat(k.reponses || []).map(m => `${m.de === "avishay" ? "Avishay" : "Victor"} : ${m.texte}`).join("\n");
+    const equipe = E.agents.filter(x => x.activite === "immo" && x.id !== "coordination").map(x => `- ${x.id} : ${x.prenom || x.nom} (${x.nom}), ${LIB[x.etat] || x.etat}${(x.roles || []).length ? ", " + x.roles.slice(0, 3).join(", ") : ""}`).join("\n");
+    const prompt = `Tu es Victor, l'agent maître (coordination) d'Avishay Benazra, agent immobilier de luxe chez Levy & Goldman à Marbella (zone Cabopino à Casares, biens dès 500 000 €). Avishay ne parle qu'à toi : tu reçois ses consignes, tu les transmets au bon agent et tu lui rends compte.
+Ton équipe :
+${equipe}
+Agent proposé d'après les mots-clés : ${qui !== "coordination" ? qui : "aucun"} (corrige si un autre convient mieux).
 ${REGLES}
 Le travail réel sera fait plus tard dans une session de travail : ne prétends pas l'avoir déjà fait, ne donne aucun chiffre inventé.
 Échange en cours :
 ${fil}
 
-Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4 phrases : confirme que tu as bien reçu, dis ce que tu vas faire, et pose une seule question précise s'il te manque une information ou une autorisation. Si la demande ne relève pas de ton rôle, dis à qui tu la passes. Réponds avec seulement un objet JSON : {"texte": "...", "question": true|false}`;
+Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4 phrases : confirme que tu as bien reçu, reformule en une phrase ce qui va être fait, et dis à quel agent (par son prénom) tu le transmets. Ne pose une question que si une information indispensable manque vraiment ; ne redemande jamais ce qui est déjà dit dans l'échange. Réponds avec seulement un objet JSON : {"texte": "...", "question": true|false, "agent": "id de l'agent choisi, ou coordination"}`;
     ATTENTE.add(id); rafraichirFiche(true);
     try {
       const r = await SAMPLE.json(prompt, { modelTier: "quick", cache: false });
       const texte = r && typeof r.texte === "string" ? r.texte.trim() : "";
       if (texte) {
         const frais = CONSIGNES.find(x => x._id === id) || k;
-        await DB.doc("consignes/" + id).update({ reponses: (frais.reponses || []).concat([{ de: qui, texte, quand: new Date().toISOString(), auto: true }]), statut: r.question ? "question" : "attribuee" });
+        const choix = r.agent && agent(r.agent) ? r.agent : null, maj = { reponses: (frais.reponses || []).concat([{ de: "coordination", texte, quand: new Date().toISOString(), auto: true }]), statut: r.question ? "question" : "attribuee" };
+        if (choix && !frais.pour) maj.propose = choix;
+        await DB.doc("consignes/" + id).update(maj);
       }
     } catch (e) {
       if (e && e.code === "not_granted") SAMPLE = null;
@@ -408,16 +420,17 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
   }
   function majProposition(id) {
     const tx = document.getElementById(id), sel = document.getElementById(id + "-pour"), out = document.getElementById(id + "-propose");
-    if (!tx || !sel || !out) return;
+    if (!tx || !out) return;
     const s = suggere(tx.value);
-    out.textContent = sel.value ? "" : s ? `Victor la donnera à ${prenom(s)} (${agent(s).nom}).` : tx.value.trim() ? "Victor choisira l'agent." : "";
+    out.textContent = sel && sel.value ? "" : s ? `Victor la transmettra sans doute à ${prenom(s)} (${agent(s).nom}).` : tx.value.trim() ? "Victor choisira l'agent." : "";
   }
 
   function vueValider() {
     const tous = E.contenus.filter(c => c.activite === "immo" && c.statut !== "remplace");
-    const av = tous.filter(c => c.statut === "a_valider" || c.statut === "modification_demandee"), autres = tous.filter(c => !av.includes(c));
+    const av = tous.filter(c => c.statut === "a_valider"), mod = tous.filter(c => c.statut === "modification_demandee"), autres = tous.filter(c => !av.includes(c) && !mod.includes(c));
     return `<section>${titreSection("À valider", av.length)}<p class="intro">Touche un contenu pour le voir en grand, lire la légende et le script, puis valider ou demander une modification. Valider ne publie rien.</p>
-      ${av.length ? `<div class="grille-contenus">${av.map(carteContenu).join("")}</div>` : `<p class="vide">Rien à valider.</p>`}</section>`
+      ${av.length ? `<div class="grille-contenus">${av.map(carteContenu).join("")}</div>` : `<p class="vide">Rien à valider pour l'instant.</p>`}</section>`
+      + (mod.length ? `<section>${titreSection("En modification", mod.length)}<p class="intro">Tes demandes de modification. Le contenu revient dans « À valider » dès que la nouvelle version est prête.</p><div class="liste">${mod.map(rangeeModif).join("")}</div></section>` : "")
       + (autres.length ? `<section>${titreSection("Déjà traités", autres.length)}<div class="grille-contenus">${autres.map(carteContenu).join("")}</div></section>` : "")
       + `<section>${titreSection("Calendrier éditorial", null)}${calendrier(tous)}</section>`;
   }
@@ -524,6 +537,13 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
   function zoneDecision(c) {
     if (!(c.statut === "a_valider" || c.statut === "modification_demandee")) return "";
     const off = actif() ? "" : "disabled";
+    if (c.statut === "modification_demandee") {
+      const d = DECISIONS[c.id] || {};
+      return `<div class="decision">${bloc("Ta demande de modification", `<p class="note">${esc(d.texte || "")}</p><p class="note meta">${d.note_equipe ? esc(d.note_equipe) + " " : ""}${d.transmis_le ? `Prise en charge le ${date(d.transmis_le)}.` : "Transmise à l'équipe."} Le contenu revient dans « À valider » avec la nouvelle version.</p>`)}
+      <div class="actions"><button class="btn" data-ouvrir-modif ${off}>Compléter ma demande</button><button class="btn" data-valider="${esc(c.id)}" ${off}>Finalement, valider tel quel</button></div>
+      <div id="form-modif" hidden><label class="meta" for="modif-texte">Ce que tu veux ajouter</label><textarea id="modif-texte"></textarea>
+      <div class="actions"><button class="btn principal" data-envoyer="${esc(c.id)}">Envoyer</button></div></div></div>`;
+    }
     return `<div class="decision">${actif() ? "" : `<span class="meta">Les boutons s'activent quand la page est ouverte depuis ton compte Claude.</span>`}
       <div class="actions"><button class="btn" data-ouvrir-modif ${off}>Demander une modification</button><button class="btn principal" data-valider="${esc(c.id)}" ${off}>Valider</button></div>
       <div id="form-modif" hidden><label class="meta" for="modif-texte">Ce qu'il faut changer</label><textarea id="modif-texte"></textarea>
@@ -539,7 +559,7 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
         ${a.roles ? bloc("Ce qu'il sait faire", `<div class="puces-texte">${a.roles.map(r => `<span>${esc(r)}</span>`).join("")}</div>`) : ""}
         ${a.musique ? bloc("Musique", `<p class="note">${esc(a.musique)}</p>`) : ""}
         ${bloc("Ses tâches", x.toutes.length ? `<div class="liste">${x.toutes.map(rangeeTache).join("")}</div>` : `<p class="note meta">Aucune tâche pour l'instant.</p>`)}
-        ${a.id !== "coordination" ? bloc("Lui donner une consigne", blocConsigne(a.id)) : ""}
+        ${(() => { const ks = CONSIGNES.filter(k => destinataire(k) === a.id); return bloc("Consignes reçues", (ks.length ? `<div class="liste">${ks.slice(0, 5).map(rangeeConsigne).join("")}</div>` : `<p class="note meta">Aucune pour l'instant.</p>`) + (a.id !== "coordination" ? `<p class="note meta">Pour lui demander quelque chose, parle à Victor depuis l'accueil : il lui transmet et te répond.</p>` : "")); })()}
         ${bloc("Comment il travaille", `<p class="note">${esc(a.execution || "—")}</p>${a.note ? `<p class="note meta">${esc(a.note)}</p>` : ""}${a.preuve ? `<p class="note meta">Preuve : ${esc(a.preuve)}</p>` : ""}`)}`
     };
   }
@@ -691,8 +711,14 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
     const ref = DB.doc("decisions/" + id), ancien = DECISIONS[id];
     const h = (ancien && ancien.historique ? ancien.historique.slice(-19) : []).concat([{ decision, texte: texte || "", quand: new Date().toISOString() }]);
     try {
-      await ref.set({ contenu: id, statut: decision === "valide" ? "valide" : "modification_demandee", texte: texte || "", quand: new Date().toISOString(), historique: h, applique: false });
-      toast(decision === "valide" ? "Validé. Rien n'est publié automatiquement." : "Demande de modification envoyée à l'équipe.");
+      const precedent = ancien && ancien.statut === "modification_demandee" && decision !== "valide" && ancien.texte ? ancien.texte + "\n+ " : "";
+      const doc = { contenu: id, statut: decision === "valide" ? "valide" : "modification_demandee", texte: precedent + (texte || ""), quand: new Date().toISOString(), historique: h, applique: false };
+      await ref.set(doc);
+      DECISIONS[id] = doc;
+      const tx = document.getElementById("modif-texte"); if (tx) tx.value = "";
+      if (fiche.open) fiche.close();
+      rendre();
+      toast(decision === "valide" ? "Validé. Rien n'est publié automatiquement." : "Demande envoyée. Le contenu passe dans « En modification ».");
     } catch (e) { toast("Échec de l'enregistrement. Réessaie dans un instant."); }
     finally { ENVOI.delete(id); }
   }
@@ -704,7 +730,7 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
     if (!STATIQUE) return poster("/api/consigne", { texte, agent: pour || propose || null }).then(() => { tx.value = ""; });
     try {
       const ref = await DB.collection("consignes").add(doc); tx.value = ""; delete tx.dataset.dicte;
-      toast(pour ? `Consigne envoyée à ${prenom(pour)}.` : propose ? `Consigne envoyée. Victor la donne à ${prenom(propose)}.` : "Consigne envoyée à Victor.");
+      toast("Consigne envoyée à Victor.");
       if (ref && ref.id) { if (!CONSIGNES.find(x => x._id === ref.id)) CONSIGNES.unshift(Object.assign({ _id: ref.id }, doc)); ouvrirFiche("consigne", ref.id); reponseAgent(ref.id); }
     }
     catch (e) { toast("Échec de l'envoi de la consigne. Réessaie dans un instant."); }
