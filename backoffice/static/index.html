@@ -233,7 +233,7 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
   let E = window.__ETAT__ || null;
   let DB = null, PEUT_ECRIRE = false;           // page publiée : décisions enregistrées dans la base de l'artifact
   const DECISIONS = {}, CONSIGNES = [];
-  let DICT = null, CIBLE_DICTEE = null, SAMPLE = null;  // SAMPLE : réponse immédiate de l'agent         // dictée vocale (Chrome et app Claude sur ordinateur)
+  let DICT = null, CIBLE_DICTEE = null, SAMPLE = null, COMMENTS = null, DIRECT = false;  // DIRECT : la consigne réveille Claude (Send to Claude)  // SAMPLE : réponse immédiate de l'agent         // dictée vocale (Chrome et app Claude sur ordinateur)
   const actif = () => !STATIQUE || (DB && PEUT_ECRIRE);
   const filtres = { taches: "a_traiter" };
   const LIB = {
@@ -368,7 +368,7 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
   function blocConsigne() {
     const off = actif() ? "" : "disabled", id = "consigne";
     const liste = CONSIGNES.slice(0, 4);
-    return `<article class="carte consigne-bloc" data-bloc-consigne="${id}"><label class="meta" for="${id}">Dis ou écris ce que tu veux. Victor te répond tout de suite, transmet au bon agent et te remonte le résultat ici.</label>
+    return `<article class="carte consigne-bloc" data-bloc-consigne="${id}"><label class="meta" for="${id}">${DIRECT ? "Dis ou écris ce que tu veux. Ta consigne m'arrive directement, comme dans la conversation, et je te réponds ici." : "Dis ou écris ce que tu veux. Victor te répond tout de suite, transmet au bon agent et te remonte le résultat ici."}</label>
       <textarea id="${id}" data-consigne placeholder="Exemple : prépare un carrousel sur les quartiers d'Estepona pour la semaine prochaine." ${off}></textarea>
       <span class="meta provisoire" id="${id}-provisoire" hidden></span>
       <span class="meta" id="${id}-propose" aria-live="polite"></span>
@@ -433,9 +433,10 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
     if (!texte) return toast("Écris ou dicte ta réponse.");
     const k = CONSIGNES.find(x => x._id === id); if (!k) return;
     try {
+      const direct = envoyerAClaude(tx, `(réponse dans l'échange ${id}) ${texte}`, id);
       await DB.doc("consignes/" + id).update({ reponses: (k.reponses || []).concat([{ de: "avishay", texte, quand: new Date().toISOString(), canal: tx.dataset.dicte ? "voix" : "texte" }]), statut: "recue" });
       tx.value = ""; delete tx.dataset.dicte;
-      reponseAgent(id);
+      if (!(await direct)) reponseAgent(id);
     } catch (e) { toast("Échec de l'envoi. Réessaie dans un instant."); }
   }
   function majProposition(id) {
@@ -671,7 +672,8 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
     E.contenus.forEach(c => {
       if (c._statut_origine === undefined) c._statut_origine = c.statut;
       const d = DECISIONS[c.id];
-      c.statut = d && ["a_valider", "modification_demandee"].includes(c._statut_origine) ? d.statut : c._statut_origine;
+      // applique : la nouvelle version est livrée, le contenu revient « à valider »
+      c.statut = d && !(d.applique && d.statut === "modification_demandee") && ["a_valider", "modification_demandee"].includes(c._statut_origine) ? d.statut : c._statut_origine;
       const base = c._retours_origine || (c._retours_origine = c.retours || []);
       c.retours = base.concat(d ? (d.historique || []).map(h => ({ decision: h.decision, texte: h.texte, canal: "tableau de bord", cree_le: h.quand })) : []);
     });
@@ -707,6 +709,7 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
     try {
       const [db, user] = await Promise.all([window.claude.use("db"), window.claude.use("user")]);
       window.claude.use("sample").then(x => { SAMPLE = x; }).catch(() => {});
+      window.claude.use("comments").then(async c => { COMMENTS = c; await verifierDirect(); }).catch(() => {});
       if (!db) return;
       DB = db;
       PEUT_ECRIRE = user ? (user.can ? (await user.can("data.write")) !== false : true) && (user.canEdit ? await user.canEdit() : true) : false;
@@ -742,16 +745,33 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
     } catch (e) { toast("Échec de l'enregistrement. Réessaie dans un instant."); }
     finally { ENVOI.delete(id); }
   }
+  async function verifierDirect() {
+    if (!COMMENTS || !COMMENTS.canSendToClaude) { DIRECT = false; return; }
+    try { DIRECT = (await COMMENTS.canSendToClaude()) === "available"; } catch (e) { DIRECT = false; }
+    rendre();
+  }
+  function envoyerAClaude(el, texte, docId) {
+    // Appelé dans le geste de clic : réveille la session de Claude qui suit ce tableau de bord.
+    if (!DIRECT || !COMMENTS) return Promise.resolve(false);
+    return COMMENTS.anchorFor(el).then(anchor => COMMENTS.sendToClaude({ anchor, text: `Consigne d'Avishay (back-office, id ${docId}) :\n${texte}`.slice(0, 3900) }))
+      .then(() => true).catch(e => { if (e && ["forbidden", "claude_unavailable", "capability_removed"].includes(e.code)) DIRECT = false; return false; });
+  }
   async function consigneBase(id) {
     const tx = document.getElementById(id), sel = document.getElementById(id + "-pour");
     const texte = tx.value.trim(); if (!texte) return toast("Dis ou écris la consigne d'abord.");
+    const docId = "k" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+    const direct = envoyerAClaude(tx.closest(".consigne-bloc") || tx, texte, docId);
     const pour = sel && sel.value ? sel.value : null, propose = pour ? null : suggere(texte);
     const doc = { texte, quand: new Date().toISOString(), statut: "recue", pour, propose, canal: tx.dataset.dicte ? "voix" : "texte" };
     if (!STATIQUE) return poster("/api/consigne", { texte, agent: pour || propose || null }).then(() => { tx.value = ""; });
     try {
-      const ref = await DB.collection("consignes").add(doc); tx.value = ""; delete tx.dataset.dicte;
-      toast("Consigne envoyée à Victor.");
-      if (ref && ref.id) { if (!CONSIGNES.find(x => x._id === ref.id)) CONSIGNES.unshift(Object.assign({ _id: ref.id }, doc)); ouvrirFiche("consigne", ref.id); reponseAgent(ref.id); }
+      await DB.doc("consignes/" + docId).set(doc); tx.value = ""; delete tx.dataset.dicte;
+      if (!CONSIGNES.find(x => x._id === docId)) CONSIGNES.unshift(Object.assign({ _id: docId }, doc));
+      ouvrirFiche("consigne", docId);
+      if (await direct) {
+        await DB.doc("consignes/" + docId).update({ direct: true, reponses: [{ de: "coordination", texte: "Reçu. Je m'en occupe maintenant et je te réponds ici.", quand: new Date().toISOString(), auto: true }] });
+        toast("Consigne envoyée. Victor s'en occupe tout de suite.");
+      } else { toast("Consigne envoyée à Victor."); reponseAgent(docId); }
     }
     catch (e) { toast("Échec de l'envoi de la consigne. Réessaie dans un instant."); }
   }
