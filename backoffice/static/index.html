@@ -78,6 +78,10 @@ h3 { font: 600 .98rem/1.3 var(--f-body); margin: 0; overflow-wrap: anywhere }
 .vide { color: var(--muted); font-size: .88rem; padding: 16px; border: 1px dashed var(--line); border-radius: 12px; margin: 0 }
 
 /* Pastilles d'état */
+.recap ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px }
+.recap li { font-size: .9rem } .recap li b { font-size: 1.15rem; margin-right: 4px; font-variant-numeric: lining-nums } .recap li.zero { color: var(--muted) }
+.recap .liste { margin-top: 12px }
+@media (max-width: 380px) { .recap ul { grid-template-columns: 1fr } }
 .pastille { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px; border-radius: 999px; font-size: .72rem; font-weight: 600; white-space: nowrap; letter-spacing: .02em; flex: none }
 .pastille::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor }
 .s-prevu, .s-en_attente, .s-a_configurer, .s-liste_preparee, .s-brouillon, .s-en_preparation, .s-remplace { color: var(--idle); background: var(--idle-bg) }
@@ -299,6 +303,21 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
   const rangeeTache = t => ouvre("tache", t.id, `<span class="puce ${puceStatut(t.statut)}"></span><span class="txt"><h3>${esc(t.titre)}</h3><span class="meta"><span>${esc(nomAgent(t.agent))}</span><span>${date(t.maj_le)}</span></span>${t.raison_echec ? `<span class="note">${esc(t.raison_echec)}</span>` : ""}</span>${pill(t.statut)}${CHEVRON}`, "rangee");
 
   // ---------- Vues ----------
+  function recapJour() {
+    const auj = new Date().toLocaleDateString("sv-SE", { timeZone: "Europe/Madrid" });
+    const duJour = x => x && new Date(x).toLocaleDateString("sv-SE", { timeZone: "Europe/Madrid" }) === auj;
+    const faites = E.taches.filter(t => t.statut === "terminee" && duJour(t.maj_le));
+    const valides = Object.values(DECISIONS).filter(d => d.statut === "valide" && duJour(d.quand)).length;
+    const questions = CONSIGNES.filter(k => k.statut === "question"), enCours = CONSIGNES.filter(k => k.statut === "recue" || k.statut === "attribuee");
+    const leads = E.prospects.filter(p => !p.fictif && ["nouveau", "appel_demande"].includes(p.appel_demande ? "appel_demande" : p.statut));
+    const lignes = [
+      [aValider().length, "à valider par toi", "#valider"], [questions.length, `question${questions.length > 1 ? "s" : ""} de Victor en attente de ta réponse`, questions[0] ? null : ""],
+      [enModif().length, "en modification chez l'équipe", "#valider"], [enCours.length, `consigne${enCours.length > 1 ? "s" : ""} en cours`, ""],
+      [faites.length + valides, "terminé ou validé aujourd'hui", "#taches"], [leads.length, `lead${leads.length > 1 ? "s" : ""} chaud${leads.length > 1 ? "s" : ""}`, "#acheteurs"]
+    ];
+    const li = ([n, t, h]) => `<li${n ? "" : ` class="zero"`}><b>${n}</b> ${esc(t)}</li>`;
+    return `<article class="carte recap"><ul>${lignes.map(li).join("")}</ul>${questions.length ? `<div class="liste">${questions.slice(0, 3).map(rangeeConsigne).join("")}</div>` : ""}</article>`;
+  }
   function vueAccueil() {
     const av = aValider(), bl = bloquees(), ag = E.agents.filter(a => a.activite === "immo");
     const testes = ag.filter(a => a.etat === "teste" || a.etat === "actif").length;
@@ -316,6 +335,7 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
       <div class="legende-etats"><span>● testé : a déjà produit un vrai résultat</span><span>● bloqué : il lui manque un accès</span><span>● actif : tourne seul (serveur)</span></div>`;
     const acts = E.activites.map(a => `<article class="carte"><div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><h3>${esc(a.nom)}</h3>${pill(a.etat)}</div><p class="note" style="color:var(--muted)">${esc(a.mission)}</p>${a.id === "immo" ? `<div class="actions"><a class="btn" href="#equipe">Voir l'équipe</a><a class="btn" href="#biens">Biens</a></div>` : `<p class="note meta">Espace prêt, aucun agent pour l'instant.</p>`}</article>`).join("");
     return `<section><h1>${salut}</h1><p class="intro">${esc(resume)}. ${STATIQUE ? `Données du ${date(E.genere_le)}.` : ""}</p></section>`
+      + `<section>${titreSection("Récap du jour", null)}${recapJour()}</section>`
       + `<section>${titreSection("Parler à Victor", null)}${blocConsigne()}</section>`
       + `<section>${tuiles}</section>`
       + `<section>${titreSection("À valider", av.length, `<a class="lien-section" href="#valider">Tout voir</a>`)}${av.length ? `<div class="rang-contenus">${av.map(carteContenu).join("")}</div>` : `<p class="vide">Rien à valider pour l'instant.</p>`}</section>`
