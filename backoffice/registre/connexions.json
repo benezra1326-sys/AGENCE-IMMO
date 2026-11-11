@@ -60,10 +60,9 @@
     {
       "id": "instagram",
       "nom": "Instagram professionnel @avishay.marbella",
-      "statut": "partiel",
-      "cote": "telephone",
-      "note": "Compte pro relié à la page Facebook le 11/11.",
-      "action": "Autoriser vidIQ (lien envoyé le 11/11) pour les brouillons et les statistiques."
+      "statut": "operationnel",
+      "cote": "claude",
+      "note": "Connecté via vidIQ le 11/11 (publication + statistiques autorisées). Rien n'est publié sans validation d'Avishay."
     },
     {
       "id": "facebook",
@@ -127,7 +126,7 @@
       "nom": "vidIQ",
       "statut": "partiel",
       "cote": "claude",
-      "note": "Aucun compte Instagram ni chaîne YouTube reliés ; publication jamais testée."
+      "note": "Instagram @avishay.marbella connecté le 11/11 ; page Facebook et YouTube pas encore."
     },
     {
       "id": "voicestudio",

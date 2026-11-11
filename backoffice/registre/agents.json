@@ -149,14 +149,13 @@
         "choix de la musique tendance au moment de publier (premium, adaptée à une visite immobilière)",
         "caler le morceau sur le rythme du montage (point de départ, tempo)"
       ],
-      "etat": "bloque",
+      "etat": "configure",
       "instructions": null,
       "execution": "API officielle Instagram (via page Facebook)",
-      "note": "Compte pro non relié à une page Facebook : l'API de publication et de messagerie n'est pas accessible.",
+      "note": "Instagram @avishay.marbella connecté via vidIQ le 11/11 : brouillons, publication et statistiques possibles. Page Facebook créée le 11/11, autorisation de publication sur la page encore à donner.",
       "manque": [
-        "Une page Facebook reliée à ton compte Instagram professionnel (aussi utile pour les pubs et l'API audio)",
-        "Une application Meta en mode développement : pour ton propre compte, l'accès standard suffit en principe, sans validation par Meta (à confirmer au branchement). Je la configure avec toi, tu colles le jeton dans les réglages du projet",
-        "Ta décision de lever le mode validation pour publier",
+        "Ton autorisation de la page Facebook dans vidIQ (lien envoyé)",
+        "Un premier brouillon validé par toi pour passer à « testé »",
         "Le serveur pour publier à l'heure prévue, Mac éteint"
       ],
       "musique": "Les vidéos arrivent sans musique. Inès choisit un son tendance adapté à une visite premium (pas d'humour ni de paroles fortes) et vérifie que les coupes du montage tombent sur son rythme. Depuis 2026, l'API Instagram (Audio API) permet de chercher les sons tendance et de les attacher au Reel à la publication, mais seulement les sons originaux d'autres Reels et la musique libre de droits de Meta (Sound Collection) ; le morceau démarre au début, sans découpe, et sans aperçu avant publication. Pour une chanson connue du catalogue sous licence, ou pour démarrer à un passage précis, le son s'ajoute dans l'application au moment de publier, avec la fiche de choix préparée par Inès. Source : documentation Meta « Instagram Audio API » (mise à jour du 16/06/2026)."
