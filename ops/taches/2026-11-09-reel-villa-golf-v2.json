@@ -6,8 +6,8 @@
   "statut": "terminee",
   "source": "Retours d'Avishay du 09/11 sur la V1 ; vidéo 4K du dossier SV2342",
   "cree_le": "2026-11-09T11:30:00Z",
-  "maj_le": "2026-11-10T11:50:00Z",
-  "resultat": "V2 sans nom de propriété : accroche drone sur le golf, prix à 4,3 s (à confirmer), 4 messages, fondus, bande-son composée ici. Contrôle complet fait image par image (toutes les 0,5 s) + niveau sonore (-15 LUFS). Voix clonée non intégrée (VoiceStudio local uniquement). | V3 (10/11) : crépitement corrigé (bande-son recomposée, 0 clic détecté contre 93), textes centrés, nouvelle musique chill house 104 BPM. | V4 (10/11) : textes plus petits dans le tiers haut, version sans musique, coupes calées sur 120 BPM (feuille de coupes pour l'agent de publication).",
+  "maj_le": "2026-11-11T11:10:00Z",
+  "resultat": "V2 sans nom de propriété : accroche drone sur le golf, prix à 4,3 s (à confirmer), 4 messages, fondus, bande-son composée ici. Contrôle complet fait image par image (toutes les 0,5 s) + niveau sonore (-15 LUFS). Voix clonée non intégrée (VoiceStudio local uniquement). | V3 (10/11) : crépitement corrigé (bande-son recomposée, 0 clic détecté contre 93), textes centrés, nouvelle musique chill house 104 BPM. | V4 (10/11) : textes plus petits dans le tiers haut, version sans musique, coupes calées sur 120 BPM (feuille de coupes pour l'agent de publication). | V5 (11/11) : charte de texte commune, sans musique.",
   "fichiers": [
     "/mnt/project-files/agence-immo/contenus/2026-11-10-reel-villa-golf-v2/villa-golf-V2-musique.mp4",
     "/mnt/project-files/agence-immo/contenus/2026-11-10-reel-villa-golf-v2/villa-golf-V2-sans-musique.mp4",
@@ -19,7 +19,8 @@
     "/mnt/project-files/agence-immo/contenus/2026-11-10-reel-villa-golf-v2/villa-golf-V3-sans-musique.mp4",
     "/mnt/project-files/agence-immo/contenus/2026-11-10-reel-villa-golf-v4/villa-golf-V4-sans-musique.mp4",
     "/mnt/project-files/agence-immo/contenus/2026-11-10-reel-villa-golf-v4/feuille-coupes-120bpm.md",
-    "contenus/2026-11-10-reel-villa-golf-v4/plan-montage.coupes.md"
+    "contenus/2026-11-10-reel-villa-golf-v4/plan-montage.coupes.md",
+    "/mnt/project-files/agence-immo/contenus/2026-11-11-reel-villa-golf-v5/villa-golf-V5-sans-musique.mp4"
   ],
   "cout_eur": 0,
   "raison_echec": null,

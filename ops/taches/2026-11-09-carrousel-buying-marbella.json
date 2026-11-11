@@ -4,10 +4,11 @@
   "titre": "Carrousel « Buying in Marbella: 5 questions » (EN, 6 diapositives)",
   "statut": "terminee",
   "source": "brief 9 nov ; sources dans la note interne",
-  "resultat": "6 visuels 1080x1350, légende EN, note sources FR. À valider.",
+  "resultat": "6 visuels 1080x1350, légende EN, note sources FR. À valider. | V2 (11/11) : photos ajoutées, charte commune.",
   "fichiers": [
     "contenus/2026-11-09-carrousel-buying-marbella/slide-1.png",
-    "contenus/2026-11-09-carrousel-buying-marbella/legende-et-note.md"
+    "contenus/2026-11-09-carrousel-buying-marbella/legende-et-note.md",
+    "/mnt/project-files/agence-immo/contenus/2026-11-11-carrousel-buying-marbella-v2/"
   ],
   "contenu": {
     "titre": "Buying in Marbella: 5 questions to ask before choosing a property",
@@ -20,6 +21,6 @@
   "raison_echec": null,
   "activite": "immo",
   "cree_le": "2026-11-09T10:50:00Z",
-  "maj_le": "2026-11-09T10:50:00Z",
+  "maj_le": "2026-11-11T11:10:00Z",
   "cout_eur": 0
 }

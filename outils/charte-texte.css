@@ -1,0 +1,20 @@
+/* Charte de texte commune aux Reels, animations et carrousels (11/11/2026).
+   Inspirée des comptes d'agences haut de gamme : un titre court en capitales espacées, centré, dans le tiers haut,
+   un sous-titre en petites capitales, rien d'autre à l'écran. Même police et même position sur tous les formats.
+   9:16 (1080x1920) : bloc centré sur y = 390 (sous l'interface Instagram, au-dessus du sujet, souvent ciel ou plafond).
+   4:5 (1080x1350) : bloc dans le tiers haut aussi (voir le carrousel). */
+@import url('identite.css');
+.cx-voile{position:absolute;left:0;right:0;top:0;height:820px;background:linear-gradient(180deg,rgba(8,10,14,.52),rgba(8,10,14,.32) 45%,rgba(8,10,14,0))}
+.cx-bloc{position:absolute;left:100px;right:100px;top:390px;transform:translateY(-50%);text-align:center;color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.4)}
+.cx-sur{font-family:'Inter',sans-serif;font-size:21px;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:var(--sand2)}
+.cx-titre{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:66px;line-height:1.14;letter-spacing:.11em;text-transform:uppercase}
+.cx-titre .a{color:var(--sand2)}
+.cx-trait{width:56px;height:1.5px;background:var(--sand);margin:22px auto}
+.cx-sous{font-family:'Inter',sans-serif;font-size:21px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:#efe9df;line-height:1.7}
+.cx-sig{font-family:'Inter',sans-serif;font-size:19px;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:#efe9df}
+/* écran final (centré au milieu de l'image, voile plein) */
+.cx-fin-voile{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,10,14,.35),rgba(8,10,14,.64) 32%,rgba(8,10,14,.64) 70%,rgba(8,10,14,.42))}
+.cx-fin{position:absolute;left:100px;right:100px;top:960px;transform:translateY(-50%);text-align:center;color:#fff}
+.cx-dm{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:44px;letter-spacing:.1em;text-transform:uppercase}
+.cx-dm b{font-family:'Inter',sans-serif;font-weight:600;font-size:34px;letter-spacing:.14em;color:var(--sand2)}
+.cx-petit{font-family:'Inter',sans-serif;font-size:24px;font-weight:300;letter-spacing:.04em;color:#e8e2d8;line-height:1.6}
