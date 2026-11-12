@@ -1,24 +1,24 @@
 {
-  "id": "2026-11-12-linkedin-semaine-1",
-  "agent": "prospection",
-  "titre": "LinkedIn : 3 posts de la semaine 1 (FR + EN)",
-  "statut": "terminee",
-  "source": "feu vert d'Avishay du 12/11 ; aucun chiffre utilisé",
-  "resultat": "3 posts prêts (présentation, 5 questions, travailler avec nous). À valider, puis dépôt en brouillon Typefully ; c'est toi qui publies.",
-  "fichiers": [
-    "contenus/2026-11-12-linkedin-semaine-1/legende-et-note.md"
-  ],
-  "contenu": {
-    "titre": "LinkedIn – 3 posts semaine 1 (accroche, 5 questions, partenaires)",
-    "format": "post linkedin",
-    "langue": "fr",
-    "statut": "a_valider",
-    "date_prevue": null,
-    "bien": null
-  },
-  "raison_echec": null,
-  "activite": "immo",
-  "cree_le": "2026-11-12T11:45:00Z",
-  "maj_le": "2026-11-12T13:32:00Z",
-  "cout_eur": 0
+ "id": "2026-11-12-linkedin-semaine-1",
+ "agent": "prospection",
+ "titre": "LinkedIn : 3 posts de la semaine 1 (FR + EN)",
+ "statut": "terminee",
+ "source": "feu vert d'Avishay du 12/11 ; aucun chiffre utilisé",
+ "resultat": "V2 refaite en entier (textes et photos) après ta demande du 12/11.",
+ "fichiers": [
+  "contenus/2026-11-12-linkedin-semaine-1/legende-et-note.md"
+ ],
+ "contenu": {
+  "titre": "LinkedIn – 3 posts semaine 1, V2 (3 erreurs, 3 façons de vivre, partenaires)",
+  "format": "post linkedin",
+  "langue": "fr",
+  "statut": "a_valider",
+  "date_prevue": null,
+  "bien": null
+ },
+ "raison_echec": null,
+ "activite": "immo",
+ "cree_le": "2026-11-12T11:45:00Z",
+ "maj_le": "2026-11-12T13:55:00Z",
+ "cout_eur": 0
 }

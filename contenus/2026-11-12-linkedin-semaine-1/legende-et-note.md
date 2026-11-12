@@ -1,98 +1,81 @@
-# LinkedIn – 3 posts, semaine 1 (12/11/2026) – à valider par Avishay, rien n'est publié
+# LinkedIn – 3 posts, semaine 1 (V2 du 12/11/2026) – à valider par Avishay, rien n'est publié
 
-Public visé : agences, chasseurs immobiliers, conseillers en patrimoine et family offices (Paris, Lyon, Bruxelles, Casablanca, Rabat, Londres).
-Publication : par toi, depuis ton profil. Une fois Typefully connecté, je dépose chaque post en brouillon et tu cliques sur Publier. Rythme proposé : mardi, jeudi, lundi suivant, vers 8 h 30.
-Règles respectées : aucun chiffre sans source (il n'y en a aucun), aucune promesse de rendement, de financement ou de licence, aucun nom ni adresse de bien, aucune mention de rémunération.
-
----
-
-## Post 1 – Accroche : la bonne question (mardi)
-
-Visuel : photo de la villa golf (vue sur La Concha), titre « Pour les vacances ou pour y vivre ? », signature Levy & Goldman (post1.jpg, 1080 × 1350).
-
-**FR**
-« Marbella, c'est pour les vacances ou pour y vivre ? »
-
-C'est la première question à se poser quand on regarde la Costa del Sol. Elle change tout : le quartier, le type de bien, le budget réel.
-
-À Marbella et jusqu'à Estepona, nous accompagnons ces projets du premier appel à la remise des clés : une sélection de biens, y compris hors marché, des visites sur place ou en vidéo, la négociation, et la mise en relation avec des avocats et des notaires indépendants. Le tout en français.
-
-Vous êtes agent, chasseur immobilier ou conseiller en patrimoine, et l'un de vos clients pense à l'Espagne ? Parlons-en. Votre client reste votre client : nous sommes votre relais sur place.
-
-**EN**
-"Marbella: for holidays, or to live there?"
-
-It is the first question to ask when you look at the Costa del Sol. It changes everything: the area, the type of property, the real budget.
-
-In Marbella and up to Estepona, we guide these projects from the first call to the keys: a selection of properties, off-market included, viewings in person or by video, negotiation, and introductions to independent lawyers and notaries.
-
-Are you an agent, a buyer's agent or a wealth adviser with a client thinking about Spain? Let's talk. Your client stays your client: we are your partner on the ground.
+Refaits entièrement le 12/11 à ta demande (« le texte, la photo, tout ») : textes plus courts et plus directs, photos plein cadre tirées de la vidéo de la villa golf (fournie par Solvilla, droits de diffusion OK), presque sans texte sur l'image, signature Levy & Goldman discrète.
+Public visé : agences, chasseurs immobiliers, conseillers en patrimoine (Paris, Lyon, Bruxelles, Casablanca, Rabat, Londres), et acheteurs francophones.
+Publication : par toi, depuis ton profil (brouillons Typefully dès que ton compte LinkedIn y est ajouté). Rythme proposé : mardi, jeudi, lundi suivant, vers 8 h 30.
+Règles respectées : aucun chiffre ni loi, aucune promesse de rendement, de financement ou de licence, aucun nom de bien, aucune mention de rémunération. Zone : Marbella et ses alentours, jusqu'à Estepona.
 
 ---
 
-## Post 2 – Les 5 questions avant d'acheter (jeudi)
+## Post 1 – Trois erreurs à éviter (mardi)
 
-Visuel : les 8 diapositives du carrousel V3 (validé le 12/11), publiées en carrousel LinkedIn.
+Visuel : villa au crépuscule, piscine éclairée ; « Trois erreurs à éviter », Marbella · Estepona (v2-post1.jpg, 1080 × 1350).
 
 **FR**
-Acheter à Marbella commence par cinq questions, bien avant la première visite :
+Trois erreurs que je vois souvent chez ceux qui découvrent Marbella.
 
-1. Quel usage : résidence secondaire, installation, investissement ?
-2. Quel quartier correspond à votre façon de vivre ?
-3. Quel budget total, frais et taxes compris ?
-4. Comment financer l'achat ?
-5. Quelles vérifications juridiques faire avant de signer ?
+1. Choisir un quartier sur photo. Golden Mile, Nueva Andalucía, Estepona : trois ambiances, trois rythmes de vie. Il faut les voir.
+2. Enchaîner quinze visites en un week-end. On ressort fatigué, sans avoir rien comparé. Mieux vaut cinq biens bien choisis.
+3. Regarder le prix affiché sans le budget complet. Frais d'achat, taxes, notaire : faites-les chiffrer par un avocat avant l'offre.
 
-Nous posons ces questions dès le premier échange. Ensuite, nous accompagnons à chaque étape : recherche sélectionnée, visites sur place ou en vidéo, offre et négociation, mise en relation avec des avocats et courtiers indépendants, signature chez le notaire.
-
-Avocats et courtiers sont des professionnels indépendants. Aucun financement ni résultat n'est garanti.
+C'est pour ça que tout commence par une conversation, pas par une visite.
 
 **EN**
-Buying in Marbella starts with five questions, long before the first viewing:
+Three mistakes I often see from people discovering Marbella.
 
-1. How will you use it: second home, relocation, investment?
-2. Which area fits the way you live?
-3. What is your total budget, fees and taxes included?
-4. How will you finance it?
-5. Which legal checks should be done before signing?
+1. Choosing an area from photos. Golden Mile, Nueva Andalucía, Estepona: three atmospheres, three ways of living. You need to see them.
+2. Fifteen viewings in one weekend. You leave tired, having compared nothing. Five well-chosen homes are better.
+3. Looking at the asking price, not the full budget. Purchase costs, taxes, notary: have a lawyer work them out before you make an offer.
 
-We ask them from the very first call. Then we guide you at every step: a selected search, viewings in person or by video, offer and negotiation, introductions to independent lawyers and brokers, and the notary signing.
-
-Lawyers and brokers are independent professionals. No financing or outcome is guaranteed.
+That is why everything starts with a conversation, not a viewing.
 
 ---
 
-## Post 3 – Travailler avec nous quand on est une agence ou un conseiller (lundi suivant)
+## Post 2 – Trois façons de vivre ici (jeudi)
 
-Visuel : terrasse et piscine au crépuscule, titre « Votre relais sur place » (post3.jpg, 1080 × 1350).
+Visuel : la Concha au-dessus du golf, entre les bananiers ; « Trois façons de vivre ici », Marbella et ses alentours (v2-post2.jpg, 1080 × 1350).
 
 **FR**
-Quand une agence ou un conseiller nous confie un client, voici ce qui se passe :
+Marbella, ce n'est pas un seul endroit.
 
-– Un premier échange avec vous, pour comprendre le projet et la façon dont vous souhaitez rester impliqué.
-– Une sélection de biens adaptée, y compris hors marché.
-– Des visites sur place ou en vidéo, avec un compte rendu clair.
-– Un suivi régulier, pour que vous sachiez toujours où en est votre client.
+Golden Mile : la plage, les restaurants, le centre de Marbella tout proche.
+Nueva Andalucía : les golfs, le calme, des villas avec du terrain.
+Estepona : un rythme plus doux, la mer, un centre qui garde son caractère.
 
-Votre client reste votre client. Nous sommes votre relais sur place.
-
-Pour en parler : message privé.
+La bonne question n'est pas « où acheter ? » mais « comment voulez-vous vivre ? ». La réponse fait la moitié de la recherche.
 
 **EN**
-When an agency or an adviser introduces a client to us, here is how it works:
+Marbella is not just one place.
 
-– A first call with you, to understand the project and how you want to stay involved.
-– A tailored selection of properties, off-market included.
-– Viewings in person or by video, with a clear report.
-– Regular updates, so you always know where your client stands.
+Golden Mile: the beach, the restaurants, Marbella town centre close by.
+Nueva Andalucía: golf, calm, villas with land.
+Estepona: a gentler pace, the sea, a town centre that has kept its character.
 
-Your client stays your client. We are your partner on the ground.
+The right question is not "where should I buy?" but "how do you want to live?". The answer is half of the search.
 
-To discuss: send me a message.
+---
+
+## Post 3 – Votre client reste votre client (lundi suivant)
+
+Visuel : table dressée sur la terrasse au crépuscule ; Agences · Conseillers (v2-post3.jpg, 1080 × 1350).
+
+**FR**
+Agents, chasseurs, conseillers en patrimoine : un de vos clients vous parle de Marbella ?
+
+Vous n'avez pas à le laisser partir. Nous faisons le terrain avec vous : sélection de biens, y compris hors marché, visites sur place ou en vidéo, suivi à chaque étape. Vous restez son interlocuteur.
+
+Votre client reste votre client. Écrivez-moi, on en parle.
+
+**EN**
+Agents, buyer's agents, wealth advisers: one of your clients is talking about Marbella?
+
+You do not have to let them go. We do the groundwork with you: a selection of homes, off-market included, viewings in person or by video, updates at every step. You remain their contact.
+
+Your client stays your client. Message me and let's talk.
 
 ---
 
 ## Note interne
 - Les invitations (15 par jour) restent envoyées par toi ; la liste de la semaine est dans `/mnt/project-files/prospection/2026-11-11-lot1-partenaires.md`.
-- Zone corrigée le 12/11 à ta demande : Marbella et alentours jusqu'à Estepona.
+- V1 (accroche « vacances ou vivre », 5 questions, partenaires) refusée le 12/11 : remplacée en entier.
 - Les posts sur les programmes neufs Levy & Goldman sont préparés à part, par l'équipe contenu.

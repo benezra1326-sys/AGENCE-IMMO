@@ -225,6 +225,62 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
 .echange li { max-width: 88%; padding: 9px 12px; border-radius: 12px; display: flex; flex-direction: column; gap: 3px }
 .echange li.moi { align-self: flex-end; background: var(--sand-soft); border-bottom-right-radius: 4px }
 .echange li.agent { align-self: flex-start; background: var(--surface-2); border: 1px solid var(--line); border-bottom-left-radius: 4px }
+/* Couleur et mouvement (12/11) : couleurs des réseaux, tuiles teintées, entrée douce des pages */
+:root { --ig: #d6246e; --li: #0a66c2; --fb: #1877f2; --tt: #111111; --yt: #e62117; --accent-grad: linear-gradient(135deg, #b89a66 0%, #d9b97e 45%, #8a6a3a 100%) }
+:root[data-theme="dark"] { --tt: #e8e8e8 }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --tt: #e8e8e8 } }
+.haut-droite { display: flex; align-items: center; gap: 10px }
+.btn-rafraichir { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: var(--surface-2); border-radius: 999px; padding: 6px 12px; font-size: .78rem; font-weight: 500; cursor: pointer }
+.btn-rafraichir svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round }
+.btn-rafraichir:hover { border-color: var(--sand) }
+.btn-rafraichir.tourne svg { animation: tourne .6s linear infinite } @keyframes tourne { to { transform: rotate(360deg) } }
+@media (max-width: 520px) { .btn-rafraichir span { display: none } .btn-rafraichir { padding: 7px } .etat-base { display: none } }
+.marque b { background: var(--accent-grad); -webkit-background-clip: text; background-clip: text; color: transparent }
+.tuile { position: relative; overflow: hidden; transition: transform .18s ease, box-shadow .18s ease }
+.tuile::before { content: ""; position: absolute; inset: 0 0 auto; height: 4px; background: var(--t, var(--sand)) }
+.tuile strong { color: var(--t, var(--fg)) }
+.tuiles .tuile:nth-child(1) { --t: var(--sand-text); background: linear-gradient(160deg, var(--sand-soft), var(--surface) 70%) }
+.tuiles .tuile:nth-child(2) { --t: var(--ok); background: linear-gradient(160deg, var(--ok-bg), var(--surface) 70%) }
+.tuiles .tuile:nth-child(3) { --t: var(--bad); background: linear-gradient(160deg, var(--bad-bg), var(--surface) 70%) }
+.tuiles .tuile:nth-child(4) { --t: var(--info); background: linear-gradient(160deg, var(--info-bg), var(--surface) 70%) }
+.tuile:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.08) }
+.btn.principal { background-image: var(--accent-grad); border-color: transparent; color: #15181d }
+details.historique { border-top: 1px solid var(--line); padding-top: 8px }
+details.historique summary { cursor: pointer; color: var(--muted); font-size: .84rem; padding: 4px 0 }
+details.historique[open] summary { margin-bottom: 8px }
+.rs { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--sand); flex: none }
+.rs-instagram { background: var(--ig) } .rs-linkedin { background: var(--li) } .rs-facebook { background: var(--fb) } .rs-tiktok { background: var(--tt) } .rs-youtube { background: var(--yt) }
+.semaine { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px }
+.sem-jour { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 2px; border-radius: 12px; background: var(--surface); border: 1px solid var(--line); text-decoration: none; color: var(--fg); min-width: 0 }
+.sem-jour small { color: var(--muted); font-size: .68rem; text-transform: capitalize }
+.sem-jour b { font-size: 1.05rem }
+.sem-jour.auj { background: var(--accent-grad); border-color: transparent; color: #15181d } .sem-jour.auj small { color: #3a2e18 }
+.sem-jour.pleine:not(.auj) { border-color: var(--sand) }
+.sem-points { display: flex; gap: 3px; min-height: 8px }
+.cal-mois { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px; min-width: 0 }
+.cal-tete { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px }
+.cal-tete h2 { margin: 0; font: 600 1.3rem/1.2 var(--f-display); text-transform: capitalize }
+.cal-grille { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px }
+.cal-jsem { text-align: center; font-size: .68rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; padding: 2px 0 }
+.cal-case { min-height: 74px; border-radius: 8px; background: var(--surface-2); padding: 4px; display: flex; flex-direction: column; gap: 3px; min-width: 0; overflow: hidden }
+.cal-case.vide-case { background: none } .cal-case.passe { opacity: .55 }
+.cal-case.auj { box-shadow: inset 0 0 0 2px var(--sand) }
+.cal-num { font-size: .72rem; color: var(--muted); font-weight: 600 }
+.cal-case.auj .cal-num { color: var(--sand-text) }
+.chip-pub { display: flex; align-items: center; gap: 4px; font-size: .66rem; line-height: 1.25; padding: 3px 5px; border-radius: 6px; border: 0; text-align: left; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; color: var(--fg); background: var(--surface) }
+.rs-fond-instagram { background: color-mix(in srgb, var(--ig) 16%, var(--surface)) } .rs-fond-linkedin { background: color-mix(in srgb, var(--li) 16%, var(--surface)) }
+.rs-fond-facebook { background: color-mix(in srgb, var(--fb) 16%, var(--surface)) } .rs-fond-youtube { background: color-mix(in srgb, var(--yt) 16%, var(--surface)) }
+@media (max-width: 600px) { .cal-case { min-height: 52px } .chip-pub { font-size: 0; padding: 4px; justify-content: center } .chip-pub .rs { width: 9px; height: 9px } }
+.cal-legende { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; font-size: .74rem; color: var(--muted) }
+.cal-legende > span { display: inline-flex; align-items: center; gap: 5px }
+@media (prefers-reduced-motion: no-preference) {
+  main.entree > section, main.entree > .banniere { animation: apparait .45s cubic-bezier(.2,.7,.2,1) both }
+  main.entree > section:nth-of-type(2) { animation-delay: .05s } main.entree > section:nth-of-type(3) { animation-delay: .1s }
+  main.entree > section:nth-of-type(4) { animation-delay: .15s } main.entree > section:nth-of-type(5) { animation-delay: .2s }
+  main.entree > section:nth-of-type(n+6) { animation-delay: .25s }
+  @keyframes apparait { from { opacity: 0; transform: translateY(12px) } }
+  .sem-jour.pleine .rs, .cal-case.auj .cal-num { animation: pulse 2.4s ease-in-out infinite } @keyframes pulse { 50% { opacity: .55 } }
+}
 </style>
 
 <header class="top">
@@ -237,7 +293,7 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
       <a href="#calendrier" data-route="calendrier"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2.5"/><path d="M4 9.5h16M8.5 3v4M15.5 3v4"/></svg>Calendrier</a>
       <a href="#plus" data-route="plus"><svg viewBox="0 0 24 24"><circle cx="5.5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="18.5" cy="12" r="1.4"/></svg>Plus</a>
     </nav>
-    <span class="etat-base" id="etat-base">aperçu</span>
+    <div class="haut-droite"><span class="etat-base" id="etat-base">aperçu</span><button type="button" class="btn-rafraichir" id="rafraichir" aria-label="Réactualiser le back-office" title="Réactualiser"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.35-5.65"/><path d="M20 4.5v4h-4"/></svg><span>Réactualiser</span></button></div>
   </div>
 </header>
 <main class="wrap" id="vue-principale"></main>
@@ -366,8 +422,8 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
     return `${banniereAutorisation()}<section><h1>${salut}</h1><p class="intro">${esc(resume)}. ${STATIQUE ? `Données du ${date(E.genere_le)}.` : ""}</p></section>`
       + `<section>${titreSection("Récap du jour", null)}${recapJour()}</section>`
       + `<section>${titreSection("Parler à Victor", null)}${blocConsigne()}</section>`
+      + `<section>${titreSection("Agenda des publications", pubs().length, `<a class="lien-section" href="#calendrier">Voir le mois</a>`)}${semaineAccueil()}${pubs().length ? `<div class="liste">${pubs().slice(0, 4).map(x => rangeePub(Object.assign({}, x, { note: jourLong(x.quand) }))).join("")}</div>` : `<p class="vide">Rien de planifié. Victor propose les dates dès qu'un contenu est validé.</p>`}</section>`
       + `<section>${tuiles}</section>`
-      + `<section>${titreSection("Prochaines publications", pubs().length, `<a class="lien-section" href="#calendrier">Calendrier</a>`)}${pubs().length ? `<div class="liste">${pubs().slice(0, 4).map(x => rangeePub(Object.assign({}, x, { note: jourLong(x.quand) }))).join("")}</div>` : `<p class="vide">Rien de planifié. Victor propose les dates dès qu'un contenu est validé.</p>`}</section>`
       + `<section>${titreSection("À valider", av.length, `<a class="lien-section" href="#valider">Tout voir</a>`)}${av.length ? `<div class="rang-contenus">${av.map(carteContenu).join("")}</div>` : `<p class="vide">Rien à valider pour l'instant.</p>`}</section>`
       + (enModif().length ? `<section>${titreSection("En modification", enModif().length, `<a class="lien-section" href="#valider">Tout voir</a>`)}<div class="liste">${enModif().map(rangeeModif).join("")}</div></section>` : "")
       + `<section>${titreSection("Ce qui attend une action", afaire.length)}<p class="intro">Touche une ligne pour voir le détail et ce qu'il faut faire.</p>${afaire.length ? `<div class="liste">${afaire.join("")}</div>` : `<p class="vide">Rien de bloqué.</p>`}</section>`
@@ -397,13 +453,12 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
   }
   function blocConsigne() {
     const off = actif() ? "" : "disabled", id = "consigne";
-    const liste = CONSIGNES.slice(0, 4);
-    return `<article class="carte consigne-bloc" data-bloc-consigne="${id}"><label class="meta" for="${id}">${DIRECT ? "Dis ou écris ce que tu veux. Ta consigne m'arrive directement, comme dans la conversation, et je te réponds ici." : "Dis ou écris ce que tu veux. Victor te répond tout de suite, transmet au bon agent et te remonte le résultat ici."}</label>
+        return `<article class="carte consigne-bloc" data-bloc-consigne="${id}"><label class="meta" for="${id}">${DIRECT ? "Dis ou écris ce que tu veux. Ta consigne m'arrive directement, comme dans la conversation, et je te réponds ici." : "Dis ou écris ce que tu veux. Victor te répond tout de suite, transmet au bon agent et te remonte le résultat ici."}</label>
       <textarea id="${id}" data-consigne placeholder="Exemple : prépare un carrousel sur les quartiers d'Estepona pour la semaine prochaine." ${off}></textarea>
       <span class="meta provisoire" id="${id}-provisoire" hidden></span>
       <span class="meta" id="${id}-propose" aria-live="polite"></span>
       <div class="actions">${boutonMicro(id)}<button class="btn principal" data-envoyer-consigne="${id}" ${off}>Envoyer à Victor</button></div>
-      ${liste.length ? `<div class="liste">${liste.map(rangeeConsigne).join("")}</div>` : ""}</article>`;
+      ${CONSIGNES.length ? `<details class="historique"><summary>Mes demandes précédentes (${CONSIGNES.length})</summary><div class="liste">${CONSIGNES.slice(0, 10).map(rangeeConsigne).join("")}</div></details>` : ""}</article>`;
   }
   const destinataire = k => k.pour || k.propose || "coordination";
   function rangeeConsigne(k) {
@@ -433,7 +488,7 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
     const qui = destinataire(k), a = agent(qui) || {};
     const fil = [{ de: "avishay", texte: k.texte }].concat(k.reponses || []).map(m => `${m.de === "avishay" ? "Avishay" : "Victor"} : ${m.texte}`).join("\n");
     const equipe = E.agents.filter(x => x.activite === "immo" && x.id !== "coordination").map(x => `- ${x.id} : ${x.prenom || x.nom} (${x.nom}), ${LIB[x.etat] || x.etat}${(x.roles || []).length ? ", " + x.roles.slice(0, 3).join(", ") : ""}`).join("\n");
-    const prompt = `Tu es Victor, l'agent maître (coordination) d'Avishay Benazra, agent immobilier de luxe chez Levy & Goldman à Marbella (zone Cabopino à Casares, biens dès 500 000 €). Avishay ne parle qu'à toi : tu reçois ses consignes, tu les transmets au bon agent et tu lui rends compte.
+    const prompt = `Tu es Victor, l'agent maître (coordination) d'Avishay Benazra, agent immobilier de luxe chez Levy & Goldman à Marbella (zone : Marbella et ses alentours, jusqu'à Estepona ; biens dès 500 000 €). Avishay ne parle qu'à toi : tu reçois ses consignes, tu les transmets au bon agent et tu lui rends compte.
 Ton équipe :
 ${equipe}
 Agent proposé d'après les mots-clés : ${qui !== "coordination" ? qui : "aucun"} (corrige si un autre convient mieux).
@@ -517,9 +572,35 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
   const rangeePub = x => { const c = E.contenus.find(k => k.id === x.contenu);
     const corps = `<span class="cal-heure">${esc(heureDe(x.quand))}</span><span class="txt"><h3>${esc(x.titre || (c && c.titre) || x.contenu)}</h3><span class="meta">${(x.reseaux || []).map(r => esc(RESEAUX[r] || r)).join(" · ")}</span>${x.note ? `<span class="note">${esc(x.note)}</span>` : ""}</span>${pill(x.statut || "propose")}${c ? CHEVRON : ""}`;
     return c ? ouvre("contenu", c.id, corps, "rangee") : `<div class="rangee">${corps}</div>`; };
+  const iso = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  const aujourdHui = () => iso(new Date(new Date().toLocaleString("en-US", { timeZone: "Europe/Madrid" })));
+  let MOIS = null;
+  const chipPub = x => { const c = E.contenus.find(k => k.id === x.contenu), r = (x.reseaux || [])[0] || "autre";
+    const corps = `<span class="rs rs-${esc(r)}"></span>${esc(heureDe(x.quand))} ${esc((x.titre || (c && c.titre) || "").split(/[·–:(]/)[0].trim())}`;
+    return c ? `<button type="button" class="chip-pub rs-fond-${esc(r)}" data-fiche="contenu" data-id="${esc(c.id)}">${corps}</button>` : `<span class="chip-pub rs-fond-${esc(r)}">${corps}</span>`; };
+  function grilleMois() {
+    const l = pubs(), auj = aujourdHui();
+    if (!MOIS) MOIS = (l.find(x => x.quand.slice(0, 10) >= auj) || { quand: auj }).quand.slice(0, 7);
+    const [a, m] = MOIS.split("-").map(Number), premier = new Date(a, m - 1, 1), decal = (premier.getDay() + 6) % 7, nb = new Date(a, m, 0).getDate();
+    const cases = [];
+    for (let i = 0; i < decal; i++) cases.push(`<div class="cal-case vide-case"></div>`);
+    for (let j = 1; j <= nb; j++) { const k = MOIS + "-" + String(j).padStart(2, "0"), p = l.filter(x => x.quand.startsWith(k));
+      cases.push(`<div class="cal-case${k === auj ? " auj" : ""}${p.length ? " pleine" : ""}${k < auj ? " passe" : ""}"><span class="cal-num">${j}</span>${p.map(chipPub).join("")}</div>`); }
+    const titre = premier.toLocaleDateString("fr-FR", { month: "long", year: "numeric" });
+    return `<div class="cal-mois"><div class="cal-tete"><button type="button" class="btn" data-mois="-1" aria-label="Mois précédent">‹</button><h2>${esc(titre)}</h2><button type="button" class="btn" data-mois="1" aria-label="Mois suivant">›</button></div>
+      <div class="cal-grille">${["lun", "mar", "mer", "jeu", "ven", "sam", "dim"].map(d => `<div class="cal-jsem">${d}</div>`).join("")}${cases.join("")}</div>
+      <div class="cal-legende">${Object.entries(RESEAUX).map(([k, v]) => `<span><span class="rs rs-${k}"></span>${esc(v)}</span>`).join("")}</div></div>`;
+  }
+  function semaineAccueil() {
+    const auj = new Date(aujourdHui() + "T12:00:00"), l = pubs(), jours = [];
+    for (let i = 0; i < 7; i++) { const d = new Date(auj); d.setDate(auj.getDate() + i); const k = iso(d), p = l.filter(x => x.quand.startsWith(k));
+      jours.push(`<a class="sem-jour${i === 0 ? " auj" : ""}${p.length ? " pleine" : ""}" href="#calendrier"><small>${d.toLocaleDateString("fr-FR", { weekday: "short" })}</small><b>${d.getDate()}</b><span class="sem-points">${p.map(x => `<span class="rs rs-${esc((x.reseaux || [])[0] || "autre")}"></span>`).join("")}</span></a>`); }
+    return `<div class="semaine">${jours.join("")}</div>`;
+  }
   function vueCalendrier() {
     const l = pubs(), jours = [...new Set(l.map(x => x.quand.slice(0, 10)))];
-    return `<section>${titreSection("Calendrier des publications", l.length)}<p class="intro">Ce qui sera publié, quand et où. « proposé » : créneau choisi par Victor, à confirmer par toi. Rien n'est publié sans ton OK. Pour changer un créneau, dis-le à Victor (ici, sur Telegram ou dans le fil).</p>
+    return `<section>${titreSection("Agenda des publications", l.length)}<p class="intro">Ce qui sera publié, quand et où. Le même agenda est copié dans ton Google Agenda. « proposé » : créneau choisi par Victor, à confirmer par toi. Rien n'est publié sans ton OK. Pour changer un créneau, dis-le à Victor.</p>
+      ${grilleMois()}</section><section>${titreSection("En détail", null)}
       ${jours.length ? jours.map(j => `<h2 class="cal-jour">${esc(jourLong(j))}</h2><div class="liste">${l.filter(x => x.quand.startsWith(j)).map(rangeePub).join("")}</div>`).join("") : `<p class="vide">Aucune publication planifiée pour l'instant.</p>`}</section>`;
   }
   const RUBRIQUES = [
@@ -738,7 +819,7 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
   function rendre() {
     if (!E) return;
     appliquerDecisions();
-    const r = route(), menu = ["accueil", "valider", "equipe", "taches"].includes(r) ? r : "plus";
+    const r = route(), menu = ["accueil", "valider", "equipe", "calendrier"].includes(r) ? r : "plus";
     document.querySelectorAll("#menu a").forEach(a => a.setAttribute("aria-current", a.dataset.route === menu ? "page" : "false"));
     const m = document.getElementById("vue-principale");
     const bandeau = STATIQUE ? (DB && PEUT_ECRIRE ? "" : `<div class="bandeau">Aperçu en lecture seule. Ouvre cette page depuis ton compte Claude pour valider et donner des consignes.</div>`)
@@ -748,7 +829,7 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
     Object.entries(gardes).forEach(([k, v]) => { const t = document.getElementById(k); if (t) { t.value = v; if (t.matches("[data-consigne]")) majProposition(k); } });
     const n = aValider().length, b = document.getElementById("badge-valider");
     b.hidden = !n; b.textContent = n;
-    document.getElementById("genere").textContent = (STATIQUE ? "Données du " : "État au ") + date(E.genere_le);
+    document.getElementById("genere").textContent = "Mis à jour le " + date(E.genere_le) + (DB ? " · validations en direct" : "");
     const eb = document.getElementById("etat-base");
     eb.className = "etat-base" + (actif() ? " ok" : "");
     eb.textContent = !STATIQUE ? "serveur" : DB && PEUT_ECRIRE ? "décisions en direct" : "lecture seule";
@@ -856,8 +937,9 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
   fiche.addEventListener("close", () => { fiche.querySelectorAll("video").forEach(v => v.pause()); fiche._courant = null; PILE.length = 0; });
   fiche.addEventListener("click", ev => { if (ev.target === fiche) fiche.close(); });
   document.addEventListener("click", ev => {
-    const el = ev.target.closest("[data-fiche],[data-fermer],[data-retour],[data-filtre],[data-filtre-lien],[data-valider],[data-ouvrir-modif],[data-envoyer],[data-reprendre],[data-envoyer-consigne],[data-micro],[data-repondre],[data-autoriser],[data-gerer-autorisations]");
+    const el = ev.target.closest("[data-fiche],[data-fermer],[data-retour],[data-filtre],[data-filtre-lien],[data-valider],[data-ouvrir-modif],[data-envoyer],[data-reprendre],[data-envoyer-consigne],[data-micro],[data-repondre],[data-autoriser],[data-gerer-autorisations],[data-mois]");
     if (!el) return;
+    if (el.dataset.mois) { const [y, m] = MOIS.split("-").map(Number), d = new Date(y, m - 1 + Number(el.dataset.mois), 1); MOIS = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0"); return rendre(); }
     if (el.dataset.fiche) { ev.preventDefault(); return ouvrirFiche(el.dataset.fiche, el.dataset.id); }
     if (el.hasAttribute("data-fermer")) return fiche.close();
     if (el.hasAttribute("data-retour")) { const p = PILE.pop(); if (p) afficherFiche(p.type, p.id); return; }
@@ -911,7 +993,10 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
   }
   document.addEventListener("input", ev => { if (ev.target.matches("[data-consigne]")) majProposition(ev.target.id); });
   document.addEventListener("change", ev => { if (ev.target.id && ev.target.id.endsWith("-pour")) majProposition(ev.target.id.slice(0, -5)); });
-  window.addEventListener("hashchange", () => { if (fiche.open) fiche.close(); rendre(); window.scrollTo(0, 0); });
+  window.addEventListener("hashchange", () => { if (fiche.open) fiche.close(); entree(); rendre(); window.scrollTo(0, 0); });
+  function entree() { const m = document.getElementById("vue-principale"); m.classList.remove("entree"); void m.offsetWidth; m.classList.add("entree"); clearTimeout(entree.h); entree.h = setTimeout(() => m.classList.remove("entree"), 900); }
+  entree();
+  document.getElementById("rafraichir").addEventListener("click", ev => { ev.currentTarget.classList.add("tourne"); setTimeout(() => location.reload(), 250); });
   charger();
   brancherBase();
   // Mode serveur : rafraîchit toutes les 30 s, sauf pendant une saisie
