@@ -582,7 +582,7 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
   const bloc = (etiquette, html) => html ? `<div class="bloc"><span class="etiquette">${etiquette}</span>${html}</div>` : "";
   function ficheContenu(c) {
     const m = (c.apercu && c.apercu.medias) || [], tx = (c.apercu && c.apercu.textes) || [];
-    const fig = x => `<figure>${x.type === "video" ? `<video src="${esc(x.url)}" controls playsinline preload="metadata"${x.poster ? ` poster="${esc(x.poster)}"` : ""}></video>` : `<img src="${esc(x.url)}" alt="${esc(x.libelle || "")}">`}<figcaption>${esc(x.libelle || "")} <a class="telecharger" href="${esc(x.url)}" download target="_blank" rel="noopener">Télécharger</a></figcaption></figure>`;
+    const fig = x => `<figure>${x.type === "video" ? `<video src="${esc(x.url)}" controls playsinline preload="metadata"${x.poster ? ` poster="${esc(x.poster)}"` : ""}></video>` : `<img src="${esc(x.url)}" alt="${esc(x.libelle || "")}">`}<figcaption>${esc(x.libelle || "")}</figcaption></figure>`;
     const images = m.filter(x => x.type === "image"), videos = m.filter(x => x.type === "video");
     const medias = videos.map(fig).join("") + (images.length > 1 ? `<div class="diapos">${images.map(fig).join("")}</div><span class="meta">Fais glisser pour voir les ${images.length} images.</span>` : images.map(fig).join(""));
     const t = E.taches.find(x => x.id === c.tache_id), posts = postsLinkedin(c);
