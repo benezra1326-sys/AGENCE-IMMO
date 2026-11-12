@@ -618,6 +618,7 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
     ["reseaux", "Réseaux", "Activité à configurer", () => null]
   ];
   function banniereAutorisation() {
+    return "";  // retirée le 12/11 : le panneau d'autorisations ne propose pas d'autorisation permanente pour ce point
     return AUTORISATION === "prompt" || AUTORISATION === "denied" ? `<div class="banniere"><p><b>Une seule fois :</b> autorise le back-office à prévenir Victor. Ensuite, tes demandes partent sans fenêtre de confirmation.</p><button class="btn principal" data-autoriser>${AUTORISATION === "denied" ? "Ouvrir les autorisations" : "Autoriser une fois pour toutes"}</button></div>` : "";
   }
   function vuePlus() {
