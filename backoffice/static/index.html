@@ -564,12 +564,14 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
       const d = DECISIONS[c.id] || {};
       return `<div class="decision">${bloc("Ta demande de modification", `<p class="note">${esc(d.texte || "")}</p><p class="note meta">${d.note_equipe ? esc(d.note_equipe) + " " : ""}${d.transmis_le ? `Prise en charge le ${date(d.transmis_le)}.` : "Transmise à l'équipe."} Le contenu revient dans « À valider » avec la nouvelle version.</p>`)}
       <div class="actions"><button class="btn" data-ouvrir-modif ${off}>Compléter ma demande</button><button class="btn" data-valider="${esc(c.id)}" ${off}>Finalement, valider tel quel</button></div>
-      <div id="form-modif" hidden><label class="meta" for="modif-texte">Ce que tu veux ajouter</label><textarea id="modif-texte"></textarea>
+      <div id="form-modif" hidden><label class="meta" for="modif-texte">Ce que tu veux ajouter (à la voix ou par écrit)</label><textarea id="modif-texte" placeholder="Parle ou écris ici"></textarea>
+      <div class="actions">${boutonMicro("modif-texte")}</div><span class="meta provisoire" id="modif-texte-provisoire" hidden></span>
       <div class="actions"><button class="btn principal" data-envoyer="${esc(c.id)}">Envoyer</button></div></div></div>`;
     }
     return `<div class="decision">${actif() ? "" : `<span class="meta">Les boutons s'activent quand la page est ouverte depuis ton compte Claude.</span>`}
       <div class="actions"><button class="btn" data-ouvrir-modif ${off}>Demander une modification</button><button class="btn principal" data-valider="${esc(c.id)}" ${off}>Valider</button></div>
-      <div id="form-modif" hidden><label class="meta" for="modif-texte">Ce qu'il faut changer</label><textarea id="modif-texte"></textarea>
+      <div id="form-modif" hidden><label class="meta" for="modif-texte">Ce qu'il faut changer (à la voix ou par écrit)</label><textarea id="modif-texte" placeholder="Parle ou écris ici"></textarea>
+      <div class="actions">${boutonMicro("modif-texte")}</div><span class="meta provisoire" id="modif-texte-provisoire" hidden></span>
       <div class="actions"><button class="btn principal" data-envoyer="${esc(c.id)}">Envoyer la demande</button></div></div></div>`;
   }
   function ficheAgent(a) {
@@ -811,14 +813,14 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
     if (el.hasAttribute("data-retour")) { const p = PILE.pop(); if (p) afficherFiche(p.type, p.id); return; }
     if (el.dataset.filtreLien) { filtres.taches = el.dataset.filtreLien; return; }
     if (el.dataset.filtre) { filtres.taches = el.dataset.filtre; return rendre(); }
-    if (el.hasAttribute("data-ouvrir-modif")) { const f = document.getElementById("form-modif"); if (f) { f.hidden = !f.hidden; if (!f.hidden) f.querySelector("textarea").focus(); } return; }
+    if (el.hasAttribute("data-ouvrir-modif")) { const f = document.getElementById("form-modif"); if (f) { f.hidden = !f.hidden; if (!f.hidden) { f.querySelector("textarea").focus(); if (DICT && !DICT.active()) basculerDictee("modif-texte"); } } return; }
     if (el.dataset.micro) return basculerDictee(el.dataset.micro);
     if (el.dataset.repondre) { if (!DB || !PEUT_ECRIRE) return; return repondreConsigne(el.dataset.repondre); }
     if (el.dataset.envoyerConsigne) { if (STATIQUE && (!DB || !PEUT_ECRIRE)) return; return consigneBase(el.dataset.envoyerConsigne); }
     if (STATIQUE) {
       if (!DB || !PEUT_ECRIRE) return;
       if (el.dataset.valider) return deciderBase(el.dataset.valider, "valide");
-      if (el.dataset.envoyer) { const tx = document.getElementById("modif-texte").value.trim(); if (!tx) return toast("Écris ce qu'il faut changer."); return deciderBase(el.dataset.envoyer, "modification", tx); }
+      if (el.dataset.envoyer) { if (DICT && DICT.active()) DICT.stop().catch(() => {}); const tx = document.getElementById("modif-texte").value.trim(); if (!tx) return toast("Écris ce qu'il faut changer."); return deciderBase(el.dataset.envoyer, "modification", tx); }
       return;
     }
     if (el.dataset.valider) return poster(`/api/contenus/${encodeURIComponent(el.dataset.valider)}/valider`);
