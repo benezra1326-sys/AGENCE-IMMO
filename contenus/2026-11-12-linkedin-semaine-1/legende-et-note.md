@@ -8,10 +8,12 @@ Règles respectées : aucun chiffre sans source (il n'y en a aucun), aucune prom
 
 ## Post 1 – Présentation (mardi)
 
+Visuel : couverture du Reel villa golf validé (zone seulement, aucun nom de bien).
+
 **FR**
 Je m'appelle Avishay Benazra. J'accompagne des acheteurs francophones dans leur projet immobilier sur la Costa del Sol, au sein de Levy & Goldman à Marbella.
 
-Notre zone : de Cabopino à Casares, en passant par Marbella, Nueva Andalucía, Benahavís et Estepona. Villas, appartements, terrains et biens hors marché.
+Notre secteur : Marbella et ses alentours, jusqu'à Estepona. Villas, appartements, terrains et biens hors marché.
 
 Beaucoup de vos clients pensent à l'Espagne sans savoir par où commencer. C'est là que nous intervenons : un seul interlocuteur, en français, du premier appel jusqu'à la remise des clés.
 
@@ -20,7 +22,7 @@ Agences, chasseurs, conseillers en patrimoine : si l'un de vos clients regarde M
 **EN**
 I am Avishay Benazra. I guide buyers through their property project on the Costa del Sol, with Levy & Goldman in Marbella.
 
-Our area runs from Cabopino to Casares, through Marbella, Nueva Andalucía, Benahavís and Estepona. Villas, apartments, plots and off-market properties.
+Our area: Marbella and its surroundings, up to Estepona. Villas, apartments, plots and off-market properties.
 
 Many of your clients think about Spain without knowing where to start. That is where we come in: one point of contact, from the first call to the keys.
 
@@ -28,7 +30,9 @@ Agencies, buyer's agents, wealth advisers: if one of your clients is looking at 
 
 ---
 
-## Post 2 – Les 5 questions avant d'acheter (jeudi, avec les diapositives du carrousel V3 une fois validé)
+## Post 2 – Les 5 questions avant d'acheter (jeudi)
+
+Visuel : les 8 diapositives du carrousel V3 (validé le 12/11), publiées en carrousel LinkedIn.
 
 **FR**
 Acheter à Marbella commence par cinq questions, bien avant la première visite :
@@ -60,6 +64,8 @@ Lawyers and brokers are independent professionals. No financing or outcome is gu
 
 ## Post 3 – Travailler avec nous quand on est une agence ou un conseiller (lundi suivant)
 
+Visuel : la diapositive « With us · From first call to the keys » du carrousel.
+
 **FR**
 Quand une agence ou un conseiller nous confie un client, voici ce qui se passe :
 
@@ -88,5 +94,5 @@ To discuss: send me a message.
 
 ## Note interne
 - Les invitations (15 par jour) restent envoyées par toi ; la liste de la semaine est dans `/mnt/project-files/prospection/2026-11-11-lot1-partenaires.md`.
-- Post 2 réutilise le carrousel V3 : à publier seulement après ta validation du carrousel.
+- Zone corrigée le 12/11 à ta demande : Marbella et alentours jusqu'à Estepona.
 - Les posts sur les programmes neufs Levy & Goldman sont préparés à part, par l'équipe contenu.

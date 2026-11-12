@@ -87,10 +87,10 @@ h3 { font: 600 .98rem/1.3 var(--f-body); margin: 0; overflow-wrap: anywhere }
 .projets a[aria-current="page"] { background: var(--ink); color: var(--on-ink) }
 .pastille { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px; border-radius: 999px; font-size: .72rem; font-weight: 600; white-space: nowrap; letter-spacing: .02em; flex: none }
 .pastille::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor }
-.s-prevu, .s-en_attente, .s-a_configurer, .s-reporte, .s-liste_preparee, .s-brouillon, .s-en_preparation, .s-remplace { color: var(--idle); background: var(--idle-bg) }
+.s-propose, .s-prevu, .s-en_attente, .s-a_configurer, .s-reporte, .s-liste_preparee, .s-brouillon, .s-en_preparation, .s-remplace { color: var(--idle); background: var(--idle-bg) }
 .s-configure, .s-en_cours, .s-partiel, .s-en_lancement { color: var(--info); background: var(--info-bg) }
 .s-teste, .s-a_valider, .s-preparee { color: var(--test); background: var(--test-bg) }
-.s-actif, .s-terminee, .s-operationnel, .s-valide, .s-envoyee, .s-publie { color: var(--ok); background: var(--ok-bg) }
+.s-actif, .s-confirme, .s-terminee, .s-operationnel, .s-valide, .s-envoyee, .s-publie { color: var(--ok); background: var(--ok-bg) }
 .s-recue { color: var(--idle); background: var(--idle-bg) } .s-attribuee { color: var(--info); background: var(--info-bg) } .s-traitee { color: var(--ok); background: var(--ok-bg) } .s-question { color: var(--warn); background: var(--warn-bg) }
 .s-bloque, .s-bloquee, .s-modification_demandee, .s-manquant, .s-a_verifier { color: var(--warn); background: var(--warn-bg) }
 .s-echec, .s-appel_demande { color: var(--bad); background: var(--bad-bg) }
@@ -192,14 +192,17 @@ dialog.fiche::backdrop { background: rgb(0 0 0 / .5) }
 details { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; background: var(--surface-2) }
 details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
 .telecharger { display: inline-block; margin-left: 6px; font-weight: 600; color: var(--fg); text-decoration: underline }
-.li-posts { display: grid; gap: 14px; margin: 10px 0 }
-.li-post { border: 1px solid var(--line, #ddd); border-radius: 12px; padding: 14px; background: var(--surface) }
+.cal-jour { font-size: .95rem; margin: 18px 0 8px; text-transform: capitalize }
+.cal-heure { font-variant-numeric: tabular-nums; font-weight: 600; min-width: 52px }
+.li-posts { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; margin: 10px 0 }
+.li-post { min-width: 0; overflow: hidden; border: 1px solid var(--line, #ddd); border-radius: 12px; padding: 14px; background: var(--surface) }
 .li-num { font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px }
 .li-tete { display: flex; gap: 10px; align-items: center; margin-bottom: 10px }
 .li-tete small { display: block; color: var(--muted); font-size: .78rem }
 .li-av { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: var(--on-ink); font-weight: 600; font-size: .85rem; flex: none }
 .li-texte { white-space: pre-wrap; margin: 0; font-size: .9rem; line-height: 1.5; overflow-wrap: anywhere }
 .li-post details { margin-top: 10px }
+.li-image img, .li-post .diapos img { width: 100%; max-width: 100%; border-radius: 8px; margin-top: 10px; display: block }
 .texte-brut { white-space: pre-wrap; font: .84rem/1.55 var(--f-body); margin: 10px 0 0; overflow-wrap: anywhere }
 .fichiers { margin: 0; padding-left: 18px; font-size: .82rem; overflow-wrap: anywhere }
 .decision { position: sticky; bottom: 0; background: var(--surface); border-top: 1px solid var(--line); margin: 0 -16px calc(-24px - env(safe-area-inset-bottom, 0px)); padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 8px }
@@ -229,7 +232,7 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
       <a href="#accueil" data-route="accueil"><svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/></svg>Accueil</a>
       <a href="#valider" data-route="valider"><svg viewBox="0 0 24 24"><rect x="4" y="3.5" width="16" height="17" rx="2.5"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>À valider<span class="badge" id="badge-valider" hidden></span></a>
       <a href="#equipe" data-route="equipe"><svg viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3.2"/><path d="M3.5 19.5c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/><circle cx="17" cy="9.5" r="2.4"/><path d="M15.8 14.6c2.3.1 4 1.7 4.6 4.4"/></svg>Équipe</a>
-      <a href="#taches" data-route="taches"><svg viewBox="0 0 24 24"><path d="M9 6.5h11M9 12h11M9 17.5h11"/><circle cx="4.8" cy="6.5" r="1.2"/><circle cx="4.8" cy="12" r="1.2"/><circle cx="4.8" cy="17.5" r="1.2"/></svg>Tâches</a>
+      <a href="#calendrier" data-route="calendrier"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2.5"/><path d="M4 9.5h16M8.5 3v4M15.5 3v4"/></svg>Calendrier</a>
       <a href="#plus" data-route="plus"><svg viewBox="0 0 24 24"><circle cx="5.5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="18.5" cy="12" r="1.4"/></svg>Plus</a>
     </nav>
     <span class="etat-base" id="etat-base">aperçu</span>
@@ -244,7 +247,7 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
   const STATIQUE = !!window.__ETAT__;
   let E = window.__ETAT__ || null;
   let DB = null, PEUT_ECRIRE = false;           // page publiée : décisions enregistrées dans la base de l'artifact
-  const DECISIONS = {}, CONSIGNES = [];
+  const DECISIONS = {}, CONSIGNES = [], CAL = {};  // CAL : calendrier des publications (collection « calendrier »)
   let DICT = null, CIBLE_DICTEE = null, SAMPLE = null, COMMENTS = null, DIRECT = false;  // DIRECT : la consigne réveille Claude (Send to Claude)  // SAMPLE : réponse immédiate de l'agent         // dictée vocale (Chrome et app Claude sur ordinateur)
   const actif = () => !STATIQUE || (DB && PEUT_ECRIRE);
   const filtres = { taches: "a_traiter" };
@@ -253,7 +256,7 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
     en_attente: "en attente", en_cours: "en cours", terminee: "terminée", echec: "échec", bloquee: "bloquée",
     a_valider: "à valider", modification_demandee: "en modification", valide: "validé", publie: "publié", remplace: "remplacé",
     brouillon: "brouillon", en_preparation: "en préparation", operationnel: "opérationnel", partiel: "partiel",
-    manquant: "manquant", a_verifier: "à activer ou vérifier", a_configurer: "à configurer", reporte: "reporté", en_lancement: "en lancement",
+    manquant: "manquant", a_verifier: "à activer ou vérifier", a_configurer: "à configurer", propose: "proposé", confirme: "confirmé", reporte: "reporté", en_lancement: "en lancement",
     recue: "reçue", attribuee: "prise en charge", traitee: "faite", question: "question pour toi",
     liste_preparee: "liste préparée", preparee: "préparée", envoyee: "envoyée", nouveau: "nouveau", appel_demande: "appel demandé"
   };
@@ -315,9 +318,10 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
       return { titre, fr, en };
     }).filter(x => x.fr);
   }
-  const carteLinkedin = (x, i) => `<article class="li-post"><p class="li-num">${esc(x.titre)}</p>
+  const carteLinkedin = (x, i, medias) => { const im = (medias || []).filter(m => m.type === "image" && (m.libelle || "").startsWith(`Post ${i + 1} `));
+    return `<article class="li-post"><p class="li-num">${esc(x.titre)}</p>
     <div class="li-tete"><span class="li-av">AB</span><span><b>Avishay Benazra</b><small>Agent immobilier · Levy &amp; Goldman, Marbella</small></span></div>
-    <p class="li-texte">${esc(x.fr)}</p>${x.en ? `<details><summary>Version anglaise</summary><p class="li-texte">${esc(x.en)}</p></details>` : ""}</article>`;
+    <p class="li-texte">${esc(x.fr)}</p>${im.length ? `<div class="${im.length > 1 ? "diapos" : "li-image"}">${im.map(m => `<img src="${esc(m.url)}" alt="${esc(m.libelle)}">`).join("")}</div>${im.length > 1 ? `<span class="meta">Carrousel de ${im.length} images, fais glisser.</span>` : ""}` : ""}${x.en ? `<details><summary>Version anglaise</summary><p class="li-texte">${esc(x.en)}</p></details>` : ""}</article>`; };
   const carteContenu = c => ouvre("contenu", c.id, `${visuel(c)}<div class="corps"><div>${pill(c.statut)}</div><h3>${esc(c.titre)}</h3>
     <div class="meta">${c.bien ? `<span>Bien <b>${esc(c.bien)}</b></span>` : ""}<span>Date <b>${jour(c.date_prevue)}</b></span></div><span class="ouvrir">Voir et décider</span></div>`, "contenu");
   const carteAgent = a => { const x = activiteAgent(a);
@@ -361,6 +365,7 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
       + `<section>${titreSection("Récap du jour", null)}${recapJour()}</section>`
       + `<section>${titreSection("Parler à Victor", null)}${blocConsigne()}</section>`
       + `<section>${tuiles}</section>`
+      + `<section>${titreSection("Prochaines publications", pubs().length, `<a class="lien-section" href="#calendrier">Calendrier</a>`)}${pubs().length ? `<div class="liste">${pubs().slice(0, 4).map(x => rangeePub(Object.assign({}, x, { note: jourLong(x.quand) }))).join("")}</div>` : `<p class="vide">Rien de planifié. Victor propose les dates dès qu'un contenu est validé.</p>`}</section>`
       + `<section>${titreSection("À valider", av.length, `<a class="lien-section" href="#valider">Tout voir</a>`)}${av.length ? `<div class="rang-contenus">${av.map(carteContenu).join("")}</div>` : `<p class="vide">Rien à valider pour l'instant.</p>`}</section>`
       + (enModif().length ? `<section>${titreSection("En modification", enModif().length, `<a class="lien-section" href="#valider">Tout voir</a>`)}<div class="liste">${enModif().map(rangeeModif).join("")}</div></section>` : "")
       + `<section>${titreSection("Ce qui attend une action", afaire.length)}<p class="intro">Touche une ligne pour voir le détail et ce qu'il faut faire.</p>${afaire.length ? `<div class="liste">${afaire.join("")}</div>` : `<p class="vide">Rien de bloqué.</p>`}</section>`
@@ -503,7 +508,21 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
       ${liste.length ? `<div class="liste">${liste.map(rangeeTache).join("")}</div>` : `<p class="vide">Aucune tâche dans cette catégorie.</p>`}</section>`;
   }
 
+  const RESEAUX = { instagram: "Instagram", facebook: "Facebook", tiktok: "TikTok", youtube: "YouTube Shorts", linkedin: "LinkedIn" };
+  const pubs = () => Object.values(CAL).filter(x => x.quand).sort((a, b) => a.quand.localeCompare(b.quand));
+  const heureDe = q => q.slice(11, 16).replace(":", " h ");
+  const jourLong = q => new Date(q.slice(0, 10) + "T12:00:00").toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" });
+  const rangeePub = x => { const c = E.contenus.find(k => k.id === x.contenu);
+    const corps = `<span class="cal-heure">${esc(heureDe(x.quand))}</span><span class="txt"><h3>${esc(x.titre || (c && c.titre) || x.contenu)}</h3><span class="meta">${(x.reseaux || []).map(r => esc(RESEAUX[r] || r)).join(" · ")}</span>${x.note ? `<span class="note">${esc(x.note)}</span>` : ""}</span>${pill(x.statut || "propose")}${c ? CHEVRON : ""}`;
+    return c ? ouvre("contenu", c.id, corps, "rangee") : `<div class="rangee">${corps}</div>`; };
+  function vueCalendrier() {
+    const l = pubs(), jours = [...new Set(l.map(x => x.quand.slice(0, 10)))];
+    return `<section>${titreSection("Calendrier des publications", l.length)}<p class="intro">Ce qui sera publié, quand et où. « proposé » : créneau choisi par Victor, à confirmer par toi. Rien n'est publié sans ton OK. Pour changer un créneau, dis-le à Victor (ici, sur Telegram ou dans le fil).</p>
+      ${jours.length ? jours.map(j => `<h2 class="cal-jour">${esc(jourLong(j))}</h2><div class="liste">${l.filter(x => x.quand.startsWith(j)).map(rangeePub).join("")}</div>`).join("") : `<p class="vide">Aucune publication planifiée pour l'instant.</p>`}</section>`;
+  }
   const RUBRIQUES = [
+    ["calendrier", "Calendrier", "Ce qui sera publié, quand et où", () => pubs().length],
+    ["taches", "Tâches", "Tout ce que font les agents", () => E.taches.length],
     ["biens", "Biens", "Fiches, droits et prix à confirmer", () => E.biens.length],
     ["acheteurs", "Acheteurs", "Prospects et leur qualification", () => E.prospects.length],
     ["connexions", "Connexions", "Ce qui est branché et ce qu'il faut faire", () => (E.connexions.connexions || []).length],
@@ -570,10 +589,10 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
     const retours = (c.retours || []).map(r => `<li>${date(r.cree_le)} · ${r.decision === "valide" ? "validé" : "modification : " + esc(r.texte)} (${esc(r.canal)})</li>`).join("");
     return {
       titre: c.titre, sous: `${FORMATS[c.format] || c.format || ""}${c.langue ? " · " + c.langue.toUpperCase() : ""}${c.bien ? " · " + c.bien : ""}`,
-      corps: `<div>${pill(c.statut)}</div>${medias ? `<div class="medias">${medias}</div>` : posts.length ? `<p class="meta">Aperçu tel qu'il apparaîtra sur LinkedIn (${posts.length} posts).</p><div class="li-posts">${posts.map(carteLinkedin).join("")}</div>` : tx.length ? "" : `<p class="vide">Pas d'aperçu disponible pour ce contenu.</p>`}
+      corps: `<div>${pill(c.statut)}</div>${posts.length ? `<p class="meta">Aperçu tel qu'il apparaîtra sur LinkedIn (${posts.length} posts).</p><div class="li-posts">${posts.map((x, i) => carteLinkedin(x, i, m)).join("")}</div>` : medias ? `<div class="medias">${medias}</div>` : posts.length ? `<p class="meta">Aperçu tel qu'il apparaîtra sur LinkedIn (${posts.length} posts).</p><div class="li-posts">${posts.map(carteLinkedin).join("")}</div>` : tx.length ? "" : `<p class="vide">Pas d'aperçu disponible pour ce contenu.</p>`}
         ${tx.map((x, i) => `<details ${i === 0 && !posts.length ? "open" : ""}><summary>${esc(x.titre)}</summary><pre class="texte-brut">${esc(x.texte)}</pre></details>`).join("")}
         ${t ? bloc("Préparé par", ouvre("agent", t.agent, `${agent(t.agent) ? avatar(agent(t.agent)) : ""}<span class="txt"><h3>${esc(nomAgent(t.agent))}</h3><span class="meta">Voir la tâche et le compte rendu ci-dessous</span></span>${CHEVRON}`, "rangee") + ouvre("tache", t.id, `<span class="txt"><h3>${esc(t.titre)}</h3><span class="meta">${date(t.maj_le)}</span></span>${pill(t.statut)}${CHEVRON}`, "rangee")) : ""}
-        ${bloc("Date prévue", `<p class="note">${jour(c.date_prevue)}</p>`)}
+        ${bloc("Date prévue", (() => { const p = pubs().filter(x => x.contenu === c.id); return p.length ? `<div class="liste">${p.map(x => `<div class="rangee"><span class="txt"><h3>${esc(jourLong(x.quand))} · ${esc(heureDe(x.quand))}</h3><span class="meta">${(x.reseaux || []).map(r => esc(RESEAUX[r] || r)).join(" · ")}</span></span>${pill(x.statut || "propose")}</div>`).join("")}</div>` : `<p class="note">${jour(c.date_prevue)}</p>`; })())}
         ${retours ? bloc("Historique des décisions", `<ul class="histo">${retours}</ul>`) : ""}
         ${zoneDecision(c)}`
     };
@@ -703,7 +722,7 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
       c.retours = base.concat(d ? (d.historique || []).map(h => ({ decision: h.decision, texte: h.texte, canal: "tableau de bord", cree_le: h.quand })) : []);
     });
   }
-  const VUES = { accueil: vueAccueil, valider: vueValider, equipe: vueEquipe, taches: vueTaches, plus: vuePlus, biens: vueBiens, acheteurs: vueAcheteurs, connexions: vueConnexions, marche: vueMarche, partenaires: vuePartenaires, alertes: vueAlertes, couts: vueCouts, journal: vueJournal, apps: () => vueAConfigurer("apps"), reseaux: () => vueAConfigurer("reseaux") };
+  const VUES = { accueil: vueAccueil, valider: vueValider, equipe: vueEquipe, taches: vueTaches, plus: vuePlus, biens: vueBiens, acheteurs: vueAcheteurs, connexions: vueConnexions, marche: vueMarche, partenaires: vuePartenaires, alertes: vueAlertes, couts: vueCouts, journal: vueJournal, calendrier: vueCalendrier, apps: () => vueAConfigurer("apps"), reseaux: () => vueAConfigurer("reseaux") };
   const ANCIENNES = { vue: "accueil", immo: "accueil" };
   const PROJETS = [["immo", "Immobilier", "#accueil"], ["apps", "Apps", "#apps"], ["reseaux", "Création de contenu", "#reseaux"]];
   function barreProjets(r) {
@@ -750,6 +769,11 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
         snap.docs.forEach(d => { DECISIONS[d.id] = d.data(); });
         rendre(); appliquerDecisions(); rafraichirFiche();
       }, () => clearTimeout(minuteur));
+      DB.collection("calendrier").onSnapshot(snap => {
+        Object.keys(CAL).forEach(k => delete CAL[k]);
+        snap.docs.forEach(d => { CAL[d.id] = Object.assign({ _id: d.id }, d.data()); });
+        rendre(); rafraichirFiche();
+      }, () => {});
       DB.collection("consignes").orderBy("quand", "desc").limit(20).onSnapshot(snap => {
         CONSIGNES.length = 0; snap.docs.forEach(d => CONSIGNES.push(Object.assign({ _id: d.id }, d.data())));
         rendre(); rafraichirFiche();
