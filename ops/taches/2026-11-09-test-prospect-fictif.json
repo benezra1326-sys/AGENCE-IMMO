@@ -1,0 +1,14 @@
+{
+  "id": "2026-11-09-test-prospect-fictif",
+  "activite": "immo",
+  "agent": "acheteurs",
+  "titre": "Test du parcours avec un prospect fictif (fiche, historique, anti-doublon, alertes préparées)",
+  "statut": "terminee",
+  "source": "brief 9 nov, section 15",
+  "cree_le": "2026-11-09T10:53:00Z",
+  "maj_le": "2026-11-09T10:55:00Z",
+  "resultat": "13/13 contrôles réussis en mode test. Aucune alerte envoyée, aucun contact réel.",
+  "fichiers": ["ops/rapports/2026-11-09-test-prospect-fictif.md"],
+  "cout_eur": 0,
+  "raison_echec": null
+}
