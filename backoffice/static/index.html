@@ -261,7 +261,7 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
     liste_preparee: "liste préparée", preparee: "préparée", envoyee: "envoyée", nouveau: "nouveau", appel_demande: "appel demandé"
   };
   const COTE = { serveur: "serveur (Mac éteint)", claude: "sessions Claude", telephone: "ton téléphone", mac: "ton Mac" };
-  const FORMATS = { reel: "Reel", carrousel: "Carrousel", animation: "Animation", story: "Story", post: "Post" };
+  const FORMATS = { reel: "Reel", carrousel: "Carrousel", animation: "Animation", story: "Story", post: "Post", "post linkedin": "Posts LinkedIn", "diffusion whatsapp": "WhatsApp aux agents" };
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const pill = s => `<span class="pastille s-${esc(s)}">${esc(LIB[s] || s)}</span>`;
   const date = s => s ? new Date(s).toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit", timeZone: "Europe/Madrid" }) : "—";
