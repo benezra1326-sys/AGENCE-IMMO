@@ -1,0 +1,24 @@
+{
+ "id": "2026-11-12-reel-programme-new-golden-mile",
+ "agent": "montage",
+ "titre": "Reel programme neuf New Golden Mile (AB-0002)",
+ "statut": "terminee",
+ "source": "Avishay 12/11/2026 : « créer des contenus sur les programmes neufs, tu peux commencer »",
+ "resultat": "Reel 24 s, sans musique, 10 images de synthèse du site Levy & Goldman, textes centrés, écran final noir Levy & Goldman, DM “NEW”. Droit sur les images et prix à confirmer.",
+ "fichiers": [
+  "/mnt/project-files/agence-immo/contenus/2026-11-12-reel-programme-new-golden-mile/",
+  "contenus/2026-11-12-reel-programme-new-golden-mile/legende-et-note.md"
+ ],
+ "raison_echec": null,
+ "activite": "immo",
+ "cree_le": "2026-11-12T11:45:00Z",
+ "maj_le": "2026-11-12T12:00:00Z",
+ "cout_eur": 0,
+ "contenu": {
+  "titre": "Reel programme neuf New Golden Mile",
+  "format": "reel",
+  "langue": "en",
+  "statut": "a_valider",
+  "bien": "AB-0002"
+ }
+}

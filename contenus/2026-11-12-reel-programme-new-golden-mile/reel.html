@@ -1,0 +1,61 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../outils/charte-texte.css">
+<!-- Reel programme neuf AB-0002 (New Golden Mile, Estepona) – 12/11/2026, à valider par Avishay.
+     Images de synthèse du site Levy & Goldman (images/, hors git). Aucun nom de programme, d'architecte ni de décorateur.
+     Style homogène avec ses Reels publiés : texte blanc Montserrat dans le tiers haut (relecture 12/11 : remonté, moins de détails identifiants), ombre douce, écran final noir Levy & Goldman. Sans musique. -->
+<style>
+body{background:#000}
+#stage{width:1080px;height:1920px;position:relative;overflow:hidden;background:#000}
+.sh{position:absolute;inset:0;opacity:0;overflow:hidden}
+.sh img{position:absolute;height:1920px;top:0;left:50%;will-change:transform}
+.voile{position:absolute;left:0;right:0;top:0;height:1050px;background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,.42) 50%,rgba(0,0,0,0));opacity:0}
+.tx{position:absolute;left:60px;right:60px;top:520px;transform:translateY(-50%);text-align:center;color:#fff;opacity:0}
+.tx .cx-sur{font-family:Montserrat,sans-serif;font-size:30px;font-weight:600;color:#fff;letter-spacing:.14em}
+.tx .cx-titre{font-family:Montserrat,sans-serif;font-size:84px;font-weight:600;letter-spacing:.04em;line-height:1.1}
+.tx .cx-titre .a{color:#fff}
+.tx .cx-sous{font-family:Montserrat,sans-serif;font-size:36px;font-weight:500;color:#fff;letter-spacing:.04em;text-transform:none}
+.tx .cx-trait{width:90px;height:2px;margin:28px auto}
+.w{display:inline-block}
+.cgi{position:absolute;left:0;right:0;bottom:400px;text-align:center;font-family:Inter,sans-serif;font-size:19px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.85);text-shadow:0 1px 6px rgba(0,0,0,.7)}
+#fin{position:absolute;inset:0;opacity:0}
+</style></head><body><div id="stage">
+<div id="shots"></div>
+<div class="voile" id="voile"></div>
+<div class="tx cx-ombre" id="x1"><div class="cx-sur cx-plan-sur">Estepona · New Golden Mile</div><div class="cx-trait"></div><div class="cx-titre cx-plan"><span class="w">New</span> <span class="w">build</span><br><span class="w a">resort</span> <span class="w a">living</span></div></div>
+<div class="tx cx-ombre" id="x2"><div class="cx-sur cx-plan-sur">Apartments and penthouses</div><div class="cx-trait"></div><div class="cx-titre cx-plan"><span class="w">From</span><br><span class="w a">€745,000</span></div><div class="cx-trait"></div><div class="cx-sous cx-plan-info">2 &amp; 3 bedrooms</div></div>
+<div class="tx cx-ombre" id="x3"><div class="cx-titre cx-plan"><span class="w">Pools</span> <span class="w">&amp;</span><br><span class="w a">gardens</span></div></div>
+<div class="tx cx-ombre" id="x4"><div class="cx-titre cx-plan"><span class="w">Spa</span> <span class="w">&amp;</span><br><span class="w a">wellness</span></div><div class="cx-trait"></div><div class="cx-sous cx-plan-info">Gated community</div></div>
+<div class="cgi" id="cgi">Computer-generated images</div>
+<div id="fin"><div class="cx-noir"></div><div class="cx-sig-bloc">
+ <div class="cx-sur" style="font-size:26px">New build · Estepona</div>
+ <div class="cx-dm" style="margin-top:26px;font-size:58px">DM <b style="font-size:46px">“NEW”</b></div>
+ <div class="cx-petit" style="margin-top:8px;font-size:28px">for prices, plans and availability</div>
+ <div class="cx-filet" style="margin-top:64px"></div>
+ <div class="cx-marque">Levy &amp; Goldman</div>
+ <div class="cx-tag" style="margin-top:12px">Your dream property awaits</div>
+ <div class="cx-tel">+34 647 142 274</div>
+ <div class="cx-contact">avi@levygoldman.com<br>@avishay.marbella</div>
+ <div style="margin-top:56px;font-family:Inter,sans-serif;font-size:17px;letter-spacing:.14em;text-transform:uppercase;color:#77726b;line-height:1.8">Computer-generated images<br>Prices and availability subject to change</div>
+</div></div>
+</div>
+<script>
+const IM=['exteriors-cam03-12142021','exteriors-cam02-12162021','living-09252018','kitchen-10192021','exteriors-cam01-12142021','terrace-pool-12162021','cam02-05042021','gym-01082019','bedroom-01','terrace-top-12162021'];
+// [image, décalage horizontal de départ et d'arrivée (fraction de la largeur libre, -1 gauche .. 1 droite)]
+const MV=[[0,-.3,.3],[1,.4,-.2],[2,-.4,.2],[3,.2,-.2],[4,-.3,.3],[5,.3,-.3],[6,-.2,.3],[7,.4,-.3],[8,-.3,.3],[9,.2,-.2]];
+const STEP=2.0, D=2.45, FIN=20.0, TOT=24.0;
+const E=x=>1-Math.pow(1-x,3), C=v=>Math.max(0,Math.min(1,v)), $=id=>document.getElementById(id);
+const box=$('shots'), els=IM.map(n=>{const d=document.createElement('div');d.className='sh';const i=new Image();i.src='images/'+n+'.jpg';d.appendChild(i);box.appendChild(d);return d});
+const TX=[['x1',0.15,3.9],['x2',4.15,7.9],['x3',8.15,11.9],['x4',12.15,15.9]];
+window.render=function(t){
+ els.forEach((d,k)=>{const s=k*STEP,e=s+D,img=d.firstChild;
+  const a=C((t-s)/0.45), b=C((e-t)/0.45); d.style.opacity=(k==0?1:a)*(t>FIN+0.6?0:1)*(k==els.length-1?1:b);
+  const p=C((t-s)/D), w=img.naturalWidth*1920/img.naturalHeight, free=Math.max(0,w-1080)/2*0.9;
+  const m=MV[k], x=(m[1]+(m[2]-m[1])*p)*free, z=1.04+0.06*p;
+  img.style.transform=`translateX(calc(-50% + ${x}px)) scale(${z})`;});
+ let v=0;
+ TX.forEach(([id,i,o])=>{const el=$(id),a=C((t-i)/0.5),z=C((t-o)/0.4);const op=t<i||t>o+0.4?0:E(a)*(1-z);el.style.opacity=op;v=Math.max(v,op);
+  el.querySelectorAll('.w').forEach((w,k)=>{const q=C((t-i-0.1-k*0.12)/0.45);w.style.opacity=E(q);w.style.transform=`translateY(${(1-E(q))*30}px)`});});
+ $('voile').style.opacity=v; $('cgi').style.opacity=t<FIN?1:0;
+ $('fin').style.opacity=E(C((t-FIN)/0.6));
+};
+render(0);
+</script></body></html>

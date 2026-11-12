@@ -1,0 +1,41 @@
+{
+  "ref": "AB-0001",
+  "ref_partenaire": "SV2342",
+  "nom": "Aloha 40",
+  "zone": "Nueva Andalucía (Aloha), Marbella",
+  "type": "villa",
+  "caracteristiques": {
+    "chambres": 6,
+    "detail_chambres": "5 dans la maison principale, 1 dans la maison d'invités",
+    "m2_construits": 702,
+    "m2_terrain": 2349,
+    "situation": "première ligne du golf",
+    "salles_de_bains": 6,
+    "toilettes_invites": 3,
+    "m2_terrasses": 761,
+    "orientation": "sud",
+    "piscine": "privée",
+    "parking": 2,
+    "dpe": "A"
+  },
+  "source_caracteristiques": "Brochure Aloha40_e-brochure.pdf + fiche vitrine WINDOW CARD/Aloha 40.pdf (14/07/2026) ; plans d'étage présents ; drone confirme la première ligne golf",
+  "date_caracteristiques": "2026-11-09",
+  "caracteristiques_recoupees": true,
+  "autorisation_medias": "oui",
+  "autorisation_medias_source": "Avishay, brief du 9 novembre 2026 (médias Solvilla fournis)",
+  "autorisation_tournage": "a_demander",
+  "restrictions": [
+    "Zone uniquement, jamais l'adresse exacte",
+    "Ne pas afficher le nom de la propriété (demande d'Avishay, 09/11/2026)",
+    "Informations internes du nom de dossier non publiques"
+  ],
+  "prix": {
+    "montant": 9950000,
+    "verifie": false,
+    "note": "9 950 000 € : fiche Solvilla en ligne, PrimeLocation 08/10/2026, JamesEdition 06/10/2026, fiche vitrine 14/07/2026. Affiché à la demande d'Avishay, confirmation finale (prix + disponibilité) demandée."
+  },
+  "disponibilite_verifiee": false,
+  "partenaire_source": "Solvilla",
+  "medias_stockage": "/mnt/project-files/agence-immo/medias/SV2342/ (vidéo, brochure, plans, documents, fiche vitrine) ; photos dans l'archive d'origine",
+  "maj_le": "2026-11-09T11:45:00Z"
+}

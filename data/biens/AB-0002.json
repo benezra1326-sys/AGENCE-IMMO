@@ -1,0 +1,30 @@
+{
+ "ref": "AB-0002",
+ "ref_partenaire": "LG102",
+ "nom": "non public (programme neuf, nom jamais affiché)",
+ "zone": "New Golden Mile, Estepona",
+ "type": "programme neuf (appartements et penthouses)",
+ "caracteristiques": {
+  "chambres": "2 à 3",
+  "salles_de_bains": "2 à 3",
+  "m2_construits": "149 à 399",
+  "prestations": ["résidence fermée, sécurité 24 h/24", "27 000 m² de jardins tropicaux", "trois piscines extérieures dont une chauffée", "piscine intérieure", "spa", "salle de sport", "club-house", "coworking", "café-bar", "domotique incluse"]
+ },
+ "source_caracteristiques": "https://levygoldman.com/property/luxury-resort-living-on-marbellas-new-golden-mile/?lang=fr (consulté le 12/11/2026, page modifiée le 17/09/2026)",
+ "date_caracteristiques": "2026-11-12",
+ "autorisation_medias": "a_confirmer",
+ "autorisation_medias_source": "Avishay, 12/11/2026 : « tu peux l'utiliser comme contenu » et « créer des contenus sur les programmes neufs, tu peux commencer ». Droit d'utiliser les photos du site à confirmer explicitement à la validation.",
+ "nature_medias": "images de synthèse (rendus 3D) du promoteur, publiées sur le site Levy & Goldman ; mention « Computer-generated images » obligatoire",
+ "autorisation_tournage": "sans_objet",
+ "restrictions": [
+  "Ne jamais afficher le nom du programme, de l'architecte ni du décorateur",
+  "Pas de « première domotique de la Costa del Sol » ni de distance exacte à la plage (identifiant)",
+  "Ne pas utiliser la photo de la piscine intérieure (logo visible)",
+  "Le pourcentage de commission est interne, jamais public"
+ ],
+ "prix": {"montant": "745 000 € à 1 595 000 €", "verifie": false, "note": "Fourchette affichée sur le site Levy & Goldman le 12/11/2026 ; prix et disponibilités à confirmer par Avishay."},
+ "disponibilite_verifiee": false,
+ "partenaire_source": "Levy & Goldman (programmes neufs)",
+ "medias_stockage": "/mnt/project-files/agence-immo/medias/AB-0002/ (20 images du site)",
+ "maj_le": "2026-11-12T12:00:00Z"
+}

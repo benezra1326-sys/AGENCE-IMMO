@@ -1,0 +1,38 @@
+{
+ "format": "AB-NNNN (numéro séquentiel, attribué à l'entrée du bien, jamais réutilisé)",
+ "biens": [
+  {
+   "ref": "AB-0001",
+   "ref_partenaire": "SV2342",
+   "partenaire": "Solvilla",
+   "zone": "Nueva Andalucía, Marbella",
+   "type": "villa",
+   "statut": "en_cours",
+   "fiche": "data/biens/AB-0001.json"
+  },
+  {
+   "ref": "AB-0002",
+   "ref_partenaire": "LG102",
+   "partenaire": "Levy & Goldman (site, programmes neufs)",
+   "zone": "New Golden Mile, Estepona",
+   "type": "programme neuf",
+   "statut": "contenu_a_valider",
+   "source": "https://levygoldman.com/property/luxury-resort-living-on-marbellas-new-golden-mile/ (consulté 12/11/2026)",
+   "prix_affiche": "745 000 – 1 595 000 € (à confirmer)",
+   "droits_medias": "photos du site, usage demandé par Avishay le 12/11/2026 (à confirmer)",
+   "fiche": "data/biens/AB-0002.json"
+  },
+  {
+   "ref": "AB-0003",
+   "ref_partenaire": "LG101",
+   "partenaire": "Levy & Goldman (site, programmes neufs)",
+   "zone": "Estepona",
+   "type": "programme neuf",
+   "statut": "a_valider",
+   "source": "https://levygoldman.com/property/elegant-luxury-homes-by-the-sea-in-estepona/ (consulté 12/11/2026)",
+   "prix_affiche": "720 000 – 1 263 000 € (à confirmer)",
+   "droits_medias": "photos du site, usage demandé par Avishay le 12/11/2026 (à confirmer)"
+  }
+ ],
+ "prochaine_ref": "AB-0004"
+}

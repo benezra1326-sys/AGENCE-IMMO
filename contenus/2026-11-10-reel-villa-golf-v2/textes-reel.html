@@ -1,0 +1,62 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../outils/identite.css">
+<!-- Reel villa golf V2 : cartons transparents 1080x1920 superposés par ffmpeg, + deux couvertures (fond ajouté ensuite).
+     Zone utile : textes entre y=760 et y=1560 (hors interface Instagram et lisible dans la grille 4:5). Aucun nom de propriété. -->
+<style>
+body{background:transparent}
+.s{width:1080px;height:1920px;position:relative;overflow:hidden;background:transparent;color:#fff;font-family:'Inter',sans-serif}
+.sh{position:absolute;left:0;right:0;background:linear-gradient(180deg,rgba(8,10,14,0),rgba(8,10,14,.46) 50%,rgba(8,10,14,0))}
+.t{position:absolute;left:84px;right:160px;text-shadow:0 2px 22px rgba(0,0,0,.5)}
+.k{font-size:28px;letter-spacing:.28em;text-transform:uppercase;color:var(--sand2);font-weight:500}
+.h{font-family:'Cormorant Garamond',serif;font-weight:500;line-height:1;letter-spacing:-.005em}
+.p{font-size:36px;font-weight:300;letter-spacing:.02em;line-height:1.4}
+.r{width:72px;height:2px;background:var(--sand)}
+.sig{font-size:26px;letter-spacing:.08em;color:#efe9df}
+.sig b{font-weight:500;color:#fff}
+.c{left:110px;right:110px;text-align:center;transform:translateY(-50%)}
+.sh{background:radial-gradient(ellipse 75% 50% at 50% 50%,rgba(8,10,14,.5),rgba(8,10,14,.28) 55%,rgba(8,10,14,0) 100%)}
+</style></head><body>
+
+<!-- V3 (10/11/2026) : textes centrés à l'horizontale, bloc centré sur une même ligne (y = 1180) pour que l'œil
+     retrouve le texte au même endroit à chaque carton ; voile plus doux mais plus large pour la lisibilité. -->
+<section class="s" id="t1"><div class="sh" style="top:900px;height:560px"></div>
+ <div class="t c" style="top:1180px"><div class="k">Marbella · Nueva Andalucía</div>
+ <div class="r" style="margin:26px auto 24px"></div>
+ <div class="h" style="font-size:116px">Frontline golf</div></div></section>
+
+<section class="s" id="t2"><div class="sh" style="top:900px;height:560px"></div>
+ <div class="t c" style="top:1180px"><div class="h" style="font-size:118px">€9,950,000</div>
+ <div class="r" style="margin:30px auto 28px"></div><div class="p">6 bedrooms · 702 m² built</div></div></section>
+
+<section class="s" id="t3"><div class="sh" style="top:900px;height:560px"></div>
+ <div class="t c" style="top:1180px"><div class="h" style="font-size:96px">Space for family<br><i style="color:var(--sand2)">and guests</i></div></div></section>
+
+<section class="s" id="t4"><div class="sh" style="top:900px;height:560px"></div>
+ <div class="t c" style="top:1180px"><div class="h" style="font-size:96px">Terraces with<br><i style="color:var(--sand2)">mountain views</i></div></div></section>
+
+<section class="s" id="fin"><div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,10,14,.3),rgba(8,10,14,.64) 30%,rgba(8,10,14,.64) 72%,rgba(8,10,14,.4))"></div>
+ <div class="t c" style="top:960px;left:84px;right:84px">
+  <div class="k">Marbella · Nueva Andalucía</div>
+  <div class="h" style="font-size:100px;margin-top:26px">Frontline golf villa</div>
+  <div class="p" style="margin-top:20px;color:var(--sand2);font-size:42px">€9,950,000</div>
+  <div class="r" style="margin:50px auto"></div>
+  <div class="h" style="font-size:66px;line-height:1.15">DM <span style="font-family:Inter,sans-serif;font-weight:600;font-size:54px;letter-spacing:.08em;color:var(--sand2)">“GOLF”</span></div>
+  <div class="p" style="margin-top:14px">for details or a private viewing</div>
+  <div class="sig" style="margin-top:64px;line-height:1.7"><b>@avishay.marbella</b><br>avi@levygoldman.com<br><span style="font-size:22px;letter-spacing:.2em;color:#cfc9bf">IN COLLABORATION WITH LEVY &amp; GOLDMAN</span></div>
+ </div></section>
+
+<!-- Couverture A : drone (villa + fairway). Texte dans la zone centrale basse, sur les arbres. -->
+<section class="s" id="couv-a"><div class="sh" style="top:1120px;height:620px;background:linear-gradient(180deg,rgba(8,10,14,0),rgba(8,10,14,.52) 30%,rgba(8,10,14,.52) 80%,rgba(8,10,14,0))"></div>
+ <div class="t" style="top:1250px;right:84px"><div class="k">Marbella · Nueva Andalucía</div>
+ <div class="h" style="font-size:96px;margin-top:14px">Frontline golf villa</div>
+ <div class="h" style="font-size:62px;margin-top:14px;color:var(--sand2)">€9,950,000</div>
+ <div class="p" style="font-size:29px;margin-top:12px;opacity:.92">6 bedrooms · 702 m² built</div>
+ <div class="sig" style="margin-top:22px;font-size:21px">@avishay.marbella · Levy &amp; Goldman</div></div></section>
+
+<!-- Couverture B : façade au crépuscule. Texte sur la pelouse sombre, sous la piscine. -->
+<section class="s" id="couv-b"><div class="sh" style="top:1150px;height:620px;background:linear-gradient(180deg,rgba(8,10,14,0),rgba(8,10,14,.42) 35%,rgba(8,10,14,.5))"></div>
+ <div class="t" style="top:1345px;right:84px;text-align:center;left:84px"><div class="k">Marbella · Nueva Andalucía</div>
+ <div class="h" style="font-size:86px;margin-top:12px">Frontline golf villa</div>
+ <div class="h" style="font-size:54px;margin-top:8px;color:var(--sand2)">€9,950,000</div>
+ <div class="p" style="font-size:26px;margin-top:8px;opacity:.92">6 bedrooms · 702 m² built</div>
+ <div class="sig" style="margin-top:14px;font-size:20px">@avishay.marbella · Levy &amp; Goldman</div></div></section>
+</body></html>
