@@ -17,7 +17,7 @@
       "execution": "session Claude (à la demande)",
       "note": "Le récap du matin est généré par le back-office (testé en local) ; l'envoi Telegram attend le bot.",
       "manque": [
-        "Bot Telegram (token à créer avec @BotFather) pour te parler sur Telegram",
+        "Ajouter TELEGRAM_CHAT_ID dans les réglages du projet (le bot @Avishay_immo_bot est créé et relié)",
         "Serveur et clé API Claude (environ 30 €/mois, décision reportée par toi) pour travailler seul, Mac éteint."
       ]
     },
@@ -232,7 +232,7 @@
       "execution": "back-office (serveur)",
       "note": "Fiche, historique, anti-doublon et préparation des alertes testés avec un prospect fictif. Aucune réponse automatique au prospect.",
       "manque": [
-        "Bot Telegram et Gmail dédié pour recevoir les alertes",
+        "Le Gmail dédié pour recevoir les alertes (Telegram est relié)",
         "Serveur et clé API Claude (environ 30 €/mois, décision reportée par toi) pour travailler seul, Mac éteint. Il doit tourner en continu pour répondre en moins de 5 minutes."
       ]
     },
