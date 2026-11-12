@@ -1,259 +1,279 @@
 {
-  "_legende": "etat : prevu (rien n'existe encore), configure (instructions et outils identifiés, jamais testé de bout en bout), teste (au moins une exécution réelle réussie), actif (tourne seul sur le serveur), bloque (une connexion ou une décision manque). Un fichier d'instructions seul ne rend pas un agent actif. « manque » liste ce qu'il faut pour que l'agent devienne actif.",
-  "agents": [
-    {
-      "id": "coordination",
-      "prenom": "Victor",
-      "prenom_valide": false,
-      "activite": "immo",
-      "nom": "Coordination Immo et planification",
-      "roles": [
-        "coordination",
-        "planification",
-        "récap du matin"
-      ],
-      "etat": "configure",
-      "instructions": "CLAUDE.md",
-      "execution": "session Claude (à la demande)",
-      "note": "Le récap du matin est généré par le back-office (testé en local) ; l'envoi Telegram attend le bot.",
-      "manque": [
-        "Ajouter TELEGRAM_CHAT_ID dans les réglages du projet (le bot @Avishay_immo_bot est créé et relié)",
-        "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
-      ]
-    },
-    {
-      "id": "veille",
-      "prenom": "Clara",
-      "prenom_valide": false,
-      "activite": "immo",
-      "nom": "Recherche et veille sourcée",
-      "roles": [
-        "chiffres et lois avec source"
-      ],
-      "etat": "configure",
-      "instructions": ".claude/agents/veille-marche.md",
-      "execution": "session Claude (recherche web)",
-      "note": "Aucune exécution planifiée.",
-      "manque": [
-        "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
-      ]
-    },
-    {
-      "id": "fiches-biens",
-      "prenom": "Hugo",
-      "prenom_valide": false,
-      "activite": "immo",
-      "nom": "Fiches biens et vérification",
-      "roles": [
-        "fiche FR/EN/ES",
-        "droits médias",
-        "prix à confirmer"
-      ],
-      "etat": "configure",
-      "instructions": ".claude/agents/fiches-biens.md",
-      "execution": "session Claude",
-      "manque": [
-        "Les infos de tes prochains biens (prix confirmé, droits médias et tournage)",
-        "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
-      ]
-    },
-    {
-      "id": "editorial",
-      "prenom": "Louise",
-      "prenom_valide": false,
-      "activite": "immo",
-      "nom": "Stratégie éditoriale, scripts et légendes",
-      "roles": [
-        "calendrier",
-        "scripts",
-        "légendes"
-      ],
-      "etat": "configure",
-      "instructions": ".claude/agents/contenu.md",
-      "execution": "session Claude",
-      "manque": [
-        "Ta validation du calendrier proposé",
-        "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
-      ]
-    },
-    {
-      "id": "design",
-      "prenom": "Léon",
-      "prenom_valide": false,
-      "activite": "immo",
-      "nom": "Design, carrousels et animations",
-      "roles": [
-        "carrousels",
-        "animations",
-        "couvertures"
-      ],
-      "etat": "configure",
-      "instructions": null,
-      "execution": "session Claude (Moda, Gamma, Figma connectés côté Claude)",
-      "note": "Outils connectés côté Claude, aucune chaîne validée.",
-      "manque": [
-        "Ta validation de l'identité visuelle provisoire (couleurs, polices)",
-        "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
-      ]
-    },
-    {
-      "id": "montage",
-      "prenom": "Elsa",
-      "prenom_valide": false,
-      "activite": "immo",
-      "nom": "Montage vidéo",
-      "roles": [
-        "Reels 9:16",
-        "vidéos livrées sans musique",
-        "coupes calées sur un tempo pour s'accorder au son choisi"
-      ],
-      "etat": "configure",
-      "instructions": ".claude/agents/montage.md",
-      "execution": "ffmpeg (conteneur Claude ; serveur à venir)",
-      "note": "Test ffmpeg du 8 novembre fait sur une seule photo : ne valide pas une vraie visite.",
-      "manque": [
-        "Les médias des prochains biens",
-        "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
-      ]
-    },
-    {
-      "id": "voix",
-      "prenom": "Gabriel",
-      "prenom_valide": false,
-      "activite": "immo",
-      "nom": "Voix et traductions",
-      "roles": [
-        "voix off",
-        "doublage EN/ES"
-      ],
-      "etat": "teste",
-      "instructions": ".claude/agents/voix.md",
-      "execution": "VoiceStudio (Mac uniquement)",
-      "note": "Choix d'Avishay le 10/11 : VoiceStudio sur son Mac (gratuit), pas de service en ligne. Utiliser un moteur à licence commerciale (VoxCPM2, Apache-2.0) et non le moteur par défaut OmniVoice (usage non commercial). Ne tourne que Mac allumé.",
-      "manque": [
-        "Ton test « Avi Voice » (Mac ouvert avec l'app Claude)",
-        "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
-      ],
-      "preuve": "12 pistes EN/ES du Reel golf avec VoxCPM2 (licence commerciale), 11/11"
-    },
-    {
-      "id": "instagram",
-      "prenom": "Inès",
-      "prenom_valide": false,
-      "activite": "immo",
-      "nom": "Gestion Instagram",
-      "roles": [
-        "publication",
-        "commentaires",
-        "messages privés",
-        "qualification",
-        "choix de la musique tendance au moment de publier (premium, adaptée à une visite immobilière)",
-        "caler le morceau sur le rythme du montage (point de départ, tempo)"
-      ],
-      "etat": "configure",
-      "instructions": null,
-      "execution": "API officielle Instagram (via page Facebook)",
-      "note": "Instagram @avishay.marbella connecté via vidIQ le 11/11 : brouillons, publication et statistiques possibles. Page Facebook créée le 11/11, autorisation de publication sur la page encore à donner.",
-      "manque": [
-        "Ta validation du premier Reel pour préparer le brouillon",
-        "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
-      ],
-      "musique": "Les vidéos arrivent sans musique. Inès choisit un son tendance adapté à une visite premium (pas d'humour ni de paroles fortes) et vérifie que les coupes du montage tombent sur son rythme. Depuis 2026, l'API Instagram (Audio API) permet de chercher les sons tendance et de les attacher au Reel à la publication, mais seulement les sons originaux d'autres Reels et la musique libre de droits de Meta (Sound Collection) ; le morceau démarre au début, sans découpe, et sans aperçu avant publication. Pour une chanson connue du catalogue sous licence, ou pour démarrer à un passage précis, le son s'ajoute dans l'application au moment de publier, avec la fiche de choix préparée par Inès. Source : documentation Meta « Instagram Audio API » (mise à jour du 16/06/2026)."
-    },
-    {
-      "id": "diffusion",
-      "prenom": "Arthur",
-      "prenom_valide": false,
-      "activite": "immo",
-      "nom": "Diffusion Facebook, YouTube Shorts, TikTok",
-      "roles": [
-        "republication"
-      ],
-      "etat": "configure",
-      "instructions": null,
-      "execution": "API officielles",
-      "note": "Facebook, YouTube et TikTok connectés via vidIQ le 12/11 (publication possible, toujours après ton OK).",
-      "manque": [
-        "Ta validation des premiers contenus à publier",
-        "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
-      ]
-    },
-    {
-      "id": "prospection",
-      "prenom": "Camille",
-      "prenom_valide": false,
-      "activite": "immo",
-      "nom": "Prospection LinkedIn",
-      "roles": [
-        "listes",
-        "messages préparés"
-      ],
-      "etat": "teste",
-      "instructions": ".claude/agents/prospection.md",
-      "execution": "préparation par l'agent, envoi par Avishay",
-      "note": "En pause à ta demande. Aucun robot ne clique sur LinkedIn.",
-      "manque": [
-        "Les envois LinkedIn restent faits par toi (environ 15 par jour)"
-      ],
-      "preuve": "15 partenaires Paris, Londres, Casablanca avec messages, 11/11"
-    },
-    {
-      "id": "partenaires",
-      "prenom": "Raphaël",
-      "prenom_valide": false,
-      "activite": "immo",
-      "nom": "Échanges email et suivi des partenaires",
-      "roles": [
-        "suivi B2B",
-        "email après un oui"
-      ],
-      "etat": "bloque",
-      "instructions": null,
-      "execution": "serveur (SMTP) à venir",
-      "note": "Aucun partenaire réel pour l'instant et envoi d'emails non configuré.",
-      "manque": [
-        "Un premier partenaire réel (agence ou apporteur)",
-        "Le Gmail dédié et son mot de passe d'application pour envoyer les emails (jamais à froid)"
-      ]
-    },
-    {
-      "id": "acheteurs",
-      "prenom": "Sofia",
-      "prenom_valide": false,
-      "activite": "immo",
-      "nom": "Qualification et suivi des acheteurs",
-      "roles": [
-        "fiche prospect",
-        "alertes",
-        "qualification"
-      ],
-      "etat": "configure",
-      "instructions": ".claude/agents/leads.md",
-      "execution": "back-office (serveur)",
-      "note": "Fiche, historique, anti-doublon et préparation des alertes testés avec un prospect fictif. Aucune réponse automatique au prospect.",
-      "manque": [
-        "Le Gmail dédié pour les alertes email (Telegram est relié)",
-        "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
-      ]
-    },
-    {
-      "id": "qualite",
-      "prenom": "Antoine",
-      "prenom_valide": false,
-      "activite": "immo",
-      "nom": "Contrôle qualité et mesure des résultats",
-      "roles": [
-        "relecture",
-        "statistiques"
-      ],
-      "etat": "teste",
-      "instructions": ".claude/agents/qualite.md",
-      "execution": "session Claude (relecture avant validation)",
-      "note": "Relit chaque contenu avant ta validation ; mesurera les résultats une fois Instagram connecté.",
-      "manque": [
-        "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
-      ],
-      "preuve": "Statistiques Instagram lues le 12/11 : 120 abonnés, 8 publications, 135 vues sur 30 jours"
-    }
-  ]
+ "_legende": "etat : prevu (rien n'existe encore), configure (instructions et outils identifiés, jamais testé de bout en bout), teste (au moins une exécution réelle réussie), actif (tourne seul sur le serveur), bloque (une connexion ou une décision manque). Un fichier d'instructions seul ne rend pas un agent actif. « manque » liste ce qu'il faut pour que l'agent devienne actif.",
+ "agents": [
+  {
+   "id": "coordination",
+   "prenom": "Victor",
+   "prenom_valide": false,
+   "activite": "immo",
+   "nom": "Coordination Immo et planification",
+   "roles": [
+    "coordination",
+    "planification",
+    "récap du matin"
+   ],
+   "etat": "configure",
+   "instructions": "CLAUDE.md",
+   "execution": "session Claude (à la demande)",
+   "note": "Le récap du matin est généré par le back-office (testé en local) ; l'envoi Telegram attend le bot.",
+   "manque": [
+    "Ajouter TELEGRAM_CHAT_ID dans les réglages du projet (le bot @Avishay_immo_bot est créé et relié)",
+    "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
+   ]
+  },
+  {
+   "id": "veille",
+   "prenom": "Clara",
+   "prenom_valide": false,
+   "activite": "immo",
+   "nom": "Recherche et veille sourcée",
+   "roles": [
+    "chiffres et lois avec source"
+   ],
+   "etat": "configure",
+   "instructions": ".claude/agents/veille-marche.md",
+   "execution": "session Claude (recherche web)",
+   "note": "Aucune exécution planifiée.",
+   "manque": [
+    "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
+   ]
+  },
+  {
+   "id": "fiches-biens",
+   "prenom": "Hugo",
+   "prenom_valide": false,
+   "activite": "immo",
+   "nom": "Fiches biens et vérification",
+   "roles": [
+    "fiche FR/EN/ES",
+    "droits médias",
+    "prix à confirmer"
+   ],
+   "etat": "configure",
+   "instructions": ".claude/agents/fiches-biens.md",
+   "execution": "session Claude",
+   "manque": [
+    "Les infos de tes prochains biens (prix confirmé, droits médias et tournage)",
+    "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
+   ]
+  },
+  {
+   "id": "editorial",
+   "prenom": "Louise",
+   "prenom_valide": false,
+   "activite": "immo",
+   "nom": "Stratégie éditoriale, scripts et légendes",
+   "roles": [
+    "calendrier",
+    "scripts",
+    "légendes"
+   ],
+   "etat": "configure",
+   "instructions": ".claude/agents/contenu.md",
+   "execution": "session Claude",
+   "manque": [
+    "Ta validation du calendrier proposé",
+    "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
+   ]
+  },
+  {
+   "id": "design",
+   "prenom": "Léon",
+   "prenom_valide": false,
+   "activite": "immo",
+   "nom": "Design, carrousels et animations",
+   "roles": [
+    "carrousels",
+    "animations",
+    "couvertures"
+   ],
+   "etat": "configure",
+   "instructions": null,
+   "execution": "session Claude (Moda, Gamma, Figma connectés côté Claude)",
+   "note": "Outils connectés côté Claude, aucune chaîne validée.",
+   "manque": [
+    "Ta validation de l'identité visuelle provisoire (couleurs, polices)",
+    "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
+   ]
+  },
+  {
+   "id": "montage",
+   "prenom": "Elsa",
+   "prenom_valide": false,
+   "activite": "immo",
+   "nom": "Montage vidéo",
+   "roles": [
+    "Reels 9:16",
+    "vidéos livrées sans musique",
+    "coupes calées sur un tempo pour s'accorder au son choisi"
+   ],
+   "etat": "configure",
+   "instructions": ".claude/agents/montage.md",
+   "execution": "ffmpeg (conteneur Claude ; serveur à venir)",
+   "note": "Test ffmpeg du 8 novembre fait sur une seule photo : ne valide pas une vraie visite.",
+   "manque": [
+    "Les médias des prochains biens",
+    "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
+   ]
+  },
+  {
+   "id": "voix",
+   "prenom": "Gabriel",
+   "prenom_valide": false,
+   "activite": "immo",
+   "nom": "Voix et traductions",
+   "roles": [
+    "voix off",
+    "doublage EN/ES"
+   ],
+   "etat": "teste",
+   "instructions": ".claude/agents/voix.md",
+   "execution": "VoiceStudio (Mac uniquement)",
+   "note": "Choix d'Avishay le 10/11 : VoiceStudio sur son Mac (gratuit), pas de service en ligne. Utiliser un moteur à licence commerciale (VoxCPM2, Apache-2.0) et non le moteur par défaut OmniVoice (usage non commercial). Ne tourne que Mac allumé.",
+   "manque": [
+    "Ton test « Avi Voice » (Mac ouvert avec l'app Claude)",
+    "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
+   ],
+   "preuve": "12 pistes EN/ES du Reel golf avec VoxCPM2 (licence commerciale), 11/11"
+  },
+  {
+   "id": "instagram",
+   "prenom": "Inès",
+   "prenom_valide": false,
+   "activite": "immo",
+   "nom": "Gestion Instagram",
+   "roles": [
+    "publication",
+    "commentaires",
+    "messages privés",
+    "qualification",
+    "choix de la musique tendance au moment de publier (premium, adaptée à une visite immobilière)",
+    "caler le morceau sur le rythme du montage (point de départ, tempo)"
+   ],
+   "etat": "configure",
+   "instructions": null,
+   "execution": "API officielle Instagram (via page Facebook)",
+   "note": "Instagram @avishay.marbella connecté via vidIQ le 11/11 : brouillons, publication et statistiques possibles. Page Facebook créée le 11/11, autorisation de publication sur la page encore à donner.",
+   "manque": [
+    "Ta validation du premier Reel pour préparer le brouillon",
+    "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
+   ],
+   "musique": "Les vidéos arrivent sans musique. Inès choisit un son tendance adapté à une visite premium (pas d'humour ni de paroles fortes) et vérifie que les coupes du montage tombent sur son rythme. Depuis 2026, l'API Instagram (Audio API) permet de chercher les sons tendance et de les attacher au Reel à la publication, mais seulement les sons originaux d'autres Reels et la musique libre de droits de Meta (Sound Collection) ; le morceau démarre au début, sans découpe, et sans aperçu avant publication. Pour une chanson connue du catalogue sous licence, ou pour démarrer à un passage précis, le son s'ajoute dans l'application au moment de publier, avec la fiche de choix préparée par Inès. Source : documentation Meta « Instagram Audio API » (mise à jour du 16/06/2026)."
+  },
+  {
+   "id": "diffusion",
+   "prenom": "Arthur",
+   "prenom_valide": false,
+   "activite": "immo",
+   "nom": "Diffusion Facebook, YouTube Shorts, TikTok",
+   "roles": [
+    "republication"
+   ],
+   "etat": "configure",
+   "instructions": null,
+   "execution": "API officielles",
+   "note": "Facebook, YouTube et TikTok connectés via vidIQ le 12/11 (publication possible, toujours après ton OK).",
+   "manque": [
+    "Ta validation des premiers contenus à publier",
+    "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
+   ]
+  },
+  {
+   "id": "prospection",
+   "prenom": "Camille",
+   "prenom_valide": false,
+   "activite": "immo",
+   "nom": "Prospection LinkedIn",
+   "roles": [
+    "listes",
+    "messages préparés"
+   ],
+   "etat": "teste",
+   "instructions": ".claude/agents/prospection.md",
+   "execution": "préparation par l'agent, envoi par Avishay",
+   "note": "En pause à ta demande. Aucun robot ne clique sur LinkedIn.",
+   "manque": [
+    "Les envois LinkedIn restent faits par toi (environ 15 par jour)"
+   ],
+   "preuve": "15 partenaires Paris, Londres, Casablanca avec messages, 11/11"
+  },
+  {
+   "id": "partenaires",
+   "prenom": "Raphaël",
+   "prenom_valide": false,
+   "activite": "immo",
+   "nom": "Échanges email et suivi des partenaires",
+   "roles": [
+    "suivi B2B",
+    "email après un oui"
+   ],
+   "etat": "bloque",
+   "instructions": null,
+   "execution": "serveur (SMTP) à venir",
+   "note": "Aucun partenaire réel pour l'instant et envoi d'emails non configuré.",
+   "manque": [
+    "Un premier partenaire réel (agence ou apporteur)",
+    "Le Gmail dédié et son mot de passe d'application pour envoyer les emails (jamais à froid)"
+   ]
+  },
+  {
+   "id": "acheteurs",
+   "prenom": "Sofia",
+   "prenom_valide": false,
+   "activite": "immo",
+   "nom": "Qualification et suivi des acheteurs",
+   "roles": [
+    "fiche prospect",
+    "alertes",
+    "qualification"
+   ],
+   "etat": "configure",
+   "instructions": ".claude/agents/leads.md",
+   "execution": "back-office (serveur)",
+   "note": "Fiche, historique, anti-doublon et préparation des alertes testés avec un prospect fictif. Aucune réponse automatique au prospect.",
+   "manque": [
+    "Le Gmail dédié pour les alertes email (Telegram est relié)",
+    "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
+   ]
+  },
+  {
+   "id": "qualite",
+   "prenom": "Antoine",
+   "prenom_valide": false,
+   "activite": "immo",
+   "nom": "Contrôle qualité et mesure des résultats",
+   "roles": [
+    "relecture",
+    "statistiques"
+   ],
+   "etat": "teste",
+   "instructions": ".claude/agents/qualite.md",
+   "execution": "session Claude (relecture avant validation)",
+   "note": "Relit chaque contenu avant ta validation ; mesurera les résultats une fois Instagram connecté.",
+   "manque": [
+    "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
+   ],
+   "preuve": "Statistiques Instagram lues le 12/11 : 120 abonnés, 8 publications, 135 vues sur 30 jours"
+  },
+  {
+   "id": "whatsapp",
+   "prenom": "Nadia",
+   "prenom_valide": false,
+   "activite": "immo",
+   "nom": "WhatsApp Business",
+   "roles": [
+    "diffusion aux agents partenaires"
+   ],
+   "etat": "bloque",
+   "instructions": "diffusion-agents/generer.py et envoyer_whatsapp.py (branche claude/project-thread-lcjp61)",
+   "execution": "session Claude, envoi seulement après ton OK",
+   "note": "Envoie aux agents partenaires les window cards des nouveaux biens (depuis le classeur Excel), seulement aux agents qui ont donné leur accord, après ton OK.",
+   "manque": [
+    "Connexion Meta WhatsApp Business (WHATSAPP_TOKEN et WHATSAPP_PHONE_NUMBER_ID dans les réglages du projet)",
+    "Un modèle de message approuvé par Meta",
+    "La liste des agents qui ont accepté de recevoir nos fiches"
+   ],
+   "preuve": "Lot AB-0002 préparé et validé par toi le 12/11 (envoi en attente de la connexion)"
+  }
+ ]
 }

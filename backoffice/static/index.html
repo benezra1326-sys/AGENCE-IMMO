@@ -6,8 +6,8 @@
 /* Mise en page : poste de pilotage d'une seule personne. Menu fixe en bas sur téléphone, en haut sur ordinateur ;
    l'accueil montre d'abord ce qui attend Avishay ; tout élément ouvre une fiche (feuille qui monte sur mobile). */
 :root {
-  --bg: #f2f2ef; --surface: #ffffff; --surface-2: #f7f4ee; --fg: #15181d; --muted: #63666b; --line: #dedcd6;
-  --ink: #15181d; --on-ink: #ffffff; --sand: #b89a66; --sand-text: #7a5f33; --sand-soft: #efe6d6;
+  --bg: #f3f5f8; --surface: #ffffff; --surface-2: #f4f6f9; --fg: #15181d; --muted: #5f6670; --line: #dde2e8;
+  --ink: #15181d; --on-ink: #ffffff; --sand: #2a6f97; --sand-text: #1f5a7d; --sand-soft: #e4eef5;
   --ok: #2c7a4b; --ok-bg: #e3f1e7; --info: #2f5f9e; --info-bg: #e5ecf6; --warn: #96580a; --warn-bg: #f9ecd7;
   --bad: #b03030; --bad-bg: #f7e2e0; --idle: #6b6e72; --idle-bg: #ecebe8; --test: #6a4aa0; --test-bg: #ede7f6;
   --f-display: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
@@ -17,12 +17,12 @@
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #111316; --surface: #191c20; --surface-2: #1f2226; --fg: #ece9e3; --muted: #9b9ea3; --line: #2c3035;
-  --ink: #ece9e3; --on-ink: #15181d; --sand: #d0b27d; --sand-text: #d8bd8c; --sand-soft: #2b2519;
+  --ink: #ece9e3; --on-ink: #15181d; --sand: #6fb0d8; --sand-text: #8cc3e4; --sand-soft: #16283a;
   --ok: #7fd19c; --ok-bg: #173022; --info: #8fb6ec; --info-bg: #182740; --warn: #efb45c; --warn-bg: #352612;
   --bad: #f08c84; --bad-bg: #3a1a18; --idle: #a5a8ac; --idle-bg: #25282c; --test: #b9a2e6; --test-bg: #2a2140; color-scheme: dark } }
 :root[data-theme="dark"] {
   --bg: #111316; --surface: #191c20; --surface-2: #1f2226; --fg: #ece9e3; --muted: #9b9ea3; --line: #2c3035;
-  --ink: #ece9e3; --on-ink: #15181d; --sand: #d0b27d; --sand-text: #d8bd8c; --sand-soft: #2b2519;
+  --ink: #ece9e3; --on-ink: #15181d; --sand: #6fb0d8; --sand-text: #8cc3e4; --sand-soft: #16283a;
   --ok: #7fd19c; --ok-bg: #173022; --info: #8fb6ec; --info-bg: #182740; --warn: #efb45c; --warn-bg: #352612;
   --bad: #f08c84; --bad-bg: #3a1a18; --idle: #a5a8ac; --idle-bg: #25282c; --test: #b9a2e6; --test-bg: #2a2140; color-scheme: dark }
 * { box-sizing: border-box }
@@ -44,7 +44,7 @@ header.top .wrap { display: flex; align-items: center; justify-content: space-be
 .etat-base.ok::before { background: var(--ok) }
 nav.menu { position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; background: var(--surface); border-top: 1px solid var(--line);
   display: grid; grid-template-columns: repeat(5, 1fr); padding: 0 max(4px, env(safe-area-inset-right, 0px)) env(safe-area-inset-bottom, 0px) max(4px, env(safe-area-inset-left, 0px)) }
-nav.menu a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; height: var(--nav-h); text-decoration: none; color: var(--muted); font-size: .7rem; font-weight: 500; position: relative }
+nav.menu a { white-space: nowrap; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; height: var(--nav-h); text-decoration: none; color: var(--muted); font-size: .7rem; font-weight: 500; position: relative }
 nav.menu svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round }
 nav.menu a[aria-current="page"] { color: var(--fg) }
 nav.menu a[aria-current="page"]::before { content: ""; position: absolute; top: 0; left: 30%; right: 30%; height: 2px; background: var(--sand); border-radius: 0 0 2px 2px }
@@ -82,7 +82,7 @@ h3 { font: 600 .98rem/1.3 var(--f-body); margin: 0; overflow-wrap: anywhere }
 .recap li { font-size: .9rem } .recap li b { font-size: 1.15rem; margin-right: 4px; font-variant-numeric: lining-nums } .recap li.zero { color: var(--muted) }
 .recap .liste { margin-top: 12px }
 @media (max-width: 380px) { .recap ul { grid-template-columns: 1fr } }
-.projets { display: flex; gap: 6px; overflow-x: auto; margin: 4px 0 18px; padding: 4px; background: var(--surface, #fff); border: 1px solid var(--line, #e5e0d6); border-radius: 999px; width: fit-content; max-width: 100% }
+.projets { display: flex; gap: 6px; overflow-x: auto; margin: 4px 0 18px; padding: 4px; background: var(--surface, #fff); border: 1px solid var(--line, #dde2e8); border-radius: 999px; width: fit-content; max-width: 100% }
 .projets a { padding: 7px 14px; border-radius: 999px; text-decoration: none; color: var(--muted); font-size: .85rem; font-weight: 600; white-space: nowrap }
 .projets a[aria-current="page"] { background: var(--ink); color: var(--on-ink) }
 .pastille { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px; border-radius: 999px; font-size: .72rem; font-weight: 600; white-space: nowrap; letter-spacing: .02em; flex: none }
@@ -226,7 +226,7 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
 .echange li.moi { align-self: flex-end; background: var(--sand-soft); border-bottom-right-radius: 4px }
 .echange li.agent { align-self: flex-start; background: var(--surface-2); border: 1px solid var(--line); border-bottom-left-radius: 4px }
 /* Couleur et mouvement (12/11) : couleurs des réseaux, tuiles teintées, entrée douce des pages */
-:root { --ig: #d6246e; --li: #0a66c2; --fb: #1877f2; --tt: #111111; --yt: #e62117; --accent-grad: linear-gradient(135deg, #b89a66 0%, #d9b97e 45%, #8a6a3a 100%) }
+:root { --ig: #d6246e; --li: #0a66c2; --fb: #1877f2; --tt: #111111; --yt: #e62117; --accent-grad: linear-gradient(135deg, #1f5a7d 0%, #2a6f97 100%) }
 :root[data-theme="dark"] { --tt: #e8e8e8 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --tt: #e8e8e8 } }
 .haut-droite { display: flex; align-items: center; gap: 10px }
@@ -235,7 +235,7 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
 .btn-rafraichir:hover { border-color: var(--sand) }
 .btn-rafraichir.tourne svg { animation: tourne .6s linear infinite } @keyframes tourne { to { transform: rotate(360deg) } }
 @media (max-width: 520px) { .btn-rafraichir span { display: none } .btn-rafraichir { padding: 7px } .etat-base { display: none } }
-.marque b { background: var(--accent-grad); -webkit-background-clip: text; background-clip: text; color: transparent }
+
 .tuile { position: relative; overflow: hidden; transition: transform .18s ease, box-shadow .18s ease }
 .tuile::before { content: ""; position: absolute; inset: 0 0 auto; height: 4px; background: var(--t, var(--sand)) }
 .tuile strong { color: var(--t, var(--fg)) }
@@ -244,7 +244,7 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
 .tuiles .tuile:nth-child(3) { --t: var(--bad); background: linear-gradient(160deg, var(--bad-bg), var(--surface) 70%) }
 .tuiles .tuile:nth-child(4) { --t: var(--info); background: linear-gradient(160deg, var(--info-bg), var(--surface) 70%) }
 .tuile:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.08) }
-.btn.principal { background-image: var(--accent-grad); border-color: transparent; color: #15181d }
+.btn.principal { background: var(--sand); border-color: var(--sand); color: #fff }
 details.historique { border-top: 1px solid var(--line); padding-top: 8px }
 details.historique summary { cursor: pointer; color: var(--muted); font-size: .84rem; padding: 4px 0 }
 details.historique[open] summary { margin-bottom: 8px }
@@ -254,7 +254,7 @@ details.historique[open] summary { margin-bottom: 8px }
 .sem-jour { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 2px; border-radius: 12px; background: var(--surface); border: 1px solid var(--line); text-decoration: none; color: var(--fg); min-width: 0 }
 .sem-jour small { color: var(--muted); font-size: .68rem; text-transform: capitalize }
 .sem-jour b { font-size: 1.05rem }
-.sem-jour.auj { background: var(--accent-grad); border-color: transparent; color: #15181d } .sem-jour.auj small { color: #3a2e18 }
+.sem-jour.auj { background: var(--sand); border-color: transparent; color: #fff } .sem-jour.auj small { color: rgba(255,255,255,.85) }
 .sem-jour.pleine:not(.auj) { border-color: var(--sand) }
 .sem-points { display: flex; gap: 3px; min-height: 8px }
 .cal-mois { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px; min-width: 0 }
@@ -964,12 +964,15 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
     try { const p = await window.claude.use("permissions"); if (!p) return; AUTORISATION = await p.state("comments"); rendre(); } catch (e) { /* sans effet */ }
   }
   async function autoriser(panneau) {
+    const aide = "Menu ⋯ de la page (en haut à droite) › Autorisations › Commentaires : « Toujours autoriser ».";
     try {
-      const p = await window.claude.use("permissions"); if (!p) return toast("Ouvre le menu Autorisations de la page.");
-      if (panneau) { await p.manage(); } else { await p.request(["comments"]); }
-      AUTORISATION = await p.state("comments"); rendre();
-      toast(AUTORISATION === "granted" ? "C'est autorisé : plus de fenêtre de confirmation." : "Pas encore autorisé.");
-    } catch (e) { toast("Ouvre le menu Autorisations de la page (en haut)."); }
+      const p = await window.claude.use("permissions"); if (!p) return toast(aide);
+      let etat = "prompt";
+      if (!panneau) { const r = await p.request(["comments"]); etat = (r && r.comments) || await p.state("comments"); }
+      if (panneau || etat !== "granted") { try { await p.manage(); } catch (e) { AUTORISATION = "fait"; rendre(); return toast(aide); } etat = await p.state("comments"); }
+      AUTORISATION = etat === "granted" ? "granted" : "fait"; rendre();
+      toast(etat === "granted" ? "C'est autorisé : tes demandes partent sans fenêtre." : aide);
+    } catch (e) { AUTORISATION = "fait"; rendre(); toast(aide); }
   }
   function basculerDictee(champ) {
     if (!DICT) return;
