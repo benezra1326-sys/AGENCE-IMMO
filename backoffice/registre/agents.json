@@ -241,7 +241,7 @@
    "prenom": "Antoine",
    "prenom_valide": false,
    "activite": "immo",
-   "nom": "Contrôle qualité et mesure des résultats",
+   "nom": "Contrôle qualité (Claude) et mesure des résultats",
    "roles": [
     "relecture",
     "statistiques"
@@ -249,7 +249,7 @@
    "etat": "teste",
    "instructions": ".claude/agents/qualite.md",
    "execution": "session Claude (relecture avant validation)",
-   "note": "Relit chaque contenu avant ta validation ; mesurera les résultats une fois Instagram connecté.",
+   "note": "Relit chaque contenu avant toi, d'après tes directives, et corrige. Travaille en duo avec l'auditeur ChatGPT.",
    "manque": [
     "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
    ],
@@ -274,6 +274,25 @@
     "La liste des agents qui ont accepté de recevoir nos fiches"
    ],
    "preuve": "Lot AB-0002 préparé et validé par toi le 12/11 (envoi en attente de la connexion)"
+  },
+  {
+   "id": "auditeur",
+   "prenom": "Max",
+   "prenom_valide": false,
+   "activite": "immo",
+   "nom": "Auditeur (ChatGPT) · ton bras droit",
+   "roles": [
+    "audit",
+    "second avis"
+   ],
+   "etat": "configure",
+   "instructions": "backoffice/scripts/auditer.py et .claude/skills/directives-avishay",
+   "execution": "API OpenAI (clé OPENAI_API_KEY dans les réglages du projet)",
+   "note": "Relit le travail de toute l'équipe avant toi : note sur 10, verdict, points à corriger, règles à risque. Son avis apparaît dans chaque fiche « À valider ».",
+   "manque": [
+    "Premier passage en cours (la clé est lue par une nouvelle session)."
+   ],
+   "preuve": null
   }
  ]
 }

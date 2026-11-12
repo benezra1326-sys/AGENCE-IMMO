@@ -281,6 +281,9 @@ details.historique[open] summary { margin-bottom: 8px }
   @keyframes apparait { from { opacity: 0; transform: translateY(12px) } }
   .sem-jour.pleine .rs, .cal-case.auj .cal-num { animation: pulse 2.4s ease-in-out infinite } @keyframes pulse { 50% { opacity: .55 } }
 }
+.avis { border-left: 3px solid var(--sand); padding-left: 12px; display: flex; flex-direction: column; gap: 6px }
+.avis-tete { display: flex; align-items: center; gap: 10px }
+.avis-note { font: 600 1.6rem/1 var(--f-body) } .avis-note small { font-size: .8rem; color: var(--muted); font-weight: 500 }
 </style>
 
 <header class="top">
@@ -305,7 +308,7 @@ details.historique[open] summary { margin-bottom: 8px }
   const STATIQUE = !!window.__ETAT__;
   let E = window.__ETAT__ || null;
   let DB = null, PEUT_ECRIRE = false;           // page publiée : décisions enregistrées dans la base de l'artifact
-  const DECISIONS = {}, CONSIGNES = [], CAL = {}; let AUTORISATION = null;  // état de la permission « comments » (envoi à Victor)  // CAL : calendrier des publications (collection « calendrier »)
+  const DECISIONS = {}, CONSIGNES = [], CAL = {}, AVIS = {}; let AUTORISATION = null;  // état de la permission « comments » (envoi à Victor)  // CAL : calendrier des publications (collection « calendrier »)
   let DICT = null, CIBLE_DICTEE = null, SAMPLE = null, COMMENTS = null, DIRECT = false;  // DIRECT : la consigne réveille Claude (Send to Claude)  // SAMPLE : réponse immédiate de l'agent         // dictée vocale (Chrome et app Claude sur ordinateur)
   const actif = () => !STATIQUE || (DB && PEUT_ECRIRE);
   const filtres = { taches: "a_traiter" };
@@ -680,9 +683,18 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
         ${tx.map((x, i) => `<details ${i === 0 && !posts.length ? "open" : ""}><summary>${esc(x.titre)}</summary><pre class="texte-brut">${esc(x.texte)}</pre></details>`).join("")}
         ${t ? bloc("Préparé par", ouvre("agent", t.agent, `${agent(t.agent) ? avatar(agent(t.agent)) : ""}<span class="txt"><h3>${esc(nomAgent(t.agent))}</h3><span class="meta">Voir la tâche et le compte rendu ci-dessous</span></span>${CHEVRON}`, "rangee") + ouvre("tache", t.id, `<span class="txt"><h3>${esc(t.titre)}</h3><span class="meta">${date(t.maj_le)}</span></span>${pill(t.statut)}${CHEVRON}`, "rangee")) : ""}
         ${bloc("Date prévue", (() => { const p = pubs().filter(x => x.contenu === c.id); return p.length ? `<div class="liste">${p.map(x => `<div class="rangee"><span class="txt"><h3>${esc(jourLong(x.quand))} · ${esc(heureDe(x.quand))}</h3><span class="meta">${(x.reseaux || []).map(r => esc(RESEAUX[r] || r)).join(" · ")}</span></span>${pill(x.statut || "propose")}</div>`).join("")}</div>` : `<p class="note">${jour(c.date_prevue)}</p>`; })())}
+        ${blocAvis(c)}
         ${retours ? bloc("Historique des décisions", `<ul class="histo">${retours}</ul>`) : ""}
         ${zoneDecision(c)}`
     };
+  }
+  function blocAvis(c) {
+    const a = AVIS[c.id]; if (!a) return (c.statut === "a_valider") ? bloc("Avis de l'auditeur (ChatGPT)", `<p class="note meta">En attente de sa relecture.</p>`) : "";
+    const v = { publier: ["ok", "à publier"], a_retoucher: ["warn", "à retoucher"], a_refaire: ["bad", "à refaire"] }[a.verdict] || ["", a.verdict || ""];
+    const li = (t, l) => l && l.length ? `<p class="meta"><b>${t}</b></p><ul class="histo">${l.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : "";
+    return bloc("Avis de l'auditeur (ChatGPT)", `<div class="avis"><div class="avis-tete"><span class="avis-note">${esc(String(a.note ?? "?"))}<small>/10</small></span><span class="pill s-${v[0] === "ok" ? "valide" : v[0] === "bad" ? "echec" : "a_valider"}">${esc(v[1])}</span></div>
+      <p class="note">${esc(a.resume || "")}</p>${li("Points forts", a.points_forts)}${li("À corriger", a.a_corriger)}${li("Règles à risque", a.risques)}
+      ${a.suggestion ? `<p class="meta"><b>Sa suggestion</b></p><p class="note">${esc(a.suggestion)}</p>` : ""}<p class="meta">Relu le ${date(a.quand)}. C'est un avis : la décision reste la tienne.</p></div>`);
   }
   function zoneDecision(c) {
     if (!(c.statut === "a_valider" || c.statut === "modification_demandee")) return "";
@@ -856,6 +868,7 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
         snap.docs.forEach(d => { DECISIONS[d.id] = d.data(); });
         rendre(); appliquerDecisions(); rafraichirFiche();
       }, () => clearTimeout(minuteur));
+      DB.collection("avis").onSnapshot(snap => { snap.docs.forEach(d => { const x = d.data(); if (x.contenu) AVIS[x.contenu] = x; }); rendre(); }, () => {});
       DB.collection("calendrier").onSnapshot(snap => {
         Object.keys(CAL).forEach(k => delete CAL[k]);
         snap.docs.forEach(d => { CAL[d.id] = Object.assign({ _id: d.id }, d.data()); });
