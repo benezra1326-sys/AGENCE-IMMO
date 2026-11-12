@@ -1,6 +1,6 @@
 """Bot Telegram réservé au compte d'Avishay.
 
-Seul l'identifiant TELEGRAM_OWNER_ID est servi ; tout autre compte est ignoré (et noté dans le journal
+Seul l'identifiant TELEGRAM_CHAT_ID est servi ; tout autre compte est ignoré (et noté dans le journal
 sans recopier son message). Fonctionne en « long polling » : aucune adresse publique n'est nécessaire.
 """
 from . import pilotage, recap
@@ -59,7 +59,7 @@ class Bot:
             if texte.startswith("/start") and not self.config.telegram_proprietaire:
                 # Mise en service : donne l'identifiant à recopier dans la configuration du serveur
                 self.dire(chat_id, f"Ton identifiant Telegram est {m['from']['id']}. "
-                                   "Ajoute-le comme TELEGRAM_OWNER_ID sur le serveur pour réserver ce bot à ton compte.")
+                                   "Ajoute-le comme TELEGRAM_CHAT_ID sur le serveur pour réserver ce bot à ton compte.")
             return
         journaliser(self.cx, "telegram", "message reçu d'Avishay", None, texte[:200])
         attente = reglage(self.cx, "telegram_modif_en_attente")

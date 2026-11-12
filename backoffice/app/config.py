@@ -26,11 +26,14 @@ class Config:
         self.mode_envoi = _env("BO_MODE_ENVOI", "test")
         self.email_alertes = _env("BO_EMAIL_ALERTES", "avi@levygoldman.com")
         self.telegram_token = _env("TELEGRAM_BOT_TOKEN")
-        self.telegram_proprietaire = _env("TELEGRAM_OWNER_ID")  # identifiant numérique du compte d'Avishay
-        self.smtp_hote = _env("SMTP_HOST")
+        # identifiant numérique du compte d'Avishay (TELEGRAM_CHAT_ID, nom retenu dans les réglages du projet)
+        self.telegram_proprietaire = _env("TELEGRAM_CHAT_ID", _env("TELEGRAM_OWNER_ID"))
+        # Gmail dédié aux alertes : GMAIL_ADDRESS + GMAIL_APP_PASSWORD (mot de passe d'application) suffisent.
+        gmail = _env("GMAIL_APP_PASSWORD")
+        self.smtp_hote = _env("SMTP_HOST", "smtp.gmail.com" if gmail else None)
         self.smtp_port = int(_env("SMTP_PORT", "465"))
-        self.smtp_utilisateur = _env("SMTP_USER")
-        self.smtp_mot_de_passe = _env("SMTP_PASSWORD")
+        self.smtp_utilisateur = _env("SMTP_USER", _env("GMAIL_ADDRESS"))
+        self.smtp_mot_de_passe = _env("SMTP_PASSWORD", gmail)
         self.smtp_expediteur = _env("SMTP_FROM", self.smtp_utilisateur)
         self.dashboard_hote = _env("BO_HOST", "127.0.0.1")
         self.dashboard_port = int(_env("BO_PORT", "8787"))
