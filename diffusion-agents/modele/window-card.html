@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 210mm; height: 297mm; background: #fff; }
+  body { font-family: 'Montserrat', sans-serif; color: #15171b; }
+  .page { width: 210mm; height: 297mm; display: flex; flex-direction: column; }
+  .hero { height: 128mm; background: center/cover no-repeat url('$photo1'); position: relative; }
+  .hero::after { content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,0) 35%, rgba(0,0,0,0) 65%, rgba(0,0,0,.45)); }
+  .hero .tag { position: absolute; top: 9mm; left: 12mm; z-index: 1; color: #fff;
+    font-size: 8.5pt; letter-spacing: .32em; text-transform: uppercase; font-weight: 500; }
+  .hero .zone { position: absolute; bottom: 9mm; left: 12mm; right: 12mm; z-index: 1; color: #fff;
+    text-shadow: 0 1px 8px rgba(0,0,0,.35); }
+  .hero .zone h1 { font-size: 23pt; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+  .hero .zone p { font-size: 10pt; letter-spacing: .22em; text-transform: uppercase; font-weight: 400; margin-top: 2mm; }
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 2mm; height: 52mm; margin-top: 2mm; }
+  .duo div { background: center/cover no-repeat; }
+  .body { flex: 1; padding: 8mm 12mm 0; display: flex; flex-direction: column; }
+  .chiffres { display: grid; grid-template-columns: repeat($nb_chiffres, 1fr); border-top: .3mm solid #15171b; border-bottom: .3mm solid #d8d4cc; }
+  .chiffres div { padding: 4mm 0 3.5mm; text-align: center; }
+  .chiffres b { display: block; font-size: 15pt; font-weight: 500; }
+  .chiffres span { font-size: 6.8pt; letter-spacing: .2em; text-transform: uppercase; color: #6b6b6b; }
+  .bas { display: grid; grid-template-columns: 1.25fr 1fr; gap: 9mm; margin-top: 6mm; }
+  .points { list-style: none; }
+  .points li { font-size: 8.6pt; letter-spacing: .06em; padding: 1.6mm 0; border-bottom: .2mm solid #ece9e3; text-transform: uppercase; }
+  .prix { text-align: right; align-self: center; }
+  .prix span { font-size: 7pt; letter-spacing: .26em; text-transform: uppercase; color: #6b6b6b; }
+  .prix b { display: block; font-size: 22pt; font-weight: 500; margin-top: 1.5mm; }
+  .prix i { display: block; font-style: normal; font-size: 7.5pt; letter-spacing: .14em; color: #6b6b6b; margin-top: 1.5mm; text-transform: uppercase; }
+  .ref { font-size: 7pt; letter-spacing: .2em; color: #6b6b6b; margin-top: 3mm; text-transform: uppercase; }
+  .pied { margin-top: auto; background: #0c0d10; color: #fff; padding: 6mm 12mm; display: flex; align-items: center; justify-content: space-between; }
+  .marque { font-family: 'Cormorant Garamond', serif; font-size: 17pt; letter-spacing: .32em; }
+  .contact { text-align: right; font-size: 8pt; line-height: 1.6; color: #b9b9b9; }
+  .contact b { color: #fff; font-weight: 600; font-size: 9.5pt; letter-spacing: .04em; }
+  .legal { font-size: 5.6pt; color: #8a8a8a; line-height: 1.45; padding: 3mm 12mm 4mm; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hero">
+    <div class="tag">$etiquette</div>
+    <div class="zone"><h1>$zone</h1><p>$type_bien</p></div>
+  </div>
+  <div class="duo"><div style="background-image:url('$photo2')"></div><div style="background-image:url('$photo3')"></div></div>
+  <div class="body">
+    <div class="chiffres">$chiffres</div>
+    <div class="bas">
+      <ul class="points">$points</ul>
+      <div class="prix"><span>$prix_label</span><b>$prix</b><i>$prix_note</i></div>
+    </div>
+    <div class="ref">Ref. $ref</div>
+  </div>
+  <div class="legal">$mention</div>
+  <div class="pied">
+    <div class="marque">LEVY &amp; GOLDMAN</div>
+    <div class="contact"><b>Avishay Benazra · +34 647 142 274</b><br>avi@levygoldman.com · @avishay.marbella</div>
+  </div>
+</div>
+</body>
+</html>
