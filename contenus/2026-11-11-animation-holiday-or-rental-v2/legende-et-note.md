@@ -32,3 +32,23 @@ Retour d Avishay sur la V2 : texte peu lisible, pas assez animé. Étude de Reel
 
 ## V4 (11/11/2026)
 « Pas mal, on peut encore optimiser » : accroche visible dès la 1re image (pas de fondu au noir), zoom avant léger et continu sur chaque plan (zoom 0.07), cartes qui changent sur les coupes, barre de progression en haut.
+
+## V5 (12/11/2026) – ralentie, petite musique, place pour la voix
+Demande d'Avishay : trop rapide, ajouter une petite musique de fond, prévoir sa voix (Avi Voice, VoiceStudio sur son Mac).
+- Vitesse 0,75 : 25,2 s au lieu de 18,9 s (images ralenties par interpolation, textes recalés). Source : `animation-texte-v5.html`.
+- Même style que ses Reels publiés : écran final noir « LEVY & GOLDMAN », filet gris, « Your dream property awaits », téléphone, email, @.
+- Fichiers (hors git) : `/mnt/project-files/agence-immo/contenus/2026-11-12-animation-holiday-or-rental-v5/`
+  - `animation-V5-musique.mp4` : musique originale douce (composée par programme, aucun droit tiers, -20 LUFS).
+  - `animation-V5-sans-musique.mp4` : pour un son Instagram ou pour poser la voix.
+  - `musique-seule.wav` : la musique seule, pour le mixage avec la voix (voix à 100 %, musique baissée de 10 à 12 dB sous la voix).
+
+### Script de voix off, calé sur la V5
+| Temps (s) | Anglais | Français (Avishay enregistre en français) |
+| --- | --- | --- |
+| 0,3 – 3,6 | Holiday home, or rental investment? | Résidence secondaire, ou investissement locatif ? |
+| 4,2 – 6,0 | Start with your goal. | Commencez par votre objectif. |
+| 6,4 – 11,8 | A holiday home: the area you love, the comfort you want, your time there. | Une résidence secondaire : le quartier que vous aimez, le confort que vous voulez, le temps que vous y passerez. |
+| 12,5 – 17,5 | A rental investment: local rules, real demand and total costs, checked property by property. | Un investissement locatif : les règles locales, la vraie demande et le coût total, vérifiés bien par bien. |
+| 18,0 – 19,8 | Your goal shapes everything. | C'est votre objectif qui décide. |
+| 20,4 – 24,8 | Send me your budget and your project. | Envoyez-moi votre budget et votre projet. |
+Environ 2,3 mots par seconde en anglais : débit posé, rien d'accéléré. La version française est plus longue : si elle déborde, raccourcir la ligne de 6,4 s (« le quartier, le confort, le temps sur place »).

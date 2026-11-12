@@ -18,3 +18,15 @@
 .cx-dm{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:44px;letter-spacing:.1em;text-transform:uppercase}
 .cx-dm b{font-family:'Inter',sans-serif;font-weight:600;font-size:34px;letter-spacing:.14em;color:var(--sand2)}
 .cx-petit{font-family:'Inter',sans-serif;font-size:24px;font-weight:300;letter-spacing:.04em;color:#e8e2d8;line-height:1.6}
+/* V2 (12/11/2026) – alignée sur les Reels déjà publiés par @avishay.marbella (mai 2026) :
+   texte blanc centré, ombre douce, pas d'encadré sur les plans ; écran final noir « LEVY & GOLDMAN »
+   (serif capitales espacées, filet gris, « Your dream property awaits », téléphone en gras, email et @ en gris clair).
+   Le nom de l'agence est écrit en texte : aucun logo inventé. */
+.cx-ombre{text-shadow:0 2px 6px rgba(0,0,0,.55),0 4px 30px rgba(0,0,0,.55)}
+.cx-noir{position:absolute;inset:0;background:#000}
+.cx-sig-bloc{position:absolute;left:80px;right:80px;top:960px;transform:translateY(-50%);text-align:center;color:#fff}
+.cx-marque{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:64px;letter-spacing:.16em;text-transform:uppercase}
+.cx-filet{width:300px;height:1.5px;background:#666;margin:30px auto}
+.cx-tag{font-family:'Cormorant Garamond',serif;font-size:40px;font-style:italic;color:#cfcac2}
+.cx-tel{font-family:'Inter',sans-serif;font-weight:600;font-size:40px;letter-spacing:.06em;margin-top:56px}
+.cx-contact{font-family:'Inter',sans-serif;font-weight:300;font-size:30px;letter-spacing:.05em;color:#b0b0b0;line-height:1.7;margin-top:14px}

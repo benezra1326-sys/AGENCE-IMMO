@@ -1,0 +1,224 @@
+{
+ "bien": "AB-0001",
+ "version": "V6",
+ "source": "VIDEO/Aloha40_Unbranded video.mp4 (3840x2160, 25 i/s)",
+ "fps": 25,
+ "fondu": 0.3,
+ "duree": 28.5,
+ "plans": [
+  {
+   "debut": 5.15,
+   "fin": 6.8,
+   "x0": 1000,
+   "x1": 1900,
+   "note": "drone : villa et fairway (accroche)",
+   "dans_le_reel": [
+    0.0,
+    1.65
+   ]
+  },
+  {
+   "debut": 0.05,
+   "fin": 2.85,
+   "x0": 1350,
+   "x1": 1650,
+   "note": "vue golf et montagne depuis le jardin",
+   "dans_le_reel": [
+    1.35,
+    4.15
+   ]
+  },
+  {
+   "debut": 43.15,
+   "fin": 44.95,
+   "x0": 900,
+   "x1": 1550,
+   "note": "façade éclairée au crépuscule",
+   "dans_le_reel": [
+    3.85,
+    5.65
+   ]
+  },
+  {
+   "debut": 9.1,
+   "fin": 10.9,
+   "x0": 2300,
+   "x1": 1000,
+   "note": "façade et piscine de jour",
+   "dans_le_reel": [
+    5.35,
+    7.15
+   ]
+  },
+  {
+   "debut": 7.15,
+   "fin": 8.95,
+   "x0": 1350,
+   "x1": 1650,
+   "note": "piscine vue du ciel",
+   "dans_le_reel": [
+    6.85,
+    8.65
+   ]
+  },
+  {
+   "debut": 15.2,
+   "fin": 17.0,
+   "x0": 1100,
+   "x1": 1500,
+   "note": "piscine au ras de l'eau",
+   "dans_le_reel": [
+    8.35,
+    10.15
+   ]
+  },
+  {
+   "debut": 13.1,
+   "fin": 14.9,
+   "x0": 700,
+   "x1": 1300,
+   "note": "transats et parasols",
+   "dans_le_reel": [
+    9.85,
+    11.65
+   ]
+  },
+  {
+   "debut": 17.05,
+   "fin": 19.85,
+   "x0": 1100,
+   "x1": 1600,
+   "note": "séjour",
+   "dans_le_reel": [
+    11.35,
+    14.15
+   ]
+  },
+  {
+   "debut": 21.05,
+   "fin": 22.85,
+   "x0": 1500,
+   "x1": 1100,
+   "note": "salle à manger",
+   "dans_le_reel": [
+    13.85,
+    15.65
+   ]
+  },
+  {
+   "debut": 31.05,
+   "fin": 34.35,
+   "x0": 1300,
+   "x1": 1700,
+   "note": "suite parentale",
+   "dans_le_reel": [
+    15.35,
+    18.65
+   ]
+  },
+  {
+   "debut": 29.15,
+   "fin": 30.95,
+   "x0": 1000,
+   "x1": 1200,
+   "note": "baignoire face au jardin",
+   "dans_le_reel": [
+    18.35,
+    20.15
+   ]
+  },
+  {
+   "debut": 39.1,
+   "fin": 40.9,
+   "x0": 1500,
+   "x1": 2400,
+   "note": "terrasse, vue montagne",
+   "dans_le_reel": [
+    19.85,
+    21.65
+   ]
+  },
+  {
+   "debut": 50.5,
+   "fin": 52.8,
+   "x0": 1100,
+   "x1": 1500,
+   "note": "dîner extérieur de nuit",
+   "dans_le_reel": [
+    21.35,
+    23.65
+   ]
+  },
+  {
+   "debut": 45.1,
+   "fin": 46.9,
+   "x0": 700,
+   "x1": 1200,
+   "note": "piscine éclairée",
+   "dans_le_reel": [
+    23.35,
+    25.15
+   ]
+  },
+  {
+   "debut": 53.1,
+   "fin": 56.75,
+   "x0": 1200,
+   "x1": 1450,
+   "note": "piscine et parasols, écran final",
+   "dans_le_reel": [
+    24.85,
+    28.5
+   ]
+  }
+ ],
+ "textes": [
+  {
+   "id": "t1",
+   "debut": 0.3,
+   "fin": 3.583
+  },
+  {
+   "id": "t2",
+   "debut": 3.815,
+   "fin": 6.591
+  },
+  {
+   "id": "t3",
+   "debut": 10.95,
+   "fin": 14.609
+  },
+  {
+   "id": "t4",
+   "debut": 18.95,
+   "fin": 22.151
+  },
+  {
+   "id": "fin",
+   "debut": 24.9,
+   "fin": 28.5
+  }
+ ],
+ "tempo": {
+  "bpm": 120.0,
+  "coupe_tous_les_temps": 1.0,
+  "grille_s": 0.5,
+  "coupes_s": [
+   1.5,
+   4.0,
+   5.5,
+   7.0,
+   8.5,
+   10.0,
+   11.5,
+   14.0,
+   15.5,
+   18.5,
+   20.0,
+   21.5,
+   23.5,
+   25.0
+  ]
+ },
+ "note_textes": "V6 (12/11/2026) : texte plus grand et plus contrasté, écran final noir identique aux Reels publiés d'Avishay."
+}
