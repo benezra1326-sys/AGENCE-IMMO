@@ -1,14 +1,14 @@
 <!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../outils/charte-texte.css">
 <!-- Reel programme neuf AB-0002 (New Golden Mile, Estepona) – 12/11/2026, à valider par Avishay.
      Images de synthèse du site Levy & Goldman (images/, hors git). Aucun nom de programme, d'architecte ni de décorateur.
-     Style homogène avec ses Reels publiés : texte blanc Montserrat centré au milieu, ombre douce, écran final noir Levy & Goldman. Sans musique. -->
+     Style homogène avec ses Reels publiés : texte blanc Montserrat dans le tiers haut (relecture 12/11 : remonté, moins de détails identifiants), ombre douce, écran final noir Levy & Goldman. Sans musique. -->
 <style>
 body{background:#000}
 #stage{width:1080px;height:1920px;position:relative;overflow:hidden;background:#000}
 .sh{position:absolute;inset:0;opacity:0;overflow:hidden}
 .sh img{position:absolute;height:1920px;top:0;left:50%;will-change:transform}
-.voile{position:absolute;left:0;right:0;top:500px;height:920px;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.62) 22%,rgba(0,0,0,.7) 50%,rgba(0,0,0,.62) 78%,rgba(0,0,0,0));opacity:0}
-.tx{position:absolute;left:60px;right:60px;top:960px;transform:translateY(-50%);text-align:center;color:#fff;opacity:0}
+.voile{position:absolute;left:0;right:0;top:0;height:1050px;background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,.42) 50%,rgba(0,0,0,0));opacity:0}
+.tx{position:absolute;left:60px;right:60px;top:520px;transform:translateY(-50%);text-align:center;color:#fff;opacity:0}
 .tx .cx-sur{font-family:Montserrat,sans-serif;font-size:30px;font-weight:600;color:#fff;letter-spacing:.14em}
 .tx .cx-titre{font-family:Montserrat,sans-serif;font-size:84px;font-weight:600;letter-spacing:.04em;line-height:1.1}
 .tx .cx-titre .a{color:#fff}
@@ -21,9 +21,9 @@ body{background:#000}
 <div id="shots"></div>
 <div class="voile" id="voile"></div>
 <div class="tx cx-ombre" id="x1"><div class="cx-sur cx-plan-sur">Estepona · New Golden Mile</div><div class="cx-trait"></div><div class="cx-titre cx-plan"><span class="w">New</span> <span class="w">build</span><br><span class="w a">resort</span> <span class="w a">living</span></div></div>
-<div class="tx cx-ombre" id="x2"><div class="cx-sur cx-plan-sur">Apartments and penthouses</div><div class="cx-trait"></div><div class="cx-titre cx-plan"><span class="w">From</span><br><span class="w a">€745,000</span></div><div class="cx-trait"></div><div class="cx-sous cx-plan-info">2 &amp; 3 bedrooms · 149 – 399 m²</div></div>
-<div class="tx cx-ombre" id="x3"><div class="cx-titre cx-plan"><span class="w">Three</span> <span class="w">pools</span><br><span class="w a">tropical</span> <span class="w a">gardens</span></div><div class="cx-trait"></div><div class="cx-sous cx-plan-info">27,000 m² of landscaped grounds</div></div>
-<div class="tx cx-ombre" id="x4"><div class="cx-titre cx-plan"><span class="w">Spa</span> <span class="w">·</span> <span class="w">gym</span><br><span class="w a">clubhouse</span></div><div class="cx-trait"></div><div class="cx-sous cx-plan-info">Gated · 24h security</div></div>
+<div class="tx cx-ombre" id="x2"><div class="cx-sur cx-plan-sur">Apartments and penthouses</div><div class="cx-trait"></div><div class="cx-titre cx-plan"><span class="w">From</span><br><span class="w a">€745,000</span></div><div class="cx-trait"></div><div class="cx-sous cx-plan-info">2 &amp; 3 bedrooms</div></div>
+<div class="tx cx-ombre" id="x3"><div class="cx-titre cx-plan"><span class="w">Pools</span> <span class="w">&amp;</span><br><span class="w a">gardens</span></div></div>
+<div class="tx cx-ombre" id="x4"><div class="cx-titre cx-plan"><span class="w">Spa</span> <span class="w">&amp;</span><br><span class="w a">wellness</span></div><div class="cx-trait"></div><div class="cx-sous cx-plan-info">Gated community</div></div>
 <div class="cgi" id="cgi">Computer-generated images</div>
 <div id="fin"><div class="cx-noir"></div><div class="cx-sig-bloc">
  <div class="cx-sur" style="font-size:26px">New build · Estepona</div>

@@ -1,4 +1,33 @@
-# Animation « Holiday home or rental investment? » – statut : à valider par Avishay
+# Animation « Holiday home or rental investment? » – à valider par Avishay, rien n'est publié
+
+## Version proposée : V5.2 (12/11/2026)
+- Vidéo : `/mnt/project-files/agence-immo/contenus/2026-11-12-animation-holiday-or-rental-v5/animation-V5.2-sans-musique.mp4` (25,2 s, ralentie, sans cadre, texte blanc Montserrat dans le tiers haut, écran final noir Levy & Goldman).
+- Musique : 3 propositions de deep house moderne à écouter, dans `/mnt/project-files/agence-immo/musiques/animation-holiday-or-rental/deephouse-*` (Autofahren, Deep Urban, Winter Breeze ; Mixkit, licence gratuite, usage commercial sur les réseaux autorisé). Le piano et l'ambient ont été refusés.
+- Voix off : script ci-dessous, en attente des pistes Avi Voice.
+
+### Légende (EN)
+Holiday home or rental investment? In Marbella, the answer changes everything: the area, the type of property, the rules to check and the real budget.
+
+Start with your goal. Send us your budget and your project in a private message, and we will come back to you with a clear plan, in Marbella and the surrounding area, up to Estepona. We guide you at every step, from the search to the keys.
+
+#Marbella #MarbellaRealEstate #CostaDelSol #PropertyInSpain #HolidayHome #Estepona
+
+### Légende (FR)
+Résidence secondaire ou investissement locatif ? À Marbella, la réponse change tout : le quartier, le type de bien, les règles à vérifier et le vrai budget.
+
+Commencez par votre objectif. Envoyez-nous votre budget et votre projet en message privé : nous revenons vers vous avec un plan clair, à Marbella et ses alentours, jusqu'à Estepona. Nous vous accompagnons à chaque étape, de la recherche jusqu'aux clés.
+
+### Légende (ES)
+¿Segunda residencia o inversión para alquilar? En Marbella, la respuesta lo cambia todo: la zona, el tipo de vivienda, las normas que hay que comprobar y el presupuesto real.
+
+Empiece por su objetivo. Envíenos su presupuesto y su proyecto por mensaje privado y le responderemos con un plan claro, en Marbella y alrededores, hasta Estepona. Le acompañamos en cada paso, desde la búsqueda hasta las llaves.
+
+Mention à l'écran conservée : « No rental income or tourist licence assumed · Each property is checked individually ». Aucun chiffre, aucune promesse.
+
+---
+# Historique des versions
+
+## V1 (09/11/2026)
 
 Fichiers (hors git, stockage du projet) : `/mnt/project-files/agence-immo/contenus/2026-11-09-animation-holiday-or-rental/`
 - `animation-holiday-or-rental-EN.mp4` : 1080 × 1920, 18 s, H.264 + AAC, fond musical sobre composé par synthèse (aucun droit tiers).
@@ -17,7 +46,7 @@ Source modifiable : `animation.html` (fonction render(t)), rendu par `outils/ren
 ## Légende anglaise
 Holiday home or rental investment? In Marbella, the answer changes everything: the area, the type of property, the rules to check and the real budget.
 
-Start with your goal. Send me your budget and your project in a private message and I will come back with a clear plan, between Cabopino and Casares.
+Start with your goal. (Légende V1 remplacée : voir la version proposée en haut de ce fichier.)
 
 #Marbella #MarbellaRealEstate #CostaDelSol #PropertyInSpain #HolidayHome #NuevaAndalucia
 
