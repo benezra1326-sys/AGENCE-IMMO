@@ -199,7 +199,7 @@ def main():
     ap.add_argument("--ref", help="ne traiter que ce bien")
     a = ap.parse_args()
 
-    classeur = Path(a.classeur).resolve()
+    classeur = Path(a.classeur).absolute()
     wb = openpyxl.load_workbook(classeur, data_only=True)
     biens = lire_feuille(wb["Biens"], COLONNES_BIENS)
     agents = lire_feuille(wb["Agents"], COLONNES_AGENTS)
@@ -211,7 +211,7 @@ def main():
                      and str(g["WhatsApp (+indicatif)"] or "").strip().startswith("+")]
     exclus = [g["Nom"] for g in agents if g not in destinataires]
 
-    sortie = Path(a.sortie).resolve()
+    sortie = Path(a.sortie).absolute()
     lots = []
     for bien in a_traiter:
         f = construire(bien, classeur.parent, sortie)
