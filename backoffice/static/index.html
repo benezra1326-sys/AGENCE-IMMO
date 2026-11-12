@@ -191,6 +191,7 @@ dialog.fiche::backdrop { background: rgb(0 0 0 / .5) }
 .diapos figure { scroll-snap-align: center }
 details { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; background: var(--surface-2) }
 details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
+.telecharger { display: inline-block; margin-left: 6px; font-weight: 600; color: var(--fg); text-decoration: underline }
 .li-posts { display: grid; gap: 14px; margin: 10px 0 }
 .li-post { border: 1px solid var(--line, #ddd); border-radius: 12px; padding: 14px; background: var(--surface) }
 .li-num { font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px }
@@ -562,7 +563,7 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
   const bloc = (etiquette, html) => html ? `<div class="bloc"><span class="etiquette">${etiquette}</span>${html}</div>` : "";
   function ficheContenu(c) {
     const m = (c.apercu && c.apercu.medias) || [], tx = (c.apercu && c.apercu.textes) || [];
-    const fig = x => `<figure>${x.type === "video" ? `<video src="${esc(x.url)}" controls playsinline preload="metadata"${x.poster ? ` poster="${esc(x.poster)}"` : ""}></video>` : `<img src="${esc(x.url)}" alt="${esc(x.libelle || "")}">`}<figcaption>${esc(x.libelle || "")}</figcaption></figure>`;
+    const fig = x => `<figure>${x.type === "video" ? `<video src="${esc(x.url)}" controls playsinline preload="metadata"${x.poster ? ` poster="${esc(x.poster)}"` : ""}></video>` : `<img src="${esc(x.url)}" alt="${esc(x.libelle || "")}">`}<figcaption>${esc(x.libelle || "")} <a class="telecharger" href="${esc(x.url)}" download target="_blank" rel="noopener">Télécharger</a></figcaption></figure>`;
     const images = m.filter(x => x.type === "image"), videos = m.filter(x => x.type === "video");
     const medias = videos.map(fig).join("") + (images.length > 1 ? `<div class="diapos">${images.map(fig).join("")}</div><span class="meta">Fais glisser pour voir les ${images.length} images.</span>` : images.map(fig).join(""));
     const t = E.taches.find(x => x.id === c.tache_id), posts = postsLinkedin(c);
