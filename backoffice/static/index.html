@@ -87,7 +87,7 @@ h3 { font: 600 .98rem/1.3 var(--f-body); margin: 0; overflow-wrap: anywhere }
 .projets a[aria-current="page"] { background: var(--ink); color: var(--on-ink) }
 .pastille { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px; border-radius: 999px; font-size: .72rem; font-weight: 600; white-space: nowrap; letter-spacing: .02em; flex: none }
 .pastille::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor }
-.s-prevu, .s-en_attente, .s-a_configurer, .s-liste_preparee, .s-brouillon, .s-en_preparation, .s-remplace { color: var(--idle); background: var(--idle-bg) }
+.s-prevu, .s-en_attente, .s-a_configurer, .s-reporte, .s-liste_preparee, .s-brouillon, .s-en_preparation, .s-remplace { color: var(--idle); background: var(--idle-bg) }
 .s-configure, .s-en_cours, .s-partiel, .s-en_lancement { color: var(--info); background: var(--info-bg) }
 .s-teste, .s-a_valider, .s-preparee { color: var(--test); background: var(--test-bg) }
 .s-actif, .s-terminee, .s-operationnel, .s-valide, .s-envoyee, .s-publie { color: var(--ok); background: var(--ok-bg) }
@@ -191,6 +191,14 @@ dialog.fiche::backdrop { background: rgb(0 0 0 / .5) }
 .diapos figure { scroll-snap-align: center }
 details { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; background: var(--surface-2) }
 details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
+.li-posts { display: grid; gap: 14px; margin: 10px 0 }
+.li-post { border: 1px solid var(--line, #ddd); border-radius: 12px; padding: 14px; background: var(--surface) }
+.li-num { font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px }
+.li-tete { display: flex; gap: 10px; align-items: center; margin-bottom: 10px }
+.li-tete small { display: block; color: var(--muted); font-size: .78rem }
+.li-av { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: var(--on-ink); font-weight: 600; font-size: .85rem; flex: none }
+.li-texte { white-space: pre-wrap; margin: 0; font-size: .9rem; line-height: 1.5; overflow-wrap: anywhere }
+.li-post details { margin-top: 10px }
 .texte-brut { white-space: pre-wrap; font: .84rem/1.55 var(--f-body); margin: 10px 0 0; overflow-wrap: anywhere }
 .fichiers { margin: 0; padding-left: 18px; font-size: .82rem; overflow-wrap: anywhere }
 .decision { position: sticky; bottom: 0; background: var(--surface); border-top: 1px solid var(--line); margin: 0 -16px calc(-24px - env(safe-area-inset-bottom, 0px)); padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 8px }
@@ -244,7 +252,7 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
     en_attente: "en attente", en_cours: "en cours", terminee: "terminée", echec: "échec", bloquee: "bloquée",
     a_valider: "à valider", modification_demandee: "en modification", valide: "validé", publie: "publié", remplace: "remplacé",
     brouillon: "brouillon", en_preparation: "en préparation", operationnel: "opérationnel", partiel: "partiel",
-    manquant: "manquant", a_verifier: "à activer ou vérifier", a_configurer: "à configurer", en_lancement: "en lancement",
+    manquant: "manquant", a_verifier: "à activer ou vérifier", a_configurer: "à configurer", reporte: "reporté", en_lancement: "en lancement",
     recue: "reçue", attribuee: "prise en charge", traitee: "faite", question: "question pour toi",
     liste_preparee: "liste préparée", preparee: "préparée", envoyee: "envoyée", nouveau: "nouveau", appel_demande: "appel demandé"
   };
@@ -297,6 +305,18 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
       : vid ? `<video src="${esc(vid.url)}#t=0.8" muted playsinline preload="metadata"></video>` : "";
     return `<div class="visuel">${fond}<span class="format">${esc(FORMATS[c.format] || c.format || "contenu")}${c.langue ? " · " + esc(c.langue.toUpperCase()) : ""}</span>${vid ? `<span class="lecture" aria-hidden="true"></span>` : ""}</div>`;
   }
+  function postsLinkedin(c) {  // découpe « ## Post N – titre » / **FR** / **EN** en cartes façon LinkedIn
+    const tx = ((c.apercu && c.apercu.textes) || [])[0];
+    if (!tx || !/linkedin/i.test(c.format || "")) return [];
+    return tx.texte.split(/\n## /).slice(1).filter(b => /^Post/i.test(b)).map(b => {
+      const titre = b.split("\n")[0].trim(), corps = b.split(/\n---/)[0];
+      const fr = (corps.split("**FR**")[1] || "").split("**EN**")[0].trim(), en = (corps.split("**EN**")[1] || "").trim();
+      return { titre, fr, en };
+    }).filter(x => x.fr);
+  }
+  const carteLinkedin = (x, i) => `<article class="li-post"><p class="li-num">${esc(x.titre)}</p>
+    <div class="li-tete"><span class="li-av">AB</span><span><b>Avishay Benazra</b><small>Agent immobilier · Levy &amp; Goldman, Marbella</small></span></div>
+    <p class="li-texte">${esc(x.fr)}</p>${x.en ? `<details><summary>Version anglaise</summary><p class="li-texte">${esc(x.en)}</p></details>` : ""}</article>`;
   const carteContenu = c => ouvre("contenu", c.id, `${visuel(c)}<div class="corps"><div>${pill(c.statut)}</div><h3>${esc(c.titre)}</h3>
     <div class="meta">${c.bien ? `<span>Bien <b>${esc(c.bien)}</b></span>` : ""}<span>Date <b>${jour(c.date_prevue)}</b></span></div><span class="ouvrir">Voir et décider</span></div>`, "contenu");
   const carteAgent = a => { const x = activiteAgent(a);
@@ -545,12 +565,12 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
     const fig = x => `<figure>${x.type === "video" ? `<video src="${esc(x.url)}" controls playsinline preload="metadata"${x.poster ? ` poster="${esc(x.poster)}"` : ""}></video>` : `<img src="${esc(x.url)}" alt="${esc(x.libelle || "")}">`}<figcaption>${esc(x.libelle || "")}</figcaption></figure>`;
     const images = m.filter(x => x.type === "image"), videos = m.filter(x => x.type === "video");
     const medias = videos.map(fig).join("") + (images.length > 1 ? `<div class="diapos">${images.map(fig).join("")}</div><span class="meta">Fais glisser pour voir les ${images.length} images.</span>` : images.map(fig).join(""));
-    const t = E.taches.find(x => x.id === c.tache_id);
+    const t = E.taches.find(x => x.id === c.tache_id), posts = postsLinkedin(c);
     const retours = (c.retours || []).map(r => `<li>${date(r.cree_le)} · ${r.decision === "valide" ? "validé" : "modification : " + esc(r.texte)} (${esc(r.canal)})</li>`).join("");
     return {
       titre: c.titre, sous: `${FORMATS[c.format] || c.format || ""}${c.langue ? " · " + c.langue.toUpperCase() : ""}${c.bien ? " · " + c.bien : ""}`,
-      corps: `<div>${pill(c.statut)}</div>${medias ? `<div class="medias">${medias}</div>` : `<p class="vide">Pas d'aperçu disponible pour ce contenu.</p>`}
-        ${tx.map((x, i) => `<details ${i === 0 ? "open" : ""}><summary>${esc(x.titre)}</summary><pre class="texte-brut">${esc(x.texte)}</pre></details>`).join("")}
+      corps: `<div>${pill(c.statut)}</div>${medias ? `<div class="medias">${medias}</div>` : posts.length ? `<p class="meta">Aperçu tel qu'il apparaîtra sur LinkedIn (${posts.length} posts).</p><div class="li-posts">${posts.map(carteLinkedin).join("")}</div>` : tx.length ? "" : `<p class="vide">Pas d'aperçu disponible pour ce contenu.</p>`}
+        ${tx.map((x, i) => `<details ${i === 0 && !posts.length ? "open" : ""}><summary>${esc(x.titre)}</summary><pre class="texte-brut">${esc(x.texte)}</pre></details>`).join("")}
         ${t ? bloc("Préparé par", ouvre("agent", t.agent, `${agent(t.agent) ? avatar(agent(t.agent)) : ""}<span class="txt"><h3>${esc(nomAgent(t.agent))}</h3><span class="meta">Voir la tâche et le compte rendu ci-dessous</span></span>${CHEVRON}`, "rangee") + ouvre("tache", t.id, `<span class="txt"><h3>${esc(t.titre)}</h3><span class="meta">${date(t.maj_le)}</span></span>${pill(t.statut)}${CHEVRON}`, "rangee")) : ""}
         ${bloc("Date prévue", `<p class="note">${jour(c.date_prevue)}</p>`)}
         ${retours ? bloc("Historique des décisions", `<ul class="histo">${retours}</ul>`) : ""}

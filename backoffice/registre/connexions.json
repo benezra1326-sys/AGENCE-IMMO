@@ -1,6 +1,6 @@
 {
-  "_legende": "statut : operationnel (testé et utilisable par le service), partiel (fonctionne mais pas pour l'usage prévu), manquant (à créer ou relier), a_verifier. cote : où la connexion vit (serveur = utilisable Mac éteint ; claude = seulement dans une session Claude ; telephone ; mac).",
-  "verifie_le": "12 novembre 2026",
+  "_legende": "statut : operationnel (testé et utilisable par le service), partiel (fonctionne mais pas pour l'usage prévu), manquant (à créer ou relier), a_verifier, reporte (décidé plus tard par Avishay, rien à faire maintenant). cote : où la connexion vit (serveur = utilisable Mac éteint ; claude = seulement dans une session Claude ; telephone ; mac).",
+  "verifie_le": "12 novembre 2026, 12 h 50",
   "connexions": [
     {
       "id": "github",
@@ -12,42 +12,42 @@
     {
       "id": "telegram",
       "nom": "Bot Telegram",
-      "statut": "manquant",
+      "statut": "partiel",
       "cote": "serveur",
-      "note": "Code du bot prêt et testé avec un faux Telegram.",
-      "action": "Créer le bot avec @BotFather (2 minutes) et transmettre le jeton au serveur, pas dans le chat."
+      "note": "Bot @Avishay_immo_bot créé par toi et relié à ton compte (message test reçu le 12/11). Il répondra seul quand le serveur sera en place.",
+      "action": "Ajoute la variable TELEGRAM_CHAT_ID = 6432901590 dans les réglages du projet (Environnement)."
     },
     {
       "id": "email",
       "nom": "Envoi d'emails d'alerte vers avi@levygoldman.com",
-      "statut": "manquant",
+      "statut": "partiel",
       "cote": "serveur",
-      "note": "Code prêt (SMTP). Il faut un compte expéditeur.",
-      "action": "Choisir l'expéditeur (voir décisions)."
+      "note": "Code prêt. En attendant le Gmail dédié, les alertes passent par Telegram.",
+      "action": "Quand ton Gmail dédié existe, donne-moi son adresse ici (le mot de passe d'application va dans les réglages, jamais dans le chat)."
     },
     {
       "id": "hebergement",
       "nom": "Serveur (exécution Mac éteint)",
-      "statut": "manquant",
+      "statut": "reporte",
       "cote": "serveur",
-      "note": "Rien n'est hébergé aujourd'hui.",
-      "action": "Valider le budget avant création."
+      "note": "Reporté par toi le 12/11. Recommandé : Hetzner CX23, environ 6 €/mois HT. Sans serveur, les agents travaillent quand une session Claude est ouverte.",
+      "action": null
     },
     {
       "id": "anthropic_api",
       "nom": "API Claude (modèles côté serveur)",
-      "statut": "manquant",
+      "statut": "reporte",
       "cote": "serveur",
-      "note": "L'abonnement Claude ne couvre pas les appels API d'un serveur.",
-      "action": "Créer une clé avec plafond de dépense, après accord."
+      "note": "À créer avec le serveur, avec un plafond de dépense, après ton accord.",
+      "action": null
     },
     {
       "id": "stockage",
       "nom": "Stockage des médias lourds",
-      "statut": "manquant",
+      "statut": "reporte",
       "cote": "serveur",
-      "note": "Les vidéos ne vont pas dans le dépôt.",
-      "action": "Proposé : Cloudflare R2 (10 Go gratuits)."
+      "note": "À créer avec le serveur. Proposé : Cloudflare R2 (10 Go gratuits). En attendant, les médias passent par Google Drive et les fichiers du projet.",
+      "action": null
     },
     {
       "id": "gcal",
@@ -55,7 +55,7 @@
       "statut": "manquant",
       "cote": "claude",
       "note": "Pas encore connecté au compte Claude. Sert aux rappels de visite et aux créneaux proposés par Sofia.",
-      "action": "Connecter Google Agenda (carte envoyée le 10/11)."
+      "action": "Connecte Google Agenda avec la carte envoyée dans le fil (2 clics)."
     },
     {
       "id": "instagram",
@@ -77,7 +77,8 @@
       "nom": "LinkedIn personnel",
       "statut": "partiel",
       "cote": "telephone",
-      "note": "Envoi manuel par Avishay ; aucune API d'envoi autorisée pour un profil personnel."
+      "note": "Typefully est connecté à Claude (12/11) : je dépose tes posts en brouillon et tu publies. Les invitations restent envoyées par toi.",
+      "action": "Sur typefully.com, ajoute ton compte LinkedIn (1 minute)."
     },
     {
       "id": "whatsapp",
@@ -124,9 +125,9 @@
     {
       "id": "vidiq",
       "nom": "vidIQ",
-      "statut": "partiel",
+      "statut": "operationnel",
       "cote": "claude",
-      "note": "Instagram @avishay.marbella connecté le 11/11 ; page Facebook et YouTube pas encore."
+      "note": "Instagram, page Facebook, YouTube et TikTok connectés et publiables (12/11). Rien n'est publié sans ton OK."
     },
     {
       "id": "voicestudio",
@@ -145,25 +146,26 @@
     {
       "id": "gdrive",
       "nom": "Google Drive",
-      "statut": "a_verifier",
+      "statut": "partiel",
       "cote": "claude",
-      "note": "Connecté au compte, mais pas activé dans ce projet. Sert à recevoir les vidéos et à ranger les livrables.",
-      "action": "L'activer dans les réglages du projet."
+      "note": "Les liens Google Drive publics fonctionnent pour recevoir tes vidéos. Le connecteur n'est pas nécessaire pour l'instant.",
+      "action": null
     },
     {
       "id": "canva",
       "nom": "Canva",
-      "statut": "a_verifier",
+      "statut": "partiel",
       "cote": "claude",
-      "note": "Connecté au compte, mais pas activé dans ce projet. Utile à Léon (design) pour les modèles de carrousel.",
-      "action": "L'activer dans les réglages du projet."
+      "note": "Non nécessaire : les visuels sont produits directement par Léon.",
+      "action": null
     },
     {
       "id": "notion",
       "nom": "Notion",
-      "statut": "a_verifier",
+      "statut": "partiel",
       "cote": "claude",
-      "note": "Connecté au compte, pas activé dans ce projet. Non nécessaire pour l'instant."
+      "note": "Non nécessaire pour l'instant.",
+      "action": null
     },
     {
       "id": "youtube",

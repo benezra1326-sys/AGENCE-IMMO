@@ -18,7 +18,7 @@
       "note": "Le récap du matin est généré par le back-office (testé en local) ; l'envoi Telegram attend le bot.",
       "manque": [
         "Ajouter TELEGRAM_CHAT_ID dans les réglages du projet (le bot @Avishay_immo_bot est créé et relié)",
-        "Serveur et clé API Claude (environ 30 €/mois, décision reportée par toi) pour travailler seul, Mac éteint."
+        "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
       ]
     },
     {
@@ -35,7 +35,7 @@
       "execution": "session Claude (recherche web)",
       "note": "Aucune exécution planifiée.",
       "manque": [
-        "Serveur et clé API Claude (environ 30 €/mois, décision reportée par toi) pour travailler seul, Mac éteint. Aujourd'hui, la veille tourne à la demande."
+        "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
       ]
     },
     {
@@ -54,7 +54,7 @@
       "execution": "session Claude",
       "manque": [
         "Les infos de tes prochains biens (prix confirmé, droits médias et tournage)",
-        "Serveur et clé API Claude (environ 30 €/mois, décision reportée par toi) pour travailler seul, Mac éteint."
+        "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
       ]
     },
     {
@@ -73,7 +73,7 @@
       "execution": "session Claude",
       "manque": [
         "Ta validation du calendrier proposé",
-        "Serveur et clé API Claude (environ 30 €/mois, décision reportée par toi) pour travailler seul, Mac éteint."
+        "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
       ]
     },
     {
@@ -93,7 +93,7 @@
       "note": "Outils connectés côté Claude, aucune chaîne validée.",
       "manque": [
         "Ta validation de l'identité visuelle provisoire (couleurs, polices)",
-        "Serveur et clé API Claude (environ 30 €/mois, décision reportée par toi) pour travailler seul, Mac éteint."
+        "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
       ]
     },
     {
@@ -113,7 +113,7 @@
       "note": "Test ffmpeg du 8 novembre fait sur une seule photo : ne valide pas une vraie visite.",
       "manque": [
         "Les médias des prochains biens",
-        "Serveur et clé API Claude (environ 30 €/mois, décision reportée par toi) pour travailler seul, Mac éteint."
+        "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
       ]
     },
     {
@@ -132,7 +132,7 @@
       "note": "Choix d'Avishay le 10/11 : VoiceStudio sur son Mac (gratuit), pas de service en ligne. Utiliser un moteur à licence commerciale (VoxCPM2, Apache-2.0) et non le moteur par défaut OmniVoice (usage non commercial). Ne tourne que Mac allumé.",
       "manque": [
         "Ton test « Avi Voice » (Mac ouvert avec l'app Claude)",
-        "Le serveur pour travailler Mac éteint"
+        "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
       ],
       "preuve": "12 pistes EN/ES du Reel golf avec VoxCPM2 (licence commerciale), 11/11"
     },
@@ -156,7 +156,7 @@
       "note": "Instagram @avishay.marbella connecté via vidIQ le 11/11 : brouillons, publication et statistiques possibles. Page Facebook créée le 11/11, autorisation de publication sur la page encore à donner.",
       "manque": [
         "Ta validation du premier Reel pour préparer le brouillon",
-        "Le serveur pour publier à l'heure prévue, Mac éteint"
+        "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
       ],
       "musique": "Les vidéos arrivent sans musique. Inès choisit un son tendance adapté à une visite premium (pas d'humour ni de paroles fortes) et vérifie que les coupes du montage tombent sur son rythme. Depuis 2026, l'API Instagram (Audio API) permet de chercher les sons tendance et de les attacher au Reel à la publication, mais seulement les sons originaux d'autres Reels et la musique libre de droits de Meta (Sound Collection) ; le morceau démarre au début, sans découpe, et sans aperçu avant publication. Pour une chanson connue du catalogue sous licence, ou pour démarrer à un passage précis, le son s'ajoute dans l'application au moment de publier, avec la fiche de choix préparée par Inès. Source : documentation Meta « Instagram Audio API » (mise à jour du 16/06/2026)."
     },
@@ -175,7 +175,7 @@
       "note": "Facebook, YouTube et TikTok connectés via vidIQ le 12/11 (publication possible, toujours après ton OK).",
       "manque": [
         "Ta validation des premiers contenus à publier",
-        "Le serveur pour publier à l'heure prévue, Mac éteint"
+        "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
       ]
     },
     {
@@ -232,8 +232,8 @@
       "execution": "back-office (serveur)",
       "note": "Fiche, historique, anti-doublon et préparation des alertes testés avec un prospect fictif. Aucune réponse automatique au prospect.",
       "manque": [
-        "Le Gmail dédié pour recevoir les alertes (Telegram est relié)",
-        "Serveur et clé API Claude (environ 30 €/mois, décision reportée par toi) pour travailler seul, Mac éteint. Il doit tourner en continu pour répondre en moins de 5 minutes."
+        "Le Gmail dédié pour les alertes email (Telegram est relié)",
+        "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
       ]
     },
     {
@@ -251,7 +251,7 @@
       "execution": "session Claude (relecture avant validation)",
       "note": "Relit chaque contenu avant ta validation ; mesurera les résultats une fois Instagram connecté.",
       "manque": [
-        "Le serveur pour un bilan automatique chaque semaine"
+        "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
       ],
       "preuve": "Statistiques Instagram lues le 12/11 : 120 abonnés, 8 publications, 135 vues sur 30 jours"
     }
