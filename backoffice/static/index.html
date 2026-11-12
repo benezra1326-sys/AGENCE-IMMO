@@ -82,6 +82,9 @@ h3 { font: 600 .98rem/1.3 var(--f-body); margin: 0; overflow-wrap: anywhere }
 .recap li { font-size: .9rem } .recap li b { font-size: 1.15rem; margin-right: 4px; font-variant-numeric: lining-nums } .recap li.zero { color: var(--muted) }
 .recap .liste { margin-top: 12px }
 @media (max-width: 380px) { .recap ul { grid-template-columns: 1fr } }
+.projets { display: flex; gap: 6px; overflow-x: auto; margin: 4px 0 18px; padding: 4px; background: var(--surface, #fff); border: 1px solid var(--line, #e5e0d6); border-radius: 999px; width: fit-content; max-width: 100% }
+.projets a { padding: 7px 14px; border-radius: 999px; text-decoration: none; color: var(--muted); font-size: .85rem; font-weight: 600; white-space: nowrap }
+.projets a[aria-current="page"] { background: var(--ink); color: var(--on-ink) }
 .pastille { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px; border-radius: 999px; font-size: .72rem; font-weight: 600; white-space: nowrap; letter-spacing: .02em; flex: none }
 .pastille::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor }
 .s-prevu, .s-en_attente, .s-a_configurer, .s-liste_preparee, .s-brouillon, .s-en_preparation, .s-remplace { color: var(--idle); background: var(--idle-bg) }
@@ -333,7 +336,6 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
     const afaire = bl.map(t => rangeeTache(t)).concat(connexionsAFaire().slice(0, 6).map(c => ouvre("connexion", c.id, `<span class="puce ${puceStatut(c.statut)}"></span><span class="txt"><h3>${esc(c.nom)}</h3><span class="note">${esc(c.action)}</span></span>${pill(c.statut)}${CHEVRON}`, "rangee")));
     const equipe = `<div class="avatars">${ag.map(a => ouvre("agent", a.id, `${avatar(a)}<small>${esc(a.prenom || a.nom)}</small>`, "membre")).join("")}</div>
       <div class="legende-etats"><span>● testé : a déjà produit un vrai résultat</span><span>● bloqué : il lui manque un accès</span><span>● actif : tourne seul (serveur)</span></div>`;
-    const acts = E.activites.map(a => `<article class="carte"><div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><h3>${esc(a.nom)}</h3>${pill(a.etat)}</div><p class="note" style="color:var(--muted)">${esc(a.mission)}</p>${a.id === "immo" ? `<div class="actions"><a class="btn" href="#equipe">Voir l'équipe</a><a class="btn" href="#biens">Biens</a></div>` : `<p class="note meta">Espace prêt, aucun agent pour l'instant.</p>`}</article>`).join("");
     return `<section><h1>${salut}</h1><p class="intro">${esc(resume)}. ${STATIQUE ? `Données du ${date(E.genere_le)}.` : ""}</p></section>`
       + `<section>${titreSection("Récap du jour", null)}${recapJour()}</section>`
       + `<section>${titreSection("Parler à Victor", null)}${blocConsigne()}</section>`
@@ -343,7 +345,7 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
       + `<section>${titreSection("Ce qui attend une action", afaire.length)}<p class="intro">Touche une ligne pour voir le détail et ce qu'il faut faire.</p>${afaire.length ? `<div class="liste">${afaire.join("")}</div>` : `<p class="vide">Rien de bloqué.</p>`}</section>`
       + `<section>${titreSection("L'équipe Immobilier", ag.length, `<a class="lien-section" href="#equipe">Détail</a>`)}${equipe}</section>`
 
-      + `<section>${titreSection("Les trois activités", null)}<div class="grille-agents">${acts}</div></section>`;
+      ;
   }
 
   // Victor propose un agent d'après les mots de la consigne ; Avishay peut changer le destinataire avant d'envoyer.
@@ -533,7 +535,7 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
   }
   function vueAConfigurer(id) {
     const a = E.activites.find(x => x.id === id) || {};
-    return `${retourPlus}<section>${titreSection(esc(a.nom), null)}<article class="carte"><div>${pill(a.etat)}</div><p class="note">${esc(a.mission)}</p><p class="note meta">Espace prêt à recevoir ses agents, tâches et résultats. On le configure une fois l'immobilier rodé.</p></article></section>`;
+    return `<section>${titreSection(esc(id === "reseaux" ? "Création de contenu" : "Apps"), null)}<article class="carte"><div>${pill(a.etat)}</div><p class="note">${esc(a.mission)}</p><p class="note meta">Ce projet démarre : ses agents, tâches et contenus apparaîtront ici, séparés de l'immobilier. Pour lui donner une consigne, parle à Victor depuis l'accueil.</p></article></section>`;
   }
 
   // ---------- Fiches ----------
@@ -680,6 +682,11 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
   }
   const VUES = { accueil: vueAccueil, valider: vueValider, equipe: vueEquipe, taches: vueTaches, plus: vuePlus, biens: vueBiens, acheteurs: vueAcheteurs, connexions: vueConnexions, marche: vueMarche, partenaires: vuePartenaires, alertes: vueAlertes, couts: vueCouts, journal: vueJournal, apps: () => vueAConfigurer("apps"), reseaux: () => vueAConfigurer("reseaux") };
   const ANCIENNES = { vue: "accueil", immo: "accueil" };
+  const PROJETS = [["immo", "Immobilier", "#accueil"], ["apps", "Apps", "#apps"], ["reseaux", "Création de contenu", "#reseaux"]];
+  function barreProjets(r) {
+    const actif = r === "apps" || r === "reseaux" ? r : "immo";
+    return `<nav class="projets" aria-label="Projets">${PROJETS.map(([id, nom, h]) => `<a href="${h}"${id === actif ? ` aria-current="page"` : ""}>${nom}</a>`).join("")}</nav>`;
+  }
   function route() { let r = (location.hash || "#accueil").slice(1); r = ANCIENNES[r] || r; return VUES[r] ? r : "accueil"; }
   function rendre() {
     if (!E) return;
@@ -690,7 +697,7 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
     const bandeau = STATIQUE ? (DB && PEUT_ECRIRE ? "" : `<div class="bandeau">Aperçu en lecture seule. Ouvre cette page depuis ton compte Claude pour valider et donner des consignes.</div>`)
       : (E.mode_envoi === "reel" ? "" : `<div class="bandeau alerte">Service en mode test : alertes préparées, rien n'est envoyé.${E.service.telegram ? "" : " Bot Telegram non configuré."}</div>`);
     const gardes = {}; m.querySelectorAll("textarea[id], select[id]").forEach(t => { if (t.value) gardes[t.id] = t.value; });
-    m.innerHTML = bandeau + VUES[r]();
+    m.innerHTML = bandeau + barreProjets(r) + VUES[r]();
     Object.entries(gardes).forEach(([k, v]) => { const t = document.getElementById(k); if (t) { t.value = v; if (t.matches("[data-consigne]")) majProposition(k); } });
     const n = aValider().length, b = document.getElementById("badge-valider");
     b.hidden = !n; b.textContent = n;
@@ -731,6 +738,8 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
   async function deciderBase(id, decision, texte) {
     if (ENVOI.has(id)) return;
     ENVOI.add(id);
+    const c = E.contenus.find(x => x.id === id) || {};
+    envoyerAClaude(document.querySelector("#fiche .decision") || document.getElementById("fiche"), decision === "valide" ? `Avishay VALIDE « ${c.titre || id} ».` : `Avishay demande une modification sur « ${c.titre || id} » : ${texte || ""}`, "decision " + id);
     const ref = DB.doc("decisions/" + id), ancien = DECISIONS[id];
     const h = (ancien && ancien.historique ? ancien.historique.slice(-19) : []).concat([{ decision, texte: texte || "", quand: new Date().toISOString() }]);
     try {
@@ -753,7 +762,7 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
   function envoyerAClaude(el, texte, docId) {
     // Appelé dans le geste de clic : réveille la session de Claude qui suit ce tableau de bord.
     if (!DIRECT || !COMMENTS) return Promise.resolve(false);
-    return COMMENTS.anchorFor(el).then(anchor => COMMENTS.sendToClaude({ anchor, text: `Consigne d'Avishay (back-office, id ${docId}) :\n${texte}`.slice(0, 3900) }))
+    return COMMENTS.anchorFor(el).then(anchor => COMMENTS.sendToClaude({ anchor, text: `${docId.startsWith("decision ") ? "Back-office, " + docId : `Consigne d'Avishay (back-office, id ${docId})`} :\n${texte}`.slice(0, 3900) }))
       .then(() => true).catch(e => { if (e && ["forbidden", "claude_unavailable", "capability_removed"].includes(e.code)) DIRECT = false; return false; });
   }
   async function consigneBase(id) {
