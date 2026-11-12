@@ -12,7 +12,9 @@ import argparse
 import datetime as dt
 import json
 import os
+import re
 import sys
+import urllib.error
 import urllib.request
 from pathlib import Path
 
@@ -78,7 +80,9 @@ if __name__ == "__main__":
     ap.add_argument("--seulement")
     ap.add_argument("--modele", default=os.environ.get("OPENAI_MODEL", "gpt-4.1"))
     a = ap.parse_args()
-    cle = os.environ.get("OPENAI_API_KEY")
+    brut = os.environ.get("OPENAI_API_KEY", "")
+    m = re.search(r"sk-[A-Za-z0-9_\-]{20,}", brut)  # tolère un texte collé autour de la clé dans les réglages
+    cle = m.group(0) if m else brut.strip()
     if not cle:
         sys.exit("OPENAI_API_KEY absente : à ajouter dans les réglages du projet (une nouvelle session la lit).")
     res = {}
@@ -86,6 +90,12 @@ if __name__ == "__main__":
         try:
             res["A-" + t["id"]] = demander(a.modele, cle, t, c, texte)
             print("OK", t["id"], res["A-" + t["id"]].get("note"))
+        except urllib.error.HTTPError as e:  # le code d'erreur OpenAI (ex. crédits épuisés), jamais la clé
+            try:
+                code = json.loads(e.read()).get("error", {}).get("code")
+            except Exception:
+                code = None
+            print("ECHEC", t["id"], e.code, code or "")
         except Exception as e:  # une erreur sur un contenu n'arrête pas les autres ; la clé n'est jamais affichée
             print("ECHEC", t["id"], type(e).__name__)
     Path(a.sortie).write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
