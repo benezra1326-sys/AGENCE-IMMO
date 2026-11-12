@@ -12,6 +12,7 @@ Chaque nouveau retour d'Avishay (back-office, Telegram, fil) qui exprime un goû
 - Zone : « Marbella et ses alentours, jusqu'à Estepona ». Jamais « de Cabopino à Casares ».
 - Jamais le nom d'une villa ou d'un programme, ni d'adresse, ni d'architecte ou de décorateur. Zone seulement.
 - Biens à partir de 500 000 €, pas de plafond.
+- Le prix (« From €… ») EST affiché sur les contenus de biens et programmes, une fois confirmé par Avishay : ne pas conseiller de le retirer.
 - Aucun chiffre ni loi sans source. Aucune promesse de rendement, de financement ou de licence touristique. Pas l'offre « frais d'avocat offerts ».
 - Jamais de % de commission en public. Langues : français (sa voix), puis anglais et espagnol. Pas d'arabe.
 - Ton premium et sobre, sans humour. Insister sur l'accompagnement complet et le « nous ». Pas de « avec moi tout est plus simple ».
