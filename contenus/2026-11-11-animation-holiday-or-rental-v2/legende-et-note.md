@@ -52,3 +52,10 @@ Demande d'Avishay : trop rapide, ajouter une petite musique de fond, prévoir sa
 | 18,0 – 19,8 | Your goal shapes everything. | C'est votre objectif qui décide. |
 | 20,4 – 24,8 | Send me your budget and your project. | Envoyez-moi votre budget et votre projet. |
 Environ 2,3 mots par seconde en anglais : débit posé, rien d'accéléré. La version française est plus longue : si elle déborde, raccourcir la ligne de 6,4 s (« le quartier, le confort, le temps sur place »).
+
+## V5.2 (12/11/2026)
+Demandes d'Avishay : enlever le cadre noir, texte moins centré, changer la musique, voix off.
+- Plus de cadre : texte blanc en Montserrat (même famille que les textes de ses Reels publiés), ombre douce, léger dégradé en haut de l'image seulement. Bloc dans le tiers haut. Source : `animation-texte-v52.html`.
+- Nouvelle musique : piano cinématique doux sans batterie (`outils/musique_piano.py`, 76 BPM, -19 LUFS, 0 clic).
+- Fichiers : `animation-V5.2-musique-piano.mp4`, `animation-V5.2-sans-musique.mp4`, `musique-piano-seule.wav`, aperçu 720p.
+- Voix off : en attente des pistes Avi Voice (VoiceStudio tourne sur le Mac d'Avishay ; ce serveur ne peut pas la lancer).

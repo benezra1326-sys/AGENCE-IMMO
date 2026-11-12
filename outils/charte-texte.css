@@ -30,3 +30,8 @@
 .cx-tag{font-family:'Cormorant Garamond',serif;font-size:40px;font-style:italic;color:#cfcac2}
 .cx-tel{font-family:'Inter',sans-serif;font-weight:600;font-size:40px;letter-spacing:.06em;margin-top:56px}
 .cx-contact{font-family:'Inter',sans-serif;font-weight:300;font-size:30px;letter-spacing:.05em;color:#b0b0b0;line-height:1.7;margin-top:14px}
+/* V3 (12/11/2026) – police des textes sur les images alignée sur ses Reels publiés : sans-serif géométrique (Montserrat),
+   capitales, blanc, ombre douce, sans cadre. Le serif (Cormorant) reste réservé à l'écran final « LEVY & GOLDMAN ». */
+.cx-plan{font-family:'Montserrat',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.05em;line-height:1.12;color:#fff}
+.cx-plan-sur{font-family:'Montserrat',sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:.22em;color:#fff}
+.cx-plan-info{font-family:'Montserrat',sans-serif;font-weight:400;letter-spacing:.03em;color:#fff}

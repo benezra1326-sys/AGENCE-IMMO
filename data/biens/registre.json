@@ -16,10 +16,11 @@
    "partenaire": "Levy & Goldman (site, programmes neufs)",
    "zone": "New Golden Mile, Estepona",
    "type": "programme neuf",
-   "statut": "a_valider",
+   "statut": "contenu_a_valider",
    "source": "https://levygoldman.com/property/luxury-resort-living-on-marbellas-new-golden-mile/ (consulté 12/11/2026)",
    "prix_affiche": "745 000 – 1 595 000 € (à confirmer)",
-   "droits_medias": "photos du site, usage demandé par Avishay le 12/11/2026 (à confirmer)"
+   "droits_medias": "photos du site, usage demandé par Avishay le 12/11/2026 (à confirmer)",
+   "fiche": "data/biens/AB-0002.json"
   },
   {
    "ref": "AB-0003",
