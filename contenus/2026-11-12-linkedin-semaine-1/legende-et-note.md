@@ -6,27 +6,27 @@ Règles respectées : aucun chiffre sans source (il n'y en a aucun), aucune prom
 
 ---
 
-## Post 1 – Présentation (mardi)
+## Post 1 – Accroche : la bonne question (mardi)
 
-Visuel : couverture du Reel villa golf validé (zone seulement, aucun nom de bien).
+Visuel : photo de la villa golf (vue sur La Concha), titre « Pour les vacances ou pour y vivre ? », signature Levy & Goldman (post1.jpg, 1080 × 1350).
 
 **FR**
-Je m'appelle Avishay Benazra. J'accompagne des acheteurs francophones dans leur projet immobilier sur la Costa del Sol, au sein de Levy & Goldman à Marbella.
+« Marbella, c'est pour les vacances ou pour y vivre ? »
 
-Notre secteur : Marbella et ses alentours, jusqu'à Estepona. Villas, appartements, terrains et biens hors marché.
+C'est la première question à se poser quand on regarde la Costa del Sol. Elle change tout : le quartier, le type de bien, le budget réel.
 
-Beaucoup de vos clients pensent à l'Espagne sans savoir par où commencer. C'est là que nous intervenons : un seul interlocuteur, en français, du premier appel jusqu'à la remise des clés.
+À Marbella et jusqu'à Estepona, nous accompagnons ces projets du premier appel à la remise des clés : une sélection de biens, y compris hors marché, des visites sur place ou en vidéo, la négociation, et la mise en relation avec des avocats et des notaires indépendants. Le tout en français.
 
-Agences, chasseurs, conseillers en patrimoine : si l'un de vos clients regarde Marbella, échangeons.
+Vous êtes agent, chasseur immobilier ou conseiller en patrimoine, et l'un de vos clients pense à l'Espagne ? Parlons-en. Votre client reste votre client : nous sommes votre relais sur place.
 
 **EN**
-I am Avishay Benazra. I guide buyers through their property project on the Costa del Sol, with Levy & Goldman in Marbella.
+"Marbella: for holidays, or to live there?"
 
-Our area: Marbella and its surroundings, up to Estepona. Villas, apartments, plots and off-market properties.
+It is the first question to ask when you look at the Costa del Sol. It changes everything: the area, the type of property, the real budget.
 
-Many of your clients think about Spain without knowing where to start. That is where we come in: one point of contact, from the first call to the keys.
+In Marbella and up to Estepona, we guide these projects from the first call to the keys: a selection of properties, off-market included, viewings in person or by video, negotiation, and introductions to independent lawyers and notaries.
 
-Agencies, buyer's agents, wealth advisers: if one of your clients is looking at Marbella, let's talk.
+Are you an agent, a buyer's agent or a wealth adviser with a client thinking about Spain? Let's talk. Your client stays your client: we are your partner on the ground.
 
 ---
 
@@ -64,7 +64,7 @@ Lawyers and brokers are independent professionals. No financing or outcome is gu
 
 ## Post 3 – Travailler avec nous quand on est une agence ou un conseiller (lundi suivant)
 
-Visuel : la diapositive « With us · From first call to the keys » du carrousel.
+Visuel : terrasse et piscine au crépuscule, titre « Votre relais sur place » (post3.jpg, 1080 × 1350).
 
 **FR**
 Quand une agence ou un conseiller nous confie un client, voici ce qui se passe :

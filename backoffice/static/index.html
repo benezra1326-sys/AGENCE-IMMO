@@ -192,6 +192,8 @@ dialog.fiche::backdrop { background: rgb(0 0 0 / .5) }
 details { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; background: var(--surface-2) }
 details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
 .telecharger { display: inline-block; margin-left: 6px; font-weight: 600; color: var(--fg); text-decoration: underline }
+.banniere { border: 1px solid var(--line); background: var(--surface-2); border-radius: 12px; padding: 12px 14px; margin: 12px 0; display: grid; gap: 10px }
+.banniere p { margin: 0 }
 .cal-jour { font-size: .95rem; margin: 18px 0 8px; text-transform: capitalize }
 .cal-heure { font-variant-numeric: tabular-nums; font-weight: 600; min-width: 52px }
 .li-posts { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; margin: 10px 0 }
@@ -247,7 +249,7 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
   const STATIQUE = !!window.__ETAT__;
   let E = window.__ETAT__ || null;
   let DB = null, PEUT_ECRIRE = false;           // page publiée : décisions enregistrées dans la base de l'artifact
-  const DECISIONS = {}, CONSIGNES = [], CAL = {};  // CAL : calendrier des publications (collection « calendrier »)
+  const DECISIONS = {}, CONSIGNES = [], CAL = {}; let AUTORISATION = null;  // état de la permission « comments » (envoi à Victor)  // CAL : calendrier des publications (collection « calendrier »)
   let DICT = null, CIBLE_DICTEE = null, SAMPLE = null, COMMENTS = null, DIRECT = false;  // DIRECT : la consigne réveille Claude (Send to Claude)  // SAMPLE : réponse immédiate de l'agent         // dictée vocale (Chrome et app Claude sur ordinateur)
   const actif = () => !STATIQUE || (DB && PEUT_ECRIRE);
   const filtres = { taches: "a_traiter" };
@@ -361,7 +363,7 @@ details summary { cursor: pointer; font-weight: 500; font-size: .9rem }
     const afaire = bl.map(t => rangeeTache(t)).concat(connexionsAFaire().slice(0, 6).map(c => ouvre("connexion", c.id, `<span class="puce ${puceStatut(c.statut)}"></span><span class="txt"><h3>${esc(c.nom)}</h3><span class="note">${esc(c.action)}</span></span>${pill(c.statut)}${CHEVRON}`, "rangee")));
     const equipe = `<div class="avatars">${ag.map(a => ouvre("agent", a.id, `${avatar(a)}<small>${esc(a.prenom || a.nom)}</small>`, "membre")).join("")}</div>
       <div class="legende-etats"><span>● testé : a déjà produit un vrai résultat</span><span>● bloqué : il lui manque un accès</span><span>● actif : tourne seul (serveur)</span></div>`;
-    return `<section><h1>${salut}</h1><p class="intro">${esc(resume)}. ${STATIQUE ? `Données du ${date(E.genere_le)}.` : ""}</p></section>`
+    return `${banniereAutorisation()}<section><h1>${salut}</h1><p class="intro">${esc(resume)}. ${STATIQUE ? `Données du ${date(E.genere_le)}.` : ""}</p></section>`
       + `<section>${titreSection("Récap du jour", null)}${recapJour()}</section>`
       + `<section>${titreSection("Parler à Victor", null)}${blocConsigne()}</section>`
       + `<section>${tuiles}</section>`
@@ -534,8 +536,11 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
     ["apps", "Applications", "Activité à configurer", () => null],
     ["reseaux", "Réseaux", "Activité à configurer", () => null]
   ];
+  function banniereAutorisation() {
+    return AUTORISATION === "prompt" || AUTORISATION === "denied" ? `<div class="banniere"><p><b>Une seule fois :</b> autorise le back-office à prévenir Victor. Ensuite, tes demandes partent sans fenêtre de confirmation.</p><button class="btn principal" data-autoriser>${AUTORISATION === "denied" ? "Ouvrir les autorisations" : "Autoriser une fois pour toutes"}</button></div>` : "";
+  }
   function vuePlus() {
-    return `<section>${titreSection("Plus", null)}<div class="plus-grille">${RUBRIQUES.map(([r, l, d, n]) => { const v = n(); return `<a class="cliquable plus-item" href="#${r}"><span class="txt"><h3>${l}${v !== null ? ` <span class="compte">${v}</span>` : ""}</h3><small>${d}</small></span>${CHEVRON}</a>`; }).join("")}</div></section>`;
+    return `<section>${titreSection("Plus", null)}${banniereAutorisation()}<p><button class="btn" data-gerer-autorisations>Gérer les autorisations de la page</button></p><div class="plus-grille">${RUBRIQUES.map(([r, l, d, n]) => { const v = n(); return `<a class="cliquable plus-item" href="#${r}"><span class="txt"><h3>${l}${v !== null ? ` <span class="compte">${v}</span>` : ""}</h3><small>${d}</small></span>${CHEVRON}</a>`; }).join("")}</div></section>`;
   }
   const retourPlus = `<a class="btn retour" href="#plus">← Plus</a>`;
 
@@ -758,7 +763,7 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
     try {
       const [db, user] = await Promise.all([window.claude.use("db"), window.claude.use("user")]);
       window.claude.use("sample").then(x => { SAMPLE = x; }).catch(() => {});
-      window.claude.use("comments").then(async c => { COMMENTS = c; await verifierDirect(); }).catch(() => {});
+      window.claude.use("comments").then(async c => { COMMENTS = c; await verifierDirect(); lireAutorisation(); }).catch(() => {});
       if (!db) return;
       DB = db;
       PEUT_ECRIRE = user ? (user.can ? (await user.can("data.write")) !== false : true) && (user.canEdit ? await user.canEdit() : true) : false;
@@ -851,7 +856,7 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
   fiche.addEventListener("close", () => { fiche.querySelectorAll("video").forEach(v => v.pause()); fiche._courant = null; PILE.length = 0; });
   fiche.addEventListener("click", ev => { if (ev.target === fiche) fiche.close(); });
   document.addEventListener("click", ev => {
-    const el = ev.target.closest("[data-fiche],[data-fermer],[data-retour],[data-filtre],[data-filtre-lien],[data-valider],[data-ouvrir-modif],[data-envoyer],[data-reprendre],[data-envoyer-consigne],[data-micro],[data-repondre]");
+    const el = ev.target.closest("[data-fiche],[data-fermer],[data-retour],[data-filtre],[data-filtre-lien],[data-valider],[data-ouvrir-modif],[data-envoyer],[data-reprendre],[data-envoyer-consigne],[data-micro],[data-repondre],[data-autoriser],[data-gerer-autorisations]");
     if (!el) return;
     if (el.dataset.fiche) { ev.preventDefault(); return ouvrirFiche(el.dataset.fiche, el.dataset.id); }
     if (el.hasAttribute("data-fermer")) return fiche.close();
@@ -860,6 +865,7 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
     if (el.dataset.filtre) { filtres.taches = el.dataset.filtre; return rendre(); }
     if (el.hasAttribute("data-ouvrir-modif")) { const f = document.getElementById("form-modif"); if (f) { f.hidden = !f.hidden; if (!f.hidden) { f.querySelector("textarea").focus(); if (DICT && !DICT.active()) basculerDictee("modif-texte"); } } return; }
     if (el.dataset.micro) return basculerDictee(el.dataset.micro);
+    if (el.hasAttribute("data-autoriser") || el.hasAttribute("data-gerer-autorisations")) return autoriser(el.hasAttribute("data-gerer-autorisations") || AUTORISATION === "denied");
     if (el.dataset.repondre) { if (!DB || !PEUT_ECRIRE) return; return repondreConsigne(el.dataset.repondre); }
     if (el.dataset.envoyerConsigne) { if (STATIQUE && (!DB || !PEUT_ECRIRE)) return; return consigneBase(el.dataset.envoyerConsigne); }
     if (STATIQUE) {
@@ -872,6 +878,17 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
     if (el.dataset.envoyer) return poster(`/api/contenus/${encodeURIComponent(el.dataset.envoyer)}/modifier`, { texte: document.getElementById("modif-texte").value });
     if (el.dataset.reprendre) return poster(`/api/taches/${encodeURIComponent(el.dataset.reprendre)}/reprendre`);
   });
+  async function lireAutorisation() {
+    try { const p = await window.claude.use("permissions"); if (!p) return; AUTORISATION = await p.state("comments"); rendre(); } catch (e) { /* sans effet */ }
+  }
+  async function autoriser(panneau) {
+    try {
+      const p = await window.claude.use("permissions"); if (!p) return toast("Ouvre le menu Autorisations de la page.");
+      if (panneau) { await p.manage(); } else { await p.request(["comments"]); }
+      AUTORISATION = await p.state("comments"); rendre();
+      toast(AUTORISATION === "granted" ? "C'est autorisé : plus de fenêtre de confirmation." : "Pas encore autorisé.");
+    } catch (e) { toast("Ouvre le menu Autorisations de la page (en haut)."); }
+  }
   function basculerDictee(champ) {
     if (!DICT) return;
     if (DICT.active()) { DICT.stop().catch(() => {}); return; }
