@@ -22,8 +22,8 @@
       "nom": "Envoi d'emails d'alerte vers avi@levygoldman.com",
       "statut": "partiel",
       "cote": "serveur",
-      "note": "Code prêt. En attendant le Gmail dédié, les alertes passent par Telegram.",
-      "action": "Quand ton Gmail dédié existe, donne-moi son adresse ici (le mot de passe d'application va dans les réglages, jamais dans le chat)."
+      "note": "Gmail dédié créé et connecté à Claude (12/11). Pour que le serveur envoie seul, il faudra son mot de passe d'application (dans les réglages, jamais dans le chat). En attendant, alertes par Telegram.",
+      "action": null
     },
     {
       "id": "hebergement",
@@ -52,10 +52,10 @@
     {
       "id": "gcal",
       "nom": "Google Agenda",
-      "statut": "manquant",
+      "statut": "operationnel",
       "cote": "claude",
-      "note": "Pas encore connecté au compte Claude. Sert aux rappels de visite et aux créneaux proposés par Sofia.",
-      "action": "Connecte Google Agenda avec la carte envoyée dans le fil (2 clics)."
+      "note": "Connecté le 12/11 sur le compte Gmail dédié aux alertes. Le calendrier des publications y est copié (événements « [Publication] »).",
+      "action": null
     },
     {
       "id": "instagram",
