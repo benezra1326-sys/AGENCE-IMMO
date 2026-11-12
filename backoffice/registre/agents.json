@@ -169,14 +169,13 @@
       "roles": [
         "republication"
       ],
-      "etat": "bloque",
+      "etat": "configure",
       "instructions": null,
       "execution": "API officielles",
-      "note": "Page Facebook à créer ; YouTube et TikTok non connectés. TikTok restera publié à la main depuis l'application.",
+      "note": "Facebook, YouTube et TikTok connectés via vidIQ le 12/11 (publication possible, toujours après ton OK).",
       "manque": [
-        "Facebook : autoriser la nouvelle page dès que Meta l'a validée (lien envoyé)",
-        "YouTube : autoriser ta chaîne (lien envoyé le 12/11)",
-        "TikTok : autoriser ton compte (lien envoyé le 12/11)"
+        "Ta validation des premiers contenus à publier",
+        "Le serveur pour publier à l'heure prévue, Mac éteint"
       ]
     },
     {

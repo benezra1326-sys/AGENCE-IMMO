@@ -1,6 +1,6 @@
 {
   "_legende": "statut : operationnel (testé et utilisable par le service), partiel (fonctionne mais pas pour l'usage prévu), manquant (à créer ou relier), a_verifier. cote : où la connexion vit (serveur = utilisable Mac éteint ; claude = seulement dans une session Claude ; telephone ; mac).",
-  "verifie_le": "10 novembre 2026",
+  "verifie_le": "12 novembre 2026",
   "connexions": [
     {
       "id": "github",
@@ -67,10 +67,10 @@
     {
       "id": "facebook",
       "nom": "Page Facebook",
-      "statut": "partiel",
+      "statut": "operationnel",
       "cote": "telephone",
-      "action": "Autoriser vidIQ à publier sur la page (lien envoyé le 11/11).",
-      "note": "Page « Avishay Marbella » créée le 11/11 et reliée à Instagram."
+      "action": null,
+      "note": "Page « Avishay Marbella » connectée via vidIQ, peut publier (12/11)."
     },
     {
       "id": "linkedin",
@@ -168,17 +168,18 @@
     {
       "id": "youtube",
       "nom": "Chaîne YouTube",
-      "statut": "manquant",
+      "statut": "operationnel",
       "cote": "serveur",
-      "note": "Shorts prêts dans les kits d'Arthur ; autorisation de publication à donner.",
-      "action": "Autoriser l'application YouTube (guide pas à pas)."
+      "note": "Chaîne @avibenazra connectée via vidIQ, peut publier (12/11).",
+      "action": null
     },
     {
       "id": "tiktok",
       "nom": "TikTok",
-      "statut": "partiel",
+      "statut": "operationnel",
       "cote": "telephone",
-      "note": "L'API ne publie qu'en privé sans audit : publication manuelle avec le kit d'Arthur."
+      "note": "Compte « avibenazra » connecté via vidIQ, peut publier (12/11).",
+      "action": null
     }
   ]
 }
