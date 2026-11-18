@@ -25,7 +25,7 @@ Demande d'Avishay (18/11) : voir les Reels des plus grosses agences de Marbella,
 | The Agency (collab @timberwit) | [DegxcOvIt3g](https://www.instagram.com/reel/DegxcOvIt3g/) | 2026-10-15 | 10 376 | Disfruto – Carla Morrison | Pop latine douce |
 | Collective | [Dd5r54EAiof](https://www.instagram.com/reel/Dd5r54EAiof/) | 2026-09-30 | 9 568 | Loser – Tame Impala | Pop psychédélique |
 | The Agency (collab @timberwit) | [Det30GBol6D](https://www.instagram.com/reel/Det30GBol6D/) | 2026-10-20 | 7 542 | Disfruto – Carla Morrison | Pop latine douce |
-| Mas Property | [DaHwhceocWp](https://www.instagram.com/reel/DaHwhceocWp/) | 2026-06-28 | 4 512 | Daydream – Gunter Kallmann Choir | Easy listening vintage  chœurs |
+| Mas Property | [DaHwhceocWp](https://www.instagram.com/reel/DaHwhceocWp/) | 2026-06-28 | 4 512 | Daydream – Gunter Kallmann Choir | Easy listening vintage, chœurs |
 | Mas Property | [Dbnwe6YIa8E](https://www.instagram.com/reel/Dbnwe6YIa8E/) | 2026-08-04 | 4 100 | Beautiful Home – Morunas | Pop douce |
 | MPDunne (collab) | [Dbs9I-tMA94](https://www.instagram.com/reel/Dbs9I-tMA94/) | 2026-08-06 | 3 422 | Lie Alone (16BL Remix) – L. Doblado | Deep house mélodique (remix) |
 | The Agency | [DaSdI7VolLl](https://www.instagram.com/reel/DaSdI7VolLl/) | 2026-07-02 | 3 041 | Con la Misma Piedra – Julio Iglesias | Variété espagnole |
@@ -37,18 +37,18 @@ Demande d'Avishay (18/11) : voir les Reels des plus grosses agences de Marbella,
 | Key Real Estate | [DdYnqVAIBXy](https://www.instagram.com/reel/DdYnqVAIBXy/) | 2026-09-17 | 2 102 | Kiss of Life – Sade | Soul / R&B chic |
 | The Agency (Emil) | [Deca1DKoyTv](https://www.instagram.com/reel/Deca1DKoyTv/) | 2026-10-13 | 1 306 | Built To Last – Jaxson Blue | Électro-pop dynamique |
 | Key Real Estate | [DZKc-MUofKH](https://www.instagram.com/reel/DZKc-MUofKH/) | 2026-06-04 | 1 278 | Come l’Arancio Amaro – Italian Atmosphere | Lounge italien |
-| Collective | [Dc3uX0aIa3x](https://www.instagram.com/reel/Dc3uX0aIa3x/) | 2026-09-04 | 1 076 | Si Ai (Marshmello & Ukay Remix) – Tayna  Marshmello  UKAY | Électro latine dansante |
-| Newbery (agent) | [DO6BCCUiK_a](https://www.instagram.com/reel/DO6BCCUiK_a/) | 2025-09-22 | 914 | Flower Moon – Durand Jones & The Indications  Aaron Frazer | Soul rétro |
+| Collective | [Dc3uX0aIa3x](https://www.instagram.com/reel/Dc3uX0aIa3x/) | 2026-09-04 | 1 076 | Si Ai (Marshmello & Ukay Remix) – Tayna, Marshmello, UKAY | Électro latine dansante |
+| Newbery (agent) | [DO6BCCUiK_a](https://www.instagram.com/reel/DO6BCCUiK_a/) | 2025-09-22 | 914 | Flower Moon – Durand Jones & The Indications, Aaron Frazer | Soul rétro |
 | Key Real Estate | [DdBpcBPI2GJ](https://www.instagram.com/reel/DdBpcBPI2GJ/) | 2026-09-08 | 877 | Veil of Satin – Axel de Chevron Villette | Lounge / jazz lent |
 | Key Real Estate | [DXtUoabjI95](https://www.instagram.com/reel/DXtUoabjI95/) | 2026-04-29 | 783 | Sunny – Chris Montez | Pop rétro |
 | Key Real Estate | [DbcvLBKokAN](https://www.instagram.com/reel/DbcvLBKokAN/) | 2026-07-31 | 769 | Bellissima – Italian Atmosphere | Lounge italien |
 | International Marbella | [DfP7NKjMxqm](https://www.instagram.com/reel/DfP7NKjMxqm/) | 2026-11-02 | 663 | At Last – Etta James | Soul / jazz classique |
-| The Agency (Emil) | [Dfg_V3OI0Jf](https://www.instagram.com/reel/Dfg_V3OI0Jf/) | 2026-11-09 | 657 | Work hard  dream big – Blues369 | Pop motivante |
-| Key Real Estate | [Db8EOTYt1af](https://www.instagram.com/reel/Db8EOTYt1af/) | 2026-08-12 | 633 | Un jour tu ris  un jour tu pleures (No Soy De Aqui) – Julio Iglesias | Variété (Julio Iglesias) |
+| The Agency (Emil) | [Dfg_V3OI0Jf](https://www.instagram.com/reel/Dfg_V3OI0Jf/) | 2026-11-09 | 657 | Work hard, dream big – Blues369 | Pop motivante |
+| Key Real Estate | [Db8EOTYt1af](https://www.instagram.com/reel/Db8EOTYt1af/) | 2026-08-12 | 633 | Un jour tu ris, un jour tu pleures (No Soy De Aqui) – Julio Iglesias | Variété (Julio Iglesias) |
 | Key Real Estate | [DY108oxNVlv](https://www.instagram.com/reel/DY108oxNVlv/) | 2026-05-27 | 609 | Come l’Arancio Amaro – Italian Atmosphere | Lounge italien |
 | Newbery (agent) | [DQE1UJJCN5_](https://www.instagram.com/reel/DQE1UJJCN5_/) | 2025-10-21 | 522 | Autumn Days – Morunas | Pop douce |
 | Marbel Haus | [DJ85EOHKYoW](https://www.instagram.com/reel/DJ85EOHKYoW/) | 2025-05-22 | 459 | On ma Mind – Freddie Banks | House |
-| International Marbella | [DfqNkOyKsTs](https://www.instagram.com/reel/DfqNkOyKsTs/) | 2026-11-12 | 287 | Let It Snow  Ket It Snow – Dean Martin | Chanson de Noël |
+| International Marbella | [DfqNkOyKsTs](https://www.instagram.com/reel/DfqNkOyKsTs/) | 2026-11-12 | 287 | Let It Snow, Ket It Snow – Dean Martin | Chanson de Noël |
 | International Marbella | [DfCHW83h5C5](https://www.instagram.com/reel/DfCHW83h5C5/) | 2026-10-28 | 286 | Diamonds – Rihanna | Pop |
 | Mas Property | [DV0y3ctCOcC](https://www.instagram.com/reel/DV0y3ctCOcC/) | 2026-03-13 | 244 | Cinnamon Girl – Lana Del Rey | Pop mélancolique |
 
