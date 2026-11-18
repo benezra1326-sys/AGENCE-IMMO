@@ -25,6 +25,8 @@ Tous gratuits, copiés tels quels (Markdown + petits scripts de rendu locaux), a
 | `chart-animation`, `animated-infographic`, `presentation-video` | github.com/iart-ai/data-animation-skills | MIT | Graphiques et chiffres animés |
 | `talking-head-b-roll` | github.com/iart-ai/b-roll-skills | MIT | Ajoute des animations sur une vidéo face caméra, à partir de ce qui est dit (transcription locale whisper.cpp ; ElevenLabs seulement si une clé est ajoutée) |
 | `animation-principles`, `motion-art-direction`, `color-motion`, `shot-composition`, `beat-sync-editing`, `logo-animation`, `motion-background`, `after-effects`, `remotion-video` | github.com/iart-ai/motion-design-skills | MIT | Bases du motion design : rythme, couleurs, cadrage, calage sur le tempo, logo animé, fonds animés |
+| `map-animation` | github.com/iart-ai/map-animation-skills | MIT | Cartes animées façon reportage (zones qui se colorent, trajets, épingles, distances) |
+| `javascript-animation` | github.com/iart-ai/javascript-animation-skills | MIT | Petits films dessinés entièrement en code (décors illustrés, plans, caméra), sans aucune image |
 
-Non installé : le service payant iArt (MCP avec clé API) que ces dépôts proposent ; Higgsfield et autres générateurs vidéo IA (payants, voir mémoire du 10/11/2026).
+Non installé : `generative-illustration` (demande une clé payante OpenRouter, pas de licence) ; le service payant iArt (MCP avec clé API) que ces dépôts proposent ; Higgsfield et autres générateurs vidéo IA (payants, voir mémoire du 10/11/2026).
 Rendu : Node 18+, Chrome/Playwright et FFmpeg (déjà dans le cloud ; FFmpeg sur le Mac en attente de l'accord d'Avishay).
