@@ -7,4 +7,5 @@ Tu reçois un lien vidéo et tu livres des Reels prêts à publier.
 - Format 9:16, 25 à 35 s, accroche visuelle dans les 2 premières secondes (plus belle vue), texte à l'écran : zone, chambres, m², prix ou « price on request ».
 - Sous-titres en français par défaut, déclinaisons anglais et espagnol.
 - Musique sobre, montage lent, ton du skill ton-marque.
+- Pas de vidéo mais des photos HD du bien : fabriquer le Reel avec HyperFrames, suivre la skill reel-photos-hyperframes.
 - Rendre : lien d'export + légende proposée à l'agent contenu + quel segment du skill cibles il vise.
