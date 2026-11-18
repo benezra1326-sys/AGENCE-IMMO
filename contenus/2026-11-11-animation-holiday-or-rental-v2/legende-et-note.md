@@ -1,0 +1,90 @@
+# Animation « Holiday home or rental investment? » – à valider par Avishay, rien n'est publié
+
+## Version proposée : V5.2 (12/11/2026)
+- Vidéo : `/mnt/project-files/agence-immo/contenus/2026-11-12-animation-holiday-or-rental-v5/animation-V5.2-sans-musique.mp4` (25,2 s, ralentie, sans cadre, texte blanc Montserrat dans le tiers haut, écran final noir Levy & Goldman).
+- Musique : 3 propositions de deep house moderne à écouter, dans `/mnt/project-files/agence-immo/musiques/animation-holiday-or-rental/deephouse-*` (Autofahren, Deep Urban, Winter Breeze ; Mixkit, licence gratuite, usage commercial sur les réseaux autorisé). Le piano et l'ambient ont été refusés.
+- Voix off : script ci-dessous, en attente des pistes Avi Voice.
+
+### Légende (EN)
+Holiday home or rental investment? In Marbella, the answer changes everything: the area, the type of property, the rules to check and the real budget.
+
+Start with your goal. Send us your budget and your project in a private message, and we will come back to you with a clear plan, in Marbella and the surrounding area, up to Estepona. We guide you at every step, from the search to the keys.
+
+#Marbella #MarbellaRealEstate #CostaDelSol #PropertyInSpain #HolidayHome #Estepona
+
+### Légende (FR)
+Résidence secondaire ou investissement locatif ? À Marbella, la réponse change tout : le quartier, le type de bien, les règles à vérifier et le vrai budget.
+
+Commencez par votre objectif. Envoyez-nous votre budget et votre projet en message privé : nous revenons vers vous avec un plan clair, à Marbella et ses alentours, jusqu'à Estepona. Nous vous accompagnons à chaque étape, de la recherche jusqu'aux clés.
+
+### Légende (ES)
+¿Segunda residencia o inversión para alquilar? En Marbella, la respuesta lo cambia todo: la zona, el tipo de vivienda, las normas que hay que comprobar y el presupuesto real.
+
+Empiece por su objetivo. Envíenos su presupuesto y su proyecto por mensaje privado y le responderemos con un plan claro, en Marbella y alrededores, hasta Estepona. Le acompañamos en cada paso, desde la búsqueda hasta las llaves.
+
+Mention à l'écran conservée : « No rental income or tourist licence assumed · Each property is checked individually ». Aucun chiffre, aucune promesse.
+
+---
+# Historique des versions
+
+## V1 (09/11/2026)
+
+Fichiers (hors git, stockage du projet) : `/mnt/project-files/agence-immo/contenus/2026-11-09-animation-holiday-or-rental/`
+- `animation-holiday-or-rental-EN.mp4` : 1080 × 1920, 18 s, H.264 + AAC, fond musical sobre composé par synthèse (aucun droit tiers).
+- `animation-holiday-or-rental-EN-sans-musique.mp4` : même vidéo muette, pour ajouter un son de la bibliothèque Instagram à la publication (recommandé).
+Source modifiable : `animation.html` (fonction render(t)), rendu par `outils/rendu-animation.js` puis ffmpeg.
+
+## Déroulé
+| Temps | Texte à l'écran |
+| --- | --- |
+| 0 – 3 s | Holiday home / or rental investment? |
+| 3,3 – 6,5 s | Start with your goal. |
+| 6,6 – 11 s | Two different searches : Holiday home (the area you love, the comfort you want, the time you will spend there) / Rental investment (rules, demand and total costs, checked property by property) |
+| 11 – 14 s | Your goal shapes the area, the property and the budget. |
+| 14,2 – 18 s | Send me your budget and project. Private message @avishay.marbella. Mention : no rental income or tourist licence is assumed. |
+
+## Légende anglaise
+Holiday home or rental investment? In Marbella, the answer changes everything: the area, the type of property, the rules to check and the real budget.
+
+Start with your goal. (Légende V1 remplacée : voir la version proposée en haut de ce fichier.)
+
+#Marbella #MarbellaRealEstate #CostaDelSol #PropertyInSpain #HolidayHome #NuevaAndalucia
+
+## Note interne
+Aucun chiffre, aucun rendement, aucune promesse de licence touristique : rien à sourcer. La mention « checked property by property » renvoie au Decreto 28/2016 (Junta de Andalucía) sans le citer à l'écran.
+
+## V2 (11/11/2026)
+Demande d Avishay : s inspirer des vidéos des autres agents, aligner police et position, enlever la musique. Refaite sur images de villa (vidéo autorisée AB-0001, aucun bien nommé), sans musique, 18,9 s, même charte que le Reel et le carrousel (outils/charte-texte.css). Texte inchangé sur le fond, mention de prudence conservée.
+
+## V3 (11/11/2026)
+Retour d Avishay sur la V2 : texte peu lisible, pas assez animé. Étude de Reels immobiliers performants (outliers Instagram/TikTok août-nov. 2026, via vidIQ) : accroche lisible dès la 1re seconde, un message par plan, texte guidé qui change avec les images. V3 : cartes sombres derrière le texte (lisibles sur toute image), mots qui arrivent un par un, listes qui se déroulent, pastilles Area / Property / Budget, bouton DM. Rendu : animation-texte.html (TRANSPARENT=1 node outils/rendu-animation.js ... 18.9 25) superposé au fond plan-fond.json. Sans musique.
+
+## V4 (11/11/2026)
+« Pas mal, on peut encore optimiser » : accroche visible dès la 1re image (pas de fondu au noir), zoom avant léger et continu sur chaque plan (zoom 0.07), cartes qui changent sur les coupes, barre de progression en haut.
+
+## V5 (12/11/2026) – ralentie, petite musique, place pour la voix
+Demande d'Avishay : trop rapide, ajouter une petite musique de fond, prévoir sa voix (Avi Voice, VoiceStudio sur son Mac).
+- Vitesse 0,75 : 25,2 s au lieu de 18,9 s (images ralenties par interpolation, textes recalés). Source : `animation-texte-v5.html`.
+- Même style que ses Reels publiés : écran final noir « LEVY & GOLDMAN », filet gris, « Your dream property awaits », téléphone, email, @.
+- Fichiers (hors git) : `/mnt/project-files/agence-immo/contenus/2026-11-12-animation-holiday-or-rental-v5/`
+  - `animation-V5-musique.mp4` : musique originale douce (composée par programme, aucun droit tiers, -20 LUFS).
+  - `animation-V5-sans-musique.mp4` : pour un son Instagram ou pour poser la voix.
+  - `musique-seule.wav` : la musique seule, pour le mixage avec la voix (voix à 100 %, musique baissée de 10 à 12 dB sous la voix).
+
+### Script de voix off, calé sur la V5
+| Temps (s) | Anglais | Français (Avishay enregistre en français) |
+| --- | --- | --- |
+| 0,3 – 3,6 | Holiday home, or rental investment? | Résidence secondaire, ou investissement locatif ? |
+| 4,2 – 6,0 | Start with your goal. | Commencez par votre objectif. |
+| 6,4 – 11,8 | A holiday home: the area you love, the comfort you want, your time there. | Une résidence secondaire : le quartier que vous aimez, le confort que vous voulez, le temps que vous y passerez. |
+| 12,5 – 17,5 | A rental investment: local rules, real demand and total costs, checked property by property. | Un investissement locatif : les règles locales, la vraie demande et le coût total, vérifiés bien par bien. |
+| 18,0 – 19,8 | Your goal shapes everything. | C'est votre objectif qui décide. |
+| 20,4 – 24,8 | Send me your budget and your project. | Envoyez-moi votre budget et votre projet. |
+Environ 2,3 mots par seconde en anglais : débit posé, rien d'accéléré. La version française est plus longue : si elle déborde, raccourcir la ligne de 6,4 s (« le quartier, le confort, le temps sur place »).
+
+## V5.2 (12/11/2026)
+Demandes d'Avishay : enlever le cadre noir, texte moins centré, changer la musique, voix off.
+- Plus de cadre : texte blanc en Montserrat (même famille que les textes de ses Reels publiés), ombre douce, léger dégradé en haut de l'image seulement. Bloc dans le tiers haut. Source : `animation-texte-v52.html`.
+- Nouvelle musique : piano cinématique doux sans batterie (`outils/musique_piano.py`, 76 BPM, -19 LUFS, 0 clic).
+- Fichiers : `animation-V5.2-musique-piano.mp4`, `animation-V5.2-sans-musique.mp4`, `musique-piano-seule.wav`, aperçu 720p.
+- Voix off : en attente des pistes Avi Voice (VoiceStudio tourne sur le Mac d'Avishay ; ce serveur ne peut pas la lancer).

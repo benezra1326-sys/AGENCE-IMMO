@@ -1,0 +1,7 @@
+# Médias lourds : jamais dans git (stockage du projet ou stockage objet)
+*.mp4
+*.mov
+*.wav
+*.mp3
+*.zip
+contenus/*/images/
