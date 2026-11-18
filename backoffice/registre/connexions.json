@@ -1,0 +1,187 @@
+{
+  "_legende": "statut : operationnel (testé et utilisable par le service), partiel (fonctionne mais pas pour l'usage prévu), manquant (à créer ou relier), a_verifier, reporte (décidé plus tard par Avishay, rien à faire maintenant). cote : où la connexion vit (serveur = utilisable Mac éteint ; claude = seulement dans une session Claude ; telephone ; mac).",
+  "verifie_le": "12 novembre 2026, 12 h 50",
+  "connexions": [
+    {
+      "id": "github",
+      "nom": "GitHub (dépôt agence-immo)",
+      "statut": "operationnel",
+      "cote": "serveur",
+      "note": "Lecture et écriture vérifiées depuis Claude le 9 novembre 2026."
+    },
+    {
+      "id": "telegram",
+      "nom": "Bot Telegram",
+      "statut": "partiel",
+      "cote": "serveur",
+      "note": "Bot @Avishay_immo_bot créé par toi et relié à ton compte (message test reçu le 12/11). Il répondra seul quand le serveur sera en place.",
+      "action": "Ajoute la variable TELEGRAM_CHAT_ID = 6432901590 dans les réglages du projet (Environnement)."
+    },
+    {
+      "id": "email",
+      "nom": "Envoi d'emails d'alerte vers avi@levygoldman.com",
+      "statut": "partiel",
+      "cote": "serveur",
+      "note": "Gmail dédié créé et connecté à Claude (12/11). Pour que le serveur envoie seul, il faudra son mot de passe d'application (dans les réglages, jamais dans le chat). En attendant, alertes par Telegram.",
+      "action": null
+    },
+    {
+      "id": "hebergement",
+      "nom": "Serveur (exécution Mac éteint)",
+      "statut": "reporte",
+      "cote": "serveur",
+      "note": "Reporté par toi le 12/11. Recommandé : Hetzner CX23, environ 6 €/mois HT. Sans serveur, les agents travaillent quand une session Claude est ouverte.",
+      "action": null
+    },
+    {
+      "id": "anthropic_api",
+      "nom": "API Claude (modèles côté serveur)",
+      "statut": "reporte",
+      "cote": "serveur",
+      "note": "À créer avec le serveur, avec un plafond de dépense, après ton accord.",
+      "action": null
+    },
+    {
+      "id": "stockage",
+      "nom": "Stockage des médias lourds",
+      "statut": "reporte",
+      "cote": "serveur",
+      "note": "À créer avec le serveur. Proposé : Cloudflare R2 (10 Go gratuits). En attendant, les médias passent par Google Drive et les fichiers du projet.",
+      "action": null
+    },
+    {
+      "id": "gcal",
+      "nom": "Google Agenda",
+      "statut": "operationnel",
+      "cote": "claude",
+      "note": "Connecté le 12/11 sur le compte Gmail dédié aux alertes. Le calendrier des publications y est copié (événements « [Publication] »).",
+      "action": null
+    },
+    {
+      "id": "instagram",
+      "nom": "Instagram professionnel @avishay.marbella",
+      "statut": "operationnel",
+      "cote": "claude",
+      "note": "Connecté via vidIQ le 11/11 (publication + statistiques autorisées). Rien n'est publié sans validation d'Avishay."
+    },
+    {
+      "id": "facebook",
+      "nom": "Page Facebook",
+      "statut": "operationnel",
+      "cote": "telephone",
+      "action": null,
+      "note": "Page « Avishay Marbella » connectée via vidIQ, peut publier (12/11)."
+    },
+    {
+      "id": "linkedin",
+      "nom": "LinkedIn personnel",
+      "statut": "partiel",
+      "cote": "telephone",
+      "note": "Typefully est connecté à Claude (12/11) : je dépose tes posts en brouillon et tu publies. Les invitations restent envoyées par toi.",
+      "action": "Sur typefully.com, ajoute ton compte LinkedIn (1 minute)."
+    },
+    {
+      "id": "whatsapp",
+      "nom": "WhatsApp Business (numéro espagnol)",
+      "statut": "partiel",
+      "cote": "telephone",
+      "note": "Application sur le téléphone uniquement ; pas d'API branchée."
+    },
+    {
+      "id": "dropbox",
+      "nom": "Dropbox « 03. EXCLUSIVE LISTINGS »",
+      "statut": "a_verifier",
+      "cote": "claude",
+      "note": "Dossier protégé par mot de passe ; accès traité par le fil Contenus."
+    },
+    {
+      "id": "gmail",
+      "nom": "Gmail (connecteur Claude)",
+      "statut": "partiel",
+      "cote": "claude",
+      "note": "Lecture vérifiée le 8 novembre, dans les sessions Claude seulement."
+    },
+    {
+      "id": "supabase",
+      "nom": "Supabase",
+      "statut": "partiel",
+      "cote": "claude",
+      "note": "Connecté, aucun projet. Non utilisé par le back-office V1 (base SQLite sur le serveur)."
+    },
+    {
+      "id": "ai_producer",
+      "nom": "AI Producer (OpusClip)",
+      "statut": "partiel",
+      "cote": "claude",
+      "note": "Connecté ; aucune chaîne validée."
+    },
+    {
+      "id": "moda_gamma_figma",
+      "nom": "Moda, Gamma, Figma",
+      "statut": "partiel",
+      "cote": "claude",
+      "note": "Connectés ; quotas et gratuité à vérifier avant usage."
+    },
+    {
+      "id": "vidiq",
+      "nom": "vidIQ",
+      "statut": "operationnel",
+      "cote": "claude",
+      "note": "Instagram, page Facebook, YouTube et TikTok connectés et publiables (12/11). Rien n'est publié sans ton OK."
+    },
+    {
+      "id": "voicestudio",
+      "nom": "VoiceStudio",
+      "statut": "partiel",
+      "cote": "mac",
+      "note": "Installé sur le Mac ; indisponible Mac éteint."
+    },
+    {
+      "id": "meta_ads",
+      "nom": "Meta Ads",
+      "statut": "manquant",
+      "cote": "serveur",
+      "note": "Pubs non activées."
+    },
+    {
+      "id": "gdrive",
+      "nom": "Google Drive",
+      "statut": "partiel",
+      "cote": "claude",
+      "note": "Les liens Google Drive publics fonctionnent pour recevoir tes vidéos. Le connecteur n'est pas nécessaire pour l'instant.",
+      "action": null
+    },
+    {
+      "id": "canva",
+      "nom": "Canva",
+      "statut": "partiel",
+      "cote": "claude",
+      "note": "Non nécessaire : les visuels sont produits directement par Léon.",
+      "action": null
+    },
+    {
+      "id": "notion",
+      "nom": "Notion",
+      "statut": "partiel",
+      "cote": "claude",
+      "note": "Non nécessaire pour l'instant.",
+      "action": null
+    },
+    {
+      "id": "youtube",
+      "nom": "Chaîne YouTube",
+      "statut": "operationnel",
+      "cote": "serveur",
+      "note": "Chaîne @avibenazra connectée via vidIQ, peut publier (12/11).",
+      "action": null
+    },
+    {
+      "id": "tiktok",
+      "nom": "TikTok",
+      "statut": "operationnel",
+      "cote": "telephone",
+      "note": "Compte « avibenazra » connecté via vidIQ, peut publier (12/11).",
+      "action": null
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "2026-11-10-calendrier-editorial",
+  "activite": "immo",
+  "agent": "editorial",
+  "titre": "Calendrier éditorial proposé pour les 3 premiers contenus",
+  "statut": "terminee",
+  "source": "demande d'Avishay du 10/11 : rendre les agents opérationnels",
+  "cree_le": "2026-11-10T11:20:00Z",
+  "maj_le": "2026-11-10T11:40:00Z",
+  "resultat": "Ordre et dates proposés (carrousel 11/11, Reel 13/11, animation 15/11), puis versions FR/ES et voix. Rien n'est programmé.",
+  "fichiers": ["ops/rapports/2026-11-10-calendrier-editorial.md"],
+  "cout_eur": 0,
+  "raison_echec": null
+}
