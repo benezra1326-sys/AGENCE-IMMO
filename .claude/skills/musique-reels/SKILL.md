@@ -12,11 +12,13 @@ But : une musique qui renforce l'émotion et le rythme du montage, sans détourn
 Comptes suivis :
 | Agence | Compte Instagram |
 | --- | --- |
+| **Solvilla (référence n°1 d'Avishay)** | @solvillamarbella, @alex.solvilla, @stacy.solvilla, @pablo.solvilla |
 | Drumelia | @drumelia_real_estate |
 | Engel & Völkers Marbella | @engelvoelkers.marbella |
 | MPDunne (Hamptons) | @hamptons_mpdunne |
 | The Agency Marbella | @theagency.marbella |
 | Mas Property Marbella | @masproperty.marbella |
+| Autres grosses agences | @homerunbrokers, @marbellahillshomes, @collectiverealestate, @key_real_estate, @international_marbella, @newberyrealestate, @marbelhaus |
 
 - Fréquence : une fois par mois, et avant chaque nouvelle série de Reels.
 - Outil qui marche (vérifié le 18/11/2026) : Firecrawl, `alexandria_library_read` avec `{"provider":"scrapecreators","capability":"instagram/user-reels","options":{"handle":"<compte>"}}` (12 Reels par appel, 2 crédits). Le résultat est gros : il est enregistré dans un fichier, à lire avec jq.
@@ -26,6 +28,8 @@ Comptes suivis :
 - Pour chaque Reel pertinent, relever : lien, date, type de bien, style du montage, nom de l'audio affiché par Instagram, vues et interactions visibles.
 - **Ne jamais inventer un titre.** « Original audio », « Mix » ou un son sans titre = **non identifié**. Un tempo mesuré par logiciel est une estimation, à écrire « environ ».
 - Ranger le relevé dans `veille/musique/AAAA-MM-JJ-reels-agences.md` (lien, date, bien, montage, audio, vues).
+
+Avishay veut des musiques **similaires à celles des grosses agences** (Solvilla d'abord) : cinéma sombre et élégant, soul/R&B chic, groove funk, lounge. Étude du 18/11 : veille/musique/2026-11-18-etude-grosses-agences.md.
 
 ## 2. Choisir selon le bien et les images
 | Images | Direction musicale |
