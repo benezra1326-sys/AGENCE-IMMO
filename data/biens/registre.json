@@ -32,7 +32,19 @@
    "source": "https://levygoldman.com/property/elegant-luxury-homes-by-the-sea-in-estepona/ (consulté 12/11/2026)",
    "prix_affiche": "720 000 – 1 263 000 € (à confirmer)",
    "droits_medias": "photos du site, usage demandé par Avishay le 12/11/2026 (à confirmer)"
+  },
+  {
+   "ref": "AB-0004",
+   "ref_partenaire": "LG104",
+   "partenaire": "Levy & Goldman (site, programmes neufs)",
+   "zone": "Benahavís",
+   "type": "terrain + projet de villa",
+   "statut": "contenu_a_valider",
+   "source": "https://levygoldman.com/property/villa-project-elysium-la-zagaleta-benahavis-%c2%b7-costa-del-sol/ (consulté 18/11/2026)",
+   "prix_affiche": "3 995 000 € (à confirmer)",
+   "droits_medias": "images du site (à confirmer)",
+   "fiche": "data/biens/AB-0004.json"
   }
  ],
- "prochaine_ref": "AB-0004"
+ "prochaine_ref": "AB-0005"
 }

@@ -1,0 +1,67 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../outils/charte-texte.css">
+<!-- Reel AB-0004 : terrain prêt à bâtir + projet de villa, Benahavís (domaine privé fermé) – 18/11/2026, à valider par Avishay.
+     Remplace le Reel programme neuf New Golden Mile (AB-0002), refusé le 18/11 : « je ne comprends pas de quel projet on parle ».
+     Images de synthèse du site Levy & Goldman (images/, hors git). Aucun nom de projet, de domaine, d'architecte ; zone seulement ; prix arrondi.
+     Même format que les Reels d'Avishay : texte blanc Montserrat dans le tiers haut, ombre douce, écran final noir Levy & Goldman.
+     Le texte suit la voix off (horaires dans VO ci-dessous). -->
+<style>
+body{background:#000}
+#stage{width:1080px;height:1920px;position:relative;overflow:hidden;background:#000}
+.sh{position:absolute;inset:0;opacity:0;overflow:hidden}
+.sh img{position:absolute;height:1920px;top:0;left:50%;will-change:transform}
+.voile{position:absolute;left:0;right:0;top:0;height:1050px;background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,.42) 50%,rgba(0,0,0,0));opacity:0}
+.tx{position:absolute;left:60px;right:60px;top:520px;transform:translateY(-50%);text-align:center;color:#fff;opacity:0}
+.tx .cx-sur{font-family:Montserrat,sans-serif;font-size:30px;font-weight:600;color:#fff;letter-spacing:.14em}
+.tx .cx-titre{font-family:Montserrat,sans-serif;font-size:80px;font-weight:600;letter-spacing:.04em;line-height:1.1}
+.tx .cx-titre .a{color:#fff}
+.tx .cx-sous{font-family:Montserrat,sans-serif;font-size:36px;font-weight:500;color:#fff;letter-spacing:.04em;text-transform:none;line-height:1.4}
+.tx .cx-trait{width:90px;height:2px;margin:28px auto}
+.w{display:inline-block}
+.cgi{position:absolute;left:0;right:0;bottom:400px;text-align:center;font-family:Inter,sans-serif;font-size:19px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.85);text-shadow:0 1px 6px rgba(0,0,0,.7)}
+#fin{position:absolute;inset:0;opacity:0}
+</style></head><body><div id="stage">
+<div id="shots"></div>
+<div class="voile" id="voile"></div>
+<div class="tx cx-ombre" id="x1"><div class="cx-sur cx-plan-sur">Benahavís · Private gated estate</div><div class="cx-trait"></div><div class="cx-titre cx-plan"><span class="w">A</span> <span class="w">plot</span><br><span class="w a">ready</span> <span class="w a">to</span> <span class="w a">build</span></div></div>
+<div class="tx cx-ombre" id="x2"><div class="cx-sur cx-plan-sur">Sold with a complete villa design</div><div class="cx-trait"></div><div class="cx-titre cx-plan"><span class="w">Around</span><br><span class="w a">1,600 m²</span></div></div>
+<div class="tx cx-ombre" id="x3"><div class="cx-titre cx-plan"><span class="w">Spa</span> <span class="w">·</span> <span class="w">Gym</span><br><span class="w a">Cinema</span></div><div class="cx-trait"></div><div class="cx-sous cx-plan-info">Golf simulator · Wine cellar</div></div>
+<div class="tx cx-ombre" id="x4"><div class="cx-titre cx-plan"><span class="w">Frontline</span><br><span class="w a">golf</span></div><div class="cx-trait"></div><div class="cx-sous cx-plan-info">Open views · South-facing</div></div>
+<div class="tx cx-ombre" id="x5"><div class="cx-sur cx-plan-sur">Inside the estate</div><div class="cx-trait"></div><div class="cx-titre cx-plan"><span class="w">2</span> <span class="w">private</span><br><span class="w a">golf</span> <span class="w a">courses</span></div><div class="cx-trait"></div><div class="cx-sous cx-plan-info">Equestrian centre · 24h security</div></div>
+<div class="tx cx-ombre" id="x6"><div class="cx-sur cx-plan-sur">Plot with villa project</div><div class="cx-trait"></div><div class="cx-titre cx-plan"><span class="w">Just</span> <span class="w">under</span><br><span class="w a">€4M</span></div></div>
+<div class="cgi" id="cgi">Computer-generated images · Villa project</div>
+<div id="fin"><div class="cx-noir"></div><div class="cx-sig-bloc">
+ <div class="cx-sur" style="font-size:26px">Villa project · Benahavís</div>
+ <div class="cx-dm" style="margin-top:26px;font-size:58px">DM <b style="font-size:46px">“ESTATE”</b></div>
+ <div class="cx-petit" style="margin-top:8px;font-size:28px">for plans, price and next steps</div>
+ <div class="cx-filet" style="margin-top:64px"></div>
+ <div class="cx-marque">Levy &amp; Goldman</div>
+ <div class="cx-tag" style="margin-top:12px">Your dream property awaits</div>
+ <div class="cx-tel">+34 647 142 274</div>
+ <div class="cx-contact">avi@levygoldman.com<br>@avishay.marbella</div>
+ <div style="margin-top:56px;font-family:Inter,sans-serif;font-size:17px;letter-spacing:.14em;text-transform:uppercase;color:#77726b;line-height:1.8">Computer-generated images of the villa project<br>Price and availability subject to change</div>
+</div></div>
+</div>
+<script>
+// Voix off (début, durée) : 1 0.5/6.4 · 2 7.5/4.9 · 3 12.9/5.6 · 4 19.1/3.2 · 5 22.9/6.4 · 6 29.9/4.1 · 7 34.8/3.6
+// Plans : [image, début, fin, départ, arrivée] (décalage horizontal, -1 gauche .. 1 droite)
+const SH=[['01-Photo',0,3.9,-.35,.25],['17-Photo',3.5,7.6,.3,-.3],['05',7.2,10.2,-.4,.2],['02',9.8,13.0,.3,-.3],
+ ['21',12.6,14.9,-.3,.2],['22',14.5,16.8,.2,-.2],['26',16.4,18.9,-.25,.25],['10-Photo',18.5,22.8,-.3,.3],
+ ['08-Photo',22.4,26.4,.35,-.25],['14-Photo',26.0,30.0,-.3,.3],['06-Photo',29.6,35.0,.3,-.3]];
+const FIN=34.4, TOT=40;
+const TX=[['x1',0.4,6.9],['x2',7.4,12.4],['x3',12.8,18.5],['x4',19.0,22.4],['x5',22.8,29.3],['x6',29.8,34.0]];
+const E=x=>1-Math.pow(1-x,3), C=v=>Math.max(0,Math.min(1,v)), $=id=>document.getElementById(id);
+const box=$('shots'), els=SH.map(s=>{const d=document.createElement('div');d.className='sh';const i=new Image();i.src='images/'+s[0]+'.jpg';d.appendChild(i);box.appendChild(d);return d});
+window.render=function(t){
+ els.forEach((d,k)=>{const [,s,e,m1,m2]=SH[k],img=d.firstChild,D=e-s;
+  const a=C((t-s)/0.4), b=C((e-t)/0.4); d.style.opacity=(k==0?1:a)*(k==els.length-1?1:b)*(t>FIN+0.6?0:1);
+  const p=C((t-s)/D), w=img.naturalWidth*1920/img.naturalHeight, free=Math.max(0,w-1080)/2*0.85;
+  const x=(m1+(m2-m1)*p)*free, z=1.04+0.05*p;
+  img.style.transform=`translateX(calc(-50% + ${x}px)) scale(${z})`;});
+ let v=0;
+ TX.forEach(([id,i,o])=>{const el=$(id),a=C((t-i)/0.5),z=C((t-o)/0.4);const op=t<i||t>o+0.4?0:E(a)*(1-z);el.style.opacity=op;v=Math.max(v,op);
+  el.querySelectorAll('.w').forEach((w,k)=>{const q=C((t-i-0.1-k*0.12)/0.5);w.style.opacity=E(q);w.style.transform=`translateY(${(1-E(q))*26}px)`});});
+ $('voile').style.opacity=v; $('cgi').style.opacity=t<FIN?1:0;
+ $('fin').style.opacity=E(C((t-FIN)/0.6));
+};
+render(0);
+</script></body></html>
