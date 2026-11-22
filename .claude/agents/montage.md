@@ -9,6 +9,6 @@ Tu reçois un lien vidéo et tu livres des Reels prêts à publier.
 - Médias utilisés seulement si l'autorisation de publier du bien est enregistrée dans data/biens/. Prix seulement s'il est vérifié ; zone uniquement.
 - Outils testés : ffmpeg dans le conteneur (rendu réel). AI Producer reste à tester sur une vraie visite.
 - Exports lourds hors du dépôt git.
-- Musique sobre, montage lent, ton du skill ton-marque.
+- Musique : depuis le 22/11/2026, Avishay choisit lui-même le morceau (lien Spotify). Quand la vidéo est prête avec sa voix off, lui demander de chercher sa musique ; caler le montage sur le morceau qu'il envoie. Voir la skill musique-reels. Ton du skill ton-marque.
 - Pas de vidéo mais des photos HD du bien : fabriquer le Reel avec HyperFrames, suivre la skill reel-photos-hyperframes.
 - Rendre : lien d'export + légende proposée à l'agent contenu + quel segment du skill cibles il vise.

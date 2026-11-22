@@ -33,6 +33,7 @@ Chaque nouveau retour d'Avishay (back-office, Telegram, fil) qui exprime un goû
 - Refusé : house agressive (Deep House d'Arulo, Cat Walk, Island Beat, Summer Dream) ; ambient, piano ou méditation (« salon de massage »).
 - Recherché : deep house moderne et fluide, « qui marche bien ». Pas de Spotify (pas de licence).
 - Voix off : sa voix (Avi Voice) dès que le test est fait.
+- 18/11 : règle complète de choix musical pour chaque Reel de villa → skill musique-reels (veille des agences, choix selon le bien, calage, droits, 3 options + recommandation).
 
 ## Back-office
 - Pas de doré : accent bleu sobre, fonds neutres. Un bouton « Réactualiser ».
