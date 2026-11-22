@@ -17,7 +17,7 @@ def generer(cx, config, maintenant_dt=None):
     if config.mode_envoi != "reel":
         l.append("(mode test : aucune alerte n'est réellement envoyée)")
 
-    prod = cx.execute("SELECT titre, agent FROM taches WHERE statut='terminee' AND maj_le >= ? ORDER BY maj_le", (depuis,)).fetchall()
+    prod = cx.execute("SELECT titre, agent FROM taches WHERE statut='terminee' AND activite != 'apps' AND maj_le >= ? ORDER BY maj_le", (depuis,)).fetchall()
     l.append(f"\nProductions (24 h) : {len(prod)}")
     l += [f"• {r['titre']} ({nom_agent(r['agent'])})" for r in prod[:8]]
 
@@ -39,11 +39,12 @@ def generer(cx, config, maintenant_dt=None):
     l.append(f"\nProspection B2B : {len(partenaires)} partenaire(s) actif(s)")
 
     l.append("\nTâches :")
-    stats = {r["statut"]: r["n"] for r in cx.execute("SELECT statut, COUNT(*) n FROM taches GROUP BY statut")}
+    stats = {r["statut"]: r["n"] for r in cx.execute("SELECT statut, COUNT(*) n FROM taches WHERE activite != 'apps' GROUP BY statut")}
     l.append(", ".join(f"{stats.get(s, 0)} {n}" for s, n in NOMS_STATUTS.items()))
 
-    bloq = cx.execute("SELECT id, titre, raison_echec FROM taches WHERE statut IN ('bloquee','echec') ORDER BY maj_le DESC").fetchall()
-    manquantes = [c["nom"] for c in charger_registre()["connexions"].get("connexions", []) if c["statut"] == "manquant"]
+    bloq = cx.execute("SELECT id, titre, raison_echec FROM taches WHERE statut IN ('bloquee','echec') AND activite != 'apps' ORDER BY maj_le DESC").fetchall()
+    manquantes = [c["nom"] for c in charger_registre()["connexions"].get("connexions", [])
+                  if c["statut"] == "manquant" and c.get("activite") != "apps"]
     l.append("\nBlocages :")
     l += [f"• {r['titre']} : {r['raison_echec'] or 'raison non précisée'}" for r in bloq[:6]]
     if manquantes:

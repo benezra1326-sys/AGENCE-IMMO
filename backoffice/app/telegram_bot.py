@@ -114,7 +114,7 @@ class Bot:
         reg = charger_registre()
         acts = reg["activites"].get("activites", [])
         if cible in ("immo", "immobilier"):
-            agents = etats_agents(self.cx, reg["agents"])
+            agents = etats_agents(self.cx, [a for a in reg["agents"] if a.get("activite", "immo") == "immo"])
             lignes = ["Immobilier – agents :"]
             for a in agents:
                 lignes.append(f"• {nom_agent(a['id'], agents)} : {a['etat']}")
@@ -130,7 +130,8 @@ class Bot:
 
     def liste_taches(self):
         rows = self.cx.execute(
-            "SELECT id, titre, agent, statut, raison_echec FROM taches WHERE statut != 'terminee' ORDER BY maj_le DESC LIMIT 15").fetchall()
+            "SELECT id, titre, agent, statut, raison_echec FROM taches WHERE statut != 'terminee' AND activite != 'apps' "
+            "ORDER BY maj_le DESC LIMIT 15").fetchall()
         if not rows:
             return "Aucune tâche ouverte."
         return "\n".join(f"• {r['id']} [{r['statut']}] {r['titre']} ({nom_agent(r['agent'])})"

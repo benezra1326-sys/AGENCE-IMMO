@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS interactions (
 CREATE TABLE IF NOT EXISTS alertes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     type TEXT NOT NULL,
-    canal TEXT NOT NULL CHECK (canal IN ('telegram','email')),
+    canal TEXT NOT NULL CHECK (canal IN ('telegram','telegram_apps','email')),
     cle_unique TEXT UNIQUE NOT NULL,
     destinataire TEXT,
     sujet TEXT,
@@ -117,6 +117,13 @@ CREATE TABLE IF NOT EXISTS couts (
     tache_id TEXT,
     details TEXT
 );
+CREATE TABLE IF NOT EXISTS apps (
+    id TEXT PRIMARY KEY,
+    nom TEXT NOT NULL,
+    donnees TEXT NOT NULL DEFAULT '{}',
+    source TEXT NOT NULL,
+    maj_le TEXT NOT NULL
+);
 CREATE TABLE IF NOT EXISTS reglages (
     cle TEXT PRIMARY KEY,
     valeur TEXT
@@ -137,8 +144,20 @@ def connexion(chemin):
     cx.execute("PRAGMA foreign_keys = ON")
     if str(chemin) != ":memory:":
         cx.execute("PRAGMA journal_mode = WAL")
+    _migrer_alertes(cx)
     cx.executescript(SCHEMA)
     return cx
+
+
+def _migrer_alertes(cx):
+    """Ancienne base : la table alertes n'acceptait pas le canal du bot Apps. On la recrée en gardant tout."""
+    row = cx.execute("SELECT sql FROM sqlite_master WHERE type='table' AND name='alertes'").fetchone()
+    if row is None or "telegram_apps" in row["sql"]:
+        return
+    cx.execute("ALTER TABLE alertes RENAME TO alertes_ancienne")
+    cx.executescript(SCHEMA)
+    cx.execute("INSERT INTO alertes SELECT * FROM alertes_ancienne")
+    cx.execute("DROP TABLE alertes_ancienne")
 
 
 def ligne(row):

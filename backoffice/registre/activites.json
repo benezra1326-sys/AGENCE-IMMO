@@ -18,11 +18,12 @@
     {
       "id": "apps",
       "nom": "Applications mobiles",
-      "responsable": null,
-      "etat": "a_configurer",
+      "responsable": "apps-coordination",
+      "etat": "en_lancement",
       "priorite": 2,
-      "mission": "À définir avec Avishay.",
-      "depot": null
+      "mission": "Concevoir, construire et publier des applications mobiles, de l'idée aux stores. Première app : KAPARA.",
+      "depot": "benezra1326-sys/KAPARA",
+      "suivi": "Chaque app a sa fiche d'état apps/<id>/statut.json (format : apps/README.md). Notifications sur un bot Telegram dédié, séparé du bot Immobilier."
     },
     {
       "id": "reseaux",

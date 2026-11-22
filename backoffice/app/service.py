@@ -14,11 +14,12 @@ import threading
 import time
 from datetime import datetime, timezone
 
-from . import alertes, recap, taches
+from . import alertes, apps, recap, taches
 from .config import FUSEAU, Config
 from .db import connexion, journaliser
 from .registre import synchroniser_depot
 from .serveur import VERROU, lancer
+from .telegram_apps import BotApps
 from .telegram_bot import Bot, TelegramAPI
 
 
@@ -31,7 +32,13 @@ def executeurs(config):
                          sujet=f"Récap du matin – {jour}", destinataire=config.email_alertes)
         return "Récap généré et préparé pour Telegram et email.", [], 0.0
 
-    return {"recap": tache_recap}
+    def tache_recap_apps(cx, t):
+        jour = t["donnees"].get("jour") if isinstance(t["donnees"], dict) else None
+        alertes.preparer(cx, type="recap_apps", canal="telegram_apps", cle=f"recap_apps:{jour}",
+                         corps=apps.recap(cx, config))
+        return "Récap Apps préparé pour le bot Telegram Apps.", [], 0.0
+
+    return {"recap": tache_recap, "recap_apps": tache_recap_apps}
 
 
 def programmer_recap(cx, config, now=None):
@@ -42,6 +49,9 @@ def programmer_recap(cx, config, now=None):
     t, _ = taches.creer(cx, activite="immo", agent="coordination", titre=f"Récap du matin {jour}",
                         cle_unique=f"recap:{jour}", type="recap", source="planification quotidienne",
                         donnees={"jour": jour})
+    taches.creer(cx, activite="apps", agent="apps-coordination", titre=f"Récap Apps {jour}",
+                 cle_unique=f"recap_apps:{jour}", type="recap_apps", source="planification quotidienne",
+                 donnees={"jour": jour})
     return t
 
 
@@ -58,28 +68,31 @@ def boucle(cx, config, bot, arret):
     dernier_sync = 0.0
     tg = alertes.TelegramEnvoi(config.telegram_token, config.telegram_proprietaire) if config.telegram_configure else None
     em = alertes.EmailEnvoi(config) if config.email_configure else None
+    tga = (alertes.TelegramEnvoi(config.apps_telegram_token, config.apps_telegram_proprietaire)
+           if config.apps_telegram_configure else None)
     while not arret.is_set():
         try:
             with VERROU:
                 if time.time() - dernier_sync > 300:
                     git_pull(config.racine_depot)
                     synchroniser_depot(cx, config.racine_depot)
+                    apps.synchroniser(cx, config.racine_depot, apps.lecteur_github(config.github_jeton))
                     dernier_sync = time.time()
                 programmer_recap(cx, config)
                 taches.executer_en_attente(cx, executeurs(config))
-                alertes.expedier(cx, config, telegram=tg, email=em)
+                alertes.expedier(cx, config, telegram=tg, email=em, telegram_apps=tga)
         except Exception as e:  # noqa: BLE001 - le service ne doit jamais s'arrêter sur une erreur
             journaliser(cx, "service", "erreur de boucle", None, f"{type(e).__name__}: {e}"[:300], niveau="erreur")
         arret.wait(60)
 
 
-def boucle_telegram(cx, bot, arret):
+def boucle_telegram(cx, bot, arret, acteur="telegram"):
     while not arret.is_set():
         try:
             bot.relever()
         except Exception as e:  # noqa: BLE001
             with VERROU:
-                journaliser(cx, "telegram", "erreur de relève", None, f"{type(e).__name__}"[:100], niveau="erreur")
+                journaliser(cx, acteur, "erreur de relève", None, f"{type(e).__name__}"[:100], niveau="erreur")
             arret.wait(30)
 
 
@@ -88,11 +101,15 @@ def main():
     cx = connexion(config.chemin_base)
     journaliser(cx, "service", "démarrage", None, f"mode {config.mode_envoi}")
     synchroniser_depot(cx, config.racine_depot)
+    apps.synchroniser(cx, config.racine_depot)
     arret = threading.Event()
     bot = Bot(cx, config, TelegramAPI(config.telegram_token)) if config.telegram_configure else None
     threading.Thread(target=boucle, args=(cx, config, bot, arret), daemon=True).start()
     if bot:
         threading.Thread(target=boucle_telegram, args=(cx, bot, arret), daemon=True).start()
+    if config.apps_telegram_configure:  # second bot, uniquement pour les Applications
+        bot_apps = BotApps(cx, config, TelegramAPI(config.apps_telegram_token))
+        threading.Thread(target=boucle_telegram, args=(cx, bot_apps, arret, "telegram apps"), daemon=True).start()
     srv = lancer(cx, config)
     print(f"Tableau de bord : http://{config.dashboard_hote}:{config.dashboard_port}  (mode {config.mode_envoi})")
     try:

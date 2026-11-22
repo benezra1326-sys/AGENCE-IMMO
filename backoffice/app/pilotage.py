@@ -47,9 +47,9 @@ def consigne(cx, texte, canal, message_id=None, agent=None):
     if not texte:
         return None, "Consigne vide."
     cle = f"consigne:{canal}:{message_id}" if message_id else "consigne:" + hashlib.sha1(texte.encode()).hexdigest()
-    agents_connus = {a["id"] for a in registre.charger_registre()["agents"]} if agent else set()
+    agents_connus = {a["id"]: a.get("activite", "immo") for a in registre.charger_registre()["agents"]} if agent else {}
     destinataire = agent if agent in agents_connus else "coordination"
-    t, cree = taches.creer(cx, activite="immo", agent=destinataire, titre=texte[:140], cle_unique=cle,
+    t, cree = taches.creer(cx, activite=agents_connus.get(destinataire, "immo"), agent=destinataire, titre=texte[:140], cle_unique=cle,
                            type="consigne", source=f"Avishay via {canal}", donnees={"texte": texte})
     if not cree:
         return t, f"Consigne déjà enregistrée ({t['id']})."
