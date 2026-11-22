@@ -29,7 +29,7 @@ Chaque nouveau retour d'Avishay (back-office, Telegram, fil) qui exprime un goû
 - Toujours des images sur les posts LinkedIn. Animations pas trop rapides.
 
 ## Musique
-- Toujours une musique de fond, qu'il écoute avant de publier (3 propositions).
+- 22/11 : c'est LUI qui choisit la musique de chaque Reel (il envoie un lien, souvent Spotify). Ne plus lui proposer de sélection ; lui dire quand choisir.
 - Refusé : house agressive (Deep House d'Arulo, Cat Walk, Island Beat, Summer Dream) ; ambient, piano ou méditation (« salon de massage »).
 - Recherché : deep house moderne et fluide, « qui marche bien ». Pas de Spotify (pas de licence).
 - Voix off : sa voix (Avi Voice) dès que le test est fait.

@@ -1,9 +1,25 @@
 ---
 name: musique-reels
-description: Règle d'Avishay pour choisir la musique de chaque Reel de villa (veille des agences de Marbella, choix selon le bien, calage sur le montage, droits, 3 options). À lire par les agents montage, contenu et qualite avant toute proposition de musique.
+description: Musique des Reels villas : depuis le 22/11/2026 c'est Avishay qui choisit (il envoie un lien, souvent Spotify) ; l'agent livre sans musique, lui dit quand choisir, puis intègre ou trouve un équivalent libre de droits. À lire par montage, contenu et qualite avant toute question de musique.
 ---
 
-# Musique des Reels villas (règle d'Avishay du 18/11/2026)
+# Musique des Reels villas
+
+## RÈGLE EN VIGUEUR (22/11/2026) : c'est Avishay qui choisit la musique
+Il ne veut plus de sélection proposée par les agents. Pour chaque vidéo :
+1. Livrer la vidéo **sans musique**, montée et calée (coupes, révélations repérées).
+2. Lui dire clairement **quand choisir** : « Vidéo X prête, choisis la musique ». Donner la durée, l'ambiance des images et la seconde du moment fort, pour l'aider à chercher.
+3. Il envoie un lien (souvent Spotify, parfois YouTube ou Instagram).
+4. Selon le lien :
+   - **Spotify, ou tout titre commercial** : on ne peut pas le mettre dans le fichier (pas de licence pour une vidéo publiée par un compte pro). Deux solutions, à lui proposer en une ligne :
+     a. Il ajoute le titre lui-même dans Instagram au moment de publier (bouton Audio, si le titre est disponible pour son compte ; un compte Entreprise n'a que la Meta Sound Collection). L'agent lui livre la vidéo sans musique et lui indique où caler le morceau.
+     b. L'agent cherche un équivalent libre de droits (Mixkit Free License) du même style et tempo, l'intègre, et le lui fait écouter.
+   - **Piste libre de droits** (Mixkit, Meta Sound Collection, musique achetée avec licence) : l'agent l'intègre directement (niveau ~-16 LUFS, fondus, moment fort calé sur la révélation, musique baissée sous la voix).
+5. Rien n'est publié sans son OK.
+
+Les sections ci-dessous restent valables comme méthode (veille, style, calage, droits), mais **on ne lui présente plus trois options** : on attend son lien.
+
+## Méthode (règle du 18/11/2026)
 
 But : une musique qui renforce l'émotion et le rythme du montage, sans détourner l'attention de la propriété.
 À lire avec la skill directives-avishay (ses goûts et refus) et ton-marque.
@@ -55,10 +71,11 @@ Avishay veut des musiques **similaires à celles des grosses agences** (Solvilla
 - Priorité aux pistes dont l'usage commercial est autorisé pour le compte et la plateforme.
 - Mixkit (Stock Music Free License) : réseaux sociaux et publicités autorisés (mixkit.co/license). Musique générée vidIQ : libre de droits.
 - Instagram : la bibliothèque musicale complète est réservée à l'usage personnel ; un compte professionnel Entreprise n'a que la Meta Sound Collection (help.instagram.com/402084904469945). Une publication par l'API ne permet pas d'ajouter un son de la bibliothèque : la musique doit être dans le fichier.
-- Spotify : exclu. Un son tendance repéré chez une autre agence n'est pas réutilisable par défaut.
+- Spotify : jamais intégré dans le fichier (pas de licence). Si Avishay envoie un lien Spotify : ajout par lui dans Instagram à la publication, ou équivalent libre de droits. Un son tendance repéré chez une autre agence n'est pas réutilisable par défaut.
 - En cas de doute : proposer une piste sous licence adaptée, ne jamais présumer.
 
-## 6. Trois options par vidéo, puis une recommandation
+## 6. (Remplacé le 22/11) Trois options par vidéo
+Ne plus appliquer : Avishay choisit lui-même (voir règle en vigueur en haut). Gardé pour mémoire :
 Toujours trois pistes ou directions :
 1. **Élégante et discrète**
 2. **Cinématographique, avec progression**
