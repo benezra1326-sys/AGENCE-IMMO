@@ -16,6 +16,39 @@ Le back-office l'affiche dans la rubrique **Apps**.
 
 Comme pour l'immobilier, ces fichiers sont des **instructions**, pas des agents qui tournent seuls. Leur état réel est tenu dans `backoffice/registre/agents.json`.
 
+## Agents au travail (un agent = une session Claude sur un chantier)
+
+Les six rôles ci-dessus sont des rôles types. Le travail réel est fait par des **agents au travail** : chaque session Claude (fil du projet APPS) qui travaille sur un chantier d'une app. Plusieurs tournent en parallèle sur la même app. Le back-office les liste dans **Applications › Agents au travail**, groupés par projet, avec leur nombre, leur statut et leur avancement.
+
+Source : la base de données du back-office en ligne (artifact `https://claude.ai/artifact/WXAtJuTozPUQxa79AKo8D5`), collection **`apps_agents`**, un document par agent. Chaque session écrit **sa propre fiche** avec l'outil `ArtifactData` :
+
+- au démarrage : `set` sur `apps_agents/<projet>-<chantier>` (ex. `motek-logo`) ;
+- à chaque étape : `update` des champs qui changent (`statut`, `avancement`, `fait`, `prochaine_etape`, `blocages`, `liens`, `maj_le`) ;
+- à la fin : `statut: "termine"`, `avancement: 100`. On ne supprime pas une fiche : elle passe dans « terminés ».
+
+```json
+{
+  "projet": "kapara",
+  "nom": "Logo MOTEK",
+  "role": "Une phrase : ce que fait cet agent.",
+  "specialite": "apps-design",
+  "statut": "en_cours | a_valider | en_pause | bloque | termine",
+  "avancement": 60,
+  "fait": "Dernière action, une ligne.",
+  "prochaine_etape": "Ce qui vient ensuite.",
+  "blocages": ["Ce qu'il faut à Avishay pour débloquer."],
+  "liens": [{"libelle": "PR #18", "url": "https://github.com/…"}],
+  "fil": "https://claude.ai/code/project/<projet>?thread=<id du fil>",
+  "debut": "2026-11-22T18:58:00Z",
+  "maj_le": "2026-11-22T19:20:00Z"
+}
+```
+
+- `projet` = identifiant de la fiche d'état de l'app dans la collection `apps_fiches`. MOTEK garde l'identifiant historique **`kapara`** (le nom affiché vient de la fiche). `commun` = travail partagé entre les apps (back-office, outils).
+- `specialite` = l'un des six rôles types ci-dessus.
+- Une nouvelle app : créer sa fiche `apps_fiches/<id>`, puis ses agents avec `projet: "<id>"`. Rien à changer dans le code du back-office.
+- Mêmes règles que la fiche d'état : français, pas de secret ni de donnée personnelle, liens `https://` uniquement.
+
 ## Comment une app remonte son avancement
 
 Chaque app a un dossier `apps/<id>/` :
