@@ -1,0 +1,147 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../outils/charte-texte.css">
+<!-- Carrousel « Buying in Marbella » V3 (12/11/2026) : 8 diapositives, ajout « With us, from first call to keys » (accompagnement complet, au pluriel, demande d'Avishay) et écran final noir identique à ses Reels. V2 (11/11/2026) : photos (médias autorisés AB-0001, aucun bien nommé) et charte de texte
+     commune : questions en capitales espacées, centrées dans le haut de chaque diapositive. Images dans images/ (hors git). -->
+<style>
+.s{width:1080px;height:1350px;position:relative;overflow:hidden;background:var(--ivory);color:var(--ink);font-family:'Inter',sans-serif}
+.ph{position:absolute;left:0;right:0;top:0;height:560px;background-size:cover;background-position:center}
+.ph:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,10,14,.66),rgba(8,10,14,.42) 60%,rgba(8,10,14,.18))}
+.hd{position:absolute;left:90px;right:90px;top:250px;transform:translateY(-50%);text-align:center;color:#fff;z-index:2;text-shadow:0 2px 18px rgba(0,0,0,.4)}
+.hd .cx-titre{font-size:54px}
+.tx{position:absolute;left:96px;right:96px;top:620px}
+p{font-size:30px;line-height:1.5;font-weight:300;color:#2a2f37}
+p+p{margin-top:22px}
+ul{list-style:none}
+li{font-size:28px;line-height:1.4;font-weight:300;padding:13px 0 13px 40px;position:relative;border-bottom:1px solid rgba(21,24,29,.12)}
+li:before{content:"";position:absolute;left:0;top:33px;width:18px;height:1.5px;background:var(--sand)}
+li b{font-weight:500}
+.it{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:38px;color:#8a6f42;line-height:1.3}
+.src{position:absolute;left:96px;right:96px;bottom:118px;font-size:18px;color:var(--mute);line-height:1.45}
+.bot{position:absolute;bottom:56px;left:96px;right:96px;display:flex;justify-content:space-between;font-size:17px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:var(--mute)}
+.cta{margin-top:26px;padding:26px 34px;background:var(--ink);color:var(--ivory);font-size:26px;line-height:1.45;font-weight:300}
+#slide-1 .bot{color:#efe9df}
+/* V2.1 : partie texte plus travaillée (cartes, chiffres clés, numéro) */
+.badge{position:absolute;left:50%;top:560px;transform:translate(-50%,-50%);width:112px;height:112px;border-radius:50%;background:var(--ink);border:1.5px solid var(--sand);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:50px;color:var(--sand2);z-index:3}
+.zone{position:absolute;left:84px;right:84px;top:660px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.card{background:#fff;border:1px solid rgba(184,154,102,.35);padding:28px 28px 26px;text-align:center}
+.card .lb{font-size:17px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:#8a6f42}
+.card .vl{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:500;line-height:1.1;margin-top:12px;color:var(--ink)}
+.card .ds{font-size:21px;font-weight:300;line-height:1.4;color:#4a4f57;margin-top:10px}
+.card.big .vl{font-size:76px;color:#8a6f42}
+.note{margin-top:30px;text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:34px;line-height:1.3;color:#8a6f42}
+.note:before,.note:after{content:"";display:block;width:56px;height:1.5px;background:var(--sand);margin:0 auto 18px}
+.note:after{margin:18px auto 0}
+.chk{list-style:none}
+.chk li{border:none;padding:12px 0 12px 64px;font-size:27px}
+.chk li:before{content:"✓";left:0;top:9px;width:40px;height:40px;border-radius:50%;background:var(--ink);color:var(--sand2);font-size:21px;display:flex;align-items:center;justify-content:center}
+
+/* V3 : diapositive accompagnement (fond sombre) et écran final noir */
+.dk{background:#0d0f13;color:#fff}
+.dk .hd2{position:absolute;left:80px;right:80px;top:120px;text-align:center}
+.tl{position:absolute;left:100px;right:80px;top:400px}
+.st{display:flex;gap:34px;align-items:flex-start;padding:0 0 38px;position:relative}
+.st:before{content:"";position:absolute;left:34px;top:70px;bottom:0;width:1.5px;background:rgba(216,198,162,.35)}
+.st:last-child:before{display:none}
+.st i{flex:none;width:70px;height:70px;border-radius:50%;border:1.5px solid var(--sand);display:flex;align-items:center;justify-content:center;font-style:normal;font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--sand2);background:#0d0f13;position:relative;z-index:1}
+.st b{display:block;font-family:'Inter',sans-serif;font-size:35px;font-weight:600;letter-spacing:.02em;margin-top:4px}
+.st span{display:block;font-size:26px;font-weight:300;color:#c9c3b9;line-height:1.4;margin-top:4px}
+.one{position:absolute;left:90px;right:90px;bottom:120px;text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:38px;color:var(--sand2);line-height:1.3}
+.dk .bot{color:#8a857d}
+</style></head><body>
+
+<section class="s" id="slide-1" style="background:url(images/s1.jpg) center/cover">
+ <div class="cx-voile" style="height:760px"></div>
+ <div class="cx-bloc" style="top:360px"><div class="cx-sur">Marbella · Buyer's guide</div><div class="cx-trait"></div>
+  <div class="cx-titre" style="font-size:76px">Buying in<br>Marbella</div><div class="cx-trait"></div>
+  <div class="cx-sous">5 questions to ask<br>before choosing a property</div><div class="cx-sous" style="margin-top:26px;color:var(--sand2)">And how we guide you<br>from first call to keys</div></div>
+ <div class="bot"><span>@avishay.marbella</span><span>Swipe →</span></div>
+</section>
+
+<section class="s" id="slide-2"><div class="ph" style="background-image:url(images/s2.jpg)"></div>
+ <div class="hd"><div class="cx-sur">Question 1 · 2/8</div><div class="cx-trait"></div><div class="cx-titre">How will<br><span class="a">you use it?</span></div></div>
+ <div class="badge">01</div>
+ <div class="zone"><div class="grid">
+  <div class="card"><div class="lb">Live</div><div class="vl">Holiday home</div><div class="ds">For you and your family</div></div>
+  <div class="card"><div class="lb">Rent</div><div class="vl">Investment</div><div class="ds">Short or long term</div></div>
+  <div class="card"><div class="lb">Renovate</div><div class="vl">Buy &amp; resell</div><div class="ds">Value through works</div></div>
+  <div class="card"><div class="lb">Build</div><div class="vl">A plot</div><div class="ds">Or a larger project</div></div></div>
+  <div class="note">The use decides the area,<br>the property and the rules.</div></div>
+ <div class="bot"><span>@avishay.marbella</span><span>Swipe →</span></div>
+</section>
+
+<section class="s" id="slide-3"><div class="ph" style="background-image:url(images/s3.jpg)"></div>
+ <div class="hd"><div class="cx-sur">Question 2 · 3/8</div><div class="cx-trait"></div><div class="cx-titre">Which area fits<br><span class="a">your way of life?</span></div></div>
+ <div class="badge">02</div>
+ <div class="zone"><div class="grid">
+  <div class="card"><div class="lb">Setting</div><div class="vl">Beach or golf</div></div>
+  <div class="card"><div class="lb">Pace</div><div class="vl">Lively or quiet</div></div>
+  <div class="card"><div class="lb">Daily life</div><div class="vl">Schools &amp; services</div></div>
+  <div class="card"><div class="lb">Access</div><div class="vl">Airport time</div></div></div>
+  <div class="note">From Cabopino to Casares: visit<br>at different times of day.</div></div>
+ <div class="bot"><span>@avishay.marbella</span><span>Swipe →</span></div>
+</section>
+
+<section class="s" id="slide-4"><div class="ph" style="background-image:url(images/s4.jpg)"></div>
+ <div class="hd"><div class="cx-sur">Question 3 · 4/8</div><div class="cx-trait"></div><div class="cx-titre">What is your<br><span class="a">total budget?</span></div></div>
+ <div class="badge">03</div>
+ <div class="zone"><div class="grid">
+  <div class="card big"><div class="lb">Resale</div><div class="vl">7%</div><div class="ds">Transfer tax (ITP)</div></div>
+  <div class="card big"><div class="lb">New build</div><div class="vl">11.2%</div><div class="ds">10% VAT + 1.2% stamp duty</div></div></div>
+  <div class="note">Plus notary, land registry<br>and legal fees.</div></div>
+ <div class="src" style="text-align:center">General Andalusian rates in force in 2026 (Agencia Tributaria de Andalucía; Spanish VAT Law 37/1992). Reduced rates exist for specific cases. Confirm for your purchase.</div>
+ <div class="bot"><span>@avishay.marbella</span><span>Swipe →</span></div>
+</section>
+
+<section class="s" id="slide-5"><div class="ph" style="background-image:url(images/s5.jpg)"></div>
+ <div class="hd"><div class="cx-sur">Question 4 · 5/8</div><div class="cx-trait"></div><div class="cx-titre">How will you<br><span class="a">finance it?</span></div></div>
+ <div class="badge">04</div>
+ <div class="zone"><div class="grid">
+  <div class="card"><div class="lb">Option 1</div><div class="vl">Cash</div><div class="ds">Funds ready for the deposit, taxes and fees</div></div>
+  <div class="card"><div class="lb">Option 2</div><div class="vl">Mortgage</div><div class="ds">Banks lend to non-residents, with lower loan-to-value</div></div></div>
+  <div class="note">Get a pre-approval<br>before you make an offer.</div></div>
+ <div class="src" style="text-align:center">Sources: Banco de España, customer guide on mortgage loans; Law 5/2019 on real estate credit. Conditions vary by bank and profile.</div>
+ <div class="bot"><span>@avishay.marbella</span><span>Swipe →</span></div>
+</section>
+
+<section class="s" id="slide-6"><div class="ph" style="background-image:url(images/s6.jpg)"></div>
+ <div class="hd"><div class="cx-sur">Question 5 · 6/8</div><div class="cx-trait"></div><div class="cx-titre">Have the legal checks<br><span class="a">been done?</span></div></div>
+ <div class="badge">05</div>
+ <div class="zone" style="top:650px"><ul class="chk">
+  <li>Your <b>NIE</b>, the foreigner's tax number</li>
+  <li>A recent <b>nota simple</b> from the Land Registry</li>
+  <li><b>Licences</b> for the house and any extension</li>
+  <li>Property tax and fees <b>up to date</b></li>
+  <li>An <b>independent lawyer</b> on your side</li></ul>
+  <div class="note" style="margin-top:34px">Five questions. One team<br>to answer them with you.</div></div>
+ <div class="bot" style="font-size:14px;letter-spacing:.22em"><span>@avishay.marbella · Levy &amp; Goldman</span><span>Not legal or tax advice · Swipe →</span></div>
+</section>
+
+<section class="s dk" id="slide-7">
+ <div class="hd2"><div class="cx-sur">With us · 7/8</div><div class="cx-trait"></div>
+  <div class="cx-titre" style="font-size:58px">From first call<br><span class="a">to the keys</span></div></div>
+ <div class="tl">
+  <div class="st"><i>1</i><div><b>Your project</b><span>Use, budget, timing, the areas that fit</span></div></div>
+  <div class="st"><i>2</i><div><b>A selected search</b><span>Only properties that match, on and off market</span></div></div>
+  <div class="st"><i>3</i><div><b>Visits</b><span>In person, or by video when you are abroad</span></div></div>
+  <div class="st"><i>4</i><div><b>Offer and negotiation</b><span>We prepare it and handle it with you</span></div></div>
+  <div class="st"><i>5</i><div><b>The right specialists</b><span>Introductions to independent lawyers and mortgage brokers</span></div></div>
+  <div class="st"><i>6</i><div><b>Notary and keys</b><span>We stay with you until the signing</span></div></div>
+ </div>
+ <div class="one">One point of contact, at every step.</div>
+ <div class="bot" style="font-size:14px;letter-spacing:.22em"><span>@avishay.marbella</span><span>Swipe →</span></div>
+</section>
+
+<section class="s" id="slide-8" style="background:#000;color:#fff">
+ <div class="cx-sig-bloc" style="top:675px">
+  <div class="cx-sur" style="font-size:24px">Buying in Marbella · 8/8</div>
+  <div class="cx-titre" style="margin-top:26px;font-size:58px">Tell us<br><span class="a">your project</span></div>
+  <div class="cx-dm" style="margin-top:34px;font-size:46px">DM <b style="font-size:38px">“MARBELLA”</b></div>
+  <div class="cx-filet" style="margin-top:56px"></div>
+  <div class="cx-marque" style="font-size:58px">Levy &amp; Goldman</div>
+  <div class="cx-tag" style="margin-top:10px;font-size:36px">Your dream property awaits</div>
+  <div class="cx-tel" style="margin-top:46px;font-size:36px">+34 647 142 274</div>
+  <div class="cx-contact" style="font-size:27px">avi@levygoldman.com<br>@avishay.marbella</div>
+ </div>
+ <div style="position:absolute;left:90px;right:90px;bottom:56px;text-align:center;font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:#6f6a63;line-height:1.7">Lawyers and mortgage brokers are independent professionals.<br>No financing or outcome is guaranteed.</div>
+</section>
+</body></html>
