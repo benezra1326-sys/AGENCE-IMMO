@@ -69,7 +69,7 @@ def demander(modele: str, cle: str, t: dict, c: dict, texte: str) -> dict:
     with urllib.request.urlopen(req, timeout=120) as r:
         rep = json.loads(r.read())
     avis = json.loads(rep["choices"][0]["message"]["content"])
-    avis.update(contenu="C-" + t["id"], modele=rep.get("model", modele), quand=dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"))
+    avis.update(par="chatgpt", contenu="C-" + t["id"], modele=rep.get("model", modele), quand=dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"))
     return avis
 
 

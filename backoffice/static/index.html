@@ -689,12 +689,15 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
     };
   }
   function blocAvis(c) {
-    const a = AVIS[c.id]; if (!a) return (c.statut === "a_valider") ? bloc("Avis de l'auditeur (ChatGPT)", `<p class="note meta">En attente de sa relecture.</p>`) : "";
-    const v = { publier: ["ok", "à publier"], a_retoucher: ["warn", "à retoucher"], a_refaire: ["bad", "à refaire"] }[a.verdict] || ["", a.verdict || ""];
+    const tous = AVIS[c.id] || {}, noms = { claude: "Antoine (Claude)", chatgpt: "Max (ChatGPT)" };
+    const v = a => ({ publier: ["valide", "à publier"], a_retoucher: ["a_valider", "à retoucher"], a_refaire: ["echec", "à refaire"] }[a.verdict] || ["", a.verdict || ""]);
     const li = (t, l) => l && l.length ? `<p class="meta"><b>${t}</b></p><ul class="histo">${l.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : "";
-    return bloc("Avis de l'auditeur (ChatGPT)", `<div class="avis"><div class="avis-tete"><span class="avis-note">${esc(String(a.note ?? "?"))}<small>/10</small></span><span class="pill s-${v[0] === "ok" ? "valide" : v[0] === "bad" ? "echec" : "a_valider"}">${esc(v[1])}</span></div>
+    const un = (k, a) => `<div class="avis"><div class="avis-tete"><b>${noms[k] || esc(k)}</b><span class="avis-note">${esc(String(a.note ?? "?"))}<small>/10</small></span><span class="pill s-${v(a)[0]}">${esc(v(a)[1])}</span></div>
       <p class="note">${esc(a.resume || "")}</p>${li("Points forts", a.points_forts)}${li("À corriger", a.a_corriger)}${li("Règles à risque", a.risques)}
-      ${a.suggestion ? `<p class="meta"><b>Sa suggestion</b></p><p class="note">${esc(a.suggestion)}</p>` : ""}<p class="meta">Relu le ${date(a.quand)}. C'est un avis : la décision reste la tienne.</p></div>`);
+      ${a.suggestion ? `<p class="meta"><b>Suggestion</b></p><p class="note">${esc(a.suggestion)}</p>` : ""}<p class="meta">Relu le ${date(a.quand)}.</p></div>`;
+    const l = Object.entries(tous);
+    if (!l.length) return c.statut === "a_valider" ? bloc("Double contrôle", `<p class="note meta">En attente de la relecture d'Antoine (Claude) et de Max (ChatGPT).</p>`) : "";
+    return bloc("Double contrôle", l.map(([k, a]) => un(k, a)).join("") + `<p class="meta">Ce sont des avis : la décision reste la tienne.</p>`);
   }
   function zoneDecision(c) {
     if (!(c.statut === "a_valider" || c.statut === "modification_demandee")) return "";
@@ -868,7 +871,7 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
         snap.docs.forEach(d => { DECISIONS[d.id] = d.data(); });
         rendre(); appliquerDecisions(); rafraichirFiche();
       }, () => clearTimeout(minuteur));
-      DB.collection("avis").onSnapshot(snap => { snap.docs.forEach(d => { const x = d.data(); if (x.contenu) AVIS[x.contenu] = x; }); rendre(); }, () => {});
+      DB.collection("avis").onSnapshot(snap => { snap.docs.forEach(d => { const x = d.data(); if (x.contenu) (AVIS[x.contenu] = AVIS[x.contenu] || {})[x.par || "chatgpt"] = x; }); rendre(); }, () => {});
       DB.collection("calendrier").onSnapshot(snap => {
         Object.keys(CAL).forEach(k => delete CAL[k]);
         snap.docs.forEach(d => { CAL[d.id] = Object.assign({ _id: d.id }, d.data()); });
