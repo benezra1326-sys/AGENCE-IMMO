@@ -1,0 +1,8 @@
+{
+  "id": "kapara",
+  "nom": "KAPARA",
+  "source": {
+    "depot": "benezra1326-sys/KAPARA",
+    "chemin": "status/kapara.json"
+  }
+}

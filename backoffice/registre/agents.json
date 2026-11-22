@@ -293,6 +293,118 @@
     "Premier passage en cours (la clé est lue par une nouvelle session)."
    ],
    "preuve": null
+  },
+  {
+   "id": "apps-coordination",
+   "prenom": "Léa",
+   "prenom_valide": false,
+   "activite": "apps",
+   "nom": "Cheffe de projet Apps",
+   "roles": [
+    "planning des apps",
+    "répartition des tâches",
+    "fiche d'état de chaque app",
+    "récap Apps du matin"
+   ],
+   "etat": "configure",
+   "instructions": "apps/agents/apps-coordination.md",
+   "execution": "session Claude (à la demande)",
+   "manque": [
+    "Le bot Telegram Apps (jeton à créer avec BotFather)",
+    "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
+   ]
+  },
+  {
+   "id": "apps-produit",
+   "prenom": "Noah",
+   "prenom_valide": false,
+   "activite": "apps",
+   "nom": "Produit et benchmark",
+   "roles": [
+    "benchmark des concurrents",
+    "fonctionnalités et priorités",
+    "cahier des charges"
+   ],
+   "etat": "configure",
+   "instructions": "apps/agents/apps-produit.md",
+   "execution": "session Claude (recherche web)",
+   "manque": [
+    "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
+   ]
+  },
+  {
+   "id": "apps-design",
+   "prenom": "Inès",
+   "prenom_valide": false,
+   "activite": "apps",
+   "nom": "Design et parcours",
+   "roles": [
+    "parcours utilisateur",
+    "maquettes",
+    "identité visuelle de l'app"
+   ],
+   "etat": "configure",
+   "instructions": "apps/agents/apps-design.md",
+   "execution": "session Claude (Figma si connecté)",
+   "manque": [
+    "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
+   ]
+  },
+  {
+   "id": "apps-dev",
+   "prenom": "Sacha",
+   "prenom_valide": false,
+   "activite": "apps",
+   "nom": "Développement mobile",
+   "roles": [
+    "code de l'app",
+    "base de données et comptes",
+    "intégrations (paiement, notifications)"
+   ],
+   "etat": "configure",
+   "instructions": "apps/agents/apps-dev.md",
+   "execution": "session Claude (dépôt de l'app)",
+   "manque": [
+    "L'accès en écriture au dépôt de chaque app",
+    "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
+   ]
+  },
+  {
+   "id": "apps-qualite",
+   "prenom": "Elias",
+   "prenom_valide": false,
+   "activite": "apps",
+   "nom": "Tests et qualité",
+   "roles": [
+    "tests automatiques",
+    "essais sur téléphone",
+    "sécurité et données personnelles"
+   ],
+   "etat": "configure",
+   "instructions": "apps/agents/apps-qualite.md",
+   "execution": "session Claude",
+   "manque": [
+    "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
+   ]
+  },
+  {
+   "id": "apps-publication",
+   "prenom": "Maya",
+   "prenom_valide": false,
+   "activite": "apps",
+   "nom": "Publication sur les stores",
+   "roles": [
+    "fiches App Store et Google Play",
+    "captures et textes",
+    "suivi de la validation"
+   ],
+   "etat": "configure",
+   "instructions": "apps/agents/apps-publication.md",
+   "execution": "session Claude",
+   "manque": [
+    "Tes comptes développeur Apple (99 $/an) et Google Play (25 $ une fois), quand une app sera prête",
+    "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."
+   ]
   }
  ]
 }

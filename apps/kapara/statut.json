@@ -1,0 +1,25 @@
+{
+  "id": "kapara",
+  "nom": "KAPARA",
+  "description": "Application de rencontre mobile (iOS et Android).",
+  "depot": "benezra1326-sys/KAPARA",
+  "etape": "cadrage",
+  "statut": "en_cours",
+  "avancement": 10,
+  "resume": "Benchmark des apps de rencontre terminé, décisions produit prises. Le squelette technique (app Expo, API NestJS, base Prisma + PostGIS) est en construction dans le dépôt KAPARA.",
+  "prochaine_etape": "Pousser le squelette sur GitHub et découper le travail en chantiers parallèles.",
+  "blocages": [],
+  "agents": ["apps-coordination", "apps-produit", "apps-dev"],
+  "chantiers": [
+    {"nom": "Benchmark et décisions produit", "statut": "termine", "avancement": 100, "responsable": "apps-produit"},
+    {"nom": "Squelette technique", "statut": "en_cours", "avancement": 30, "responsable": "apps-dev"}
+  ],
+  "liens": [
+    {"libelle": "Dépôt GitHub", "url": "https://github.com/benezra1326-sys/KAPARA"}
+  ],
+  "historique": [
+    {"quand": "2026-11-22T03:22:00Z", "texte": "Benchmark terminé : 11 décisions clés pour la construction."},
+    {"quand": "2026-11-22T03:23:00Z", "texte": "Dépôt KAPARA créé, squelette en cours."}
+  ],
+  "maj_le": "2026-11-22T03:30:00Z"
+}

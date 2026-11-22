@@ -41,10 +41,25 @@ class Config:
         self.heure_recap = _env("BO_HEURE_RECAP", "08:00")
         self.jeton_demandes = _env("BO_INTAKE_TOKEN")  # jeton des formulaires / webhooks entrants
         self.anthropic_cle_presente = bool(_env("ANTHROPIC_API_KEY"))
+        # Second bot Telegram, réservé aux Applications (séparé du bot Immobilier).
+        self.apps_telegram_token = _env("APPS_TELEGRAM_BOT_TOKEN")
+        self.apps_telegram_chat_id = _env("APPS_TELEGRAM_CHAT_ID")
+        self.jeton_apps = _env("BO_APPS_TOKEN")
+        # lecture seule des dépôts privés des apps (fiche d'état publiée dans chaque dépôt)
+        self.github_jeton = _env("BO_GITHUB_TOKEN")  # jeton des mises à jour d'état envoyées par les projets d'apps
 
     @property
     def telegram_configure(self):
         return bool(self.telegram_token and self.telegram_proprietaire)
+
+    @property
+    def apps_telegram_proprietaire(self):
+        """Même compte que le bot Immobilier, sauf si APPS_TELEGRAM_CHAT_ID en désigne un autre."""
+        return self.apps_telegram_chat_id or self.telegram_proprietaire
+
+    @property
+    def apps_telegram_configure(self):
+        return bool(self.apps_telegram_token and self.apps_telegram_proprietaire)
 
     @property
     def email_configure(self):

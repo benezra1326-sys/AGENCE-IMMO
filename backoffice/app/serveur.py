@@ -12,7 +12,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 
-from . import leads, pilotage, taches
+from . import apps, leads, pilotage, taches
 from .config import RACINE_BACKOFFICE
 from .registre import etat_complet
 
@@ -88,6 +88,8 @@ def fabrique(cx, config):
             chemin = urlparse(self.path).path
             if chemin == "/api/demandes":
                 return self._demande_entrante()
+            if chemin == "/api/apps/statut":
+                return self._statut_app()
             if not self._auth():
                 return
             d = self._corps()
@@ -123,6 +125,18 @@ def fabrique(cx, config):
                                    nom=d.get("nom"), email=d.get("email"), telephone=d.get("telephone"),
                                    compte=d.get("compte"), langue=d.get("langue"), pays=d.get("pays"))
             self._json(200, r)
+
+        def _statut_app(self):
+            """Fiche d'état envoyée par un projet d'app (format : apps/README.md). Jeton dédié BO_APPS_TOKEN."""
+            jeton = getattr(config, "jeton_apps", None)
+            if not jeton or not hmac.compare_digest(self.headers.get("X-Jeton", ""), jeton):
+                return self._json(401, {"erreur": "jeton invalide"})
+            try:
+                with VERROU:
+                    changements = apps.enregistrer(cx, self._corps(), "api")
+            except apps.FicheInvalide as e:
+                return self._json(400, {"erreur": str(e)})
+            self._json(200, {"ok": True, "changements": changements})
 
         def _fichier(self, chemin, prefixe=b""):
             data = prefixe + Path(chemin).read_bytes()

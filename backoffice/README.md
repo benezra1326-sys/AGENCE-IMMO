@@ -16,13 +16,21 @@ Python 3.11+ et la bibliothèque standard uniquement : rien à installer, aucun 
 - Récap du matin (08:00 Madrid), un seul par jour.
 - Tableau de bord lisible sur téléphone, protégé par mot de passe.
 
+## Applications (22 novembre 2026)
+
+- Rubrique **Apps** du tableau de bord : avancement de chaque app (étape, pourcentage, chantiers, blocages, historique),
+  équipe Apps (6 agents), tâches Apps.
+- Second bot Telegram réservé aux apps (`APPS_TELEGRAM_BOT_TOKEN`), distinct du bot Immobilier : alertes de changement
+  et récap Apps du matin. Les apps n'apparaissent ni dans le bot ni dans le récap Immobilier.
+- Chaque app publie une fiche d'état (format et mise en service du bot : `../apps/README.md`).
+
 Tout tourne en **mode test** : les alertes sont préparées et visibles, rien n'est envoyé.
 
 ## Essayer en local
 
 ```bash
 cd backoffice
-python3 -m unittest discover -s tests -t .          # 21 tests
+python3 -m unittest discover -s tests -t .          # 32 tests
 python3 -m scripts.test_prospect_fictif              # parcours prospect fictif complet
 python3 -m app.service                               # http://127.0.0.1:8787
 ```

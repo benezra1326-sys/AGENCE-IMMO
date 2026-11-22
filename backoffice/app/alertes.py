@@ -64,7 +64,7 @@ class EmailEnvoi:
             s.send_message(msg)
 
 
-def expedier(cx, config, telegram=None, email=None):
+def expedier(cx, config, telegram=None, email=None, telegram_apps=None):
     """Envoie les alertes préparées si le mode réel est actif et la connexion configurée."""
     if config.mode_envoi != "reel":
         return {"envoyees": 0, "raison": "mode test : alertes préparées, aucun envoi"}
@@ -79,6 +79,10 @@ def expedier(cx, config, telegram=None, email=None):
                 if telegram is None:
                     raise RuntimeError("bot Telegram non configuré")
                 telegram.envoyer(a["corps"])
+            elif a["canal"] == "telegram_apps":  # bot Apps : jamais de repli sur le bot Immobilier
+                if telegram_apps is None:
+                    raise RuntimeError("bot Telegram Apps non configuré")
+                telegram_apps.envoyer(a["corps"])
             else:
                 if email is None:
                     raise RuntimeError("envoi email non configuré")

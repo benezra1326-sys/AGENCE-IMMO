@@ -7,6 +7,7 @@ import sqlite3
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+from .apps import lister as lister_apps
 from .config import RACINE_BACKOFFICE
 from .db import journaliser, ligne, maintenant
 
@@ -205,6 +206,7 @@ def etat_complet(cx, config):
         "mode_envoi": config.mode_envoi,
         "service": {
             "telegram": config.telegram_configure,
+            "telegram_apps": config.apps_telegram_configure,
             "email": config.email_configure,
             "api_modeles": config.anthropic_cle_presente,
         },
@@ -225,6 +227,7 @@ def etat_complet(cx, config):
             "jour_eur": round(total("SELECT SUM(montant_eur) FROM couts WHERE quand >= ?", hier), 2),
             "lignes": rows("SELECT * FROM couts ORDER BY id DESC LIMIT 100"),
         },
+        "apps": lister_apps(cx),
         "erreurs": rows("SELECT * FROM journal WHERE niveau='erreur' ORDER BY id DESC LIMIT 100"),
     }
     return masquer_biens(etat, config.racine_depot)

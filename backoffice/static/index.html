@@ -90,9 +90,9 @@ h3 { font: 600 .98rem/1.3 var(--f-body); margin: 0; overflow-wrap: anywhere }
 .s-propose, .s-prevu, .s-en_attente, .s-a_configurer, .s-reporte, .s-liste_preparee, .s-brouillon, .s-en_preparation, .s-remplace { color: var(--idle); background: var(--idle-bg) }
 .s-configure, .s-en_cours, .s-partiel, .s-en_lancement { color: var(--info); background: var(--info-bg) }
 .s-teste, .s-a_valider, .s-preparee { color: var(--test); background: var(--test-bg) }
-.s-actif, .s-confirme, .s-terminee, .s-operationnel, .s-valide, .s-envoyee, .s-publie { color: var(--ok); background: var(--ok-bg) }
+.s-actif, .s-confirme, .s-terminee, .s-termine, .s-operationnel, .s-valide, .s-envoyee, .s-publie { color: var(--ok); background: var(--ok-bg) }
 .s-recue { color: var(--idle); background: var(--idle-bg) } .s-attribuee { color: var(--info); background: var(--info-bg) } .s-traitee { color: var(--ok); background: var(--ok-bg) } .s-question { color: var(--warn); background: var(--warn-bg) }
-.s-bloque, .s-bloquee, .s-modification_demandee, .s-manquant, .s-a_verifier { color: var(--warn); background: var(--warn-bg) }
+.s-bloque, .s-bloquee, .s-en_pause, .s-modification_demandee, .s-manquant, .s-a_verifier { color: var(--warn); background: var(--warn-bg) }
 .s-echec, .s-appel_demande { color: var(--bad); background: var(--bad-bg) }
 
 /* Éléments cliquables */
@@ -181,6 +181,17 @@ dialog.fiche::backdrop { background: rgb(0 0 0 / .5) }
 .bloc > .etiquette { font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 600 }
 .puces-texte { display: flex; flex-wrap: wrap; gap: 6px }
 .puces-texte span { font-size: .8rem; padding: 3px 10px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line) }
+.barre { height: 8px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line); overflow: hidden }
+.barre > i { display: block; height: 100%; background: var(--sand); border-radius: 999px }
+.barre.petite { height: 5px }
+.etapes { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; overflow-x: auto }
+.etapes li { flex: 1 0 auto; font-size: .68rem; color: var(--muted); padding-top: 6px; border-top: 3px solid var(--line); white-space: nowrap }
+.etapes li.faite { border-top-color: var(--sand); }
+.etapes li.ici { border-top-color: var(--sand); color: var(--fg); font-weight: 600 }
+.app-tete { display: flex; justify-content: space-between; gap: 8px; align-items: center; flex-wrap: wrap }
+.app-tete h3 { font: 600 1.3rem/1.1 var(--f-display); margin: 0 }
+.chantier { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; align-items: center; font-size: .85rem }
+.chantier .barre { grid-column: 1 / -1 }
 .manque { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px }
 .manque li { font-size: .88rem; padding: 8px 10px 8px 12px; border-radius: 8px; background: var(--warn-bg); color: var(--fg); border-left: 3px solid var(--warn); overflow-wrap: anywhere }
 .medias { display: flex; flex-direction: column; gap: 12px; align-items: center }
@@ -317,7 +328,7 @@ details.historique[open] summary { margin-bottom: 8px }
     en_attente: "en attente", en_cours: "en cours", terminee: "terminée", echec: "échec", bloquee: "bloquée",
     a_valider: "à valider", modification_demandee: "en modification", valide: "validé", publie: "publié", remplace: "remplacé",
     brouillon: "brouillon", en_preparation: "en préparation", operationnel: "opérationnel", partiel: "partiel",
-    manquant: "manquant", a_verifier: "à activer ou vérifier", a_configurer: "à configurer", propose: "proposé", confirme: "confirmé", reporte: "reporté", en_lancement: "en lancement",
+    manquant: "manquant", a_verifier: "à activer ou vérifier", a_configurer: "à configurer", propose: "proposé", confirme: "confirmé", reporte: "reporté", en_lancement: "en lancement", en_pause: "en pause", termine: "terminé", a_faire: "à faire",
     recue: "reçue", attribuee: "prise en charge", traitee: "faite", question: "question pour toi",
     liste_preparee: "liste préparée", preparee: "préparée", envoyee: "envoyée", nouveau: "nouveau", appel_demande: "appel demandé"
   };
@@ -617,7 +628,7 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
     ["alertes", "Alertes", "Telegram et email préparés", () => E.alertes.length],
     ["couts", "Coûts et erreurs", "Dépenses du mois", () => null],
     ["journal", "Historique", "Toutes les actions enregistrées", () => E.journal.length],
-    ["apps", "Applications", "Activité à configurer", () => null],
+    ["apps", "Applications", "Projets d'apps, agents et bot dédié", () => (E.apps || []).length],
     ["reseaux", "Réseaux", "Activité à configurer", () => null]
   ];
   function banniereAutorisation() {
@@ -662,6 +673,38 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
   }
   function vueJournal() {
     return `${retourPlus}<section>${titreSection("Historique", E.journal.length)}${E.journal.length ? `<div class="tableau"><table><thead><tr><th>Quand</th><th>Qui</th><th>Action</th><th>Détail</th></tr></thead><tbody>${E.journal.map(j => `<tr><td>${date(j.quand)}</td><td>${esc(j.acteur)}</td><td>${j.niveau === "erreur" ? pill("echec") + " " : ""}${esc(j.action)}</td><td>${esc(j.details || "")}</td></tr>`).join("")}</tbody></table></div>` : `<p class="vide">Aucune action enregistrée.</p>`}</section>`;
+  }
+  const ETAPES_APP = [["idee", "Idée"], ["benchmark", "Benchmark"], ["cadrage", "Cadrage"], ["design", "Design"], ["developpement", "Développement"], ["tests", "Tests"], ["publication", "Stores"], ["en_ligne", "En ligne"]];
+  const barre = (n, petite) => `<div class="barre${petite ? " petite" : ""}" role="progressbar" aria-valuenow="${Number(n) || 0}" aria-valuemin="0" aria-valuemax="100"><i style="width:${Math.max(0, Math.min(100, Number(n) || 0))}%"></i></div>`;
+  function carteApp(a) {
+    const i = ETAPES_APP.findIndex(e => e[0] === a.etape);
+    const etapes = `<ol class="etapes" aria-label="Étapes">${ETAPES_APP.map(([k, l], j) => `<li class="${j < i ? "faite" : j === i ? "ici" : ""}"${j === i ? ` aria-current="step"` : ""}>${esc(l)}</li>`).join("")}</ol>`;
+    const chantiers = (a.chantiers || []).map(c => `<div class="chantier"><span>${esc(c.nom)}${c.responsable ? ` <span class="meta">· ${esc(nomAgent(c.responsable))}</span>` : ""}</span>${pill(c.statut)}${barre(c.avancement, true)}</div>`).join("");
+    return `<article class="carte"><div class="app-tete"><h3>${esc(a.nom)}</h3>${pill(a.statut)}</div>
+      ${a.description ? `<p class="note meta">${esc(a.description)}</p>` : ""}
+      <div><div style="display:flex;justify-content:space-between" class="meta"><span>Avancement</span><b>${Number(a.avancement) || 0} %</b></div>${barre(a.avancement)}</div>
+      ${etapes}
+      ${a.resume ? `<p class="note">${esc(a.resume)}</p>` : ""}
+      ${a.prochaine_etape ? bloc("Prochaine étape", `<p class="note">${esc(a.prochaine_etape)}</p>`) : ""}
+      ${(a.blocages || []).length ? bloc("Ce qui bloque", `<ul class="manque">${a.blocages.map(b => `<li>${esc(b)}</li>`).join("")}</ul>`) : ""}
+      ${chantiers ? bloc("Chantiers", `<div style="display:flex;flex-direction:column;gap:10px">${chantiers}</div>`) : ""}
+      ${(a.liens || []).length ? `<p class="meta">${a.liens.map(l => `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.libelle)}</a>`).join(" · ")}</p>` : ""}
+      ${(a.historique || []).length ? `<details><summary>Historique</summary><ul class="histo">${a.historique.slice().reverse().map(h => `<li>${date(h.quand)} · ${esc(h.texte)}</li>`).join("")}</ul></details>` : ""}
+      <p class="meta">Mis à jour le ${date(a.maj_le)}</p></article>`;
+  }
+  function vueApps() {
+    const act = E.activites.find(x => x.id === "apps") || {}, liste = E.apps || [];
+    const ag = E.agents.filter(a => a.activite === "apps");
+    const t = E.taches.filter(x => x.activite === "apps").sort((x, y) => String(y.maj_le).localeCompare(String(x.maj_le)));
+    const bot = (E.connexions.connexions || []).find(c => c.id === "telegram_apps");
+    const botOk = E.service && E.service.telegram_apps;
+    return `<section>${titreSection("Apps", liste.length)}<p class="intro">${esc(act.mission || "")} Les apps ont leurs propres agents, tâches et bot Telegram : rien ne se mélange avec l'immobilier.</p></section>
+      <section>${titreSection("Projets", null)}${liste.length ? `<div class="grille-agents">${liste.map(carteApp).join("")}</div>` : `<p class="vide">Aucune app suivie pour l'instant. Chaque app apparaît ici dès qu'elle publie sa fiche d'état.</p>`}</section>
+      <section>${titreSection("Bot Telegram Apps", null)}<article class="carte"><div class="app-tete"><span>Séparé du bot Immobilier</span>${pill(botOk ? "operationnel" : (bot && bot.statut) || "manquant")}</div>
+        <p class="note">${botOk ? "Relié : il te prévient quand une app avance ou se bloque, et envoie le récap Apps du matin." : "Pas encore créé. En attendant, ses messages sont préparés et visibles dans Alertes, rien n'est envoyé."}</p>
+        ${!botOk && bot && bot.action ? `<ul class="manque"><li>${esc(bot.action)}</li></ul>` : ""}</article></section>
+      <section>${titreSection("L'équipe Apps", ag.length)}<div class="grille-agents">${ag.map(carteAgent).join("")}</div></section>
+      <section>${titreSection("Tâches Apps", t.length)}${t.length ? `<div class="liste">${t.slice(0, 30).map(rangeeTache).join("")}</div>` : `<p class="vide">Aucune tâche Apps pour l'instant.</p>`}</section>`;
   }
   function vueAConfigurer(id) {
     const a = E.activites.find(x => x.id === id) || {};
@@ -824,7 +867,7 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
       c.retours = base.concat(d ? (d.historique || []).map(h => ({ decision: h.decision, texte: h.texte, canal: "tableau de bord", cree_le: h.quand })) : []);
     });
   }
-  const VUES = { accueil: vueAccueil, valider: vueValider, equipe: vueEquipe, taches: vueTaches, plus: vuePlus, biens: vueBiens, acheteurs: vueAcheteurs, connexions: vueConnexions, marche: vueMarche, partenaires: vuePartenaires, alertes: vueAlertes, couts: vueCouts, journal: vueJournal, calendrier: vueCalendrier, apps: () => vueAConfigurer("apps"), reseaux: () => vueAConfigurer("reseaux") };
+  const VUES = { accueil: vueAccueil, valider: vueValider, equipe: vueEquipe, taches: vueTaches, plus: vuePlus, biens: vueBiens, acheteurs: vueAcheteurs, connexions: vueConnexions, marche: vueMarche, partenaires: vuePartenaires, alertes: vueAlertes, couts: vueCouts, journal: vueJournal, calendrier: vueCalendrier, apps: vueApps, reseaux: () => vueAConfigurer("reseaux") };
   const ANCIENNES = { vue: "accueil", immo: "accueil" };
   const PROJETS = [["immo", "Immobilier", "#accueil"], ["apps", "Apps", "#apps"], ["reseaux", "Création de contenu", "#reseaux"]];
   function barreProjets(r) {

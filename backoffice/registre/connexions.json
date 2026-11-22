@@ -182,6 +182,15 @@
       "cote": "telephone",
       "note": "Compte « avibenazra » connecté via vidIQ, peut publier (12/11).",
       "action": null
+    },
+    {
+      "id": "telegram_apps",
+      "activite": "apps",
+      "nom": "Bot Telegram Apps",
+      "statut": "manquant",
+      "cote": "serveur",
+      "note": "Second bot, réservé aux applications : les infos des apps ne se mélangent pas avec celles de l'immobilier. En mode test tant que le jeton n'est pas fourni.",
+      "action": "Dans Telegram, ouvre @BotFather, envoie /newbot, choisis un nom (ex. « Avishay Apps ») puis donne le jeton obtenu comme variable APPS_TELEGRAM_BOT_TOKEN dans les réglages (jamais dans le chat)."
     }
   ]
 }
