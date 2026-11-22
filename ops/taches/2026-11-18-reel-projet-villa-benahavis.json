@@ -1,0 +1,24 @@
+{
+ "id": "2026-11-18-reel-projet-villa-benahavis",
+ "agent": "montage",
+ "titre": "Reel projet de villa, Benahavís (AB-0004)",
+ "statut": "terminee",
+ "source": "Avishay 18/11/2026 (back-office) : remplacer le Reel programme neuf, présenter un produit du catalogue avec une vraie singularité, côté client ; voix off et musique obligatoires ; ne plus remettre la même musique",
+ "resultat": "Reel 40 s, voix off anglaise (voix de travail OpenAI), musique Mixkit cinématographique jamais utilisée ailleurs + 2 autres options, 11 images de synthèse, texte Montserrat tiers haut, écran final noir Levy & Goldman, DM “ESTATE”. Prix, contenu du prix et droits images à confirmer.",
+ "fichiers": [
+  "/mnt/project-files/agence-immo/contenus/2026-11-18-reel-projet-villa-benahavis/",
+  "contenus/2026-11-18-reel-projet-villa-benahavis/legende-et-note.md"
+ ],
+ "raison_echec": null,
+ "activite": "immo",
+ "cree_le": "2026-11-18T13:00:00Z",
+ "maj_le": "2026-11-18T13:15:00Z",
+ "cout_eur": 0.05,
+ "contenu": {
+  "titre": "Reel projet de villa, Benahavís",
+  "format": "reel",
+  "langue": "en",
+  "statut": "a_valider",
+  "bien": "AB-0004"
+ }
+}

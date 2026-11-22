@@ -1,0 +1,24 @@
+{
+ "ref": "AB-0004",
+ "ref_partenaire": "LG104 (projet de villa, site Levy & Goldman)",
+ "nom": "non public (nom du projet, du domaine et de l'architecte jamais affichés)",
+ "zone": "Benahavís (domaine privé fermé)",
+ "type": "terrain prêt à bâtir avec projet de villa",
+ "caracteristiques": {
+  "projet_m2": "environ 1 600 (selon l'annonce)",
+  "terrain": "plus de 5 000 m² (chiffre exact non public)",
+  "prestations_projet": ["spa", "salle de sport", "cinéma", "simulateur de golf", "cave à vin", "galerie de voitures"],
+  "atouts": ["première ligne de golf", "vue dégagée à 270°", "exposition sud", "impasse sans passage", "allée privée et plateau déjà réalisés"],
+  "domaine": ["deux golfs privés", "centre équestre", "héliport", "club-house", "tennis et padel", "sécurité 24 h/24"]
+ },
+ "source_caracteristiques": "https://levygoldman.com/property/villa-project-elysium-la-zagaleta-benahavis-%c2%b7-costa-del-sol/?lang=fr (lue le 18/11/2026, page modifiée le 29/09/2026)",
+ "autorisation_medias": "a_confirmer",
+ "autorisation_medias_source": "Avishay, 18/11/2026 : « présente-moi des produits que j'ai ». Droit d'utiliser les images du site à confirmer à la validation.",
+ "nature_medias": "images de synthèse du projet ; mention « Computer-generated images » obligatoire",
+ "autorisation_tournage": "sans_objet",
+ "restrictions": ["Ne jamais afficher le nom du projet, du domaine ni de l'architecte", "Pas de prix exact ni de surface exacte du terrain à l'image (identifiant)", "Le pourcentage de commission est interne, jamais public"],
+ "prix": {"montant": "3 995 000 €", "verifie": false, "note": "Affiché sur le site le 18/11/2026. À confirmer : construction incluse ou non."},
+ "disponibilite_verifiee": false,
+ "medias_stockage": "/mnt/project-files/agence-immo/medias/AB-0004/",
+ "maj_le": "2026-11-18T13:10:00Z"
+}

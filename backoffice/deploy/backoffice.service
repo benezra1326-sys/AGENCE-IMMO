@@ -1,0 +1,18 @@
+[Unit]
+Description=Back-office Avishay (tableau de bord, bot Telegram, alertes)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=backoffice
+WorkingDirectory=/opt/agence-immo/backoffice
+EnvironmentFile=/etc/backoffice.env
+ExecStart=/usr/bin/python3 -m app.service
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/backoffice /opt/agence-immo
+
+[Install]
+WantedBy=multi-user.target
