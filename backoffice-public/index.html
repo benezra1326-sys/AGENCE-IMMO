@@ -709,6 +709,27 @@ a.kpi:hover .kpi-ic { transform: scale(1.08) rotate(-4deg) }
 .md p { margin: 8px 0 } .md ul { margin: 6px 0; padding-left: 20px } .md .md-t { margin: 14px 0 6px; font-size: .95rem }
 .md .tableau { margin: 8px 0 } .md table { font-size: .8rem } .md td { min-width: 70px }
 .md code, .md-code { font-family: var(--f-mono); font-size: .78rem; background: var(--surface-2); border-radius: 4px; padding: 0 4px } .md-code { display: block; padding: 8px; white-space: pre-wrap }
+/* Refonte 23/11 : même gabarit pour IMMO, Apps et Contenu */
+.univ { display: flex; flex-direction: column; gap: 22px; min-width: 0 }
+.univ .page-tete h1 { border-left: 4px solid var(--k); padding-left: 12px }
+a.rangee { display: flex; text-decoration: none; color: var(--fg) }
+.ag-ligne { align-items: center }
+.ag-av { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-weight: 650; font-size: .9rem; flex: none; color: #fff; background: var(--k, var(--sand)) }
+.ag-l1 { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; min-width: 0 }
+.ag-l1 b { font-weight: 600 } .ag-l1 small { color: var(--muted); font-size: .76rem }
+.grille-ag { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 12px }
+.ag-carte { gap: 10px }
+.ag-tete { display: flex; gap: 10px; align-items: center }
+.ag-tete .txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px }
+.ag-tete small { color: var(--muted); font-size: .78rem }
+.ag-dl { margin: 0; display: grid; gap: 2px }
+.ag-dl dt { font-size: .68rem; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); font-weight: 600; margin-top: 4px }
+.ag-dl dd { margin: 0; font-size: .86rem; overflow-wrap: anywhere }
+details.groupe-ag > summary { font-weight: 600 }
+.chaine { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px }
+.maillon { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; border-top: 3px solid var(--k) }
+.maillon b { font-size: 1.3rem; font-variant-numeric: tabular-nums } .maillon span { font-size: .76rem; color: var(--muted) }
+.actions-liste div.rangee, .liste div.rangee { display: flex }
 </style>
 
 <div class="app">
@@ -999,13 +1020,6 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
     return k.length ? `<div class="liste">${k.flatMap(d => parJour[d].map(c => ouvre("contenu", c.id, `<span class="txt"><span class="meta"><b>${d === "~" ? "Date à fixer" : jour(d)}</b><span>${esc(FORMATS[c.format] || c.format || "")}</span></span><h3>${esc(c.titre)}</h3></span>${pill(c.statut)}${CHEVRON}`, "rangee"))).join("")}</div>` : `<p class="vide">Aucun contenu planifié.</p>`;
   }
 
-  function vueEquipe() {
-    const ag = E.agents.filter(a => a.activite === "immo");
-    const groupes = [["bloque", "Bloqués : il leur manque un accès"], ["configure", "Configurés, pas encore testés"], ["teste", "Testés"], ["actif", "Actifs"], ["prevu", "Prévus"]];
-    return `<section>${titreSection("L'équipe Immobilier", ag.length)}<p class="intro">Touche un agent pour voir ce qu'il fait, ce qu'il sait faire, ses tâches et ce qu'il lui manque. Un agent ne devient « actif » (il travaille seul, Mac éteint) qu'avec le serveur.</p>${Object.keys(APPAG).length ? `<p class="intro">Les agents des applications sont dans <a href="#apps">Applications</a> : ${Object.values(APPAG).filter(a => a.statut !== "termine").length} au travail en ce moment.</p>` : ""}</section>`
-      + `<section>${titreSection("Agent maître", null)}<article class="carte"><div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><h3>${esc(E.maitre.nom)}</h3>${pill(E.maitre.etat)}</div><p class="note">${esc(E.maitre.mission)}</p><p class="note meta">${esc(E.maitre.note)}</p></article></section>`
-      + groupes.map(([s, l]) => { const g = ag.filter(a => a.etat === s); return g.length ? `<section>${titreSection(l, g.length)}<div class="grille-agents">${g.map(carteAgent).join("")}</div></section>` : ""; }).join("");
-  }
 
   function vueTaches() {
     const t = E.taches.filter(x => x.activite === "immo").sort((x, y) => String(y.maj_le).localeCompare(String(x.maj_le)));
@@ -1377,7 +1391,7 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
   }
   function kpi(lib, val, sous, opts) {
     const o = opts || {}, tag = o.href ? "a" : "div";
-    const ic = KPI_ICO[lib];
+    const ic = KPI_ICO[lib] || icoUniv(lib);
     return `<${tag} class="kpi${o.k ? " accent" : ""}"${o.href ? ` href="${o.href}"` : ""}${o.k ? ` style="--k:${o.k}"` : ""}>${ic ? `<span class="kpi-haut"><span class="kpi-ic" aria-hidden="true">${ic}</span>${o.src || ""}</span>` : ""}<span class="lib">${esc(lib)}${!ic && o.src ? " " + o.src : ""}</span><span class="val">${val}</span>${sous ? `<span class="sous">${sous}</span>` : ""}${o.det ? `<span class="det">${o.det}</span>` : ""}</${tag}>`;
   }
   // Barres verticales (série temporelle) : une seule série, survol = valeur
@@ -1433,7 +1447,7 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
     return `<nav class="projets" aria-label="Projet affiché en détail">${DETAILS.map(([id, nom]) => `<a href="#accueil" data-detail="${id}"${id === DETAIL ? ` aria-current="page"` : ""}>${nom} en détail</a>`).join("")}</nav>`;
   }
   function detailAutre() {
-    const h = (DETAIL === "apps" ? vueApps() : vueContenuProjet()).replace(/^\s*<div class="page-tete">[\s\S]*?<\/div>(?:<\/div>)/, "");
+    const h = (DETAIL === "apps" ? vueApps() : vueContenuProjet()).replace(/<div class="page-tete">[\s\S]*?<\/div><\/div>/, "");
     return `<section class="univers" style="--k:var(--a-${DETAIL === "apps" ? "apps" : "contenu"})">${titreSection(act(DETAIL) + " en détail", null, `<a class="lien-section" href="#${DETAIL}">Ouvrir ${DETAIL === "apps" ? "Apps" : "Contenu"}</a>`)}${h}</section>`;
   }
   document.addEventListener("click", ev => {
@@ -1732,14 +1746,6 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
   }
 
   // ---------- Pages d'activité ----------
-  function vueImmo() {
-    const reg = registre().filter(x => x.activite === "immo"), ag = E.agents.filter(a => a.activite === "immo");
-    const SOUS = [["biens", "Biens", "Fiches, droits, prix à confirmer", E.biens.length], ["acheteurs", "Acheteurs", "Prospects et qualification", E.prospects.filter(p => !p.fictif).length], ["partenaires", "Partenaires B2B", "Agences et apporteurs actifs", E.partenaires.length], ["marche", "Marché", "Chiffres sourcés", ((E.marche && E.marche.chiffres) || []).length]];
-    return `${pageTete(act("immo") + " Immobilier Marbella", "Leads qualifiés sur les beaux biens de Marbella et ses alentours, jusqu'à Estepona, dès 500 000 €.")}
-      <div class="grille-kpi">${kpi("Contenus à valider", reg.filter(x => x.statut === "a_valider").length, "", { href: "#valider", k: "var(--a-immo)", src: src("reel") })}${kpi("En ligne (Instagram)", reg.filter(x => x.statut === "publie").length, "", { href: "#contenu", k: "var(--a-immo)", src: MES.instagram ? src("sync") : src("nd") })}${kpi("Acheteurs réels", E.prospects.filter(p => !p.fictif).length, "le prospect fictif de test n'est pas compté", { href: "#acheteurs", src: src("reel") })}${kpi("Partenaires B2B actifs", E.partenaires.length, "40 invitations LinkedIn prévues cette semaine (envoyées par toi)", { href: "#partenaires", src: src("reel") })}</div>
-      <div class="tuiles-nav">${SOUS.map(([r, l, d, n]) => `<a class="tuile-nav" href="#${r}"><span class="ic">${ICO[r] || ICO.immo}</span><span><b>${l} <span class="compte">${n}</span></b><small>${d}</small></span></a>`).join("")}</div>
-      <section>${titreSection("L'équipe Immobilier", ag.length, `<a class="lien-section" href="#equipe">Détail</a>`)}<div class="avatars">${ag.map(a => ouvre("agent", a.id, `${avatar(a)}<small>${esc(a.prenom || a.nom)}</small>`, "membre")).join("")}</div></section>`;
-  }
   // ---------- Applications : projets (fiche d'état de chaque app), équipe Apps, bot dédié (22/11) ----------
   const APPS_AGENTS = [{"id": "apps-coordination", "prenom": "Léa", "prenom_valide": false, "activite": "apps", "nom": "Cheffe de projet Apps", "roles": ["planning des apps", "répartition des tâches", "fiche d'état de chaque app", "récap Apps du matin"], "etat": "configure", "instructions": "apps/agents/apps-coordination.md", "execution": "session Claude (à la demande)", "manque": ["Le bot Telegram Apps (jeton à créer avec BotFather)", "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."]}, {"id": "apps-produit", "prenom": "Noah", "prenom_valide": false, "activite": "apps", "nom": "Produit et benchmark", "roles": ["benchmark des concurrents", "fonctionnalités et priorités", "cahier des charges"], "etat": "configure", "instructions": "apps/agents/apps-produit.md", "execution": "session Claude (recherche web)", "manque": ["Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."]}, {"id": "apps-design", "prenom": "Inès", "prenom_valide": false, "activite": "apps", "nom": "Design et parcours", "roles": ["parcours utilisateur", "maquettes", "identité visuelle de l'app"], "etat": "configure", "instructions": "apps/agents/apps-design.md", "execution": "session Claude (Figma si connecté)", "manque": ["Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."]}, {"id": "apps-dev", "prenom": "Sacha", "prenom_valide": false, "activite": "apps", "nom": "Développement mobile", "roles": ["code de l'app", "base de données et comptes", "intégrations (paiement, notifications)"], "etat": "configure", "instructions": "apps/agents/apps-dev.md", "execution": "session Claude (dépôt de l'app)", "manque": ["L'accès en écriture au dépôt de chaque app", "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."]}, {"id": "apps-qualite", "prenom": "Elias", "prenom_valide": false, "activite": "apps", "nom": "Tests et qualité", "roles": ["tests automatiques", "essais sur téléphone", "sécurité et données personnelles"], "etat": "configure", "instructions": "apps/agents/apps-qualite.md", "execution": "session Claude", "manque": ["Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."]}, {"id": "apps-publication", "prenom": "Maya", "prenom_valide": false, "activite": "apps", "nom": "Publication sur les stores", "roles": ["fiches App Store et Google Play", "captures et textes", "suivi de la validation"], "etat": "configure", "instructions": "apps/agents/apps-publication.md", "execution": "session Claude", "manque": ["Tes comptes développeur Apple (99 $/an) et Google Play (25 $ une fois), quand une app sera prête", "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."]}, {"id": "apps-front", "prenom": "Hugo", "prenom_valide": false, "activite": "apps", "nom": "Front-end", "roles": ["écrans et composants", "responsive mobile et ordinateur", "accessibilité et animations"], "etat": "configure", "instructions": "apps/agents/apps-front.md", "execution": "session Claude (dépôt de l'app)", "manque": ["Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."]}, {"id": "apps-back", "prenom": "Adam", "prenom_valide": false, "activite": "apps", "nom": "Back-end", "roles": ["base de données et API", "règles métier et sécurité", "comptes, notifications, déploiement"], "etat": "configure", "instructions": "apps/agents/apps-back.md", "execution": "session Claude (dépôt de l'app)", "manque": ["Une base PostgreSQL de production pour chaque app", "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."]}, {"id": "apps-benchmark", "prenom": "Zoé", "prenom_valide": false, "activite": "apps", "nom": "Benchmark et veille", "roles": ["analyse des concurrents", "prix et modèles économiques", "veille sur les tendances"], "etat": "configure", "instructions": "apps/agents/apps-benchmark.md", "execution": "session Claude (recherche web)", "manque": ["Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."]}, {"id": "apps-marketing", "prenom": "Jade", "prenom_valide": false, "activite": "apps", "nom": "Marketing et lancement", "roles": ["positionnement et messages", "réseaux sociaux et contenus", "plan de lancement et acquisition"], "etat": "configure", "instructions": "apps/agents/apps-marketing.md", "execution": "session Claude", "manque": ["Les comptes Instagram et TikTok de chaque app", "Plus tard, le serveur (reporté par toi) pour travailler seul, Mac éteint."]}];
   if (E && Array.isArray(E.agents)) APPS_AGENTS.forEach(a => { if (!E.agents.some(x => x.id === a.id)) E.agents.push(a); });
@@ -1805,22 +1811,6 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
   // ---------- Chantier de l'application (écrit par la session Claude qui la développe) ----------
   Object.assign(LIB, { a_faire: LIB.a_faire || "à faire", fait: LIB.fait || "fait", en_modification: LIB.en_modification || "en modification" });
   const COL_APP = [["a_valider", "À valider par toi"], ["en_modification", "En modification"], ["en_cours", "En cours"], ["a_faire", "À faire"], ["fait", "Fait"]];
-  function vueApps() {
-    const t = Object.values(APPT).sort((a, b) => String(b.maj || "").localeCompare(String(a.maj || "")));
-    const n = s => t.filter(x => x.statut === s).length;
-    const carte = x => `<article class="panneau" style="gap:8px"><div class="titre-section"><h3>${esc(x.titre || x._id)}</h3>${pill(x.statut)}</div>
-        <div class="meta">${x.etape ? `<span>Étape : <b>${esc(x.etape)}</b></span>` : ""}${x.par ? `<span>Par : <b>${esc(x.par)}</b></span>` : ""}${x.maj ? `<span>Mis à jour : <b>${esc(String(x.maj).slice(0, 16).replace("T", " "))}</b></span>` : ""}</div>
-        ${x.detail ? `<p class="note" style="white-space:pre-wrap">${esc(x.detail)}</p>` : ""}
-        ${x.lien ? `<p class="note"><a href="${esc(x.lien)}" target="_blank" rel="noopener">Voir le résultat</a></p>` : ""}
-        ${x.retour ? `<p class="note meta">Ton retour : <b>${esc(x.retour)}</b></p>` : ""}
-        ${x.statut === "a_valider" && actif() ? `<textarea data-app-retour="${esc(x._id)}" placeholder="Ton retour (facultatif pour valider, obligatoire pour une modification)"></textarea>
-        <div class="actions"><button class="btn principal" data-app-dec="fait" data-app-id="${esc(x._id)}">Valider</button><button class="btn" data-app-dec="en_modification" data-app-id="${esc(x._id)}">Demander une modification</button></div>` : ""}</article>`;
-    return `${pageTete(act("apps") + " Applications", "Tes projets d'apps, leur avancement et leur équipe, mis à jour par les sessions Claude qui les développent. Tu valides ici chaque étape.")}
-      ${blocsApps()}
-      <div class="grille-kpi">${kpi("À valider", n("a_valider"), "", { k: "var(--a-apps)", src: src("reel") })}${kpi("En cours", n("en_cours") + n("en_modification"), "", { src: src("reel") })}${kpi("À faire", n("a_faire"), "", { src: src("reel") })}${kpi("Fait", n("fait"), "", { src: src("reel") })}</div>
-      ${t.length ? COL_APP.map(([s, l]) => { const l2 = t.filter(x => x.statut === s); return l2.length ? `<section>${titreSection(l, l2.length)}<div class="grille-2">${l2.map(carte).join("")}</div></section>` : ""; }).join("")
-        : `<p class="vide">Aucune tâche pour l'instant. Dès que la session qui développe l'application écrit sa première étape, elle apparaît ici.</p>`}`;
-  }
   document.addEventListener("click", async ev => {
     const b = ev.target.closest("[data-app-dec]"); if (!b || !DB) return;
     const id = b.dataset.appId, dec = b.dataset.appDec, ta = document.querySelector(`[data-app-retour="${CSS.escape(id)}"]`), retour = ta ? ta.value.trim() : "";
@@ -1831,19 +1821,6 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
   });
   // ---------- Contenu : projet séparé de vidéos éducatives monétisées (22/11). Données : collections contenu_videos et contenu_agents ----------
   const ETAPES_VID = [["idee", "Idées"], ["recherche", "Recherche et sources"], ["script", "Script"], ["voix", "Voix"], ["montage", "Montage"], ["a_valider", "À valider par toi"], ["publie", "Publiées"]];
-  function vueContenuProjet() {
-    const v = Object.values(CVID), ag = Object.values(CAG).sort((a, b) => (ORDRE_AG[a.statut] ?? 9) - (ORDRE_AG[b.statut] ?? 9)), aga = ag.filter(actifAg);
-    const themes = ["Histoire", "Géographie", "Sciences", "Espace", "Corps humain", "Grandes inventions"];
-    const plats2 = [["youtube", "YouTube"], ["tiktok", "TikTok"], ["instagram", "Instagram"], ["facebook", "Facebook"]];
-    return `${pageTete(act("reseaux") + " Vidéos monétisées", "Projet à part, sans lien avec l'IMMO ni les apps : des vidéos éducatives (histoire, géographie, sciences et d'autres sujets) publiées sur des comptes dédiés et monétisées.")}
-      ${(() => { const n = cavEnAttente().length, t = Object.keys(CAV).length; return t ? `<a class="panneau cav-lien" href="#cvalider"><div class="titre-section"><h3>${n ? `${n} élément${n > 1 ? "s" : ""} à valider par toi` : "Tout est traité"}</h3><span class="lien-section">Ouvrir ›</span></div><p class="meta">Vidéos, scripts, banque de sujets, calendrier et lignes éditoriales.</p></a>` : ""; })()}
-      <div class="grille-kpi">${kpi("Vidéos publiées", v.filter(x => x.etape === "publie").length || nd("aucune pour l'instant"), "", { k: "var(--a-contenu)", src: src(v.length ? "reel" : "nd") })}${kpi("En production", v.filter(x => x.etape !== "publie").length, "", { src: src("reel") })}${kpi("Vues", nd("aucun compte relié"), "", { src: src("nd") })}${kpi("Revenus", nd("aucun suivi"), "", { src: src("nd") })}</div>
-      <article class="panneau"><div class="titre-section"><span>État du projet</span>${pill(v.length || ag.length ? "en_cours" : "a_configurer")}</div><p class="note">${v.length || ag.length ? "Le projet est lancé : ses vidéos et ses agents apparaissent ci-dessous." : "Le projet n'est pas encore lancé. Dès que tu le démarres, ses agents, ses vidéos et leurs résultats s'afficheront ici, et seulement ici."}</p></article>
-      <section>${titreSection("Thèmes", themes.length)}<div class="puces-texte">${themes.map(t => `<span>${esc(t)}</span>`).join("")}<span class="nd">liste à compléter avec toi</span></div></section>
-      <section>${titreSection("Chaîne de production", v.length)}<div class="grille-3">${ETAPES_VID.map(([k, l]) => { const g = v.filter(x => x.etape === k); return `<article class="panneau" style="gap:6px"><div class="titre-section"><h3>${esc(l)}</h3><span class="compte">${g.length}</span></div>${g.length ? `<ul class="histo">${g.map(x => `<li>${lienSur(x.lien) ? `<a href="${esc(x.lien)}" target="_blank" rel="noopener">${esc(x.titre || x._id)}</a>` : esc(x.titre || x._id)}${x.theme ? ` <span class="meta" style="display:inline">· ${esc(x.theme)}</span>` : ""}</li>`).join("")}</ul>` : `<p class="meta">Aucune vidéo</p>`}</article>`; }).join("")}</div></section>
-      <section>${titreSection("Comptes et monétisation", plats2.length)}<div class="grille-agents">${plats2.map(([k, l]) => `<article class="panneau" style="flex-direction:row;align-items:center;gap:10px">${plat(k)}<span style="flex:1">${esc(l)}</span>${pill("a_configurer")}</article>`).join("")}</div></section>
-      <section>${titreSection("Agents au travail", aga.length)}${ag.length ? `<div class="grille-2">${ag.map(carteAgentApp).join("")}</div>` : `<p class="vide">Aucun agent sur ce projet pour l'instant.</p>`}</section>`;
-  }
   // ---------- Contenu › À valider (23/11) : vidéos, scripts et documents de stratégie. Données : contenu_a_valider (éléments) + contenu_decisions (décisions d'Avishay) ----------
   const CAV = {}, CDEC = {};
   const DEC_LIB = { valide: "Valider", a_retravailler: "À retravailler", refuse: "Refuser" };
@@ -2079,18 +2056,23 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
   const NAV = [
     ["Pilotage", [["accueil", "Vue d'ensemble"]]],
     ["IMMO", [["immo", "Tableau IMMO", [["biens", "Biens"], ["acheteurs", "Acheteurs"], ["partenaires", "Partenaires B2B"], ["marche", "Marché"]], "var(--a-immo)"],
-      ["contenu", "Contenus IMMO", [["valider", "À valider"]]], ["calendrier", "Calendrier"], ["pubs", "Publicités"], ["resultats", "Résultats", [["tests", "Tests"], ["tags", "Tags et liens"]]],
-      ["equipe", "Agents IMMO", [["taches", "Tâches"], ["audits", "Audits"]]]]],
-    ["Apps", [["apps", "Applications", [], "var(--a-apps)"]]],
-    ["Contenu", [["reseaux", "Vidéos monétisées", [["cvalider", "À valider"]], "var(--a-contenu)"]]],
+      ["valider", "À valider"], ["equipe", "Agents IMMO", [["taches", "Tâches"], ["audits", "Audits"]]],
+      ["contenu", "Contenus IMMO"], ["calendrier", "Calendrier"], ["pubs", "Publicités"], ["resultats", "Résultats", [["tests", "Tests"], ["tags", "Tags et liens"]]]]],
+    ["Apps", [["apps", "Tableau Apps", [], "var(--a-apps)"], ["avalider", "À valider"], ["aagents", "Agents Apps"]]],
+    ["Contenu", [["reseaux", "Tableau Contenu", [], "var(--a-contenu)"], ["cvalider", "À valider"], ["cagents", "Agents Contenu"]]],
     ["Ressources", [["bibliotheques", "Bibliothèques", [["medias", "Médias"], ["modeles", "Modèles"], ["catalogue", "Biens et offres"], ["musiques", "Musiques"]]], ["reglages", "Réglages", [["integrations", "Intégrations"], ["alertes", "Alertes"], ["couts", "Coûts et erreurs"], ["journal", "Historique"]]]]]
   ];
+  { const V = '<svg viewBox="0 0 24 24"><rect x="4" y="3.5" width="16" height="17" rx="2.5"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>', C = '<svg viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="13" rx="2.5"/><path d="m10.5 9.5 4 2.5-4 2.5z"/></svg>';
+    Object.assign(ICO, { valider: ICO.valider || V, avalider: V, cvalider: V, aagents: ICO.equipe, cagents: ICO.equipe, reseaux: ICO.reseaux || C }); }
   const PARENT = {}, TITRES = {}; NAV.forEach(([, l]) => l.forEach(([r, t, s]) => { TITRES[r] = t; (s || []).forEach(([sr, st]) => { PARENT[sr] = r; TITRES[sr] = st; }); }));
   function rendreMenu(r) {
     const haut = PARENT[r] || r, nAv = aValider().length, nAud = listeAudits().filter(x => x.statut === "audit_manquant" || x.statut === "a_corriger").length;
-    const nb = { valider: nAv ? `<span class="nb">${nAv}</span>` : "", audits: nAud ? `<span class="nb doux">${nAud}</span>` : "", contenu: nAv && haut !== "contenu" ? `<span class="nb">${nAv}</span>` : "" };
-    { const nC = cavEnAttente().length; if (nC) { nb.cvalider = `<span class="nb">${nC}</span>`; if (haut !== "reseaux") nb.reseaux = `<span class="nb">${nC}</span>`; } }
-    { const nAg = Object.values(APPAG).filter(a => a.statut !== "termine").length; if (nAg) nb.apps = `<span class="nb doux" title="agents au travail">${nAg}</span>`; }
+    const nb = { valider: nAv ? `<span class="nb">${nAv}</span>` : "", audits: nAud ? `<span class="nb doux">${nAud}</span>` : "", contenu: "" };
+    { const nC = cavEnAttente().length; if (nC) nb.cvalider = `<span class="nb">${nC}</span>`; }
+    { const nAg = Object.values(APPAG).filter(a => a.statut !== "termine").length; if (nAg) nb.aagents = `<span class="nb doux" title="agents au travail">${nAg}</span>`;
+      const nAA = avAppsRows().length; if (nAA) nb.avalider = `<span class="nb">${nAA}</span>`;
+      const nCA = Object.values(CAG).filter(a => a.statut !== "termine").length; if (nCA) nb.cagents = `<span class="nb doux" title="agents au travail">${nCA}</span>`;
+      const nIA = agentsUnivers("immo").filter(auTravail).length; if (nIA) nb.equipe = `<span class="nb doux" title="agents au travail">${nIA}</span>`; }
     document.getElementById("menu").innerHTML = NAV.map(([g, l]) => `<div class="groupe">${g}</div>` + l.map(([rr, t, s, k]) => `<a class="nav${haut === rr && r !== rr ? " parent-actif" : ""}" href="#${rr}" aria-current="${r === rr ? "page" : "false"}">${ICO[rr] || ""}<span>${t}</span>${k ? `<span class="pt" style="background:${k};margin-left:${nb[rr] ? "6px" : "auto"}"></span>` : ""}${nb[rr] || ""}</a>`
       + (haut === rr ? (s || []).map(([sr, st]) => `<a class="nav sous" href="#${sr}" aria-current="${r === sr ? "page" : "false"}"><span>${st}</span>${nb[sr] || ""}</a>`).join("") : "")).join("")).join("");
     document.querySelectorAll("#nav-bas a").forEach(a => a.setAttribute("aria-current", a.dataset.route === r || (a.dataset.route === "contenu" && haut === "contenu" && r !== "valider") ? "page" : "false"));
@@ -2165,7 +2147,185 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
     const r = c.getBoundingClientRect(); c.style.setProperty("--mx", (ev.clientX - r.left) + "px"); c.style.setProperty("--my", (ev.clientY - r.top) + "px");
   }, { passive: true });
 
-  const VUES = { accueil: vueAccueil, valider: vueValider, cvalider: vueContenuValider, contenu: vueRegistre, reseaux: vueContenuProjet, apps: vueApps, immo: vueImmo, pubs: vuePubs, calendrier: vueCalendrier2, resultats: vueResultats, tests: vueTests, tags: vueTags, equipe: vueEquipe, taches: vueTaches, audits: vueAudits, bibliotheques: () => vueBibliotheques(BIB), medias: () => vueBibliotheques("medias"), modeles: () => vueBibliotheques("modeles"), catalogue: () => vueBibliotheques("catalogue"), musiques: () => vueBibliotheques("musiques"), reglages: vueReglages, integrations: vueIntegrations, alertes: vueAlertes, couts: vueCouts, journal: vueJournal, biens: vueBiens, acheteurs: vueAcheteurs, partenaires: vuePartenaires, marche: vueMarche };
+  // ================= Refonte 23/11 : un seul gabarit pour IMMO, Apps et Contenu =================
+  // Chaque univers a trois pages : Tableau, À valider, Agents. Le tableau montre toujours, dans cet ordre :
+  // en-tête, quatre chiffres (à valider, agents au travail, bloqués, un chiffre propre), « À valider par toi »,
+  // « Ce que font les agents », puis ce qui est propre à l'univers.
+  const UNIV = {
+    immo: { nom: "IMMO", titre: "Immobilier Marbella", k: "var(--a-immo)", tab: "immo", av: "valider", ag: "equipe" },
+    apps: { nom: "Apps", titre: "Applications", k: "var(--a-apps)", tab: "apps", av: "avalider", ag: "aagents" },
+    reseaux: { nom: "Contenu", titre: "Vidéos monétisées", k: "var(--a-contenu)", tab: "reseaux", av: "cvalider", ag: "cagents" }
+  };
+  // Mission actuelle de chaque agent IMMO (état réel au 23/11). Une tâche « en cours » du journal passe avant.
+  const MISSIONS_IMMO = {
+    coordination: ["en_cours", "Passe toutes les heures : Telegram, tes consignes, le back-office et la version web."],
+    qualite: ["en_cours", "Relit chaque contenu (ton, zone, sources, promesses) avant qu'il arrive « à valider »."],
+    prospection: ["en_cours", "Semaine LinkedIn du 23/11 prête : 3 posts et 21 invitations (lot 3), envoyés par toi."],
+    voix: ["en_attente", "Attend ton nouvel enregistrement (30 min et plus) pour refaire ton clone de voix, en FR et en EN."],
+    editorial: ["en_attente", "Revoit les sujets avec toi, cas par cas, avant toute nouvelle vidéo."],
+    montage: ["en_attente", "Remonte les vidéos que tu gardes, avec ta nouvelle voix."],
+    design: ["en_attente", "Refait les visuels des sujets que tu gardes."],
+    veille: ["en_attente", "Chiffres et lois sourcés pour les prochains sujets."],
+    "fiches-biens": ["en_attente", "Prêt pour une nouvelle fiche dès que tu envoies un bien."],
+    instagram: ["en_attente", "Publie sur Instagram dès ton OK, selon le calendrier."],
+    diffusion: ["en_attente", "Diffuse sur Facebook, YouTube Shorts et TikTok dès ton OK."],
+    acheteurs: ["en_attente", "Répond à chaque nouveau lead en moins de 5 minutes. Aucun lead réel pour l'instant."],
+    auditeur: ["en_attente", "Donne un second avis (OpenAI) sur chaque contenu."]
+  };
+  const ORDRE_U = { bloque: 0, a_valider: 1, en_cours: 2, en_modification: 3, en_attente: 4, en_pause: 5, termine: 6 };
+  function agentsUnivers(u) {
+    let l = [];
+    if (u === "immo") l = E.agents.filter(a => a.activite === "immo").map(a => {
+      const t = E.taches.filter(x => x.agent === a.id).sort((x, y) => String(y.maj_le || "").localeCompare(String(x.maj_le || "")));
+      const enc = t.filter(x => x.statut === "en_cours" || x.statut === "en_attente"), fin = t.find(x => x.statut === "terminee"), m = MISSIONS_IMMO[a.id];
+      const statut = a.etat === "bloque" ? "bloque" : m ? m[0] : enc.length ? "en_cours" : "en_attente";
+      return { id: a.id, nom: a.prenom || a.nom, role: a.nom, statut, fiche: true,
+        ensuite: a.etat === "bloque" ? ((a.manque || [])[0] || "Il lui manque un accès.") : m ? m[1] : enc.length ? (enc.length > 1 ? `${enc.length} tâches en cours, dont : ` : "") + enc[0].titre : "",
+        fait: fin ? fin.titre : "", blocages: a.etat === "bloque" ? (a.manque || []).slice(0, 2) : [] };
+    });
+    else {
+      const src = u === "apps" ? Object.values(APPAG) : Object.values(CAG);
+      l = src.map(a => ({ id: a._id, nom: a.nom || a._id, role: u === "apps" ? nomProjet(a.projet) : "", mission: a.role || "", statut: a.statut || "en_cours", ensuite: actifAg(a) ? a.prochaine_etape : "", fait: a.fait || "",
+        avancement: actifAg(a) && a.avancement !== undefined ? a.avancement : null, projet: u === "apps" ? a.projet || "" : "", blocages: [].concat(a.blocages || []),
+        liens: (lienSur(a.fil) ? [[a.fil, "Ouvrir le fil"]] : []).concat((a.liens || []).filter(x => x && lienSur(x.url)).map(x => [x.url, x.libelle || "Lien"])) }));
+    }
+    return l.sort((a, b) => (ORDRE_U[a.statut] ?? 9) - (ORDRE_U[b.statut] ?? 9));
+  }
+  const auTravail = a => ["en_cours", "a_valider", "en_modification"].includes(a.statut);
+  const initialeU = n => esc(String(n || "?").trim().charAt(0).toUpperCase() || "?");
+  function ligneAgent(a) {
+    const corps = `<span class="ag-av" aria-hidden="true">${initialeU(a.nom)}</span><span class="txt"><span class="ag-l1"><b>${esc(a.nom)}</b>${a.role ? `<small>${esc(a.role)}</small>` : ""}</span><span class="note">${esc(a.ensuite || a.fait || "En attente d'une tâche")}</span>${a.avancement !== null && a.avancement !== undefined ? prog(a.avancement, true) : ""}</span>${pill(a.statut)}`;
+    return a.fiche ? ouvre("agent", a.id, corps + CHEVRON, "rangee ag-ligne") : `<a class="rangee ag-ligne" href="#${a._u === "apps" ? "aagents" : "cagents"}">${corps}${CHEVRON}</a>`;
+  }
+  function carteAg(a) {
+    return `<article class="panneau ag-carte">
+      <div class="ag-tete"><span class="ag-av" aria-hidden="true">${initialeU(a.nom)}</span><div class="txt"><h3>${esc(a.nom)}</h3>${a.role ? `<small>${esc(a.role)}</small>` : ""}</div>${pill(a.statut)}</div>
+      ${a.avancement !== null && a.avancement !== undefined ? `<div><div class="meta" style="justify-content:space-between"><span>Avancement</span><b>${Number(a.avancement) || 0} %</b></div>${prog(a.avancement, true)}</div>` : ""}
+      <dl class="ag-dl">${a.mission ? `<dt>Mission</dt><dd>${esc(a.mission)}</dd>` : ""}<dt>${a.statut === "termine" ? "Résultat" : a.statut === "bloque" ? "Ce qui bloque" : "En ce moment"}</dt><dd>${esc((a.statut === "termine" ? a.fait : a.ensuite) || "—")}</dd>
+      ${a.statut !== "termine" && a.fait ? `<dt>Dernière action</dt><dd>${esc(a.fait)}</dd>` : ""}</dl>
+      ${a.blocages && a.blocages.length && a.statut !== "bloque" ? `<ul class="manque">${a.blocages.map(b => `<li>${esc(b)}</li>`).join("")}</ul>` : ""}
+      ${a.fiche ? `<div class="actions">${ouvre("agent", a.id, "Voir sa fiche", "btn")}</div>` : (a.liens || []).length ? `<p class="meta">${a.liens.map(([u2, l2]) => `<a href="${esc(u2)}" target="_blank" rel="noopener">${esc(l2)}</a>`).join(" · ")}</p>` : ""}</article>`;
+  }
+  function icoUniv(lib) {
+    const I = {
+      "Agents au travail": '<circle cx="9" cy="8.5" r="3.2"/><path d="M3.5 19.5c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/><circle cx="17" cy="9.5" r="2.4"/><path d="M15.5 14.8c2.6.1 4.3 1.7 5 4.7"/>',
+      "Bloqués": '<circle cx="12" cy="12" r="8.5"/><path d="m6 6 12 12"/>',
+      "Acheteurs réels": '<circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c.7-3.8 3.4-6 7-6s6.3 2.2 7 6"/>',
+      "Projets": '<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',
+      "Vidéos publiées": '<rect x="3.5" y="5.5" width="17" height="13" rx="2.5"/><path d="m10.5 9.5 4 2.5-4 2.5z"/>'
+    };
+    return I[lib] ? `<svg viewBox="0 0 24 24">${I[lib]}</svg>` : "";
+  }
+  function pageUnivers(u, o) {
+    const U = UNIV[u], ags = agentsUnivers(u).map(a => Object.assign(a, { _u: u })), trav = ags.filter(auTravail), bloq = ags.filter(a => a.statut === "bloque");
+    const plur = (n, m) => `${n} ${m}${n > 1 ? "s" : ""}`;
+    return `<div class="univ" style="--k:${U.k}">
+      ${pageTete(act(u) + " " + esc(o.titre || U.titre), o.objectif)}
+      <div class="grille-kpi">
+        ${kpi("À valider", o.avRows.length, o.avRows.length ? "attend ta décision" : "rien en attente", { href: "#" + U.av, k: U.k, src: src("reel") })}
+        ${kpi("Agents au travail", trav.length, `${plur(ags.length, "agent")} dans l'équipe`, { href: "#" + U.ag, k: U.k, src: src("reel") })}
+        ${kpi("Bloqués", bloq.length, bloq.length ? bloq.slice(0, 2).map(a => esc(a.nom)).join(", ") + (bloq.length > 2 ? "…" : "") : "aucun", { href: "#" + U.ag, k: bloq.length ? "var(--warn)" : U.k, src: src("reel") })}
+        ${o.kpi4}
+      </div>
+      <div class="grille-2">
+        <section class="panneau"><header><div><h2>À valider par toi</h2><p>${o.avRows.length ? plur(o.avRows.length, "élément") : "Rien ne t'attend ici."}</p></div><a class="lien-section" href="#${U.av}">Tout voir ›</a></header>
+          ${o.avRows.length ? `<div class="actions-liste">${o.avRows.slice(0, 5).join("")}</div>${o.avRows.length > 5 ? `<a class="lien-section" href="#${U.av}">Et ${o.avRows.length - 5} de plus ›</a>` : ""}` : `<p class="vide">Rien à valider pour l'instant.</p>`}</section>
+        <section class="panneau"><header><div><h2>Ce que font les agents</h2><p>${trav.length} au travail${bloq.length ? ` · ${bloq.length} bloqué${bloq.length > 1 ? "s" : ""}` : ""}</p></div><a class="lien-section" href="#${U.ag}">Toute l'équipe ›</a></header>
+          ${ags.length ? `<div class="actions-liste">${ags.slice(0, 6).map(ligneAgent).join("")}</div>` : `<p class="vide">Aucun agent sur cet univers pour l'instant.</p>`}</section>
+      </div>
+      ${o.suite || ""}</div>`;
+  }
+  function pageAgents(u, intro, groupes) {
+    const U = UNIV[u], ags = agentsUnivers(u), trav = ags.filter(auTravail);
+    return `<div class="univ" style="--k:${U.k}">${pageTete(act(u) + " Agents " + esc(U.nom), intro)}
+      <p class="meta"><span><b>${ags.length}</b> agents</span><span><b>${trav.length}</b> au travail</span><span><b>${ags.filter(a => a.statut === "bloque").length}</b> bloqués</span><span><b>${ags.filter(a => a.statut === "en_attente").length}</b> en attente</span></p>
+      ${(groupes || [["", ags]]).map(([titre, l, ferme]) => !l.length ? "" : ferme
+        ? `<details class="groupe-ag"><summary>${esc(titre)} (${l.length})</summary><div class="grille-ag">${l.map(carteAg).join("")}</div></details>`
+        : `<section>${titre ? titreSection(esc(titre), l.length) : ""}<div class="grille-ag">${l.map(carteAg).join("")}</div></section>`).join("")}</div>`;
+  }
+  // ----- IMMO -----
+  function vueImmo() {
+    const reg = registre().filter(x => x.activite === "immo");
+    const SOUS = [["biens", "Biens", "Fiches, droits, prix à confirmer", E.biens.length], ["acheteurs", "Acheteurs", "Prospects et qualification", E.prospects.filter(p => !p.fictif).length], ["partenaires", "Partenaires B2B", "Agences et apporteurs actifs", E.partenaires.length], ["marche", "Marché", "Chiffres sourcés", ((E.marche && E.marche.chiffres) || []).length], ["contenu", "Contenus", "Tout ce qui est préparé ou en ligne", reg.length], ["calendrier", "Calendrier", "Ce qui sera publié, et quand", pubs().filter(x => x.quand.slice(0, 10) >= aujourdHui()).length]];
+    const avRows = aValider().map(c => ouvre("contenu", c.id, `<span class="txt"><h3>${esc(c.titre)}</h3><span class="meta">${esc(FORMATS[c.format] || c.format || "")}${AVIS[c.id] ? " · audité" : ""}</span></span>${pill("a_valider")}${CHEVRON}`, "rangee"));
+    return pageUnivers("immo", { objectif: "Leads qualifiés sur les beaux biens de Marbella et ses alentours, jusqu'à Estepona, dès 500 000 €.", avRows,
+      kpi4: kpi("Acheteurs réels", E.prospects.filter(p => !p.fictif).length, `${reg.filter(x => x.statut === "publie").length} publications en ligne`, { href: "#acheteurs", k: UNIV.immo.k, src: src("reel") }),
+      suite: `<section>${titreSection("Tout l'IMMO", null)}<div class="tuiles-nav">${SOUS.map(([r, l, d, n]) => `<a class="tuile-nav" href="#${r}"><span class="ic">${ICO[r] || ICO.immo}</span><span><b>${l} <span class="compte">${n}</span></b><small>${d}</small></span></a>`).join("")}</div></section>` });
+  }
+  function vueEquipe() {
+    const ags = agentsUnivers("immo");
+    return pageAgents("immo", "Ton équipe immobilier. Chacun a un rôle précis ; Victor répartit le travail. Touche « Voir sa fiche » pour ses tâches et ce qu'il lui manque.",
+      [["Au travail", ags.filter(auTravail)], ["Bloqués : il leur manque un accès", ags.filter(a => a.statut === "bloque")], ["Prêts, en attente de toi ou d'un contenu", ags.filter(a => a.statut === "en_attente")]]);
+  }
+  // ----- Apps -----
+  function carteAppCompacte(a) {
+    const i = ETAPES_APP.findIndex(e => e[0] === a.etape), g = Object.values(APPAG).filter(x => x.projet === a._id), ga = g.filter(actifAg);
+    const ch = (a.chantiers || []).map(c => `<div class="chantier"><span>${esc(c.nom)}${c.responsable ? ` <span class="meta" style="display:inline">· ${esc(nomAgent(c.responsable))}</span>` : ""}</span>${pill(c.statut || "a_faire")}${prog(c.avancement, true)}</div>`).join("");
+    const liens = (a.liens || []).filter(l => lienSur(l.url));
+    return `<article class="panneau"><div class="titre-section"><h2>${esc(a.nom || a._id)}</h2>${pill(a.statut || "en_cours")}</div>
+      ${a.description ? `<p class="note meta">${esc(a.description)}</p>` : ""}
+      <div><div class="meta" style="justify-content:space-between"><span>Avancement${i >= 0 ? ` · étape ${esc(ETAPES_APP[i][1])}` : ""}</span><b>${Number(a.avancement) || 0} %</b></div>${prog(a.avancement)}</div>
+      <ol class="etapes" aria-label="Étapes">${ETAPES_APP.map(([k, l], j) => `<li class="${j < i ? "faite" : j === i ? "ici" : ""}">${esc(l)}</li>`).join("")}</ol>
+      <p class="meta"><span><b>${ga.length}</b> agent${ga.length > 1 ? "s" : ""} au travail</span><span><b>${g.length - ga.length}</b> terminé${g.length - ga.length > 1 ? "s" : ""}</span><a href="#aagents">Voir l'équipe</a></p>
+      ${a.prochaine_etape ? bloc("Prochaine étape", `<p class="note">${esc(a.prochaine_etape)}</p>`) : ""}
+      ${[].concat(a.blocages || []).length ? bloc("Ce qui bloque", `<ul class="manque">${[].concat(a.blocages).map(b => `<li>${esc(b)}</li>`).join("")}</ul>`) : ""}
+      ${ch || a.resume || liens.length || (a.historique || []).length ? `<details><summary>Détails${ch ? ` · ${(a.chantiers || []).length} chantiers` : ""}</summary>
+        ${a.resume ? `<p class="note" style="margin-top:10px">${esc(a.resume)}</p>` : ""}
+        ${ch ? `<div style="display:flex;flex-direction:column;gap:10px;margin-top:10px">${ch}</div>` : ""}
+        ${liens.length ? `<p class="meta" style="margin-top:10px">${liens.map(l => `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.libelle || l.url)}</a>`).join(" · ")}</p>` : ""}
+        ${(a.historique || []).length ? `<ul class="histo" style="margin-top:10px">${a.historique.slice().reverse().map(h => `<li>${esc(String(h.quand || "").slice(0, 16).replace("T", " "))} · ${esc(h.texte)}</li>`).join("")}</ul>` : ""}</details>` : ""}
+      ${a.maj_le ? `<p class="meta">Mis à jour le ${esc(String(a.maj_le).slice(0, 16).replace("T", " "))}</p>` : ""}</article>`;
+  }
+  function avAppsRows() {
+    const t = Object.values(APPT).filter(x => x.statut === "a_valider").map(x => `<a class="rangee" href="#avalider"><span class="txt"><span class="qui">Étape</span><h3>${esc(x.titre || x._id)}</h3>${x.etape ? `<span class="meta">${esc(x.etape)}</span>` : ""}</span>${pill("a_valider")}${CHEVRON}</a>`);
+    const a = Object.values(APPAG).filter(x => x.statut === "a_valider").map(x => `<a class="rangee" href="#avalider"><span class="txt"><span class="qui">${esc(nomProjet(x.projet))}</span><h3>${esc(x.nom || x._id)}</h3><span class="note">${esc(x.fait || x.prochaine_etape || "")}</span></span>${pill("a_valider")}${CHEVRON}</a>`);
+    return t.concat(a);
+  }
+  function vueApps() {
+    const f = Object.values(APPF).sort((a, b) => String(a.nom || "").localeCompare(String(b.nom || "")));
+    return pageUnivers("apps", { objectif: "Tes projets d'applications, séparés de l'IMMO : avancement, équipe et étapes à valider. Chaque agent est une session Claude qui met sa fiche à jour.", avRows: avAppsRows(),
+      kpi4: kpi("Projets", f.length, f.map(x => `${esc(x.nom || x._id)} ${Number(x.avancement) || 0} %`).join(" · ") || "aucun", { k: UNIV.apps.k, src: src("reel") }),
+      suite: `<section>${titreSection("Projets", f.length)}${f.length ? `<div class="grille-2">${f.map(carteAppCompacte).join("")}</div>` : `<p class="vide">Aucune app suivie pour l'instant.</p>`}</section>` });
+  }
+  function vueAppsValider() {
+    const t = Object.values(APPT).sort((a, b) => String(b.maj || "").localeCompare(String(a.maj || "")));
+    const ags = agentsUnivers("apps").filter(a => a.statut === "a_valider");
+    const carte = x => `<article class="panneau" style="gap:8px"><div class="titre-section"><h3>${esc(x.titre || x._id)}</h3>${pill(x.statut)}</div>
+        <div class="meta">${x.etape ? `<span>Étape : <b>${esc(x.etape)}</b></span>` : ""}${x.par ? `<span>Par : <b>${esc(x.par)}</b></span>` : ""}${x.maj ? `<span>Mis à jour : <b>${esc(String(x.maj).slice(0, 16).replace("T", " "))}</b></span>` : ""}</div>
+        ${x.detail ? `<p class="note" style="white-space:pre-wrap">${esc(x.detail)}</p>` : ""}
+        ${lienSur(x.lien) ? `<p class="note"><a href="${esc(x.lien)}" target="_blank" rel="noopener">Voir le résultat</a></p>` : ""}
+        ${x.retour ? `<p class="note meta">Ton retour : <b>${esc(x.retour)}</b></p>` : ""}
+        ${x.statut === "a_valider" && actif() ? `<textarea data-app-retour="${esc(x._id)}" placeholder="Ton retour (facultatif pour valider, obligatoire pour une modification)"></textarea>
+        <div class="actions"><button class="btn principal" data-app-dec="fait" data-app-id="${esc(x._id)}">Valider</button><button class="btn" data-app-dec="en_modification" data-app-id="${esc(x._id)}">Demander une modification</button></div>` : ""}</article>`;
+    return `<div class="univ" style="--k:${UNIV.apps.k}">${pageTete(act("apps") + " À valider · Apps", "Les étapes des apps qui attendent ton accord, puis tout le reste par statut.")}
+      ${ags.length ? `<section>${titreSection("Agents qui attendent ta réponse", ags.length)}<div class="grille-ag">${ags.map(carteAg).join("")}</div></section>` : ""}
+      ${t.length ? COL_APP.map(([s, l]) => { const l2 = t.filter(x => x.statut === s); return l2.length ? `<section>${titreSection(l, l2.length)}<div class="grille-2">${l2.map(carte).join("")}</div></section>` : ""; }).join("")
+        : `<p class="vide">Aucune étape pour l'instant.</p>`}</div>`;
+  }
+  function vueAppsAgents() {
+    const ags = agentsUnivers("apps"), projets = [...new Set(ags.map(a => a.projet))].sort((a, b) => (a === "commun") - (b === "commun") || nomProjet(a).localeCompare(nomProjet(b)));
+    const roles = E.agents.filter(a => a.activite === "apps");
+    return pageAgents("apps", "Une équipe par app. Chaque agent est une session Claude dédiée à un chantier, qui tourne en parallèle des autres.",
+      projets.flatMap(p => { const g = ags.filter(a => a.projet === p); return [[nomProjet(p) + " · au travail", g.filter(a => a.statut !== "termine")], [nomProjet(p) + " · terminés", g.filter(a => a.statut === "termine"), true]]; }))
+      + `<details class="groupe-ag"><summary>Rôles types de l'équipe Apps (${roles.length})</summary><div class="grille-agents" style="margin-top:10px">${roles.map(carteAgent).join("")}</div></details>`;
+  }
+  // ----- Contenu -----
+  function vueContenuProjet() {
+    const v = Object.values(CVID), themes = ["Histoire", "Géographie", "Sciences", "Espace", "Corps humain", "Grandes inventions"];
+    const plats2 = [["youtube", "YouTube"], ["tiktok", "TikTok"], ["instagram", "Instagram"], ["facebook", "Facebook"]];
+    const avRows = cavEnAttente().sort((a, b) => String(b.maj_le || b.cree_le || "").localeCompare(String(a.maj_le || a.cree_le || ""))).map(x => `<a class="rangee" href="#cvalider"><span class="txt"><span class="qui">${esc(x.type === "video" ? "Vidéo" : x.type === "document" ? "Document" : x.type || "Élément")}</span><h3>${esc(x.titre || x._id)}</h3>${x.resume ? `<span class="note">${esc(x.resume)}</span>` : ""}</span>${pill("a_valider")}${CHEVRON}</a>`);
+    return pageUnivers("reseaux", { objectif: "Projet à part, sans lien avec l'IMMO ni les apps : des vidéos éducatives publiées sur des comptes dédiés et monétisées.", avRows,
+      kpi4: kpi("Vidéos publiées", v.filter(x => x.etape === "publie").length, `${v.filter(x => x.etape !== "publie").length} en production`, { k: UNIV.reseaux.k, src: src(v.length ? "reel" : "nd") }),
+      suite: `<section>${titreSection("Chaîne de production", v.length)}<div class="chaine">${ETAPES_VID.map(([k, l]) => { const g = v.filter(x => x.etape === k); return `<div class="maillon"><b>${g.length}</b><span>${esc(l)}</span></div>`; }).join("")}</div>
+        ${v.length ? `<div class="liste">${v.map(x => `<div class="rangee"><span class="txt"><h3>${lienSur(x.lien) ? `<a href="${esc(x.lien)}" target="_blank" rel="noopener">${esc(x.titre || x._id)}</a>` : esc(x.titre || x._id)}</h3><span class="meta">${esc((ETAPES_VID.find(e => e[0] === x.etape) || [, x.etape || ""])[1])}${x.theme ? " · " + esc(x.theme) : ""}</span></span></div>`).join("")}</div>` : `<p class="vide">Aucune vidéo dans la chaîne pour l'instant : les premières sont dans « À valider ».</p>`}</section>
+        <div class="grille-2"><section class="panneau"><header><div><h2>Comptes et monétisation</h2><p>Comptes dédiés, séparés de l'IMMO.</p></div></header><div class="actions-liste">${plats2.map(([k, l]) => `<div class="rangee">${plat(k)}<span class="txt"><h3>${esc(l)}</h3></span>${pill("a_configurer")}</div>`).join("")}</div></section>
+        <section class="panneau"><header><div><h2>Thèmes</h2><p>Liste à compléter avec toi.</p></div></header><div class="puces-texte">${themes.map(t => `<span>${esc(t)}</span>`).join("")}</div></section></div>` });
+  }
+  function vueContenuAgents() {
+    const ags = agentsUnivers("reseaux");
+    return pageAgents("reseaux", "L'équipe des vidéos monétisées, séparée de l'IMMO : sujet, voix, design et montage.", [["Au travail", ags.filter(a => a.statut !== "termine")], ["Terminés", ags.filter(a => a.statut === "termine"), true]]);
+  }
+  const VUES = { accueil: vueAccueil, valider: vueValider, cvalider: vueContenuValider, contenu: vueRegistre, reseaux: vueContenuProjet, apps: vueApps, avalider: vueAppsValider, aagents: vueAppsAgents, cagents: vueContenuAgents, immo: vueImmo, pubs: vuePubs, calendrier: vueCalendrier2, resultats: vueResultats, tests: vueTests, tags: vueTags, equipe: vueEquipe, taches: vueTaches, audits: vueAudits, bibliotheques: () => vueBibliotheques(BIB), medias: () => vueBibliotheques("medias"), modeles: () => vueBibliotheques("modeles"), catalogue: () => vueBibliotheques("catalogue"), musiques: () => vueBibliotheques("musiques"), reglages: vueReglages, integrations: vueIntegrations, alertes: vueAlertes, couts: vueCouts, journal: vueJournal, biens: vueBiens, acheteurs: vueAcheteurs, partenaires: vuePartenaires, marche: vueMarche };
   const ANCIENNES = { vue: "accueil", plus: "reglages", connexions: "integrations" };
   const PROJETS = [["accueil", "Vue d'ensemble", "#accueil"], ["immo", "IMMO", "#immo"], ["apps", "Apps", "#apps"], ["reseaux", "Contenu", "#reseaux"]];
   function barreProjets(r) {
@@ -2191,7 +2351,7 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
     Object.entries(gardes).forEach(([k, v]) => { const t = document.getElementById(k); if (t) { t.value = v; if (t.matches("[data-consigne]")) majProposition(k); } });
     const n = aValider().length, b = document.getElementById("badge-valider");
     b.hidden = !n; b.textContent = n;
-    document.getElementById("genere").textContent = "Copie du " + "23/11 14:36" + " · copie publique";
+    document.getElementById("genere").textContent = "Copie du " + "23/11 17:28" + " · copie publique";
     const eb = document.getElementById("etat-base");
     eb.className = "etat-base" + (actif() ? " ok" : "");
     eb.textContent = !STATIQUE ? "serveur" : DB && PEUT_ECRIRE ? "décisions en direct" : "lecture seule";
@@ -2405,6 +2565,7 @@ Réponds à Avishay en français, tutoiement, ton sobre et professionnel, 2 à 4
   if (!STATIQUE) setInterval(() => { if (![...document.querySelectorAll("textarea")].some(t => t.value)) charger(); }, 30000);
 })();
 </script>
+
 
 
 
