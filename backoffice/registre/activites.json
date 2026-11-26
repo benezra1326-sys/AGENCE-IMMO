@@ -21,7 +21,7 @@
       "responsable": "apps-coordination",
       "etat": "en_lancement",
       "priorite": 2,
-      "mission": "Concevoir, construire et publier des applications mobiles, de l'idée aux stores. Première app : KAPARA.",
+      "mission": "Concevoir, construire et publier des applications mobiles, de l'idée aux stores. Première app : ZIV (application de rencontre, ex-KAPARA / MOTEK).",
       "depot": "benezra1326-sys/KAPARA",
       "suivi": "Chaque app a sa fiche d'état apps/<id>/statut.json (format : apps/README.md). Notifications sur un bot Telegram dédié, séparé du bot Immobilier."
     },
