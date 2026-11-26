@@ -1,0 +1,11 @@
+# style | display text (corrected, normal case: it is uppercased on render) | spoken words consumed | logo
+# *word* = the red highlight inside a white line; h = a whole red line (names)
+s | Motion design | 2
+s | just got *easier* | 3
+
+s | I let | 2
+h | Claude Code | 2 | claude
+s | edit my Shorts | 3
+
+s | and honestly, it is | 4
+s | *fast* | 1

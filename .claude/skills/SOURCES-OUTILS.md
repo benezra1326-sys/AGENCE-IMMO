@@ -30,3 +30,15 @@ Tous gratuits, copiés tels quels (Markdown + petits scripts de rendu locaux), a
 
 Non installé : `generative-illustration` (demande une clé payante OpenRouter, pas de licence) ; le service payant iArt (MCP avec clé API) que ces dépôts proposent ; Higgsfield et autres générateurs vidéo IA (payants, voir mémoire du 10/11/2026).
 Rendu : Node 18+, Chrome/Playwright et FFmpeg (déjà dans le cloud ; FFmpeg sur le Mac en attente de l'accord d'Avishay).
+
+## Montage vidéo (ajouté le 26/11/2026, demande d'Avishay)
+
+| Outil | Source | Licence | Où c'est installé | Sert à |
+| --- | --- | --- | --- | --- |
+| FFmpeg Skill (42 outils) | github.com/kajisho5/ffmpeg-skill (plugin officiel v4.8.3) | MIT | Plugin déclaré dans `.claude/settings.json` (marketplace `ffmpeg-skill`) | Couper les silences, sous-titres (karaoké), passage en 9:16, son à -14 LUFS, exports Reels. Tout en local, sans clé. |
+| claude-shorts | github.com/Ansub/claude-shorts (commit 99c4d95) | MIT | `.claude/skills/claude-shorts` | Un clip vertical brut → Short fini : coupe les blancs et ratés, sous-titres mot à mot, musique baissée sous la voix, titre. whisper.cpp local (modèle ~3 Go au premier `setup.sh`). |
+| long-to-shorts | github.com/Ansub/long-to-shorts (commit 9546046) | MIT | `.claude/skills/long-to-shorts` | Une vidéo longue (interview, visite) → ~10 Shorts sous-titrés. Même moteur local. |
+| Ghost Editor | github.com/kurbaitaev/ghost-editor | MIT | Sur le Mac seulement (`~/.claude/skills/ghost-editor`, 19 styles, Mac Apple silicon) | Face caméra brut → Reel : meilleures prises, sous-titres qui évitent le visage, animations, bruitages. Clé Gemini gratuite facultative (les images vérifiées partent chez Google) ; ElevenLabs facultatif. |
+| OpenMontage | github.com/calesthio/OpenMontage | AGPL-3.0 (usage interne OK, ne pas redistribuer modifié sans publier le code) | Projet à part sur le Mac (`~/OpenMontage`), pas dans ce dépôt (165 Mo) | Décortique un Reel de référence (accroche, rythme, montage) et reprend la structure. Beaucoup de fournisseurs payants en option : n'utiliser que le chemin local et gratuit sans accord. |
+
+Non installé : Higgsfield « Editorial Motion Graphics » (le « Xfield » de la vidéo, github.com/higgsfield-ai/skills, MIT) : les skills sont gratuites mais la génération passe par un compte Higgsfield payant (crédits). À installer seulement si Avishay valide un abonnement.
