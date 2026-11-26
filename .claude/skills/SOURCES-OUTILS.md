@@ -42,3 +42,14 @@ Rendu : Node 18+, Chrome/Playwright et FFmpeg (déjà dans le cloud ; FFmpeg sur
 | OpenMontage | github.com/calesthio/OpenMontage | AGPL-3.0 (usage interne OK, ne pas redistribuer modifié sans publier le code) | Projet à part sur le Mac (`~/OpenMontage`), pas dans ce dépôt (165 Mo) | Décortique un Reel de référence (accroche, rythme, montage) et reprend la structure. Beaucoup de fournisseurs payants en option : n'utiliser que le chemin local et gratuit sans accord. |
 
 Non installé : Higgsfield « Editorial Motion Graphics » (le « Xfield » de la vidéo, github.com/higgsfield-ai/skills, MIT) : les skills sont gratuites mais la génération passe par un compte Higgsfield payant (crédits). À installer seulement si Avishay valide un abonnement.
+
+## n8n, automatisations (ajouté le 26/11/2026, demande d'Avishay)
+
+| Skills | Source | Licence | Sert à |
+| --- | --- | --- | --- |
+| 15 skills `*-official` (`using-n8n-skills-official`, `n8n-workflow-lifecycle-official`, `n8n-agents-official`, `n8n-ai-nodes-official`, `n8n-error-handling-official`, `n8n-credentials-and-security-official`, `n8n-data-tables-official`, `n8n-subworkflows-official`, `n8n-loops-official`, `n8n-expressions-official`, `n8n-code-nodes-official`, `n8n-node-configuration-official`, `n8n-binary-and-data-official`, `n8n-debugging-official`, `n8n-extending-mcp-official`) | github.com/n8n-io/skills v1.3.0 (commit 626f50f), éditeur officiel n8n | Apache-2.0 | Construire, tester et publier des workflows n8n proprement, avec le MCP officiel d'instance (connecteur « n8n » de claude.ai) |
+| `n8n-workflow-patterns`, `n8n-self-hosting` | github.com/czlonkowski/n8n-skills v1.38.0 (commit ecdeca6), auteur de n8n-mcp | MIT (+ NOTICES Apache) | Modèles de workflows éprouvés ; installer n8n sur un petit serveur (Docker + Caddy, HTTPS) |
+
+Choix : skills seulement. Non installés : les hooks des deux dépôts (scripts qui s'exécutent à chaque session) ; les autres skills czlonkowski, écrits pour son MCP à lui (`api.n8n-mcp.com`, service tiers hébergé) qui doublonne avec le MCP officiel ; le plugin « n8n Knowledge Base » (hooks + base tierce).
+MCP : connecteur officiel « n8n » de claude.ai, à brancher sur l'instance d'Avishay (Settings → Instance-level MCP, n8n 2.2+). Le plugin officiel `n8n-skills@n8n-io` pourra être ajouté à `.claude/settings.json` quand l'adresse de l'instance existera.
+Règles : aucun workflow n8n ne publie, n'envoie ni ne dépense sans l'OK d'Avishay (étape d'approbation obligatoire) ; pas de DM ni d'email à froid ; pas de robot LinkedIn.
