@@ -25,7 +25,7 @@ Chaque app a un dossier `apps/<id>/` :
 
 Le back-office lit les deux toutes les 5 minutes et garde **la fiche la plus récente** (champ `maj_le`). Il existe aussi une troisième voie, quand le serveur sera en ligne : `POST /api/apps/statut` avec l'en-tête `X-Jeton` égal à `BO_APPS_TOKEN` et la fiche en corps JSON.
 
-Pour KAPARA, le fil qui construit l'app écrit `status/kapara.json` dans le dépôt KAPARA.
+Pour ZIV (dépôt KAPARA), le fil qui construit l'app écrit `status/kapara.json` dans le dépôt KAPARA.
 
 ### Format de la fiche d'état
 

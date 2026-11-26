@@ -1,4 +1,4 @@
-"""Activité Applications : suivi des projets d'apps (KAPARA en premier).
+"""Activité Applications : suivi des projets d'apps (ZIV en premier).
 
 Chaque app décrit son avancement dans une fiche d'état (format : apps/README.md) :
 - soit écrite dans ce dépôt, `apps/<id>/statut.json` (le back-office la relit toutes les 5 minutes) ;
