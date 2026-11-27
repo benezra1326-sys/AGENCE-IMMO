@@ -15,6 +15,7 @@
   },
   "enabledPlugins": {
     "hyperframes@hyperframes": true,
-    "ffmpeg-skill@ffmpeg-skill": true
+    "ffmpeg-skill@ffmpeg-skill": true,
+    "mattpocock-skills@claude-plugins-official": true
   }
 }

@@ -53,3 +53,18 @@ Non installé : Higgsfield « Editorial Motion Graphics » (le « Xfield » de l
 Choix : skills seulement. Non installés : les hooks des deux dépôts (scripts qui s'exécutent à chaque session) ; les autres skills czlonkowski, écrits pour son MCP à lui (`api.n8n-mcp.com`, service tiers hébergé) qui doublonne avec le MCP officiel ; le plugin « n8n Knowledge Base » (hooks + base tierce).
 MCP : connecteur officiel « n8n » de claude.ai, à brancher sur l'instance d'Avishay (Settings → Instance-level MCP, n8n 2.2+). Le plugin officiel `n8n-skills@n8n-io` pourra être ajouté à `.claude/settings.json` quand l'adresse de l'instance existera.
 Règles : aucun workflow n8n ne publie, n'envoie ni ne dépense sans l'OK d'Avishay (étape d'approbation obligatoire) ; pas de DM ni d'email à froid ; pas de robot LinkedIn.
+
+## Les 5 packs « top 1 % » (ajoutés le 27/11/2026, demande d'Avishay)
+
+Tous gratuits, licence MIT, copiés depuis le dépôt GitHub officiel de chaque auteur (Markdown seul, aucun hook).
+
+| Pack | Source | Où c'est installé | Sert à (immo) |
+| --- | --- | --- | --- |
+| Skills d'ingénierie de Matt Pocock (dont `grill-me` / `grilling`, `tdd`, `diagnosing-bugs`, `to-spec`…) | github.com/mattpocock/skills v1.3.2 (commit 6f7f783) | Plugin officiel déclaré dans `.claude/settings.json` (`mattpocock-skills@claude-plugins-official`), pas de copie pour éviter les doublons et garder les mises à jour | Back-office, n8n, applis : `grill-me` interroge Avishay avant de construire quelque chose |
+| `apple-design` (Emil Kowalski) | github.com/emilkowalski/skills (commit 64eb3de) | `.claude/skills/apple-design` | Interfaces propres et sobres : back-office, futures pages de biens |
+| `humanizer` (Siqi Chen) | github.com/blader/humanizer v4.0.0 (commit a32f244), basé sur la page Wikipédia « Signs of AI writing » | `.claude/skills/humanizer` | Passe finale sur légendes, scripts, réponses DM, messages LinkedIn préparés |
+| Motion Graphics Skill Pack (Charlie Hills) : 15 skills (`brand-intake`, `motion-brief-writer`, `motion-prompt-writer`, `motion-effects`, `animated-chart`, `milestone-reveal`, `launch-video`, `reference-to-motion`, `title-sequence-3d`, `newsletter-promo`, `model-showdown`, `loop-cover`, `apple-launch-film`, `reel-export`, `vox-explainer`) | github.com/charlie947/motion-graphics-skills (commit 229022e) | `.claude/skills/<nom>` (dossiers `assets/` 13 Mo et `prompts/` non copiés) | Vidéos entièrement en code (13 skills à l'origine, 15 aujourd'hui). Le moteur de rendu est HyperFrames, déjà installé (plugin). Utile : `reel-export`, `animated-chart`, `reference-to-motion`, `loop-cover` |
+| Marketing Skills (Corey Haines) : 52 des 53 skills (SEO, copywriting, pubs, emails, CRO, réseaux sociaux…) | github.com/coreyhaines31/marketingskills (commit 2bf95ed) | `.claude/skills/<nom>` (dossiers `evals/` et `tools/` non copiés) | `copywriting`, `copy-editing`, `social`, `ad-creative`, `content-strategy`, `lead-magnets`, `marketing-psychology` pour les accroches, légendes et CTA |
+
+Non installé : `cold-email` (Corey Haines) : la prospection par email à froid est interdite (LSSI art. 21, règle 2 du CLAUDE.md).
+Les autres skills de ces packs restent soumis au CLAUDE.md et à `directives-avishay` : ton premium sans humour, aucune promesse de rendement / plus-value / financement / licence, aucun nom ni adresse de bien, aucun prix non vérifié, aucun pourcentage de commission, rien publié, envoyé ni dépensé sans l'OK d'Avishay. `sms`, `prospecting`, `popups` ou les intégrations payantes citées dans les skills ne s'utilisent qu'avec son accord. En cas de conflit, le CLAUDE.md gagne.
