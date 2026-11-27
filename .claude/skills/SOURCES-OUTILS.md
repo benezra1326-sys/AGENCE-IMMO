@@ -83,3 +83,11 @@ Les autres skills de ces packs restent soumis au CLAUDE.md et à `directives-avi
 | `find-skills` | github.com/vercel-labs/skills (commit e7fd0e9) | MIT | Cherche d'autres skills sur skills.sh. Toute nouvelle installation reste soumise à l'accord d'Avishay. |
 | `video-lens` | github.com/kar2phi/video-lens (commit fa14db0) | MIT | Lien YouTube → rapport résumé (veille sur les agences et créateurs immo). Scripts Python locaux. |
 | `video-use` | github.com/browser-use/video-use (commit 43cfc56) | MIT | Montage vidéo par conversation (coupes, étalonnage, sous-titres). Demande une clé ElevenLabs (transcription Scribe) : consomme les crédits de son abonnement ElevenLabs existant, à utiliser seulement avec son accord. |
+
+### « Motion graphics » (27/11/2026, demande d'Avishay)
+
+| Skills | Source | Licence | Sert à |
+| --- | --- | --- | --- |
+| `motion-broll`, `object-separation`, `explainer-high-energy`, `explainer-default`, `explainer-engaging`, `sound-effects` | github.com/Barty-Bart/motion-graphics (commit 3d83d98) | MIT | Animations calées sur la voix dans une vidéo face caméra, détourage d'une personne sur un nouveau fond (en local), petites vidéos promo, bruitages calés sur le rythme |
+
+Choisi parce que le dépôt s'appelle exactement « motion-graphics » et qu'il est gratuit. Non retenu : Higgsfield « Editorial Motion Graphics » (génération payante). Le cours Skool cité dans le README est payant et n'est pas nécessaire. Sons : seulement des sources libres de droits ou que possède Avishay (Epidemic, Artlist = abonnements payants, pas sans son accord).
