@@ -68,3 +68,18 @@ Tous gratuits, licence MIT, copiés depuis le dépôt GitHub officiel de chaque 
 
 Non installé : `cold-email` (Corey Haines) : la prospection par email à froid est interdite (LSSI art. 21, règle 2 du CLAUDE.md).
 Les autres skills de ces packs restent soumis au CLAUDE.md et à `directives-avishay` : ton premium sans humour, aucune promesse de rendement / plus-value / financement / licence, aucun nom ni adresse de bien, aucun prix non vérifié, aucun pourcentage de commission, rien publié, envoyé ni dépensé sans l'OK d'Avishay. `sms`, `prospecting`, `popups` ou les intégrations payantes citées dans les skills ne s'utilisent qu'avec son accord. En cas de conflit, le CLAUDE.md gagne.
+
+### Deuxième lot du 27/11/2026 (demande d'Avishay)
+
+| Skill | Source | Licence | Sert à |
+| --- | --- | --- | --- |
+| `content-strategy`, `seo-audit`, `ai-seo`, `pricing` | déjà dans le pack Corey Haines ci-dessus | MIT | Planning éditorial, SEO du futur site, visibilité dans ChatGPT / Perplexity |
+| `caveman` | github.com/JuliusBrussee/caveman (commit e74a11c), skill seul | Apache-2.0 | Réponses ultra-courtes pour économiser des tokens. Jamais pour les contenus publics (ton premium). Le plugin, ses hooks, son proxy et sa télémétrie ne sont PAS installés. |
+| `anti-ai-slop-writing` | github.com/jalaalrd/anti-ai-slop-writing (commit 63255f9) | MIT (README) | Second filtre anti « texte d'IA », en complément de `humanizer`. Choisi parmi plusieurs skills du même nom : c'est le plus simple (Markdown seul). |
+| `minimalist-ui` | github.com/Leonxlnx/taste-skill-classics (commit 5e08c93) | MIT | Interfaces sobres façon Notion / Linear (back-office). Se lance seulement quand on l'appelle par son nom. |
+| `ui-ux-pro-max` | github.com/nextlevelbuilder/ui-ux-pro-max-skill (commit 11ca2b3) | MIT | Base de styles, palettes, polices et règles UX, avec un petit moteur de recherche Python local |
+| `web-design-guidelines` | github.com/vercel-labs/agent-skills (commit 5a37a63) | MIT | Relecture d'une interface : accessibilité, ergonomie, bonnes pratiques Vercel |
+| `agent-browser` | github.com/vercel-labs/agent-browser (commit 3f43a2a) | Apache-2.0 | Pilote un navigateur. Le skill est une porte d'entrée : il faut l'outil gratuit `npm i -g agent-browser` sur la machine. Jamais sur LinkedIn ni Instagram avec le compte d'Avishay (règles 3 et 4). |
+| `find-skills` | github.com/vercel-labs/skills (commit e7fd0e9) | MIT | Cherche d'autres skills sur skills.sh. Toute nouvelle installation reste soumise à l'accord d'Avishay. |
+| `video-lens` | github.com/kar2phi/video-lens (commit fa14db0) | MIT | Lien YouTube → rapport résumé (veille sur les agences et créateurs immo). Scripts Python locaux. |
+| `video-use` | github.com/browser-use/video-use (commit 43cfc56) | MIT | Montage vidéo par conversation (coupes, étalonnage, sous-titres). Demande une clé ElevenLabs (transcription Scribe) : consomme les crédits de son abonnement ElevenLabs existant, à utiliser seulement avec son accord. |
